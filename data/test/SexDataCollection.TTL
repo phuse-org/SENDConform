@@ -1,0 +1,47 @@
+@prefix cd01p: <https://w3id.org/phuse/cd01p#> .
+@prefix cdiscpilot01: <https://w3id.org/phuse/cdiscpilot01#> .
+@prefix code: <https://w3id.org/phuse/code#> .
+@prefix cts: <https://w3id.org/phuse/cts#> .
+@prefix custom: <https://w3id.org/phuse/custom#> .
+@prefix meddra: <https://w3id.org/phuse/meddra#> .
+@prefix mms: <https://w3id.org/phuse/mms#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdtmterm: <https://w3id.org/phuse/sdtmterm#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix study: <https://w3id.org/phuse/study#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cdiscpilot01:SexDataCollection_01-701-1015
+  rdf:type code:SexDataCollection ;
+  skos:prefLabel "Person 01-701-1015 Screening 1 Sex data collection" ;
+  code:outcome code:Sex_F ;
+  study:activityStatus code:ActivityStatus_CO ;
+  study:hasDate cdiscpilot01:Date_2013-12-26 ;
+.
+cdiscpilot01:SexDataCollection_01-701-1023
+  rdf:type code:SexDataCollection ;
+  skos:prefLabel "Person 01-701-1023 Screening 1 Sex data collection" ;
+  code:outcome code:Sex_M ;
+  study:activityStatus code:ActivityStatus_CO ;
+  study:hasDate cdiscpilot01:Date_2012-07-22 ;
+.
+cdiscpilot01:SexDataCollection_01-701-1028
+  rdf:type code:SexDataCollection ;
+  skos:prefLabel "Person 01-701-1028 Screening 1 Sex data collection" ;
+  code:outcome code:Sex_M ;
+  study:activityStatus code:ActivityStatus_CO ;
+  study:hasDate cdiscpilot01:Date_2013-07-11 ;
+.
+
+cdiscpilot01:SexDataCollection_01-701-1000
+  rdf:type code:SexDataCollection ;
+  skos:prefLabel "Person 01-701-1000 Screening 1 Sex data collection" ;
+  code:outcome code:Sex_FOO ;
+  study:activityStatus code:ActivityStatus_CO ;
+  study:hasDate cdiscpilot01:Date_2013-07-11 ;
+.
