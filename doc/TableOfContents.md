@@ -13,6 +13,12 @@ An overview of the project background, goals, and approach. Includes links to th
 
 Details of project structure and methods including project data files, scripts, coding conventions, and data modeling decisions.
 
+
+#### [2.1 Regulatory](Regulatory-Ref.md)
+
+Regulatory Reference Documentation (Conformance rules, documentation).
+
+
 #### [2.1 Project Repository Structure](Repository-Ref.md)
 
 Github repository structure.
