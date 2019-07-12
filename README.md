@@ -5,7 +5,7 @@ Project work will commence in the summer of 2019.  Additional Details coming soo
 
 Documentation is located in the [Table of Contents](doc/TableOfContents.md).
 
-##Project Leads
+## Project Leads
 
 * Tim Williams (PhUSE) <tim.williams@phuse.eu>
 
