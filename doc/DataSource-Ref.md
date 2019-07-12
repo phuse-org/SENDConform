@@ -1,7 +1,7 @@
 SEND Data Sources
 =================
-** TO BE UPDATED **
-SEND XPT data files were copid from the PhUSE CDISCPILOT01 study: <https://github.com/phuse-org/phuse-scripts/blob/master/data/sdtm/cdiscpilot01/> to the project folder /data/source.
+
+SEND XPT data files were copid from the PhUSE CDISCPILOT01 study: <https://github.com/phuse-org/phuse-scripts/tree/master/data/send> to the project folder /data/source.
 
 Some data augmentation was necessary to test the ontology (see the data conversion process), so recreated data will not be an exact match to the original .XPT. Discrepancies will be noted at a later time.
 

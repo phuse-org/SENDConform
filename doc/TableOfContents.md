@@ -35,7 +35,7 @@ Ontology details.
 
 Data conversion from source XPT files to graph. 
 
-* [2.4.1 SDTM Mapping and conversion](DataMappingAndConversion.md)
+* [2.4.1 SEND Mapping and conversion](DataMappingAndConversion.md)
 
 How-To Guides
 ---------------------

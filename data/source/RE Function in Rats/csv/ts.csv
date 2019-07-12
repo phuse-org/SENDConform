@@ -1,0 +1,70 @@
+"studyid","domain","tsseq","tsgrpid","tsparmcd","tsparm","tsval","tsvalnf"
+"CJ16050","TS",1,,"AGE","Age","8",
+"CJ16050","TS",1,,"AGEU","Age Unit","WEEKS",
+"CJ16050","TS",1,,"ALTSTDID","Alternate Study ID","","NA"
+"CJ16050","TS",1,,"ASOCSTDY","Associated Study","","NA"
+"CJ16050","TS",1,,"BEDCHNG","Bedding Change","","NA"
+"CJ16050","TS",1,,"BEDDING","Bedding","","NA"
+"CJ16050","TS",1,,"CNTRBSC","Contributing Scientist","","NA"
+"CJ16050","TS",1,,"DIET","Basal Diet","Solid chow CRF-1 (Oriental Yeast Co., Ltd., Tokyo, Japan)",
+"CJ16050","TS",1,,"DOSDUR","Dosing Duration","P8H",
+"CJ16050","TS",1,,"DOSENDTC","End Date/Time of Dose Interval","2016-12-09",
+"CJ16050","TS",1,,"DOSSTDTC","Start Date/Time of Dose Interval","2016-12-07",
+"CJ16050","TS",1,,"ENVTEMP","Environmental Temperature","20-26",
+"CJ16050","TS",1,,"ENVTEMPU","Environmental Temperature Units","C",
+"CJ16050","TS",1,,"EXPENDTC","Experimental End Date","2016-12-09",
+"CJ16050","TS",1,,"EXPSTDTC","Experimental Start Date","2016-12-06",
+"CJ16050","TS",1,,"FEEDREG","Feeding Regimen","Restricted Feeding",
+"CJ16050","TS",1,,"GLPFL","GLP Flag","N",
+"CJ16050","TS",1,,"GLPTYP","Good Laboratory Practice Type","NONE",
+"CJ16050","TS",1,,"HOUSEGRP","Housing Group","Single-housed",
+"CJ16050","TS",1,,"HOUSETYP","Housing Type","Steel cages",
+"CJ16050","TS",1,,"HUMIDT","Housing Humidity","35-75",
+"CJ16050","TS",1,,"HUMIDTU","Housing Humidity Units","%",
+"CJ16050","TS",1,,"IACUC","IACUC Number","","NAV"
+"CJ16050","TS",1,,"IDMETH","Method of Identification","Marked on the tail with ink",
+"CJ16050","TS",1,,"INTSAC","Time to Interim Sacrifice","","NA"
+"CJ16050","TS",1,,"LIGHT","Light Cycle","12/12",
+"CJ16050","TS",1,,"MTHTRM","Method of Termination","CO2",
+"CJ16050","TS",1,,"PCLASS","Pharmacologic Class","","NAV"
+"CJ16050","TS",1,,"PINV","Principal Investigator","","NA"
+"CJ16050","TS",1,,"PLANFSUB","Planned Number of Female Subjects","0",
+"CJ16050","TS",1,,"PLANMSUB","Planned Number of Male Subjects","18",
+"CJ16050","TS",1,,"PPL","Project License Number","","NA"
+"CJ16050","TS",1,,"RECSAC","Recovery Period","","NA"
+"CJ16050","TS",1,,"ROUTE","Route of Administration","ORAL GAVAGE",
+"CJ16050","TS",1,,"SBSTRAIN","Strain/Substrain Details","","NA"
+"CJ16050","TS",1,,"SDESIGN","Study Design","PARALLEL",
+"CJ16050","TS",1,,"SEXPOP","Sex of Participants","M",
+"CJ16050","TS",1,,"SLENGTH","Study Length","","NA"
+"CJ16050","TS",1,,"SNDCTVER","SEND Controlled Terminology Version","SEND Terminology 2017-12-22",
+"CJ16050","TS",1,,"SNDIGVER","SEND Implementation Guide Version","SEND IMPLEMENTATION GUIDE VERSION 3.1",
+"CJ16050","TS",1,,"SPECIES","Species","RAT",
+"CJ16050","TS",1,,"SPLANSUB","Planned Number of Subjects","18",
+"CJ16050","TS",1,,"SPLRLOC","Test Subject Supplier Site","735 Shimokomazuki, Hino, Gamo, Shiga 529-1633, Japan",
+"CJ16050","TS",1,,"SPLRNAM","Test Subject Supplier","Charles River Laboratories Japan, Inc.",
+"CJ16050","TS",1,,"SPREFID","Sponsor's Study Reference ID","CJ16050",
+"CJ16050","TS",1,,"SRANDOM","Study Is Randomized","N",
+"CJ16050","TS",1,,"SSPONSOR","Sponsoring Organization","Kaku Pharmaceuticals Co., Ltd., Japan",
+"CJ16050","TS",1,,"SSTYP","Study Type","RESPIRATORY PHARMACOLOGY",
+"CJ16050","TS",1,,"STCAT","Study Category","SP",
+"CJ16050","TS",1,,"STDIR","Study Director","Taro SENDO",
+"CJ16050","TS",1,,"STENDTC","Study End Date","2017-02-16",
+"CJ16050","TS",1,,"STITLE","Study Title","Effects of Compound A on Respiratory Function in Rats",
+"CJ16050","TS",1,,"STMON","Sponsor's Monitor","","NA"
+"CJ16050","TS",1,,"STRAIN","Strain/Substrain","SPRAGUE-DAWLEY",
+"CJ16050","TS",1,,"STSTDTC","Study Start Date","2016-11-28",
+"CJ16050","TS",1,,"TFCNTRY","Test Facility Country","JPN",
+"CJ16050","TS",1,,"TOTANPCH","Total Number of Study Animals Purchased","20",
+"CJ16050","TS",1,,"TRMSAC","Time to Terminal Sacrifice","P1D",
+"CJ16050","TS",1,,"TRT","Investigational Therapy or Treatment","Compound A",
+"CJ16050","TS",1,,"TRTCAS","Primary Treatment CAS Registry Number","","NAV"
+"CJ16050","TS",1,,"TRTUNII","Primary Treatment Unique Ingredient ID","","NAV"
+"CJ16050","TS",1,,"TRTV","Treatment Vehicle","0.5w/v% methylcellulose 400 solution",
+"CJ16050","TS",1,,"TSCNTRY","Test Site Country","","NA"
+"CJ16050","TS",1,,"TSLOC","Test Site Location","","NA"
+"CJ16050","TS",1,,"TSNAM","Test Site Name","","NA"
+"CJ16050","TS",1,,"TSTFLOC","Test Facility Location","1-1-1, Dokoka-cho, Chiyoda-ku, Tokyo, Japan",
+"CJ16050","TS",1,,"TSTFNAM","Test Facility Name","Drug Safety Research, Kaku Pharmaceuticals Co., Ltd",
+"CJ16050","TS",1,,"WATER","Drinking Water","Sterilized tap water",
+"CJ16050","TS",1,,"WTRDLVRY","Water Delivery","Ad libitum",

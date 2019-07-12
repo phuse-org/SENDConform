@@ -20,15 +20,15 @@ library(readxl)      # Supplemental data
 dm_n=3;  # The first n patients from the DM domain.
 
 # Set working directory to the root of the work area
-setwd("C:/_github/CTDasRDF")
+setwd("C:/_github/SENDConform")
 
-source('r/send/Functions.R')  # Functions: readXPT(), encodeCol(), etc.
+source('r/Functions.R')  # Functions: readXPT(), encodeCol(), etc.
 
 # ---- Graph Metadata ---------------------------------------------------------
 # Read in the source CSV, insert time stamp, and write it back out
 #  Source file needed UTF-8 spec to import first column correctly. Could be artifact
 #    that needs later replacement.
-graphMeta <- read.csv2("data/source/send/Graphmeta.csv",
+graphMeta <- read.csv2("data/source/Graphmeta.csv",
   fileEncoding="UTF-8-BOM" , header=TRUE, sep=",");
 
 graphMeta$createdOn<-gsub("(\\d\\d)$", ":\\1",strftime(Sys.time(),"%Y-%m-%dT%H:%M:%S%z"))
@@ -40,14 +40,14 @@ write.csv(graphMeta, file="data/source/Graphmeta.csv",
 # ---- XPT Import -------------------------------------------------------------
 # DM ----
 # sendPath="data/source/send/FFU-Contribution-to-FDA"
-sendPath="data/source/send/CDISC-Safety-Pharmacology-POC"
+sendPath="data/source/RE Function in Rats"
 
-dm <- readXPT(dataPath = sendPath, domain = "ts")
+dm <- readXPT(dataPath = sendPath, domain = "dm")
 # dm  <- head(dm_all, dm_n) #subset for instance data testing 
 
 # source('R/DM_imputeCSV.R')  # Impute values 
 
-csvFile = paste0(sendPath, "/csv/ts.csv")
+csvFile = paste0(sendPath, "/csv/dm.csv")
 write.csv(dm, file=csvFile, 
    row.names = F,
    na = "")
