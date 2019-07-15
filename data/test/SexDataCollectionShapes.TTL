@@ -24,7 +24,7 @@ study:SexDataCollectionShape rdf:type sh:NodeShape ;
     sh:name        "Sex data value check" ;
     sh:description "Exactly one value for SexDataCollection" ;
     sh:nodeKind     sh:IRI ;
+    sh:class        code:Sex ;
     sh:minCount    1 ;
     sh:maxCount    1 ;
   ] .
-  

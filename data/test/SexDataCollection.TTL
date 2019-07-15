@@ -23,19 +23,21 @@ cdiscpilot01:SexDataCollection_01-701-1015
   study:activityStatus code:ActivityStatus_CO ;
   study:hasDate cdiscpilot01:Date_2013-12-26 ;
 .
-cdiscpilot01:SexDataCollection_01-701-1023
-  rdf:type code:SexDataCollection ;
-  skos:prefLabel "Person 01-701-1023 Screening 1 Sex data collection" ;
-  code:outcome code:Sex_M ;
-  study:activityStatus code:ActivityStatus_CO ;
-  study:hasDate cdiscpilot01:Date_2012-07-22 ;
-.
 cdiscpilot01:SexDataCollection_01-701-1028
   rdf:type code:SexDataCollection ;
   skos:prefLabel "Person 01-701-1028 Screening 1 Sex data collection" ;
   code:outcome code:Sex_M ;
   study:activityStatus code:ActivityStatus_CO ;
   study:hasDate cdiscpilot01:Date_2013-07-11 ;
+.
+
+cdiscpilot01:SexDataCollection_01-701-1023
+  rdf:type code:SexDataCollection ;
+  skos:prefLabel "Person 01-701-1023 Screening 1 Sex data collection" ;
+  code:outcome code:Sex_M ;
+  code:outcome code:Sex_F ;
+  study:activityStatus code:ActivityStatus_CO ;
+  study:hasDate cdiscpilot01:Date_2012-07-22 ;
 .
 
 cdiscpilot01:SexDataCollection_01-701-1000
