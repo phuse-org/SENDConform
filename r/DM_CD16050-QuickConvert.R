@@ -34,7 +34,7 @@ list2env(prefixUC , envir = .GlobalEnv)
 #--- Read (and optionally subset) Source Data ---------------------------------
 sendPath="data/source/RE Function in Rats/csv"
 
-dm <- read.csv(file = "data/source/RE Function in Rats/csv/dm.csv",
+dm <- read.csv(file = "data/source/RE Function in Rats/csv/dm_errors.csv",
                header = TRUE,
                sep = "," )
 
@@ -69,9 +69,36 @@ for(i in 1:nrow(dm))
   
 }
 
+# Additional ERROR Data for testing.
+#  Subject_TEST-10  : xsd:string for rfendtc instead of xsd:date
+#  
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-10")), 
+        predicate    = paste0(RDF,  "type"), 
+        object       = paste0(STUDY, "StudySubject")
+)
+
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-10")), 
+        predicate    = paste0(STUDY,  "rfstdtc"), 
+        object       = "2019-01-29",
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"date")
+)
+
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-10")), 
+        predicate    = paste0(STUDY,  "rfendtc"), 
+        object       = "2019-01-30",
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"string")
+)
+
+
+
 
 #--- Serialize the some_rdf to a TTL file ----------------------------------------
-outFile <- 'data/source/RE Function in Rats/csv/CD16050_DM.TTL'
+outFile <- 'data/source/RE Function in Rats/csv/CJ16050_DM_errors.TTL'
 
 rdf_serialize(some_rdf,
               outFile,
