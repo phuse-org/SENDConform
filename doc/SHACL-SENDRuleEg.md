@@ -86,7 +86,7 @@ Can be described as:
 
 ### 3. Define the Constraints
 
-3.1 SubjectShape
+**3.1 SubjectShape**
 The SubjectShape is defined first, and then the additional shapes encapsulated within it. 
 
 Create a .TTL file that begins with the prefixes that will be referenced in the rules. In this example, we use the `study:` prefix as a namespace for general information about studies and the `sh:` prefix is used for SHACL. 
@@ -103,11 +103,11 @@ Below the prefixes, define the SubjectShape NodeShape Object and the node that r
 `sh:targetClass` specifies that the constraints will be applied to all members of the AnimalSubject class.
 
 
-**3.3 SD1002Shape**
+**3.2 SD1002Shape**
 
 Revisit Section 1. and define constraints for each component. 
 
-**3.3.1 Constraint: Date Format and Count (RFSTDTC and RFENDTC)** 
+**3.2.1 Constraint: Date Format and Count (RFSTDTC and RFENDTC)** 
 Constraints for both `study:rfstdtc` and `study:rfendtc`can be applied using `sh:or` and a second `sh:or` to test if their values are xsd:date or xsd:dateTime, since both are acceptable.
 The additional statments `sh:minCount 1` and `sh:maxCount 1` ensure that one (and only one) value of each date is present.
 
@@ -132,7 +132,7 @@ The additional statments `sh:minCount 1` and `sh:maxCount 1` ensure that one (an
 
 
 
-3.3.2 Constraint: RFSTDTC is Less Than or Equal to RFENDTC (Rule 1.3)
+3.2.2 Constraint: RFSTDTC is Less Than or Equal to RFENDTC (Rule 2.3)
 
 The SD1002Shape is completed by adding a `sh:lessThanOrEquals` constraint, as in:
 
