@@ -55,9 +55,9 @@ Representation of SEND data as RDF is built around the concept of associating va
 
 For validation purposes, an outer "SubjectShape" is constructed that contains additional shape definitions for the various constraints that apply to the data within the Animal Subject. You can visualize this outer shape as a shell (SubjectShape) in Figure 1 that encapsulate the other shapes within it (SD1002Shape, SD1001Shape, etc.)
 
-<img src='doc/images/ShapeLayers.png' width=600/>
-|:--:| 
-| *Figure 1. Shapes* |
+<img src='images/ShapeLayers.png' width=600/>
+
+*Figure 1 Shapes*
 
 ### 2. FDA Rules
 This example models the SEND-IG 3.0 rule **SD1020** for the DM domain as defined in the file [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx)
