@@ -4,17 +4,22 @@
 @prefix study: <https://w3id.org/phuse/study#> .
 @prefix sh:   <http://www.w3.org/ns/shacl#> .
 
-study:StartEndShape rdf:type sh:NodeShape ;
-  sh:targetClass study:StudySubject ;
+study:SubjectShape a sh:Shape;
+  sh:targetClass study:StudySubject;
+  sh:node        study:SD1002Shape .
+
+
+study:SD1002Shape rdf:type sh:NodeShape ;
   sh:property [
     sh:name "RFSTDTC format" ;
-    sh:description "RFSTDTC date format validation." ;
+    sh:description "RFSTDTC date format and type validation." ;
     sh:path study:rfstdtc ;
     sh:or (
       [sh:datatype xsd:date ; ]
       [sh:datatype xsd:dateTime ; ]
     ) ;
-    sh:message "RFSTDTC is not in date or dateTime format."
+    sh:minCount 1 ;
+    sh:maxcount 1 ;
   ];
 
   sh:property [
@@ -25,7 +30,6 @@ study:StartEndShape rdf:type sh:NodeShape ;
       [sh:datatype  xsd:date ; ]
       [sh:datatype  xsd:dateTime ; ]
     ) ;
-    sh:message "RFENDTC is not in date or dateTime format." ;
   ] ; 
 
   sh:property [
