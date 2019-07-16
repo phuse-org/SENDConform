@@ -45,9 +45,9 @@ Within the NodeShape, specify the class to which the constraints will apply.
 In our data, the RFSTDTC and RFENDTC values are associated with the class `study:StudySubject` with data that looks like: 
 
     cj16050:Subject_CJ16050_00M01
-     a             study:StudySubject ;
-     study:rfendtc "2016-12-07"^^xsd:date ;
-     study:rfstdtc "2016-12-07"^^xsd:date .
+      a             study:StudySubject ;
+      study:rfendtc "2016-12-07"^^xsd:date ;
+      study:rfstdtc "2016-12-07"^^xsd:date .
 
 Assign the constraints to a class using `sh:targetClass` so your file now looks like:
 
@@ -59,21 +59,70 @@ Assign the constraints to a class using `sh:targetClass` so your file now looks 
 
 2.3 Add constraints
 
-Revisit Section 1. and create rules for each component.
+Revisit Section 1. and create rules for each component. 
 
-2.3.1 (reference 1.1)
+
+2.3.1 (Reference Rule Component 1.1)
+
 Add the rule corresponding to Section 1.1 where RFSTDTC must be in date format:
 
+Rule component 1.1 states that RFSTDTC must be in date or dateTime format. The property statement for this rule appears directly below the `sh:targetClass` statement in you file. `sh:name` and `sh:description` identify and describe the rule, which supports FDA rule SD1002 but is not the rule itself (see later). The value of RFSTDTC is always preceded by the predicate `study:rfstdtc`, so that predicate is the object of the `sh:path` predicate in the rule. 
+
+`sh:or` is used to check if the value is in date or dateTime format, and `sh:message` provides the message that will appear in the validation report when teh rule is violated.
+
+The following statements comprise the fomat check for RFSTDTC:
+
+    study:StartEndShape rdf:type sh:NodeShape ;
+      sh:targetClass study:StudySubject ;
+      sh:property [
+        sh:name "RFSTDTC format" ;
+        sh:description "RFSTDTC date format validation." ;
+        sh:path study:rfstdtc ;
+        sh:or (
+          [sh:datatype xsd:date ; ]
+          [sh:datatype xsd:dateTime ; ]
+        ) ;
+        sh:message "RFSTDTC is not in date or dateTime format."
+      ];
 
 
-2.3.2 (reference 1.2)
-2.3.3 (reference 1.3)
+2.3.2 (Reference Rule Component 1.2)
+
+Add a corresponding rule to check the format of RFENDTC.
+
+    sh:property [
+      sh:name "RFENDTC format" ;
+      sh:description "RFENDTC date format validation." ;
+      sh:path study:rfendtc ;
+      sh:or (
+        [sh:datatype  xsd:date ; ]
+        [sh:datatype  xsd:dateTime ; ]
+      ) ;
+      sh:message "RFENDTC is not in date or dateTime format." ;
+    ] ; 
 
 
+2.3.3 (Reference Rule Comonent 1.3)
+
+Lastly, add the sequence rule for SD1002 where RFSTDTC must precede or equal RFENDTC. This condition is tested using `sh:lessThanOrEquals` . By convention for this project,  `sh:name` specifies the *FDA Validator Rule ID* the ID also appears in the `sh:description`, pre-pended to the text from the *FDA Validator RUle* field, and in `sh:message` with content from the *FDA Validator Message* field.
+
+This is the end of the validation for SD1002, so the last statment ends with a period instead of a semicolon. 
+
+    sh:property [
+      sh:name "SD1002" ;
+      sh:description "SD1002: Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)" ;
+      sh:path             study:rfstdtc ;
+      sh:lessThanOrEquals study:rfendtc ;
+      sh:message "SD1002: RFSTDTC is after RFENDTC." 
+    ].
+
+The complete SHACL file is located in [SHACL\Examples\SHACL_SD1002.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/Examples/SHACL_SD1002.TTL)
 
 
 ### 3. Test Data
 3.1 Source and augmentation
+
+
 
 
 ### 4. Applying the Constraints
