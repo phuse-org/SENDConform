@@ -116,6 +116,48 @@ rdf_add(some_rdf,
 )
 
 
+#  Subject_TEST-3  : Duplicate Subject record with different dates
+# Record 1
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
+        predicate    = paste0(RDF,  "type"), 
+        object       = paste0(STUDY, "StudySubject")
+)
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
+        predicate    = paste0(STUDY,  "rfstdtc"), 
+        object       = "2019-02-02",
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"date")
+)
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
+        predicate    = paste0(STUDY,  "rfendtc"), 
+        object       = "2019-02-03",
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"date")
+)
+# Record 2, same subject
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
+        predicate    = paste0(STUDY,  "rfstdtc"), 
+        object       = "2019-02-12",
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"date")
+)
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
+        predicate    = paste0(STUDY,  "rfendtc"), 
+        object       = "2019-02-13",
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"date")
+)
+
+
+
+
+
+
 
 #--- Serialize the some_rdf to a TTL file ----------------------------------------
 outFile <- 'SHACL/Examples/CJ16050-DM-SD1002-TestData.TTL'
