@@ -105,7 +105,7 @@ Below the prefixes, define the SubjectShape NodeShape Object and the node that r
 
 **3.2 SD1002Shape**
 
-Revisit Section 1. and define constraints for each component. 
+Revisit Section 2. and define constraints for each component. 
 
 **3.2.1 Constraint: Date Format and Count (RFSTDTC and RFENDTC)** 
 Constraints for both `study:rfstdtc` and `study:rfendtc`can be applied using `sh:or` and a second `sh:or` to test if their values are xsd:date or xsd:dateTime, since both are acceptable.
