@@ -11,102 +11,107 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 cj16050:Subject_CJ16050_00M01
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-07"^^xsd:date ;
     study:rfstdtc "2016-12-07"^^xsd:date .
 
 cj16050:Subject_CJ16050_00M02
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-07"^^xsd:date ;
     study:rfstdtc "2016-12-07"^^xsd:date .
 
 cj16050:Subject_CJ16050_00M03
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-08"^^xsd:date ;
     study:rfstdtc "2016-12-08"^^xsd:date .
 
 cj16050:Subject_CJ16050_00M04
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-08"^^xsd:date ;
     study:rfstdtc "2016-12-08"^^xsd:date .
 
 cj16050:Subject_CJ16050_00M05
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-09"^^xsd:date ;
     study:rfstdtc "2016-12-09"^^xsd:date .
 
 cj16050:Subject_CJ16050_00M06
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-09"^^xsd:date ;
     study:rfstdtc "2016-12-09"^^xsd:date .
 
 cj16050:Subject_CJ16050_01M01
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-07"^^xsd:date ;
     study:rfstdtc "2016-12-07"^^xsd:date .
 
 cj16050:Subject_CJ16050_01M02
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-07"^^xsd:date ;
     study:rfstdtc "2016-12-07"^^xsd:date .
 
 cj16050:Subject_CJ16050_01M03
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-08"^^xsd:date ;
     study:rfstdtc "2016-12-08"^^xsd:date .
 
 cj16050:Subject_CJ16050_01M04
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-08"^^xsd:date ;
     study:rfstdtc "2016-12-08"^^xsd:date .
 
 cj16050:Subject_CJ16050_01M05
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-09"^^xsd:date ;
     study:rfstdtc "2016-12-09"^^xsd:date .
 
 cj16050:Subject_CJ16050_01M06
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-09"^^xsd:date ;
     study:rfstdtc "2016-12-09"^^xsd:date .
 
 cj16050:Subject_CJ16050_02M01
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-07"^^xsd:date ;
     study:rfstdtc "2016-12-07"^^xsd:date .
 
 cj16050:Subject_CJ16050_02M02
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-07"^^xsd:date ;
     study:rfstdtc "2016-12-07"^^xsd:date .
 
 cj16050:Subject_CJ16050_02M03
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-08"^^xsd:date ;
     study:rfstdtc "2016-12-08"^^xsd:date .
 
 cj16050:Subject_CJ16050_02M04
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-08"^^xsd:date ;
     study:rfstdtc "2016-12-08"^^xsd:date .
 
 cj16050:Subject_CJ16050_02M05
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-09"^^xsd:date ;
     study:rfstdtc "2016-12-09"^^xsd:date .
 
 cj16050:Subject_CJ16050_02M06
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-09"^^xsd:date ;
     study:rfstdtc "2016-12-09"^^xsd:date .
 
 cj16050:Subject_TEST-1
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2016-12-08"^^xsd:date ;
     study:rfstdtc "2016-12-09"^^xsd:date .
 
 cj16050:Subject_TEST-2
-    a study:StudySubject ;
+    a study:AnimalSubject ;
     study:rfendtc "2019-01-30"^^xsd:string ;
     study:rfstdtc "2019-01-29"^^xsd:date .
+
+cj16050:Subject_TEST-3
+    a study:AnimalSubject ;
+    study:rfendtc "2019-02-03"^^xsd:date, "2019-02-13"^^xsd:date ;
+    study:rfstdtc "2019-02-02"^^xsd:date, "2019-02-12"^^xsd:date .
 
