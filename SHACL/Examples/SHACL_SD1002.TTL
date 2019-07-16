@@ -1,0 +1,37 @@
+# SHACL_SD1002.TTL
+# Validate FDA Rule SD1002 : RFSTDTC less than or equal to RFENDTC
+#
+@prefix study: <https://w3id.org/phuse/study#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+
+study:StartEndShape rdf:type sh:NodeShape ;
+  sh:targetClass study:StudySubject ;
+  sh:property [
+    sh:name "RFSTDTC format" ;
+    sh:description "RFSTDTC date format validation." ;
+    sh:path study:rfstdtc ;
+    sh:or (
+      [sh:datatype xsd:date ; ]
+      [sh:datatype xsd:dateTime ; ]
+    ) ;
+    sh:message "RFSTDTC is not in date or dateTime format."
+  ];
+
+  sh:property [
+    sh:name "RFENDTC format" ;
+    sh:description "RFENDTC date format validation." ;
+    sh:path study:rfendtc ;
+    sh:or (
+      [sh:datatype  xsd:date ; ]
+      [sh:datatype  xsd:dateTime ; ]
+    ) ;
+    sh:message "RFENDTC is not in date or dateTime format." ;
+  ] ; 
+
+  sh:property [
+    sh:name "SD1002" ;
+    sh:description "SD1002: Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)" ;
+    sh:path             study:rfstdtc ;
+    sh:lessThanOrEquals study:rfendtc ;
+    sh:message "RFSTDTC is after RFENDTC." 
+  ].
