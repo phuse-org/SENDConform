@@ -100,3 +100,13 @@ cj16050:Subject_CJ16050_02M06
     study:rfendtc "2016-12-09"^^xsd:date ;
     study:rfstdtc "2016-12-09"^^xsd:date .
 
+cj16050:Subject_TEST-1
+    a study:StudySubject ;
+    study:rfendtc "2016-12-08"^^xsd:date ;
+    study:rfstdtc "2016-12-09"^^xsd:date .
+
+cj16050:Subject_TEST-2
+    a study:StudySubject ;
+    study:rfendtc "2019-01-30"^^xsd:string ;
+    study:rfstdtc "2019-01-29"^^xsd:date .
+
