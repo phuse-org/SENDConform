@@ -55,8 +55,7 @@ Representation of SEND data as RDF is built around the concept of associating va
 
 For validation purposes, an outer "SubjectShape" is constructed that contains additional shape definitions for the various constraints that apply to the data within the Animal Subject. You can visualize this outer shape as a shell (SubjectShape) in Figure 1 that encapsulate the other shapes within it (SD1002Shape, SD1001Shape, etc.)
 
-<img src='images/ShapeLayers.png' width=600>
-
+<img src='doc/images/ShapeLayers.png' width=600/>
 |:--:| 
 | *Figure 1. Shapes* |
 
