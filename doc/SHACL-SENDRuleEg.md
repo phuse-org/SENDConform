@@ -2,7 +2,7 @@
 # A Step-by-Step Example
 
 ### 0. Background
-The goal of this page is to provide a full, simple, working example of how to model a SEND rule using SHACL. The simplistic data structure does not match the schema used in the main SENDConform project, which is more complex. This work will be documented elsewhere. 
+The goal of this page is to provide a full, simple, working example of how to model a SEND rule using SHACL. The simplistic data structure does not match the more complex schema used in the main SENDConform project, which documented elsewhere. 
 
 ### 1. Data Structure and Implications for Constraints
 
@@ -56,7 +56,6 @@ Representation of SEND data as RDF is built around the concept of associating va
 For validation purposes, an outer "SubjectShape" is constructed that contains additional shape definitions for the various constraints that apply to the data within the Animal Subject. You can visualize this outer shape as a shell (SubjectShape) in Figure 1 that encapsulate the other shapes within it (SD1002Shape, SD1001Shape, etc.)
 
 <img src="images/ShapeLayers.PNG">
-
 *Figure 1 Shapes*
 
 ### 2. FDA Rules
