@@ -181,7 +181,7 @@ You may redirect the report to a text file on your local machine, assuming you h
 4.2  TopBraid
 Instructions will be added later for TopBraid.
 
-5. Validation Report
+### 5. Validation Report
 
 Violation 1:  RFENDTC is of type string, not date or dateTime:
 
