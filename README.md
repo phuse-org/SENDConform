@@ -1,7 +1,7 @@
 # SENDConform
 **Conformance Checks for Non-Clinical (SEND) Data** is a subproject of "Going Translational With Linked Data ( [GoTWLD](<https://github.com/phuse-org/CTDasRDF>) )"
 
-Project work will commence in the summer of 2019.  Additional Details coming soon. 
+To View on Github Pages:  https://phuse-org.github.io/SENDConform
 
 Documentation is located in the [Table of Contents](doc/TableOfContents.md).
 

@@ -1,4 +1,5 @@
-Modeling a SEND Rule in SHACL (Example)
+# Modeling a SEND Rule in SHACL
+# A Step-by-Step Example
 =================
 
 This example models the SEND-IG 3.0 rule **SD1020** for the DM domain as defined in the file /doc/FDA-Validator-Rules.xlsx 
@@ -26,8 +27,39 @@ Can be described as:
 ### 2. Express the rules in SHACL
 
 2.1 Define a NodeShape
+Create a .TTL file and at the top of the file assign the prefixes needed for constraint. In this case, we use the study: prefix as a namespace for general information about "studies" and the and sh: prefixe is used for shacl. 
 
-2.2. Define NodeShape Constraints
+Below the prefixes, define the NodeShape for the Start and End constraint:
+
+    @prefix study: <https://w3id.org/phuse/study#> .
+    @prefix sh:   <http://www.w3.org/ns/shacl#> .
+    study:StartEndShape rdf:type sh:NodeShape ; `
+
+
+2.2. Assign the shape to a target class
+Within the Nodeshape, specify the class to which the constraints will apply. 
+In our data, the RFSTDTC and RFENDTC values are associated with the class `study:StudySubject` with data that looks like: 
+
+    cj16050:Subject_CJ16050_00M01
+     a study:StudySubject ;
+     study:rfendtc "2016-12-07"^^xsd:date ;
+     study:rfstdtc "2016-12-07"^^xsd:date .
+
+Assign the constraints to a class using `sh:targetClass` so your file now looks like:
+
+    @prefix study: <https://w3id.org/phuse/study#> .
+    @prefix sh:   <http://www.w3.org/ns/shacl#> .
+    study:StartEndShape rdf:type sh:NodeShape ; `
+        sh:targetClass study:StudySubject ;
+
+
+2.3 Add contraints
+
+2.3.1 (reference 1.1)
+2.3.2 (reference 1.2)
+2.3.3 (reference 1.3)
+
+
 
 
 ### 3. Test Data
@@ -37,13 +69,17 @@ Can be described as:
 ### 4. Applying the Constraints
 
 4.1 Stardog via Stardog Studio
+
 4.1.1 Load the data
+
 4.1.2 Load the constraint
 
 
 4.2 Stardog via command line
 
+Assuming Stardog is available on the command line and the data and constrains are loaded into the SHACLTest database, execute this command:
 
+`stardog icv report SHACLTest`
 
 
 
