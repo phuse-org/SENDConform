@@ -5,14 +5,14 @@
 @prefix sh:   <http://www.w3.org/ns/shacl#> .
 
 study:SubjectShape a sh:Shape;
-  sh:targetClass study:StudySubject;
+  sh:targetClass study:AnimalSubject;
   sh:node        study:SD1002Shape .
 
 study:SD1002Shape rdf:type sh:NodeShape ;
  
   sh:property [
     sh:name "Date format and count" ;
-    sh:description "Evaluate date format (xsd:date/ xsd:dateTime) and minCount, maxCount = 1 per StudySubject." ;
+    sh:description "Evaluate date format (xsd:date/ xsd:dateTime) and minCount, maxCount = 1 per AnimalSubject." ;
     sh:or (
 
       [sh:path study:rfendtc ;]

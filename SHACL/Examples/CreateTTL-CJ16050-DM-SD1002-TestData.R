@@ -48,7 +48,7 @@ for(i in 1:nrow(dm))
   rdf_add(some_rdf, 
     subject      = paste0(CJ16050, paste0("Subject_", dm[i,"usubjid"])), 
     predicate    = paste0(RDF,  "type"), 
-    object       = paste0(STUDY, "StudySubject")
+    object       = paste0(STUDY, "AnimalSubject")
   )
   
   rdf_add(some_rdf, 
@@ -77,7 +77,7 @@ for(i in 1:nrow(dm))
 rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Subject_TEST-1")), 
         predicate    = paste0(RDF,  "type"), 
-        object       = paste0(STUDY, "StudySubject")
+        object       = paste0(STUDY, "AnimalSubject")
 )
 rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Subject_TEST-1")), 
@@ -98,7 +98,7 @@ rdf_add(some_rdf,
 rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Subject_TEST-2")), 
         predicate    = paste0(RDF,  "type"), 
-        object       = paste0(STUDY, "StudySubject")
+        object       = paste0(STUDY, "AnimalSubject")
 )
 rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Subject_TEST-2")), 
@@ -121,7 +121,7 @@ rdf_add(some_rdf,
 rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
         predicate    = paste0(RDF,  "type"), 
-        object       = paste0(STUDY, "StudySubject")
+        object       = paste0(STUDY, "AnimalSubject")
 )
 rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
@@ -152,11 +152,6 @@ rdf_add(some_rdf,
         objectType   = "literal", 
         datatype_uri = paste0(XSD,"date")
 )
-
-
-
-
-
 
 
 #--- Serialize the some_rdf to a TTL file ----------------------------------------
