@@ -18,8 +18,7 @@ study:SD1002Shape rdf:type sh:NodeShape ;
       [sh:datatype  xsd:date ; ]
       [sh:datatype  xsd:dateTime ; ]
     ) ;
-    sh:minCount 1 ;
-    sh:maxcount 1 ;
+    sh:resultMessage "Value is not date or dateTime."
   ] ; 
 
  sh:property [
@@ -30,14 +29,34 @@ study:SD1002Shape rdf:type sh:NodeShape ;
       [sh:datatype  xsd:date ; ]
       [sh:datatype  xsd:dateTime ; ]
     ) ;
-    sh:minCount 1 ;
-    sh:maxcount 1 ;
+    sh:resultMessage "Value is not date or dateTime."
   ] ; 
 
   sh:property [
-    sh:name "SD1002" ;
-    sh:description "SD1002: Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)" ;
-    sh:path             study:rfstdtc ;
-    sh:lessThanOrEquals study:rfendtc ;
-    sh:message "RFSTDTC is after RFENDTC." 
-  ].
+    sh:name "Date format and count" ;
+    sh:description "Evaluate date format (xsd:date/ xsd:dateTime) and minCount, maxCount = 1 per AnimalSubject." ;
+    sh:path study:rfstdtc; 
+    sh:minCount 1 ;
+    sh:maxcount 1 ;
+    sh:resultMessage "More than one RFSTDTC."
+  ] ; 
+
+  sh:property [
+    sh:name "Date format and count" ;
+    sh:description "Evaluate date format (xsd:date/ xsd:dateTime) and minCount, maxCount = 1 per AnimalSubject." ;
+    sh:path study:rfendtc; 
+    sh:minCount 1 ;
+    sh:maxcount 1 ;
+    sh:resultMessage "More than one RFENDTC."
+  ] ; 
+
+  #sh:property [
+  #  sh:name "SD1002" ;
+  #  sh:description "SD1002: Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)" ;
+  #  sh:path             study:rfstdtc ;
+  #  sh:lessThan         study:rfendtc ;
+  #  sh:resultMessage "RFSTDTC is after RFENDTC." 
+  #]
+
+  
+  .
