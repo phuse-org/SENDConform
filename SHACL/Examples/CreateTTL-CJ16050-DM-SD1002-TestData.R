@@ -73,7 +73,8 @@ for(i in 1:nrow(dm))
 #--- Supplmental Data to trip validation rules
 #------------------------------------------------------------------------------
 
-#  Subject_TEST-1  : RFSTDTC is after RFENDTC
+#  Test 1: Incorrect format 
+#          Subject_TEST-1  : xsd:string for rfendtc instead of xsd:date
 rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Subject_TEST-1")), 
         predicate    = paste0(RDF,  "type"), 
@@ -81,34 +82,13 @@ rdf_add(some_rdf,
 )
 rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Subject_TEST-1")), 
-        predicate    = paste0(STUDY,  "rfstdtc"), 
-        object       = "2016-12-09",
-        objectType   = "literal", 
-        datatype_uri = paste0(XSD,"date")
-)
-rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("Subject_TEST-1")), 
-        predicate    = paste0(STUDY,  "rfendtc"), 
-        object       = "2016-12-08",
-        objectType   = "literal", 
-        datatype_uri = paste0(XSD,"date")
-)
-
-#  Subject_TEST-2  : xsd:string for rfendtc instead of xsd:date
-rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("Subject_TEST-2")), 
-        predicate    = paste0(RDF,  "type"), 
-        object       = paste0(STUDY, "AnimalSubject")
-)
-rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("Subject_TEST-2")), 
         predicate    = paste0(STUDY,  "rfstdtc"), 
         object       = "2019-01-29",
         objectType   = "literal", 
         datatype_uri = paste0(XSD,"date")
 )
 rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("Subject_TEST-2")), 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-1")), 
         predicate    = paste0(STUDY,  "rfendtc"), 
         object       = "2019-01-30",
         objectType   = "literal", 
@@ -116,8 +96,47 @@ rdf_add(some_rdf,
 )
 
 
-#  Subject_TEST-3  : Duplicate Subject record with different dates
+#  Test 2: More than one Value per subject
+#          Subject_TEST-2 violates min/max count for both dates.
+
 # Record 1
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-2")), 
+        predicate    = paste0(RDF,  "type"), 
+        object       = paste0(STUDY, "AnimalSubject")
+)
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-2")), 
+        predicate    = paste0(STUDY,  "rfstdtc"), 
+        object       = "2019-02-02",
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"date")
+)
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-2")), 
+        predicate    = paste0(STUDY,  "rfendtc"), 
+        object       = "2019-02-13",
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"date")
+)
+# Record 2, same subject
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-2")), 
+        predicate    = paste0(STUDY,  "rfstdtc"), 
+        object       = "2019-02-03",
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"date")
+)
+rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Subject_TEST-2")), 
+        predicate    = paste0(STUDY,  "rfendtc"), 
+        object       = "2019-02-14",
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"date")
+)
+
+# Test 3 : SD1002  start must less than or equal to end 
+#          Subject_TEST-3  : RFSTDTC is after RFENDTC
 rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
         predicate    = paste0(RDF,  "type"), 
@@ -126,29 +145,14 @@ rdf_add(some_rdf,
 rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
         predicate    = paste0(STUDY,  "rfstdtc"), 
-        object       = "2019-02-02",
+        object       = "2016-12-09",
         objectType   = "literal", 
         datatype_uri = paste0(XSD,"date")
 )
 rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
         predicate    = paste0(STUDY,  "rfendtc"), 
-        object       = "2019-02-03",
-        objectType   = "literal", 
-        datatype_uri = paste0(XSD,"date")
-)
-# Record 2, same subject
-rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
-        predicate    = paste0(STUDY,  "rfstdtc"), 
-        object       = "2019-02-12",
-        objectType   = "literal", 
-        datatype_uri = paste0(XSD,"date")
-)
-rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("Subject_TEST-3")), 
-        predicate    = paste0(STUDY,  "rfendtc"), 
-        object       = "2019-02-13",
+        object       = "2016-12-08",
         objectType   = "literal", 
         datatype_uri = paste0(XSD,"date")
 )

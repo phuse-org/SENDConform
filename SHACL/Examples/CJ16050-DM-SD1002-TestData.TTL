@@ -102,16 +102,16 @@ cj16050:Subject_CJ16050_02M06
 
 cj16050:Subject_TEST-1
     a study:AnimalSubject ;
-    study:rfendtc "2016-12-08"^^xsd:date ;
-    study:rfstdtc "2016-12-09"^^xsd:date .
-
-cj16050:Subject_TEST-2
-    a study:AnimalSubject ;
     study:rfendtc "2019-01-30"^^xsd:string ;
     study:rfstdtc "2019-01-29"^^xsd:date .
 
+cj16050:Subject_TEST-2
+    a study:AnimalSubject ;
+    study:rfendtc "2019-02-13"^^xsd:date, "2019-02-14"^^xsd:date ;
+    study:rfstdtc "2019-02-02"^^xsd:date, "2019-02-03"^^xsd:date .
+
 cj16050:Subject_TEST-3
     a study:AnimalSubject ;
-    study:rfendtc "2019-02-03"^^xsd:date, "2019-02-13"^^xsd:date ;
-    study:rfstdtc "2019-02-02"^^xsd:date, "2019-02-12"^^xsd:date .
+    study:rfendtc "2016-12-08"^^xsd:date ;
+    study:rfstdtc "2016-12-09"^^xsd:date .
 
