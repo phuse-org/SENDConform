@@ -1,62 +1,54 @@
 # SHACL_SD1002.TTL
-# Validate FDA Rule SD1002 : RFSTDTC less than or equal to RFENDTC
+# Constraints for FDA Rule SD1002 
 #
 @prefix study: <https://w3id.org/phuse/study#> .
 @prefix sh:   <http://www.w3.org/ns/shacl#> .
-
-study:SubjectShape a sh:Shape;
-  sh:targetClass study:AnimalSubject;
-  sh:node        study:SD1002Shape .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 study:SD1002Shape rdf:type sh:NodeShape ;
- 
-  sh:property [
-    sh:name "Date format and count" ;
-    sh:description "Evaluate date format (xsd:date/ xsd:dateTime) and minCount, maxCount = 1 per AnimalSubject." ;
-    sh:path study:rfstdtc; 
-    sh:or (
-      [sh:datatype  xsd:date ; ]
-      [sh:datatype  xsd:dateTime ; ]
-    ) ;
-    sh:resultMessage "Value is not date or dateTime."
-  ] ; 
+  sh:targetClass study:AnimalSubject ;
 
- sh:property [
-    sh:name "Date format and count" ;
-    sh:description "Evaluate date format (xsd:date/ xsd:dateTime) and minCount, maxCount = 1 per AnimalSubject." ;
-    sh:path study:rfendtc; 
-    sh:or (
-      [sh:datatype  xsd:date ; ]
-      [sh:datatype  xsd:dateTime ; ]
-    ) ;
-    sh:resultMessage "Value is not date or dateTime."
-  ] ; 
-
+  #--- Test 1: Check Format ----
+  # a. RFSTDTC format
   sh:property [
-    sh:name "Date format and count" ;
-    sh:description "Evaluate date format (xsd:date/ xsd:dateTime) and minCount, maxCount = 1 per AnimalSubject." ;
+    sh:path study:rfstdtc ;
+    sh:message "Data error: RFENDTC is not in date or dateTime format." ;
+    sh:or (
+      [sh:datatype xsd:date ; ]
+      [sh:datatype xsd:dateTime ; ]
+    ) 
+  ] ;
+
+  # b. RFENDTC format
+  sh:property [
+    sh:path study:rfendtc ;
+    sh:message "Data error: RFENDTC is not in date or dateTime format." ;
+    sh:or (
+      [sh:datatype xsd:date ; ]
+      [sh:datatype xsd:dateTime ; ]
+    ) 
+  ] ;
+
+  #---- Test 2: Date Count Violations  -----
+  # a. RFSTDTC Count
+  sh:property [
     sh:path study:rfstdtc; 
     sh:minCount 1 ;
-    sh:maxcount 1 ;
-    sh:resultMessage "More than one RFSTDTC."
+    sh:maxCount 1 ;
+    sh:message "Data error: RFSTDTC Min/Max count "
   ] ; 
-
+ # b. RFENDTC Count
   sh:property [
-    sh:name "Date format and count" ;
-    sh:description "Evaluate date format (xsd:date/ xsd:dateTime) and minCount, maxCount = 1 per AnimalSubject." ;
     sh:path study:rfendtc; 
     sh:minCount 1 ;
-    sh:maxcount 1 ;
-    sh:resultMessage "More than one RFENDTC."
-  ] ; 
+    sh:maxCount 1 ;
+    sh:message "Data error: RFENDTC Min/Max count "
+  ] ;
 
-  #sh:property [
-  #  sh:name "SD1002" ;
-  #  sh:description "SD1002: Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)" ;
-  #  sh:path             study:rfstdtc ;
-  #  sh:lessThan         study:rfendtc ;
-  #  sh:resultMessage "RFSTDTC is after RFENDTC." 
-  #]
-
-  
+  #---- Test 3: SD1002 Rule: Start date less or equal to end Date  -----
+  sh:property [
+    sh:path      study:rfstdtc ;
+    sh:lessThanOrEquals  study:rfendtc ;
+    sh:message "SD1002: RFSTDTC is after RFENDTC." 
+  ]
   .
