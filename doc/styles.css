@@ -1,0 +1,43 @@
+/*-----------------------------------------------------------------------------
+FILE: styles.css
+DESC: CSS for SENDConform repository
+IN  :
+OUT :
+REQ :
+NOTES: https://gridbyexample.com/examples/example21/  Grid within grid
+-----------------------------------------------------------------------------*/
+body{
+  background-color: #ffffff;
+}
+
+.error{
+  color: #8b0000;     /* dark red */
+  font-weight: bold;
+}
+
+.msg{
+  font-style: italic;
+}
+
+.error2{
+  color: #e67e00;     /* dark orange */
+  font-weight: bold;
+}
+
+.extraInfo{
+  color: #9c9c9c;     /* dark grey */
+  font-weight: bold;
+  font-style: italic;
+  font-size:1.1em;
+}
+
+.codeCom{
+  color: #9c9c9c;     /* dark green */
+}
+
+
+.emph{
+  color: #00008b;     /* dark blue */
+  font-weight: bold;
+}
+
