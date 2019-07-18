@@ -1,4 +1,4 @@
-<link href="styles.css" rel="stylesheet"></link>
+<link href="styles.css" rel="stylesheet"/>
 # Modeling a SEND Rule in SHACL
 # A Step-by-Step Example
 
