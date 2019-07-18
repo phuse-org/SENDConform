@@ -1,0 +1,45 @@
+@prefix : <http://api.stardog.com/> .
+@prefix stardog: <tag:stardog:api:> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+[
+    a sh:ValidationReport ;
+        sh:result [
+            a sh:ValidationResult ;
+                sh:focusNode <https://w3id.org/phuse/cd16050#Subject_TEST-1> ;
+                sh:value "2019-01-30" ;
+                sh:sourceShape :rfendtcDateShape ;
+                sh:sourceConstraintComponent sh:OrConstraintComponent ;
+                sh:resultSeverity sh:Violation ;
+                sh:resultPath <https://w3id.org/phuse/study#rfendtc>
+        ] , [
+            a sh:ValidationResult ;
+                sh:resultPath <https://w3id.org/phuse/study#rfendtc> ;
+                sh:resultSeverity sh:Violation ;
+                sh:focusNode <https://w3id.org/phuse/cd16050#Subject_TEST-2> ;
+                sh:sourceConstraintComponent sh:MaxCountConstraintComponent ;
+                sh:sourceShape :rfendtcDateShape
+        ] , [
+            a sh:ValidationResult ;
+                sh:resultSeverity sh:Violation ;
+                sh:value "2016-12-09"^^xsd:date ;
+                sh:sourceConstraintComponent sh:LessThanOrEqualsConstraintComponent ;
+                sh:resultMessage "RFSTDTC is after RFENDTC." ;
+                sh:sourceShape :SD1002RuleShape ;
+                sh:resultPath <https://w3id.org/phuse/study#rfstdtc> ;
+                sh:focusNode <https://w3id.org/phuse/cd16050#Subject_TEST-3>
+        ] , [
+            a sh:ValidationResult ;
+                sh:sourceConstraintComponent sh:MaxCountConstraintComponent ;
+                sh:focusNode <https://w3id.org/phuse/cd16050#Subject_TEST-2> ;
+                sh:sourceShape :rfstdtcDateShape ;
+                sh:resultSeverity sh:Violation ;
+                sh:resultPath <https://w3id.org/phuse/study#rfstdtc>
+        ] ;
+        sh:conforms false
+] .
+

@@ -1,20 +1,42 @@
 <link href="styles.css" rel="stylesheet"/>
+
 # Modeling a SEND Rule in SHACL
 # A Step-by-Step Example
 
 ### 0. Background
-The goal of this page is to provide a full, simple, working example of how to model a SEND rule using SHACL. The simplistic data structure does not match the more complex schema used in the main SENDConform project, which is documented elsewhere.
-
-For this example, constraints were structured to maximize information conveyed in the valdiation report using custom `sh:message` for each type of constaint and path. Instead of combining the checks on RFSTDTC for date format and number into a single property path, two separate evaluations are made to faciliate detailed messages in the report. The desire for detailed messages results in longer shapes that can be harder to maintain.  
+This page details a full, simple, working example of how to model a SEND rule using SHACL. The simplistic data structure does not match the more complex schema used in the main SENDConform project, which is documented elsewhere.
 
 
-### 1. Data Structure and Implications for Constraints
+### 1. FDA Rule
+This example models the SEND-IG 3.0 rule **SD1020** for the DM domain as defined in the file [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx)
 
-**1.1 Example Data**
+FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Business or Conformance Rule Validated | FDA Validator Rule  
+------|-------------------|-----|-------|--------------------------|-----------------------------
+**SD1002** |RFSTDTC is after RFENDTC | FDA| FDAB034    |Study Start and End Dates must be submitted and complete. | Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)
 
-This example uses data from the DM domain for the study "RE Function in Rats", located in the repository at [/data/source/RE Function in Rats](https://github.com/phuse-org/SENDConform/tree/master/data/source/RE%20Function%20in%20Rats) and converted to a .CSV file using R [SHACL\Examples\CreateTTL-CJ16050-DM-SD1002-TestData.R](https://github.com/phuse-org/SENDConform/blob/master/SHACL/Examples/CreateTTL-CJ16050-DM-SD1002-TestData.R). 
+Examine the *FDA Validator Rule* and create a complete expression of the rule, capturing all the key components.
 
-The R file adds the following test data to trip validation rules:
+The rule: 
+
+"***Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC).***"
+
+is broken down into the folllowing:
+
+#### Rule Descriptions
+
+1.1 Subject Reference Start Date/Time (RFSTDTC) and End Date/Time must be in <font class="emph">date format</font> (xsd:date or xsd:dateTime)
+
+1.2 The implicit rule that each Animal Subject must have <font class="emph">a minimum of one and maximum of one value</font> for RFSTDTC and RFENDTC. 
+
+1.3 The <b>SD1002 rule</b> itself: Start Date/Time must be less than or equal to End Date/Time (<font class="emph">RFSTDTC</font> less than or equal to RFENDTC</font>). When this rule is violated, the system should supply the standard FDA message <font class="error msg">"RFSTDTC is after RFENDTC"</font>. 
+
+### 2. Data Structure and Implications for Constraints
+
+**2.1 Example Data**
+
+This example uses the DM domain data from the study "RE Function in Rats", located in the repository at [/data/source/RE Function in Rats](https://github.com/phuse-org/SENDConform/tree/master/data/source/RE%20Function%20in%20Rats) and converted to a .CSV file using R [SHACL\Examples\CreateTTL-CJ16050-DM-SD1002-TestData.R](https://github.com/phuse-org/SENDConform/blob/master/SHACL/Examples/CreateTTL-CJ16050-DM-SD1002-TestData.R). 
+
+The R file added observations with errors to test the constraints. A total of four errors should be detected:  One date as a string, two duplicate dates, and one violation of FDA rule SD1002.
 
 **Test-1: End date is a string, not a date/dateTime**
 <pre>
@@ -48,7 +70,7 @@ The R file adds the following test data to trip validation rules:
 The full data file is available here: [SHACL\Examples\CJ16050-DM-SD1002-TestData.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/Examples/CJ16050-DM-SD1002-TestData.TTL)
 
 
-**1.2 Data Structure and Implications for Shape Constraints**
+**2.2 Data Structure and Implications for Shape Constraints**
 
 RDF triples for this example are created by associating values with an AnimalSubject. One row of data in the source DM file results in triples as shown for Subject CJ16050_00M01:
 <pre>
@@ -56,123 +78,82 @@ RDF triples for this example are created by associating values with an AnimalSub
         a              study:AnimalSubject ;
         study:rfendtc  "2016-12-07"^^xsd:date ;
         study:rfstdtc  "2016-12-07"^^xsd:date  ;
-        study:subjid   "00M01"^^xsd:string ;
-        study:usubjid  "CJ16050_00M01" ^^xsd:string ;
       <font class="extraInfo">... more data</font>
 </pre>
-The FDA Rules are translated to SHACL Shapes that evaluate portions of the data as illustrated in Figure 1. For brevity, this example we will not code the SD1001Shape and SD0083 shapes shown in Figure 1. 
+The FDA Rules are translated to SHACL Shapes that evaluate portions of the data as illustrated in Figure 1. 
 
 <img src="images/ShapeLayers.PNG">
 *Figure 1 Shapes*
 
-### 2. FDA Rules
-This example models the SEND-IG 3.0 rule **SD1020** for the DM domain as defined in the file [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx)
-
-FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Business or Conformance Rule Validated | FDA Validator Rule  
-------|-------------------|-----|-------|--------------------------|-----------------------------
-**SD1002** |RFSTDTC is after RFENDTC | FDA| FDAB034    |Study Start and End Dates must be submitted and complete. | Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)
-
-Examine the *FDA Validator Rule* and create a complete expression of the rule, capturing all the key components.
-
-The rule: 
-
-"***Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC).***"
-
-is broken down into the folllowing:
-
-#### Rule Descriptions
-
-2.1 Subject Reference Start Date/Time (RFSTDTC) and End Date/Time must be in <font class="emph">date format</font> (xsd:date or xsd:dateTime)
-
-2.2 The implicit rule that each Animal Subject must have <font class="emph">a minimum of one and maximum of one value</font> for RFSTDTC and RFENDTC. 
-
-2.3 The <b>SD1002 rule</b> itself: Start Date/Time must be less than or equal to End Date/Time (<font class="emph">RFSTDTC less than or equal to RFENDTC</font>). When this rule is violated, the system should supply the standard FDA message <font class="error msg">"RFSTDTC is after RFENDTC"</font>. 
-
 ### 3. Define the Constraints
 
-**3.1 SD1002Shape**
+**3.1 AnimalSubjectShape**
 
-Create a .TTL file that begins with the prefixes that will be referenced in the rules. In this example, we use the `study:` prefix as a namespace pertaining to all studies and the `sh:` prefix is used for SHACL. 
+The SHACL file [SHACL\Examples\SHACL_AnimalSubject.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/Examples/SHACL_AnimalSubject.TTL) begins with the prefixes used in the shapes.In this example, `study:` represents a namespace for the study and the `sh:` prefix is used for SHACL. 
 
-Below the prefixes, define the SD1002 rule shape (`study:SD1002Shape`) and the `sh:targetClass` as `study:AnimalShape`
-`sh:targetClass` specifies that the constraints in this shape will be applied to all members of the <font class="emph">AnimalSubject</font> class.
+Below the prefixes, the first "outer" shape is defined. The target of `:AnimalSubjectShape` is all nodes of the class `AnimalSubject` in the data: `sh:targetClass study:AnimalShape` . Three property shapes are defined within this outer shape.
+
+1. `:rfstdtcShape`  = shape for rfstdtc date values 
+1. `:rfendtcShape`  = shape for rfendtc date values
+1. `:SD1002RuleShape` = shape for FDA rule SD1002
 
 <pre>
   @prefix study: <https://w3id.org/phuse/study#> .
   @prefix sh:   <http://www.w3.org/ns/shacl#> .
-    
-  study:SubjectShape a sh:Shape;
-      sh:targetClass study:<font class="emph">AnimalSubject</font>;
+  
+  :AnimalSubjectShape a sh:NodeShape ;
+  sh:targetClass study:<font class="emph">AnimalSubject</font>;
+  sh:property     :rfstdtcShape ;
+  sh:property     :rfendtcShape ;
+  sh:property     :SD1002RuleShape .  
 </pre>
 
 **3.2 Constraints**
 
-Define the constraints for the shape by revisiting Section 2. 
+Define the data constraints within each of the shapes within AnimalSubjectShape. 
 
-**3.2.1 Date Format** (Rule 2.1)
-The Date/DateTime constraint for `study:rfstdtc` and `study:rfendtc` are written separately so the validation report message explicitly identifies the value with the validation error. `sh:or` is used to allow either `xsd:date` or `xsd:dateTime` as valid formats, according to the FDA specification.  Note how comments can be inserted into the rules for clarity.
+**3.2.1 rfstdtc** (Rule 1.1, 1.2)
+Date values must be a date format (either xsd:date or xsd:dateTime). There must be a minimum of one date value present (minCount 1) and not more than one value (maxCount 1).
 
 <pre>
-  <font class="codeCom"># a. RFSTDTC format</font>
-  sh:property [
-    sh:path study:rfstdtc ;
-    sh:message "Data error: RFENDTC is not in date or dateTime format." ;
+  <font class="codeCom"># RFSTDTC Constraints</font>
+  :rfstdtcShape a  sh:PropertyShape;
+    sh:path     study:rfstdtc ;
     sh:or (
       [sh:datatype xsd:date ; ]
       [sh:datatype xsd:dateTime ; ]
-    ) 
-  ] ;
-
-  <font class="codeCom"># b. RFENDTC format</font>
-  sh:property [
-    sh:path study:rfendtc ;
-    sh:message "Data error: RFENDTC is not in date or dateTime format." ;
-    sh:or (
-      [sh:datatype xsd:date ; ]
-      [sh:datatype xsd:dateTime ; ]
-    ) 
-  ] ;
+    ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1 .
 </pre>
 
-**3.2.2 Minimum one / Maximum One value** (Rule 2.2)
-One and only one value for both RFSTDTC and RFENDTC must be present in the data. Once again, separate constraints are added to identify the value that validates the constraint. 
+**3.2.2 rfendtc** (Rule 1.1, 1.2)
+The same rules apply to the date variable TFENDTC:
 
 <pre>
-  <font class="codeCom"># a. RFSTDTC Count</font>
-  sh:property [
-    sh:path study:rfstdtc; 
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-    sh:message "Data error: RFSTDTC Min/Max count "
-  ] ; 
-  
- <font class="codeCom"># b. RFENDTC Count</font>
-  sh:property [
-    sh:path study:rfendtc; 
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-    sh:message "Data error: RFENDTC Min/Max count "
-  ] ;
-
+<font class="codeCom"># RFENDTC Constraints</font>
+:rfendtcShape a  sh:PropertyShape;
+  sh:path     study:rfendtc ;
+  sh:or (
+    [sh:datatype xsd:date ; ]
+    [sh:datatype xsd:dateTime ; ]
+  ) ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
 </pre>
 
-**3.2.3 SD1002 Rule : RFSTDTC Less than or Equal to RFENDTC** (Rule 2.3)
+**3.2.3 SD1002 Rule : RFSTDTC Less than or Equal to RFENDTC** (Rule 1.3)
 
-The SD1002Shape is completed by adding a `sh:lessThanOrEquals` constraint for RFSTDTC and RFENDTC.
+Finally, the AnimalSubjectShape is completed by adding the sub-subshape for the SD1002 rule, where RFSTDTC must be less than or equal to RFENDTC.
+
 <pre>
-  sh:property [
-    sh:path      study:rfstdtc ;
-    sh:lessThanOrEquals  study:rfendtc ;
-    sh:message <font class="error">RFSTDTC is after RFENDTC." </font>
-  ]
-  .
+<font class="codeCom"># SD1002 Constraint</font>
+:SD1002RuleShape a :PropertyShape  ;
+  sh:path              study:rfstdtc ;
+  sh:lessThanOrEquals  study:rfendtc ;
+  sh:message "RFSTDTC is after RFENDTC." .
+
 </pre>
-
-
-This is the end of the validation for SD1002, so the last statment ends with a period instead of a semicolon. 
-
-The complete SHACL file is located in [SHACL\Examples\SHACL_SD1002.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/Examples/SHACL_SD1002.TTL)
-
 
 ### 4. Applying the Constraints
 
@@ -182,14 +163,14 @@ The complete SHACL file is located in [SHACL\Examples\SHACL_SD1002.TTL](https://
 
 1. Create a test database named SHACLTest in Stardog.
 1. Load the data file CJ16050-DM-SD1002-TestData.TTL .
-1. Open the SHACL constraint file SHACL_SD1002.TTL into Stardog Studio.
-1. Select the filed type as SHACL (lower right corner of Studio)
-1. From the ADD CONSTRAINT drop down (upper left), select the drop down button and choose Get Validation Report. This executes the report without adding the constraint to the database. Too add the constraint to the database so it is available for command line execution (see 4.1.2), sellect "Add Constraint."
+1. Open the SHACL constraint file SHACL_AnimalSubject.TTL into Stardog Studio.
+1. Select the file type as SHACL (lower right corner of Studio)
+1. From the ADD CONSTRAINT drop down (upper left), select the drop down button and choose Get Validation Report. This executes the report without adding the constraint to the database. Too add the constraint to the database so it is available for command line execution (see 4.1.2), select "Add Constraint." **NOTE:** *There are problems removing constraints from the database that may require dropping the data base and recreating it to avoid duplicate messages in the validation report from sucesssive add/remove steps. Observed and reported to Stardog for version 6.1.  2019-07-18.*
 1. Scroll through the report and find the shacl#resultMessages for the data errors. The report is easier to view from the command line exection. 
 
 **4.1.2 Stardog via command line**
 
-1. Assuming Stardog is available on the command line and the data and constraints are loaded into the SHACLTest database, execute this command:
+1. Assuming Stardog is available on the command line and the data and constraints are added into the SHACLTest database, execute this command:
 
     stardog icv report SHACLTest
 
@@ -203,51 +184,46 @@ Instructions will be added later for TopBraid.
 
 ### 5. Validation Report
 
-**Violation 1:  Date Format (Rule 2.1)**
+**Violation 1:  Date Format **  (Rule 1.1)
 <pre>
   a sh:ValidationResult ;
-    sh:resultMessage <font class="error">Data error: RFENDTC is not in date or dateTime format."</font> ;
-    sh:resultSeverity sh:Violation ;
-    sh:resultPath <https://w3id.org/phuse/study#rfendtc> ;
-    sh:focusNode <https://w3id.org/phuse/cd16050#Subject_TEST-1> ;
-    sh:sourceShape [] ;
+    sh:focusNode study:<font class="emph">Subject_TEST-1</font> ;
+    sh:resultPath study:<font class="emph">rfendtc</font> ;
+    sh:value "<font class="error">2019-01-30</font>" ;
+    sh:sourceShape :rfendtcDateShape ;
     sh:sourceConstraintComponent sh:OrConstraintComponent ;
-    sh:value <font class="error">"2019-01-30"</font>
+    sh:resultSeverity sh:Violation 
 </pre>
 
-**Violation 2: Minimum one / Maximum One value** (Rule 2.2)
+**Violation 2: Minimum one / Maximum One value** (Rule 1.2)
 Note how there are two values for each date, so separate messages for RFSTDTC and RFENDTC. SHACL does not identify the values, only the Object (Subject-TEST-2) where the values are duplicated.
 <pre>
   a sh:ValidationResult ;
-    sh:resultMessage <font class="error">"Data error: <font class="emph">RFENDTC</font> Min/Max count "</font> ;
-    sh:focusNode <https://w3id.org/phuse/cd16050#Subject_TEST-2> ;
-    sh:sourceShape [] ;
-    sh:sourceConstraintComponent sh:MaxCountConstraintComponent ;
-    sh:resultPath <https://w3id.org/phuse/study#rfendtc> ;
-    sh:resultSeverity sh:Violation
-    
-    
+    sh:focusNode study:<font class="emph">Subject_TEST-2</font> ;
+    sh:resultPath study:<font class="emph">rfendtc</font> ;
+    sh:sourceConstraintComponent sh:<font class="error">MaxCountConstraintComponent</font> ;
+    sh:sourceShape :rfendtcDateShape ;
+    sh:resultSeverity sh:Violation 
+
   a sh:ValidationResult ;
-    sh:resultPath <https://w3id.org/phuse/study#rfstdtc> ;
-    sh:focusNode <https://w3id.org/phuse/cd16050#Subject_TEST-2> ;
-    sh:sourceConstraintComponent sh:MaxCountConstraintComponent ;
-    sh:resultMessage <font class="error">"Data error: <font class="emph">RFSTDTC</font> Min/Max count "</font> ;
-    sh:sourceShape [] ;
-    sh:resultSeverity sh:Violation
+    sh:focusNode study:<font class="emph">Subject_TEST-2</font> ;
+    sh:resultPath study:<font class="emph">rfstdtc</font> ;
+    sh:sourceConstraintComponent sh:<font class="error">MaxCountConstraintComponent </font>;
+    sh:sourceShape :rfstdtcDateShape ;
+    sh:resultSeverity sh:Violation 
 </pre>
 
 
-**Violation 3: SD1002 Rule : RFSTDTC Less than or Equal to RFENDTC** (Rule 2.3)
+**Violation 3: SD1002 Rule : RFSTDTC Less than or Equal to RFENDTC** (Rule 1.3)
 <pre>
   a sh:ValidationResult ;
-    sh:resultSeverity sh:Violation ;
+    sh:focusNode study:<font class="emph">Subject_TEST-3</font> ;
+    sh:resultPath study:<font class="emph">rfstdtc</font> ;
     sh:value "2016-12-09"^^xsd:date ;
-    sh:resultMessage <font class="error">"SD1002: RFSTDTC is after RFENDTC."</font> ;
     sh:sourceConstraintComponent sh:LessThanOrEqualsConstraintComponent ;
-    sh:focusNode <https://w3id.org/phuse/cd16050#Subject_TEST-3> ;
-    sh:resultPath <https://w3id.org/phuse/study#rfstdtc> ;
-    sh:sourceShape []
+    sh:resultMessage "<font class="error">RFSTDTC is after RFENDTC.</font>" ;
+    sh:sourceShape :SD1002RuleShape ;
+    sh:resultSeverity sh:Violation
 </pre>
-
 
 [Back to TOC](TableOfContents.md)

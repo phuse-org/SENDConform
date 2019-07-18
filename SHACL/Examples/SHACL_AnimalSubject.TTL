@@ -7,13 +7,13 @@
 # Define the outer AnimalSubjectShape that has a number of consituent shapes
 :AnimalSubjectShape a sh:NodeShape ;
   sh:targetClass  study:AnimalSubject ;
-  sh:property     :rfstdtcDateShape ;
-  sh:property     :rfendtcDateShape ;
+  sh:property     :rfstdtcShape ;
+  sh:property     :rfendtcShape ;
   sh:property     :SD1002RuleShape .
   # additional constraints here for FDA Rules
 
 # RFSTDTC Constraints
-:rfstdtcDateShape a  sh:PropertyShape;
+:rfstdtcShape a  sh:PropertyShape;
   sh:path     study:rfstdtc ;
   sh:or (
     [sh:datatype xsd:date ; ]
@@ -22,8 +22,8 @@
   sh:minCount 1 ;
   sh:maxCount 1 .
 
-# RFENDTC Constriants
-:rfendtcDateShape a  sh:PropertyShape;
+# RFENDTC Constraints
+:rfendtcShape a  sh:PropertyShape;
   sh:path     study:rfendtc ;
   sh:or (
     [sh:datatype xsd:date ; ]
@@ -32,6 +32,7 @@
   sh:minCount 1 ;
   sh:maxCount 1 .
 
+# SD1002 Constraint
 :SD1002RuleShape a :PropertyShape  ;
   sh:path              study:rfstdtc ;
   sh:lessThanOrEquals  study:rfendtc ;
