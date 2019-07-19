@@ -19,6 +19,7 @@ library(Hmisc)       # Import XPT
 library(rdflib)      # serialize to RDF
 library(readxl)      # Supplemental data
 library(tidyverse)
+source('r/Functions.R')  # Functions: readXPT(), encodeCol(), etc.
 
 studyNameUc <- "CJ16050"  # Change for other studies.
 studyNameLc <- tolower(studyNameUc)
@@ -28,7 +29,8 @@ dm_n=3;  # The first n patients from the DM domain.
 # Set working directory to the root of the work area
 setwd("C:/_github/SENDConform")
 
-source('r/Functions.R')  # Functions: readXPT(), encodeCol(), etc.
+# sendPath="data/studies/send/FFU-Contribution-to-FDA"
+sendPath="data/studies/RE Function in Rats"
 
 # STUDNAMEUC and STUDYNAMELC = placeholders, replace by Study name (uc,lc)
 prefixList <-read.table(header = TRUE, text = "
@@ -68,7 +70,6 @@ title_graph <-"PhUSE Project: Going Translational with Linked Data (GoTWLD)"
 status_graph <- " Under Construction/incomplete"
 createdOn_graph <- gsub("(\\d\\d)$", ":\\1",strftime(Sys.time(),"%Y-%m-%dT%H:%M:%S%z"))
 version_graph <- "0.0.1"
-
 
 #--- Metadata RDF -------------------------------------------------------------
 # TODO: Change the CJ16050 hard coded varname to dynamic
@@ -120,7 +121,7 @@ rdf_add(some_rdf,
 #--- Serialize the some_rdf to a TTL file ----------------------------------------
 # TODO: Rewrite this as a function
 #       Make namespace value dynamic for study 
-outFile <- 'data/source/RE Function in Rats/csv/CJ16050_GraphMeta.TTL'
+outFile <- 'data/studies/RE Function in Rats/csv/CJ16050_GraphMeta.TTL'
 
 rdf_serialize(some_rdf,
               outFile,
@@ -137,96 +138,26 @@ rdf_serialize(some_rdf,
                              xsd     = "http://www.w3.org/2001/XMLSchema#"
               ))
 
-
-
 # Create .CSV for alternate SMS mapping
-
 graphMeta <- data.frame(label_graph, description_graph, title_graph, 
                         status_graph, createdOn_graph, version_graph)
+
 # Sort column names ease of reference 
 graphMeta <- graphMeta %>% select(noquote(order(colnames(graphMeta))))
 
-
-write.csv(graphMeta, file="data/source/RE Function in Rats/csv/CJ16050_Graphmeta.csv",
+write.csv(graphMeta, file="data/studies/RE Function in Rats/csv/CJ16050_Graphmeta.csv",
   row.names = F,
   na = "")
 
-# ---- XPT Import -------------------------------------------------------------
-# DM ----
-# sendPath="data/source/send/FFU-Contribution-to-FDA"
-sendPath="data/source/RE Function in Rats"
+# --- XPT Import -------------------------------------------------------------
+# --- DM ----
 
 dm <- readXPT(dataPath = sendPath, domain = "dm")
-# dm  <- head(dm_all, dm_n) #subset for instance data testing 
+dm  <- head(dm, dm_n) #subset for development
 
-# source('R/DM_imputeCSV.R')  # Impute values 
+# source('R/DM_convert.R')  # Impute values 
 
-csvFile = paste0(sendPath, "/csv/dm.csv")
-write.csv(dm, file=csvFile, 
-   row.names = F,
-   na = "")
-
-nrow(dm)
-
-
-# SUPPDM ----
-#  No imputation for SUPPDM (no SUPPDM_imputeCSV.R)
-suppdm  <- readXPT("suppdm")
-suppdm <- suppdm[suppdm$usubjid %in% pntSubset,]  # Subset for dev
-
-#TW write.csv(suppdm, file="data/source/SUPPDM_subset.csv", 
-#TW   row.names = F,
-#TW   na = "")
-
-# EX ----
-ex  <- readXPT("ex")
-ex <- ex[ex$usubjid %in% pntSubset,]  # Subset for dev
-
-# Merge in the Drug Administration interval from DM. Could also have been calculated
-#  from min(exstdtc)_max(exendtc) but would involve more calcs and DM is seen as the
-#  authoritative value (at least for this prototype)
-ex <- merge(dmDrugInt, ex, by.x = "usubjid", by.y="usubjid")
-
-source('R/EX_imputeCSV.R') # Impute values 
-
-#TW write.csv(ex, file="data/source/EX_subset.csv", 
-#TW row.names = F,
-#TW   na = "")
-
-# VS ----
-vs  <- readXPT("vs")  
-# Subset for development
-# Subset to match ontology data. Expand to all of subjid 1015 later.
-# VS is also used to get performed dates for patients 1023, 1028
-#  for Baseline, screening, Wk2 and Wk24 dates.
-#   1023 : 153,159, 165
-#   1028 : 228, 234, 242, 264
-
-vsSubset <-c(1:3, 86:88, 43, 44:46, 128, 142, 7, 13, 37, 153,159, 165, 228, 234, 242, 264)
-vs <- data.frame(vs[vsSubset, ], stringsAsFactors=FALSE)  
-
-source('R/VS_imputeCSV.R') # Impute values
-
-#TW write.csv(vs, file="data/source/vs_subset.csv", 
-#TW   row.names = F,
-#TW   na = "")
-
-# TS ----
-ts  <- readXPT("ts")  
-
-source('R/TS_imputeCSV.R') # Impute values
-
-write.csv(tswide, file="data/source/ts.csv", 
-  row.names = F,
-  na = "")
-
-
-# AE ----
-ae  <- readXPT("ae")  
-ae  <- ae[ae$usubjid %in% pntSubset,]  # Subset for dev
-
-source('R/AE_imputeCSV.R') # Impute values
-
-write.csv(ae, file="data/source/ae.csv", 
-  row.names = F,
-  na = "")
+#csvFile = paste0(sendPath, "/csv/dm.csv")
+#write.csv(dm, file=csvFile, 
+#   row.names = F,
+#   na = "")

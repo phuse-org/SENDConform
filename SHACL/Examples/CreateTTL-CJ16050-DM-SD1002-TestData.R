@@ -5,7 +5,7 @@
 #         trigger validation rules.
 # DO  :  
 #       
-# IN  : SENDConform\data\source\RE Function in Rats\csv\dm.csv
+# IN  : SENDConform\data\studies\RE Function in Rats\csv\dm.csv
 # OUT : C:\_github\SENDConform\SHACL\Examples\CJ16050-DM-SD1002-TestData.TTL
 # NOTE:  For testing with SHACL\Examples\SHACL_SD1002.TTL
 # TODO:  
@@ -33,9 +33,9 @@ names(prefixUC) <- as.list(prefixList$prefixUC)
 list2env(prefixUC , envir = .GlobalEnv)
 
 #--- Read (and optionally subset) Source Data ---------------------------------
-sendPath="data/source/RE Function in Rats/csv"
+sendPath="data/studies/RE Function in Rats/csv"
 
-dm <- read.csv(file = "data/source/RE Function in Rats/csv/dm.csv",
+dm <- read.csv(file = "data/studies/RE Function in Rats/csv/dm.csv",
                header = TRUE,
                sep = "," )
 

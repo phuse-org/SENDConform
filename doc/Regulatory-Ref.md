@@ -1,8 +1,5 @@
-Regulatory Reference
+Regulatory Documents for Reference
 ----------------
-
-
-Regulatory documents for reference. 
 
 Information can be found on the FDA Website: https://www.fda.gov/industry/fda-resources-data-standards/study-data-standards-resources
 

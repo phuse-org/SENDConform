@@ -14,9 +14,9 @@ Project folder structure and content.
     -   External ontology files 
 -   **/data/SAS**
     -   SAS data files (can also be .csv) files as an alternative to the R process.
--   **/data/source**
+-   **/data/studies**
     -   Source XPT files from the various available studies under each study subfolder.
--   **/data/source/<study>/csv**
+-   **/data/studies/<study>/csv**
     -   CSV files created by R from source XPT files. Also contains graph metadata CSV file created by R.
     -   Stardog SMS Map files that map their corresponding CSV files to the triplestore.
     -   .BAT files that drive the SMS to triplestore process

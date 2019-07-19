@@ -1,12 +1,12 @@
 #______________________________________________________________________________
-# FILE: DM_CD16050-QuickConvert.R
-# DESC: Reads in the DM .CSV for SEND Study "RE Function in Rats" for quick 
-#         conversion to RDF for testing SHACL
+# FILE: DM_RowByCol-StraightConvert.R
+# DESC: Straight conversion to TTL for SHACL examples, not for use in project 
+#       data conversion because it does not follow the ontology approach.
 # DO  :  
 #       
-# IN  : SENDConform\data\source\RE Function in Rats\csv\dm.csv
-# OUT : data\source\RE Function in Rats\csv\CD16050_DM.TTL
-# NOTE: 
+# IN  : SENDConform\data\studies\RE Function in Rats\csv\dm.csv
+# OUT : data\studies\RE Function in Rats\csv\CD16050_DM.TTL
+# NOTE: Manually change locations and names for conversion as needed.
 # TODO:  
 #______________________________________________________________________________
 library(rdflib)
@@ -32,9 +32,9 @@ names(prefixUC) <- as.list(prefixList$prefixUC)
 list2env(prefixUC , envir = .GlobalEnv)
 
 #--- Read (and optionally subset) Source Data ---------------------------------
-sendPath="data/source/RE Function in Rats/csv"
+sendPath="data/studies/RE Function in Rats/csv"
 
-dm <- read.csv(file = "data/source/RE Function in Rats/csv/dm_errors.csv",
+dm <- read.csv(file = "data/studies/RE Function in Rats/csv/dm_errors.csv",
                header = TRUE,
                sep = "," )
 
@@ -98,7 +98,7 @@ rdf_add(some_rdf,
 
 
 #--- Serialize the some_rdf to a TTL file ----------------------------------------
-outFile <- 'data/source/RE Function in Rats/csv/CJ16050_DM_errors.TTL'
+outFile <- 'data/studies/RE Function in Rats/csv/CJ16050_DM_errors.TTL'
 
 rdf_serialize(some_rdf,
               outFile,

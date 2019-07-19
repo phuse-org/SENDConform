@@ -17,7 +17,7 @@ library(dplyr)
 library(DT)
 
 # Set wd 3 levels up, to folder CTDasRDF. Navigate down from 
-# there to data/source/ to obtain TTL source data.
+# there to data/studies/ to obtain TTL source data.
 setwd("../../../")
 currDir<-getwd()
 
@@ -44,7 +44,7 @@ parseFile <- function(sourceFiles){
     # Process each source file in the list
     sourceContent <- lapply(sourceFiles, function(fileName) {
     
-    fileNamePath <- paste0("data/source/",fileName, "_map.TTL")
+    fileNamePath <- paste0("data/studies/",fileName, "_map.TTL")
     print(paste0("FILE: ", fileNamePath))
     conn <- file(fileNamePath,open="r")
     linn <-readLines(conn)

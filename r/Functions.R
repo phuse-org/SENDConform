@@ -52,13 +52,13 @@ encodeCol<-function(data, col, removeCol=FALSE)
 
 #' Read XPT to R dataframe
 #' 
-#' @param dataPath  Path to the source SEND data: data/source/send/<study>
+#' @param dataPath  Path to the source SEND data: data/studies/send/<study>
 #' @param domain SDTM domain name on XPT file 
 #'
 #' @return R dataframe with same name as SDTM domain
 #'
 #' @examples
-#' readXPT("data/source/instem,"dm")
+#' readXPT("data/studies/instem,"dm")
 
 readXPT<-function(dataPath, domain)
 {
