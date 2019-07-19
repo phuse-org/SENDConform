@@ -20,7 +20,7 @@ The rule:
 
 "***Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC).***"
 
-is broken down into the folllowing:
+is broken down into the following:
 
 #### Rule Descriptions
 
@@ -144,7 +144,7 @@ The same rules apply to the date variable TFENDTC:
 
 **3.2.3 SD1002 Rule : RFSTDTC Less than or Equal to RFENDTC** (Rule 1.3)
 
-Finally, the AnimalSubjectShape is completed by adding the sub-subshape for the SD1002 rule, where RFSTDTC must be less than or equal to RFENDTC.
+Finally, the AnimalSubjectShape is completed by adding the SD1002 PropertyShape, where RFSTDTC must be less than or equal to RFENDTC.
 
 <pre>
 <font class="codeCom"># SD1002 Constraint</font>
@@ -166,7 +166,8 @@ Finally, the AnimalSubjectShape is completed by adding the sub-subshape for the 
 1. Open the SHACL constraint file SHACL_AnimalSubject.TTL into Stardog Studio.
 1. Select the file type as SHACL (lower right corner of Studio)
 1. From the ADD CONSTRAINT drop down (upper left), select the drop down button and choose Get Validation Report. This executes the report without adding the constraint to the database. Too add the constraint to the database so it is available for command line execution (see 4.1.2), select "Add Constraint." **NOTE:** *There are problems removing constraints from the database that may require dropping the data base and recreating it to avoid duplicate messages in the validation report from sucesssive add/remove steps. Observed and reported to Stardog for version 6.1.  2019-07-18.*
-1. Scroll through the report and find the shacl#resultMessages for the data errors. The report is easier to view from the command line exection. 
+
+1. Scroll through the report and find the resultMessages for the data errors. The report is easier to view from the command line execution. 
 
 **4.1.2 Stardog via command line**
 
@@ -174,7 +175,7 @@ Finally, the AnimalSubjectShape is completed by adding the sub-subshape for the 
 
     stardog icv report SHACLTest
 
-You may redirect the report to a text file on your local machine, aassuming you have the repository cloned to C:\_github\SENDConform 
+You may redirect the report to a text file on your local machine, assuming you have the repository cloned to C:\_github\SENDConform 
 
     stardog icv report SHACLTest > "C:\_github\SENDConform\SHACL\Examples\ValReport.txt"
 
