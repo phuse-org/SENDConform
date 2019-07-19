@@ -13,5 +13,6 @@ Information can be found on the FDA Website: https://www.fda.gov/industry/fda-re
    
 * [The eCTD Backbone File Specification for Study Tagging Files](FDA/STFV2-6-1.pdf)  (PDF)
 
+* [Providing Regulatory Submissions In Electronic Format - Standardized study Data](FDA/ProvideRegSubInEleFormat-StandardizedStudyDataGuidance.pdf) (PDF)
 
 [Back to TOC](TableOfContents.md)

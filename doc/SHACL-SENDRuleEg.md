@@ -83,7 +83,7 @@ RDF triples for this example are created by associating values with an AnimalSub
 The FDA Rules are translated to SHACL Shapes that evaluate portions of the data as illustrated in Figure 1. 
 
 <img src="images/ShapeLayers.PNG">
-*Figure 1 Shapes*
+*Figure 1 Shape for validating an Animal Subject and FDA SEND Rule SD1002*
 
 ### 3. Define the Constraints
 

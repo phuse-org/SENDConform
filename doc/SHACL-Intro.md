@@ -1,8 +1,9 @@
-Introdcution to SHACL
+Introduction to SHACL
 =================
-An adequate intruction to SHACL is beyond the scope of this project and repository. The team recommends the following resources:
+An introduction to SHACL is beyond the scope of this project. The following resources may be helpful:
 
-[Validating RDF Data](https://book.validatingrdf.com/) (Website copy of Book)
+* [Validating RDF Data](https://book.validatingrdf.com/) . Website version of an excellent book.
+* [Data Validation and SHACL](https://fetch.stardog.com/training-data-validation/). Webinar by [Stardog Union](https://www.stardog.com/) illustrating their implementation of SHACL and their Stardog Studio environment.
 
 Other resources will be added.
 
