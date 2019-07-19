@@ -180,12 +180,13 @@ You may redirect the report to a text file on your local machine, assuming you h
     stardog icv report SHACLTest > "C:\_github\SENDConform\SHACL\Examples\ValReport.txt"
 
 
-4.2  TopBraid
-Instructions will be added later for TopBraid.
+**4.2  TopBraid**
+
+Instructions will be added later.
 
 ### 5. Validation Report
 
-**Violation 1:  Date Format **  (Rule 1.1)
+**Violation 1:  Date Format**  (Rule 1.1)
 <pre>
   a sh:ValidationResult ;
     sh:focusNode study:<font class="emph">Subject_TEST-1</font> ;
