@@ -24,7 +24,7 @@ source('r/Functions.R')  # Functions: readXPT(), encodeCol(), etc.
 studyNameUc <- "CJ16050"  # Change for other studies.
 studyNameLc <- tolower(studyNameUc)
 
-dm_n=3;  # The first n patients from the DM domain.
+dm_n=1;  # The first n patients from the DM domain.
 
 # Set working directory to the root of the work area
 setwd("C:/_github/SENDConform")
@@ -35,6 +35,8 @@ sendPath="data/studies/RE Function in Rats"
 # STUDNAMEUC and STUDYNAMELC = placeholders, replace by Study name (uc,lc)
 prefixList <-read.table(header = TRUE, text = "
   prefixUC       url
+  'BIBO'        'http://purl.org/ontology/bibo/'
+  'CODE'        'https://w3id.org/phuse/code#'
   'PAV'         'http://purl.org/pav'
   'STUDYNAMEUC' 'https://w3id.org/phuse/STUDYNAMELC#'
   'STUDY'       'https://w3id.org/phuse/study#'
@@ -127,6 +129,7 @@ rdf_serialize(some_rdf,
               outFile,
               format = "turtle",
               namespace = c( bibio   = "http://purl.org/ontology/bibo/",
+                             code    = "https://w3id.org/phuse/code#",
                              dcterms = "http://purl.org/dc/terms/",
                              cj16050 = "https://w3id.org/phuse/cj16050#",
                              study   = "https://w3id.org/phuse/study#",
