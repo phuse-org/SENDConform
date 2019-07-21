@@ -3,7 +3,7 @@
 @prefix bibio: <http://purl.org/ontology/bibo/> .
 @prefix code: <https://w3id.org/phuse/code#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix cj16050: <https://w3id.org/phuse/cj16050#> .
+@prefix cj16050: <https://example.org/cj16050#> .
 @prefix study: <https://w3id.org/phuse/study#> .
 @prefix meddra: <https://w3id.org/phuse/meddra#> .
 @prefix pav: <http://purl.org/pav> .
@@ -22,7 +22,7 @@ cj16050:Animal_00M01
     skos:prefLabel "Animal 00M01"^^xsd:string ;
     study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-07 ;
     study:memberOf cj16050:Set_00, code:Species_Rat ;
-    study:participtesIn cj16050:AgeDataCollection_1, cj16050:SexDataCollection_1 .
+    study:participatesIn cj16050:AgeDataCollection_1, cj16050:SexDataCollection_1 .
 
 cj16050:Date_2016-12-07
     a study:ReferenceBegin, study:ReferenceEnd ;

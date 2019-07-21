@@ -70,12 +70,12 @@ for(i in 1:nrow(dm))
   )
   rdf_add(some_rdf, 
     subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
-    predicate    = paste0(STUDY,  "participtesIn"), 
+    predicate    = paste0(STUDY,  "participatesIn"), 
     object       = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"ROWID_IM"]))
   )
   rdf_add(some_rdf, 
     subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
-    predicate    = paste0(STUDY,  "participtesIn"), 
+    predicate    = paste0(STUDY,  "participatesIn"), 
     object       = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"ROWID_IM"]))
   )
 
@@ -179,29 +179,29 @@ for(i in 1:nrow(dm))
   rdf_add(some_rdf, 
     subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"ROWID_IM"])),
     predicate    = paste0(CODE,  "outcome"), 
-    object       = paste0(CODE, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"]))
+    object       = paste0(CJ16050, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"]))
   )    
   # Age outcome  
   rdf_add(some_rdf, 
-    subject      = paste0(CODE, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
+    subject      = paste0(CJ16050, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
     predicate    = paste0(RDF,  "type"), 
     object       = paste0(STUDY, "AgeOutcome")
   )    
   rdf_add(some_rdf, 
-    subject      = paste0(CODE, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
+    subject      = paste0(CJ16050, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
     predicate    = paste0(SKOS, "prefLabel"),
     object       = paste0("Age outcome ", dm[i,"age"], " ", dm[i,"ageu"]),
     objectType   = "literal", 
     datatype_uri = paste0(XSD,"string")
   )    
   rdf_add(some_rdf, 
-    subject      = paste0(CODE, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
+    subject      = paste0(CJ16050, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
     predicate    = paste0(CODE, "hasUnit"),
     object       = paste0(TIME, "unit", dm[i,"AGEUNIT_IM"])
   )    
   
   rdf_add(some_rdf, 
-    subject      = paste0(CODE, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
+    subject      = paste0(CJ16050, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
     predicate    = paste0(CODE, "hasValue"),
     object       = dm[i,"age"],
     objectType   = "literal", 
@@ -249,7 +249,7 @@ rdf_serialize(some_rdf,
               namespace = c( bibio   = "http://purl.org/ontology/bibo/",
                              code    = "https://w3id.org/phuse/code#",
                              dcterms = "http://purl.org/dc/terms/",
-                             cj16050 = "https://w3id.org/phuse/cj16050#",
+                             cj16050 = "https://example.org/cj16050#",
                              study   = "https://w3id.org/phuse/study#",
                              meddra  = "https://w3id.org/phuse/meddra#",
                              pav     = "http://purl.org/pav",

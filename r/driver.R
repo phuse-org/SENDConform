@@ -19,6 +19,11 @@ library(Hmisc)       # Import XPT
 library(rdflib)      # serialize to RDF
 library(readxl)      # Supplemental data
 library(tidyverse)
+
+# Set working directory to the root of the work area
+setwd("C:/_github/SENDConform")
+
+
 source('r/Functions.R')  # Functions: readXPT(), encodeCol(), etc.
 
 studyNameUc <- "CJ16050"  # Change for other studies.
@@ -26,8 +31,6 @@ studyNameLc <- tolower(studyNameUc)
 
 dm_n=1;  # The first n patients from the DM domain.
 
-# Set working directory to the root of the work area
-setwd("C:/_github/SENDConform")
 
 # sendPath="data/studies/send/FFU-Contribution-to-FDA"
 sendPath="data/studies/RE Function in Rats"
@@ -38,7 +41,7 @@ prefixList <-read.table(header = TRUE, text = "
   'BIBO'        'http://purl.org/ontology/bibo/'
   'CODE'        'https://w3id.org/phuse/code#'
   'PAV'         'http://purl.org/pav'
-  'STUDYNAMEUC' 'https://w3id.org/phuse/STUDYNAMELC#'
+  'STUDYNAMEUC' 'https://example.org/STUDYNAMELC#'
   'STUDY'       'https://w3id.org/phuse/study#'
   'DCTERMS'     'http://purl.org/dc/terms/'
   'RDF'         'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
@@ -132,7 +135,7 @@ rdf_serialize(some_rdf,
               namespace = c( bibio   = "http://purl.org/ontology/bibo/",
                              code    = "https://w3id.org/phuse/code#",
                              dcterms = "http://purl.org/dc/terms/",
-                             cj16050 = "https://w3id.org/phuse/cj16050#",
+                             cj16050 = "https://example.org/cj16050#",
                              study   = "https://w3id.org/phuse/study#",
                              meddra  = "https://w3id.org/phuse/meddra#",
                              pav     = "http://purl.org/pav",
