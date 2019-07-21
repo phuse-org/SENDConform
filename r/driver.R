@@ -44,6 +44,7 @@ prefixList <-read.table(header = TRUE, text = "
   'RDF'         'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
   'RDFS'        'http://www.w3.org/2000/01/rdf-schema#'
   'SKOS'        'http://www.w3.org/2004/02/skos/core#'
+  'TIME'        'http://www.w3.org/2006/time#'
   'XSD'         'http://www.w3.org/2001/XMLSchema#'  "
 )                         
 
@@ -138,6 +139,7 @@ rdf_serialize(some_rdf,
                              rdf     = "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                              rdfs    = "http://www.w3.org/2000/01/rdf-schema#",
                              skos    = "http://www.w3.org/2004/02/skos/core#",
+                             time    = "http://www.w3.org/2006/time#",
                              xsd     = "http://www.w3.org/2001/XMLSchema#"
               ))
 

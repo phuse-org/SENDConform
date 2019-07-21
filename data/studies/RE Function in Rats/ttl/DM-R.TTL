@@ -1,0 +1,55 @@
+@base <localhost://> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix bibio: <http://purl.org/ontology/bibo/> .
+@prefix code: <https://w3id.org/phuse/code#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix cj16050: <https://w3id.org/phuse/cj16050#> .
+@prefix study: <https://w3id.org/phuse/study#> .
+@prefix meddra: <https://w3id.org/phuse/meddra#> .
+@prefix pav: <http://purl.org/pav> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cj16050:AgeDataCollection_1
+    a code:AgeDataCollection ;
+    skos:prefLabel "Age data collection 1"^^xsd:string ;
+    code:outcome code:AgeOutcome_8_WEEKS .
+
+cj16050:Animal_00M01
+    a study:AnimalSubject ;
+    skos:prefLabel "Animal 00M01"^^xsd:string ;
+    study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-07 ;
+    study:memberOf cj16050:Set_00, code:Species_Rat ;
+    study:participtesIn cj16050:AgeDataCollection_1, cj16050:SexDataCollection_1 .
+
+cj16050:Date_2016-12-07
+    a study:ReferenceBegin, study:ReferenceEnd ;
+    skos:prefLabel "Date 2016-12-07"^^xsd:string ;
+    time:inXSDDate "2016-12-07"^^xsd:date ;
+    study:dateTimeInXSDString "2016-12-07"^^xsd:string .
+
+cj16050:Interval_2016-12-07_2016-12-07
+    a study:ReferenceInterval ;
+    skos:prefLabel "Interval 2016-12-07 2016-12-07"^^xsd:string ;
+    time:hasBeginning cj16050:Date_2016-12-07 ;
+    time:hasEnd cj16050:Date_2016-12-07 .
+
+cj16050:SexDataCollection_1
+    a code:SexDataCollection ;
+    skos:prefLabel "Sex data collection 1"^^xsd:string ;
+    code:outcome code:Sex_M .
+
+cj16050:Study_CJ16050
+    study:hasParticipant cj16050:Animal_00M01 .
+
+code:AgeOutcome_8_WEEKS
+    a study:AgeOutcome ;
+    skos:prefLabel "Age outcome 8 WEEKS"^^xsd:string ;
+    code:hasUnit time:unitWeek ;
+    code:hasValue 8 .
+
+code:Species_Rat
+    a study:Species .
+
