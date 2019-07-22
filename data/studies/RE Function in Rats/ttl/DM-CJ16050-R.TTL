@@ -51,7 +51,7 @@ cj16050:SexDataCollection_1
     code:outcome code:Sex_M .
 
 cj16050:Study_CJ16050
-    study:hasParticipant cj16050:Animal_00M01 .
+    study:hasStudyParticipant cj16050:Animal_00M01 .
 
 cj16050:SubjectIdentifier_1
     a study:SubjectIdentifier ;
