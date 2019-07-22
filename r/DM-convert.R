@@ -58,7 +58,7 @@ for(i in 1:nrow(dm))
   rdf_add(some_rdf, 
     subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
     predicate    = paste0(STUDY,  "memberOf"), 
-    object       = paste0(CJ16050, paste0("Set_", dm[i,"setcd"]))
+    object       = paste0(CJPROT, paste0("Set_", dm[i,"setcd"]))
   )
   rdf_add(some_rdf, 
     subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
@@ -259,7 +259,7 @@ for(i in 1:nrow(dm))
     
   # Study Participants
   rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Study_", dm[i,"studyid"])), 
+    subject      = paste0(CJPROT, paste0("Study_", dm[i,"studyid"])), 
     predicate    = paste0(STUDY,  "hasStudyParticipant"), 
     object       = paste0(CJ16050, "Animal_", dm[i,"subjid"])
   )
@@ -292,8 +292,9 @@ rdf_serialize(some_rdf,
               format = "turtle",
               namespace = c( bibio   = "http://purl.org/ontology/bibo/",
                              code    = "https://w3id.org/phuse/code#",
-                             dcterms = "http://purl.org/dc/terms/",
                              cj16050 = "https://example.org/cj16050#",
+                             cjprot  = "https://example.org/cjprot#",
+                             dcterms = "http://purl.org/dc/terms/",
                              study   = "https://w3id.org/phuse/study#",
                              meddra  = "https://w3id.org/phuse/meddra#",
                              pav     = "http://purl.org/pav",

@@ -30,7 +30,6 @@ studyNameLc <- tolower(studyNameUc)
 
 dm_n=1;  # The first n patients from the DM domain.
 
-
 # sendPath="data/studies/send/FFU-Contribution-to-FDA"
 sendPath="data/studies/RE Function in Rats"
 
@@ -38,7 +37,9 @@ sendPath="data/studies/RE Function in Rats"
 prefixList <-read.table(header = TRUE, text = "
   prefixUC       url
   'BIBO'        'http://purl.org/ontology/bibo/'
-  'CODE'        'https://w3id.org/phuse/code#'
+  'CJ16050'     'https://example.org/cj16050#'
+  'CJPROT'      'https://example.org/cjprot#'
+  'CODE'        'https://w3id.org/phuse/code#'                          
   'PAV'         'http://purl.org/pav'
   'STUDYNAMEUC' 'https://example.org/STUDYNAMELC#'
   'STUDY'       'https://w3id.org/phuse/study#'
@@ -134,6 +135,7 @@ rdf_serialize(some_rdf,
               namespace = c( bibio   = "http://purl.org/ontology/bibo/",
                              code    = "https://w3id.org/phuse/code#",
                              dcterms = "http://purl.org/dc/terms/",
+                             cjprot  = "https://example.org/cjprot#",
                              cj16050 = "https://example.org/cj16050#",
                              study   = "https://w3id.org/phuse/study#",
                              meddra  = "https://w3id.org/phuse/meddra#",

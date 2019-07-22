@@ -9,19 +9,20 @@
 #        stardog-admin virtual import DM-CJ16050-R-map.TTL DM-CJ16050-R.CSV
 # TODO: 
 ###############################################################################
-@prefix bibo: <http://purl.org/ontology/bibo/> .
-@prefix cj16050: <https://example.org/cj16050#> .
-@prefix code: <https://w3id.org/phuse/code#> .
-@prefix custom: <https://w3id.org/phuse/custom#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix pav: <http://purl.org/pav> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix bibo:     <http://purl.org/ontology/bibo/> .
+@prefix cj16050:  <https://example.org/cj16050#> .
+@prefix cjprot:   <https://example.org/cjprot#> .
+@prefix code:     <https://w3id.org/phuse/code#> .
+@prefix custom:   <https://w3id.org/phuse/custom#> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix pav:      <http://purl.org/pav> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sdtmterm: <https://w3id.org/phuse/sdtmterm#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix study: <https://w3id.org/phuse/study#> .
-@prefix time: <http://www.w3.org/2006/time#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
+@prefix study:    <https://w3id.org/phuse/study#> .
+@prefix time:     <http://www.w3.org/2006/time#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
 
 # Animal Subject
 cj16050:Study_{studyid} 
@@ -30,7 +31,7 @@ cj16050:Study_{studyid}
   study:hasReferenceInterval  cj16050:Interval_{rfstdtc}_{rfendtc} ;
   study:hasSubjectID          cj16050:SubjectIdentifier_{ROWID_IM} ;
   study:hasUniqueSubjectID    cj16050:UniqueSubjectIdentifier_{ROWID_IM} ;
-  study:memberOf              cj16050:Set_{setcd} ;
+  study:memberOf              cjprot:Set_{setcd} ;
   study:memberOf              cj16050:Species_{SPECIESCD_IM} ;
   study:participatesIn        cj16050:AgeDataCollection_{ROWID_IM} ;
   study:participatesIn        cj16050:SexDataCollection_{ROWID_IM} ;
@@ -95,7 +96,7 @@ cj16050:Age_{age}_{ageu}
  .
  
 # Study Participants
-cj16050:Study_{studyid}
+cjprot:Study_{studyid}
   study:hasStudyParticipant cj16050:Animal_{subjid} ;
 .
 

@@ -3,6 +3,8 @@
 # DESC: Compare all triples in two TTL files. 
 #       Eg Usage: Compare TTL file generated from TopBraid with one created using R
 # IN  : Hard coded input files AOFile, RFile
+#       cj16050.ttl 
+#       DM-CJ16050-R.TTL
 # OUT : datatable
 # REQ : 
 # NOTE: 
@@ -16,10 +18,10 @@ library(DT)
 setwd("C:/_github/SENDConform")
 
 AOFile <- "data\\studies\\RE Function in Rats\\ttl\\cj16050.ttl"
-RFile <- "data\\studies\\RE Function in Rats\\ttl\\DM-R.TTL"
+RFile <- "data\\studies\\RE Function in Rats\\ttl\\DM-CJ16050-R.TTL"
 
 # With a named Subject, remove s,p,o that are artifacts from TopBraid
-removeSubjects <- c("http://example.org/cj16050", "bar")  # Placeholder
+removeSubjects <- c("https://example.org/cj16050")  # Placeholder
 
 # List of prefixes from config file
 allPrefix <- "data/config/prefixes.csv"  # List of prefixes
@@ -45,6 +47,7 @@ triplesOnt <- rdf_query(rdf, queryString)
 # Remove cases where O is missing in the Ontology source(atrifact from TopBraid)
 triplesOnt <-triplesOnt[!(triplesOnt$o==""),]
 triplesOnt <- triplesOnt[complete.cases(triplesOnt), ]
+
 # Remove extra test data from the ont triples
 triplesOnt <- triplesOnt[ ! triplesOnt$s %in% removeSubjects, ]
 

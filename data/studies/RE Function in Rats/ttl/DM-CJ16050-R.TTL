@@ -2,8 +2,9 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix bibio: <http://purl.org/ontology/bibo/> .
 @prefix code: <https://w3id.org/phuse/code#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix cj16050: <https://example.org/cj16050#> .
+@prefix cjprot: <https://example.org/cjprot#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix study: <https://w3id.org/phuse/study#> .
 @prefix meddra: <https://w3id.org/phuse/meddra#> .
 @prefix pav: <http://purl.org/pav> .
@@ -30,7 +31,7 @@ cj16050:Animal_00M01
     study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-07 ;
     study:hasSubjectID cj16050:SubjectIdentifier_1 ;
     study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_1 ;
-    study:memberOf cj16050:Set_00, code:Species_Rat ;
+    study:memberOf cjprot:Set_00, code:Species_Rat ;
     study:participatesIn cj16050:AgeDataCollection_1, cj16050:SexDataCollection_1 .
 
 cj16050:Date_2016-12-07
@@ -50,9 +51,6 @@ cj16050:SexDataCollection_1
     skos:prefLabel "Sex data collection 1"^^xsd:string ;
     code:outcome code:Sex_M .
 
-cj16050:Study_CJ16050
-    study:hasStudyParticipant cj16050:Animal_00M01 .
-
 cj16050:SubjectIdentifier_1
     a study:SubjectIdentifier ;
     skos:prefLabel "00M01"^^xsd:string .
@@ -60,6 +58,9 @@ cj16050:SubjectIdentifier_1
 cj16050:UniqueSubjectIdentifier_1
     a study:UniqueSubjectIdentifier ;
     skos:prefLabel "CJ16050_00M01"^^xsd:string .
+
+cjprot:Study_CJ16050
+    study:hasStudyParticipant cj16050:Animal_00M01 .
 
 code:Species_Rat
     a study:Species .
