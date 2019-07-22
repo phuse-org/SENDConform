@@ -27,20 +27,6 @@ some_rdf <- rdf()  # initialize
 
 for(i in 1:nrow(dm))
 {
-  # Study Participants
-  rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Study_", dm[i,"studyid"])), 
-    predicate    = paste0(STUDY,  "hasStudyParticipant"), 
-    object       = paste0(CJ16050, "Animal_", dm[i,"subjid"])
-  )
-  
-  # Code  (should move to code?)
-  rdf_add(some_rdf, 
-    subject      = paste0(CODE, paste0("Species_", dm[i,"SPECIESCD_IM"])), 
-    predicate    = paste0(RDF,  "type"), 
-    object       = paste0(STUDY, "Species")
-  )
-  
   ## Animal Subject   
   rdf_add(some_rdf, 
      subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
@@ -58,6 +44,16 @@ for(i in 1:nrow(dm))
     subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
     predicate    = paste0(STUDY,  "hasReferenceInterval"), 
     object       = paste0(CJ16050, paste0("Interval_",dm[i,"rfstdtc"], "_", dm[i,"rfendtc"]))
+  )
+  rdf_add(some_rdf, 
+    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+    predicate   = paste0(STUDY,  "hasSubjectID"), 
+    object      = paste0(CJ16050, "SubjectIdentifier_", dm[i,"ROWID_IM"])
+  )
+  rdf_add(some_rdf, 
+    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+    predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
+    object      = paste0(CJ16050, "UniqueSubjectIdentifier_", dm[i,"ROWID_IM"])
   )
   rdf_add(some_rdf, 
     subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
@@ -162,11 +158,6 @@ for(i in 1:nrow(dm))
 
   ## Subject Identifier
   rdf_add(some_rdf, 
-    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
-    predicate   = paste0(STUDY,  "hasSubjectID"), 
-    object      = paste0(CJ16050, "SubjectIdentifier_", dm[i,"ROWID_IM"])
-  )
-    rdf_add(some_rdf, 
       subject     = paste0(CJ16050, "SubjectIdentifier_", dm[i,"ROWID_IM"]),
       predicate   = paste0(RDF,  "type"), 
       object      = paste0(STUDY, "SubjectIdentifier")
@@ -180,11 +171,6 @@ for(i in 1:nrow(dm))
     )
   
   ## Unique Subject Identifier
-  rdf_add(some_rdf, 
-    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
-    predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
-    object      = paste0(CJ16050, "UniqueSubjectIdentifier_", dm[i,"ROWID_IM"])
-  )
     rdf_add(some_rdf, 
       subject     = paste0(CJ16050, "UniqueSubjectIdentifier_", dm[i,"ROWID_IM"]),
       predicate   = paste0(RDF,  "type"), 
@@ -269,8 +255,22 @@ for(i in 1:nrow(dm))
       subject      = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"ROWID_IM"])),
       predicate    = paste0(CODE,  "outcome"), 
       object       = paste0(CODE, paste0("Sex_", dm[i,"sex"]))
-    )    
+    ) 
+    
+  # Study Participants
+  rdf_add(some_rdf, 
+    subject      = paste0(CJ16050, paste0("Study_", dm[i,"studyid"])), 
+    predicate    = paste0(STUDY,  "hasStudyParticipant"), 
+    object       = paste0(CJ16050, "Animal_", dm[i,"subjid"])
+  )
   
+  # Code  (should move to code?)
+  rdf_add(some_rdf, 
+    subject      = paste0(CODE, paste0("Species_", dm[i,"SPECIESCD_IM"])), 
+    predicate    = paste0(RDF,  "type"), 
+    object       = paste0(STUDY, "Species")
+  )
+
 }
 
 #------------------------------------------------------------------------------

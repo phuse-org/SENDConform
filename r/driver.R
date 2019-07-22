@@ -7,7 +7,7 @@
 #       2. Functions.R  - data processing functions
 #       3. Graphmeta.csv  - metadata for graph creation process.
 #            written back out with new timestamp for which R scripts run.
-# OUT : graphMea.TTL
+# OUT : GraphMeta-CJ16050.TTL
 # REQ : 
 # SRC : 
 # NOTE: Example uses study CJ16050. Change code to set this value as a variable.
@@ -126,7 +126,7 @@ rdf_add(some_rdf,
 #--- Serialize the some_rdf to a TTL file ----------------------------------------
 # TODO: Rewrite this as a function
 #       Make namespace value dynamic for study 
-outFile <- 'data/studies/RE Function in Rats/csv/CJ16050_GraphMeta.TTL'
+outFile <- 'data/studies/RE Function in Rats/ttl/GraphMeta-CJ16050.TTL'
 
 rdf_serialize(some_rdf,
               outFile,
@@ -152,7 +152,7 @@ graphMeta <- data.frame(label_graph, description_graph, title_graph,
 # Sort column names ease of reference 
 graphMeta <- graphMeta %>% select(noquote(order(colnames(graphMeta))))
 
-write.csv(graphMeta, file="data/studies/RE Function in Rats/csv/CJ16050_Graphmeta.csv",
+write.csv(graphMeta, file="data/studies/RE Function in Rats/ttl/Graphmeta-CJ16050.csv",
   row.names = F,
   na = "")
 
