@@ -7,7 +7,7 @@
 # OUT : 
 # REQ : 
 # SRC : 
-# NOTE: 
+# NOTE: Path to data for study is hard coded: RE Function in Rats
 # TODO: 
 #______________________________________________________________________________
 library(stringr)     # str_extract
@@ -44,7 +44,7 @@ parseFile <- function(sourceFiles){
     # Process each source file in the list
     sourceContent <- lapply(sourceFiles, function(fileName) {
     
-    fileNamePath <- paste0("data/studies/",fileName, "_map.TTL")
+    fileNamePath <- paste0("data/studies/RE Function in Rats/ttl/",fileName, "-map.TTL")
     print(paste0("FILE: ", fileNamePath))
     conn <- file(fileNamePath,open="r")
     linn <-readLines(conn)
@@ -89,13 +89,14 @@ parseFile <- function(sourceFiles){
   foo <- triples
 }  
 
-# Create triples DF from known TTL files
-triples<-data.frame(parseFile(sourceFiles=list("AE", "DM", "SUPPDM", "EX", "VS", "Graphmeta", "Invest")))
+# Create triples DF from known TTL files. File names exclude -map.TTL
+triples<-data.frame(parseFile(sourceFiles=list("DM-CJ16050-R", 
+                                               "Graphmeta-CJ16050")))
 
 #---- Formatting 
 #  _bc = background colours
 #  _ec = edge colours
-cdiscpilot01_bc <-"blue"
+cj16050         <-"blue"
 cd01p_bc        <- "lightblue"
 code_bc         <- "red"
 study_bc        <- "green"
@@ -107,12 +108,8 @@ dm_ec           <- '#B3CDE3'
 # Legend Nodes
 lnodes <- read.table(header = TRUE, text = "
 label        color.border color.background 
-AE           'red'        'yellow'
 DM           'blue'       'white'
-VS           'white'      '#CCEBC5'
-EX           'white'      '#DECBE4'
-TS           'white'      '#FF9A9A'
-cdiscpilot01 'blue'       'white'
+cj16050      'blue'       'white'
 cdo1p        'lightblue'  'white'
 code         'red'        'white'
 study        'green'      ''
@@ -135,7 +132,7 @@ lnodes$title <- "Legend"
 
 lnodes <- read.table(header = TRUE, text = "
 label         color.border color.background font.color
-cdiscpilot01  'black'       '#2C52DA'      'white'
+cj16050       'black'       '#2C52DA'      'white'
 cdo1p         'black'       '#008D00'      'white'
 code          'black'       '#1C5B64'      'white'
 study         'black'       '#FFBD09'      'white'

@@ -108,7 +108,7 @@ function(input, output, session) {
     nodes$color.border     <- "black"
     
     # Nodes color based on prefix
-    nodes$color.background[ grepl("cdiscpilot01:", nodes$id, perl=TRUE) ] <- "#2C52DA"
+    nodes$color.background[ grepl("cj16050:", nodes$id, perl=TRUE) ] <- "#2C52DA"
     nodes$color.background[ grepl("cd01p:",        nodes$id, perl=TRUE) ] <- '#008D00'   
     nodes$color.background[ grepl("code:",         nodes$id, perl=TRUE) ] <- '#1C5B64'
     nodes$color.background[ grepl("study:",        nodes$id, perl=TRUE) ] <- '#FFBD09'  
@@ -133,7 +133,7 @@ function(input, output, session) {
     edges$color  <- "black"  # Default and literals
 
     # Assign colors based on the target node
-    edges$color[ grepl("cdiscpilot01:", edges$to, perl=TRUE) ] <- "#2C52DA"
+    edges$color[ grepl("cj16050:", edges$to, perl=TRUE) ] <- "#2C52DA"
     edges$color[ grepl("cd01p:",        edges$to, perl=TRUE) ] <- '#008D00'   
     edges$color[ grepl("code:",         edges$to, perl=TRUE) ] <- '#1C5B64'
     edges$color[ grepl("study:",        edges$to, perl=TRUE) ] <- '#FFBD09'  

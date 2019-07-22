@@ -21,22 +21,19 @@ fluidPage(
     #DEBUG,
     #DEBUG  textOutput("nsCond")
     ),
-  titlePanel(HTML("<font class='appTitle'>SMS Map Visualization, PhUSE CTDasRDF Project</font>")),
+  titlePanel(HTML("<font class='appTitle'>SMS Map Visualization, PhUSE SENDConform Project</font>")),
   sidebarLayout(
     sidebarPanel(
       width=2,
       checkboxGroupInput("maps", HTML("<font class='include'>Include</font> Maps:"),
-        c("AE"       = "AE",
-          "DM"       = "DM",
-          "SUPPDM"   = "SUPPDM",
-          "EX"       = "EX",
-          "VS"       = "VS",
-          "Invest"   = "Invest",
-          "Metadata" = "Graphmeta"),
+        # File names exclude -map.ttl                 
+        c(
+          "DM"       = "DM-CJ16050-R",
+          "Metadata" = "Graphmeta-CJ16050"),
           # selected   = list('AE','DM','SUPPDM','EX','VS','Invest','Graphmeta' )),
           selected   = list('AE')),
       checkboxGroupInput("namespaces", HTML("<font class='exclude'>Exclude</font> Name Spaces:"),
-        c("cdiscpilot01 (blue)" = "cdiscpilot01:",
+        c("cj16050 (blue)"      = "cdiscpilot01:",
           "cd01p (green)"       = "cd01p:",
           "code (dk green)"     = "code:",
           "custom (red)"        = "custom:",
