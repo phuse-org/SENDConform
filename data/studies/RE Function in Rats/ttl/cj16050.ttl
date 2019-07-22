@@ -1,20 +1,23 @@
-# baseURI: http://example.org/cj16050
-# imports: http://example.org/cjprot
+# baseURI: https://example.org/cj16050
+# imports: https://example.org/cjprot
 # prefix: cj16050
 
 @prefix cj16050: <https://example.org/cj16050#> .
-@prefix code:    <https://w3id.org/phuse/code#> .
-@prefix owl:     <http://www.w3.org/2002/07/owl#> .
-@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
-@prefix study:   <https://w3id.org/phuse/study#> .
-@prefix time:    <http://www.w3.org/2006/time#> .
-@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix cjprot: <https://example.org/cjprot#> .
+@prefix code: <https://w3id.org/phuse/code#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix study: <https://w3id.org/phuse/study#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://example.org/cj16050>
+<https://example.org/cj16050>
   rdf:type owl:Ontology ;
-  owl:imports <http://example.org/cjprot> ;
+  spin:imports <http://topbraid.org/spin/owlrl-all> ;
+  owl:imports <https://example.org/cjprot> ;
   owl:versionInfo "Created with TopBraid Composer" ;
 .
 cj16050:AgeDataCollection_1
@@ -35,7 +38,7 @@ cj16050:Animal_00M01
   study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-07 ;
   study:hasSubjectID cj16050:SubjectIdentifier_1 ;
   study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_1 ;
-  study:memberOf <http://example.org/cjprot#Set_0> ;
+  study:memberOf cjprot:Set_0 ;
   study:memberOf code:Species_Rat ;
   study:participatesIn cj16050:AgeDataCollection_1 ;
   study:participatesIn cj16050:SexDataCollection_1 ;
@@ -66,9 +69,6 @@ cj16050:UniqueSubjectIdentifier_1
   rdf:type study:UniqueSubjectIdentifier ;
   skos:prefLabel "CJ16050_00M01" ;
 .
-<http://example.org/cjprot#Study_CJ16050>
+cjprot:Study_CJ16050
   study:hasStudyParticipant cj16050:Animal_00M01 ;
-.
-code:Species_Rat
-  rdf:type study:Species ;
 .
