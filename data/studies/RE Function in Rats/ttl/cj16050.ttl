@@ -2,7 +2,7 @@
 # imports: http://example.org/cjprot
 # prefix: cj16050
 
-@prefix cj16050: <https://example.org/cj16050#> .
+@prefix cj16050: <http://example.org/cj16050#> .
 @prefix code: <https://w3id.org/phuse/code#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -20,18 +20,21 @@
 cj16050:AgeDataCollection_1
   rdf:type code:AgeDataCollection ;
   skos:prefLabel "Age data collection 1" ;
-  code:outcome cj16050:AgeDataCollection_1 ;
+  code:outcome cj16050:Age_8_WEEKS ;
 .
-cj16050:AgeOutcome_8_WEEKS
-  rdf:type study:AgeOutcome ;
-  skos:prefLabel "Age outcome 8 WEEKS" ;
-  code:hasUnit time:unitWeek ;
-  code:hasValue 8 ;
+cj16050:Age_8_WEEKS
+  rdf:type study:Age ;
+  skos:prefLabel "Age 8 WEEKS" ;
+  time:hasXSDDuration "P56D"^^xsd:duration ;
+  time:numericDuration "8"^^xsd:decimal ;
+  time:unitType time:unitWeek ;
 .
 cj16050:Animal_00M01
   rdf:type study:AnimalSubject ;
   skos:prefLabel "Animal 00M01" ;
   study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-07 ;
+  study:hasSubjectID cj16050:SubjectIdentifier_1 ;
+  study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_1 ;
   study:memberOf <http://example.org/cjprot#Set_0> ;
   study:memberOf code:Species_Rat ;
   study:participatesIn cj16050:AgeDataCollection_1 ;
@@ -54,6 +57,14 @@ cj16050:SexDataCollection_1
   rdf:type code:SexDataCollection ;
   skos:prefLabel "Sex data collection 1" ;
   code:outcome code:Sex_M ;
+.
+cj16050:SubjectIdentifier_1
+  rdf:type study:SubjectIdentifier ;
+  skos:prefLabel "00M01" ;
+.
+cj16050:UniqueSubjectIdentifier_1
+  rdf:type study:UniqueSubjectIdentifier ;
+  skos:prefLabel "CJ16050_00M01" ;
 .
 <http://example.org/cjprot#Study_CJ16050>
   study:hasStudyParticipant cj16050:Animal_00M01 ;
