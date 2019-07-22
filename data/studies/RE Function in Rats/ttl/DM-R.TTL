@@ -15,12 +15,21 @@
 cj16050:AgeDataCollection_1
     a code:AgeDataCollection ;
     skos:prefLabel "Age data collection 1"^^xsd:string ;
-    code:outcome code:AgeOutcome_8_WEEKS .
+    code:outcome cj16050:Age_8_WEEKS .
+
+cj16050:Age_8_WEEKS
+    a study:Age ;
+    skos:prefLabel "Age 8 WEEKS"^^xsd:string ;
+    time:hasXSDDuration "P56D"^^xsd:duration ;
+    time:numericDuration 8 ;
+    time:unitType time:unitWeek .
 
 cj16050:Animal_00M01
     a study:AnimalSubject ;
     skos:prefLabel "Animal 00M01"^^xsd:string ;
     study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-07 ;
+    study:hasSubjectID cj16050:SubjectIdentifier_1 ;
+    study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_1 ;
     study:memberOf cj16050:Set_00, code:Species_Rat ;
     study:participatesIn cj16050:AgeDataCollection_1, cj16050:SexDataCollection_1 .
 
@@ -44,11 +53,13 @@ cj16050:SexDataCollection_1
 cj16050:Study_CJ16050
     study:hasParticipant cj16050:Animal_00M01 .
 
-code:AgeOutcome_8_WEEKS
-    a study:AgeOutcome ;
-    skos:prefLabel "Age outcome 8 WEEKS"^^xsd:string ;
-    code:hasUnit time:unitWeek ;
-    code:hasValue 8 .
+cj16050:SubjectIdentifier_1
+    a study:SubjectIdentifier ;
+    skos:prefLabel "00M01"^^xsd:string .
+
+cj16050:UniqueSubjectIdentifier_1
+    a study:UniqueSubjectIdentifier ;
+    skos:prefLabel "CJ16050_00M01"^^xsd:string .
 
 code:Species_Rat
     a study:Species .

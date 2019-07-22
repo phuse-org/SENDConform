@@ -18,8 +18,8 @@
 dm$ROWID_IM <-  (1:nrow(dm))
 
 dm$SPECIESCD_IM <- "Rat"
-dm$AGEUNIT_IM   <-"Week"  # to link to time namespace
-
+dm$AGEUNIT_IM   <- "Week" # to link to time namespace
+dm$DURATION_IM  <- "P56D" 
 #------------------------------------------------------------------------------
 #--- RDF Creation Statements --------------------------------------------------
 some_rdf <- rdf()  # initialize 
@@ -29,7 +29,7 @@ for(i in 1:nrow(dm))
   # Study Participants
   rdf_add(some_rdf, 
     subject      = paste0(CJ16050, paste0("Study_", dm[i,"studyid"])), 
-    predicate    = paste0(STUDY,  "hasParticipant"), 
+    predicate    = paste0(STUDY,  "hasStudyParticipant"), 
     object       = paste0(CJ16050, "Animal_", dm[i,"subjid"])
   )
   
@@ -40,7 +40,7 @@ for(i in 1:nrow(dm))
     object       = paste0(STUDY, "Species")
   )
   
-    ## Animal Subject   
+  ## Animal Subject   
   rdf_add(some_rdf, 
      subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
      predicate   = paste0(RDF,  "type"), 
@@ -159,9 +159,46 @@ for(i in 1:nrow(dm))
     datatype_uri = paste0(XSD,"string")
   )
 
+  ## Subject Identifier
+  rdf_add(some_rdf, 
+    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+    predicate   = paste0(STUDY,  "hasSubjectID"), 
+    object      = paste0(CJ16050, "SubjectIdentifier_", dm[i,"ROWID_IM"])
+  )
+  rdf_add(some_rdf, 
+    subject     = paste0(CJ16050, "SubjectIdentifier_", dm[i,"ROWID_IM"]),
+    predicate   = paste0(RDF,  "type"), 
+    object      = paste0(STUDY, "SubjectIdentifier")
+  )
+  rdf_add(some_rdf, 
+    subject     = paste0(CJ16050, "SubjectIdentifier_", dm[i,"ROWID_IM"]),
+    predicate    = paste0(SKOS, "prefLabel"),
+    object       = paste0(dm[i, "subjid"]),
+    objectType   = "literal", 
+    datatype_uri = paste0(XSD,"string")
+  )
+  
+  ## Unique Subject Identifier
+  rdf_add(some_rdf, 
+    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+    predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
+    object      = paste0(CJ16050, "UniqueSubjectIdentifier_", dm[i,"ROWID_IM"])
+  )
+  rdf_add(some_rdf, 
+    subject     = paste0(CJ16050, "UniqueSubjectIdentifier_", dm[i,"ROWID_IM"]),
+    predicate   = paste0(RDF,  "type"), 
+    object      = paste0(STUDY, "UniqueSubjectIdentifier")
+  )
+  rdf_add(some_rdf, 
+    subject     = paste0(CJ16050, "UniqueSubjectIdentifier_", dm[i,"ROWID_IM"]),
+    predicate    = paste0(SKOS, "prefLabel"),
+    object       = paste0(dm[i, "usubjid"]),
+    objectType   = "literal", 
+    datatype_uri = paste0(XSD,"string")
+  )
+  
   ## Member of Set
   # Question to AO. Not set here.
-  
 
   ## Age Data Collection
   rdf_add(some_rdf, 
@@ -179,33 +216,39 @@ for(i in 1:nrow(dm))
   rdf_add(some_rdf, 
     subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"ROWID_IM"])),
     predicate    = paste0(CODE,  "outcome"), 
-    object       = paste0(CJ16050, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"]))
+    object       = paste0(CJ16050, paste0("Age_", dm[i,"age"], "_", dm[i,"ageu"]))
   )    
-  # Age outcome  
+  # Age   
   rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
+    subject      = paste0(CJ16050, paste0("Age_", dm[i,"age"], "_", dm[i,"ageu"])),
     predicate    = paste0(RDF,  "type"), 
-    object       = paste0(STUDY, "AgeOutcome")
+    object       = paste0(STUDY, "Age")
   )    
   rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
+    subject      = paste0(CJ16050, paste0("Age_", dm[i,"age"], "_", dm[i,"ageu"])),
     predicate    = paste0(SKOS, "prefLabel"),
-    object       = paste0("Age outcome ", dm[i,"age"], " ", dm[i,"ageu"]),
+    object       = paste0("Age ", dm[i,"age"], " ", dm[i,"ageu"]),
     objectType   = "literal", 
     datatype_uri = paste0(XSD,"string")
   )    
   rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
-    predicate    = paste0(CODE, "hasUnit"),
-    object       = paste0(TIME, "unit", dm[i,"AGEUNIT_IM"])
-  )    
-  
-  rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("AgeOutcome_", dm[i,"age"], "_", dm[i,"ageu"])),
-    predicate    = paste0(CODE, "hasValue"),
-    object       = dm[i,"age"],
+    subject      = paste0(CJ16050, paste0("Age_", dm[i,"age"], "_", dm[i,"ageu"])),
+    predicate    = paste0(TIME, "hasXSDDuration"),
+    object       = paste0(dm[i,"DURATION_IM"]),
     objectType   = "literal", 
-    datatype_uri = paste0(XSD,"integer")
+    datatype_uri = paste0(XSD,"duration")
+  )  
+  rdf_add(some_rdf, 
+    subject      = paste0(CJ16050, paste0("Age_", dm[i,"age"], "_", dm[i,"ageu"])),
+    predicate    = paste0(TIME, "numericDuration"),
+    object       = paste0(dm[i,"age"]),
+    objectType   = "literal", 
+    datatype_uri = paste0(XSD,"decimal")
+  )    
+  rdf_add(some_rdf, 
+    subject      = paste0(CJ16050, paste0("Age_", dm[i,"age"], "_", dm[i,"ageu"])),
+    predicate    = paste0(TIME, "unitType"),
+    object       = paste0(TIME, "unit", dm[i,"AGEUNIT_IM"])
   )    
   
   ## Sex Data Collection
@@ -259,3 +302,12 @@ rdf_serialize(some_rdf,
                              time    = 'http://www.w3.org/2006/time#',
                              xsd     = "http://www.w3.org/2001/XMLSchema#"
               ))
+
+#--- Save dataframe to CSV for SMS mapping alternative ------------------------
+# Sort column names ease of reference 
+# dm <- graphMeta %>% select(noquote(order(colnames(dm))))
+
+#csvFile = paste0(sendPath, "/csv/dm.csv")
+#write.csv(dm, file=csvFile, 
+#   row.names = F,
+#   na = "")

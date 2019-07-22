@@ -2,15 +2,15 @@
 # imports: http://example.org/cjprot
 # prefix: cj16050
 
-@prefix cj16050: <http://example.org/cj16050#> .
-@prefix code: <https://w3id.org/phuse/code#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix study: <https://w3id.org/phuse/study#> .
-@prefix time: <http://www.w3.org/2006/time#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cj16050: <https://example.org/cj16050#> .
+@prefix code:    <https://w3id.org/phuse/code#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix study:   <https://w3id.org/phuse/study#> .
+@prefix time:    <http://www.w3.org/2006/time#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 
 <http://example.org/cj16050>
   rdf:type owl:Ontology ;

@@ -7,7 +7,7 @@
 #       2. Functions.R  - data processing functions
 #       3. Graphmeta.csv  - metadata for graph creation process.
 #            written back out with new timestamp for which R scripts run.
-# OUT : graphMeta.TTL
+# OUT : graphMea.TTL
 # REQ : 
 # SRC : 
 # NOTE: Example uses study CJ16050. Change code to set this value as a variable.
@@ -22,7 +22,6 @@ library(tidyverse)
 
 # Set working directory to the root of the work area
 setwd("C:/_github/SENDConform")
-
 
 source('r/Functions.R')  # Functions: readXPT(), encodeCol(), etc.
 
@@ -165,7 +164,3 @@ dm  <- head(dm, dm_n) #subset for development
 
 # source('R/DM_convert.R')  # Impute values 
 
-#csvFile = paste0(sendPath, "/csv/dm.csv")
-#write.csv(dm, file=csvFile, 
-#   row.names = F,
-#   na = "")
