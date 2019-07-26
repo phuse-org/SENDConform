@@ -31,7 +31,7 @@ dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
 #TWaddErrDM<-function()
 #TW{
   # Create test data that contains errors
-  dmErr <- data.frame(dm[1:4,])  # pick off a range of rows at the top of the DF  (only 1 avail during dev!)
+  dmErr <- data.frame(dm[1:5,])  # pick off a range of rows at the top of the DF  (only 1 avail during dev!)
   
   
   dmErr$subjid <- gsub("0", "9", dmErr$subjid )
@@ -53,7 +53,11 @@ dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
   
   # Trip: End is xsd:date
   dmErr[dmErr$subjid == '99M94', "rfendtc"] <- "7-DEC-16"
+
+  # Trip: Missing End date 
+  dmErr[dmErr$subjid == '99M95', "rfendtc"] <- " "
   
+    
   # Error data appended to real data.
   dm <-rbind (dm, dmErr)
 #TW}
@@ -79,6 +83,10 @@ for(i in 1:nrow(dm))
     objectType   = "literal", 
     datatype_uri = paste0(XSD,"string")
   )
+  
+  # only create interval when both rfstdtc and rfendtc are present
+  # TODO: ADD THE CODE!
+  
   rdf_add(some_rdf, 
     subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
     predicate    = paste0(STUDY,  "hasReferenceInterval"), 
@@ -114,31 +122,37 @@ for(i in 1:nrow(dm))
     predicate    = paste0(STUDY,  "participatesIn"), 
     object       = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"ROWID_IM"]))
   )
-
+  
+    # only create interval when both rfstdtc and rfendtc are present
+    # TODO: ADD THE CODE!
     ## Reference Interval
-    rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Interval_",dm[i,"rfstdtc"], "_", dm[i,"rfendtc"])),
-      predicate    = paste0(RDF,  "type"), 
-      object       = paste0(STUDY, "ReferenceInterval")
-    )
-    rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Interval_", dm[i,"rfstdtc"], "_", dm[i,"rfendtc"])),
-      predicate    = paste0(SKOS,  "prefLabel"), 
-      object       = paste0("Interval ", dm[i,"rfstdtc"], " ", dm[i,"rfendtc"] ),
-      objectType   = "literal", 
-      datatype_uri = paste0(XSD,"string")
-    )
-    rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Interval_", dm[i,"rfstdtc"], "_", dm[i,"rfendtc"])),
-      predicate    = paste0(TIME,  "hasBeginning"),     
-      object       = paste0(CJ16050, "Date_", dm[i,"rfstdtc"])
-    )      
-    rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Interval_", dm[i,"rfstdtc"], "_", dm[i,"rfendtc"])),
-      predicate    = paste0(TIME,  "hasEnd"),     
-      object       = paste0(CJ16050, "Date_", dm[i,"rfendtc"])
-    )      
-
+    if( ! is.na (dm[i,"rfstdtc"]) &&
+        ! is.na (dm[i,"rfstdtc"]) )
+    {    
+      rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Interval_",dm[i,"rfstdtc"], "_", dm[i,"rfendtc"])),
+        predicate    = paste0(RDF,  "type"), 
+        object       = paste0(STUDY, "ReferenceInterval")
+      )
+      rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Interval_", dm[i,"rfstdtc"], "_", dm[i,"rfendtc"])),
+        predicate    = paste0(SKOS,  "prefLabel"), 
+        object       = paste0("Interval ", dm[i,"rfstdtc"], " ", dm[i,"rfendtc"] ),
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"string")
+      )
+      rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Interval_", dm[i,"rfstdtc"], "_", dm[i,"rfendtc"])),
+        predicate    = paste0(TIME,  "hasBeginning"),     
+        object       = paste0(CJ16050, "Date_", dm[i,"rfstdtc"])
+      )      
+      rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Interval_", dm[i,"rfstdtc"], "_", dm[i,"rfendtc"])),
+        predicate    = paste0(TIME,  "hasEnd"),     
+        object       = paste0(CJ16050, "Date_", dm[i,"rfendtc"])
+      ) 
+    }
+    # END OF INTERVAL CREATION
       # Begin Date
       rdf_add(some_rdf, 
         subject      = paste0(CJ16050, "Date_", dm[i,"rfstdtc"]),
@@ -318,9 +332,30 @@ for(i in 1:nrow(dm))
 
 #--- Serialize the some_rdf to a TTL file ----------------------------------------
 outFile <- 'data/studies/RE Function in Rats/ttl/DM-CJ16050-R.TTL'
+outFileDev <- 'SHACL/CJ16050Constraints/DM-CJ16050-R.TTL'  # For development purposes only
 
 rdf_serialize(some_rdf,
               outFile,
+              format = "turtle",
+              namespace = c( bibio   = "http://purl.org/ontology/bibo/",
+                             code    = "https://w3id.org/phuse/code#",
+                             cj16050 = "https://example.org/cj16050#",
+                             cjprot  = "https://example.org/cjprot#",
+                             dcterms = "http://purl.org/dc/terms/",
+                             study   = "https://w3id.org/phuse/study#",
+                             meddra  = "https://w3id.org/phuse/meddra#",
+                             pav     = "http://purl.org/pav",
+                             rdf     = "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                             rdfs    = "http://www.w3.org/2000/01/rdf-schema#",
+                             skos    = "http://www.w3.org/2004/02/skos/core#",
+                             time    = 'http://www.w3.org/2006/time#',
+                             xsd     = "http://www.w3.org/2001/XMLSchema#"
+              ))
+
+
+# Dev file. Delete later.
+rdf_serialize(some_rdf,
+              outFileDev,
               format = "turtle",
               namespace = c( bibio   = "http://purl.org/ontology/bibo/",
                              code    = "https://w3id.org/phuse/code#",

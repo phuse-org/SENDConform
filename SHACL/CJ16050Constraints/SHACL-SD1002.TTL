@@ -5,7 +5,9 @@
 @prefix sh:   <http://www.w3.org/ns/shacl#>  .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cj16050: <https://example.org/cj16050#> .
 
+# outer SHAPE: NOT CURRENLTY IN USE (DELETE)
 # Define the outer AnimalSubjectShape that has a number of consituent shapes
 #:AnimalSubjectShape a sh:NodeShape ;
 #  sh:targetClass  study:AnimalSubject ;
@@ -14,6 +16,24 @@
 #  sh:property     :SD1002RuleShape .
   # additional constraints here for FDA Rules
 
+# Rule Component 1.1 Start and End Dates as xsd:date
+#   Dates are associated with :hasBeginning or :hasEnd
+#   Other predicates can be added here for additional dates.
+:DateShape a sh:NodeShape ;
+  sh:targetObjectsOf time:hasBeginning ;
+  sh:targetObjectsOf time:hasEnd ;
+  sh:class study:ReferenceEnd ;
+  sh:prefixes [
+    sh:declare [ sh:prefix "cj16050" ;
+      sh:namespace "https://example.org/cj16050#"^^xsd:anyURI ;
+    ]
+  ] ;
+  sh:property [
+    sh:path time:inXSDDate ;  
+    sh:datatype xsd:date ;
+  ] .  
+
+# Rule Component 1.2 Animal Subject has one and only one value for RFSTDTC and RFENDTC
 # An AnimalSubject must have one and only one ReferenceInterval
 #  When a subject has >1 date for a begin or and end, it results
 #  in a new interval IRI, so no need to check for >1 :hasBeginning
@@ -25,22 +45,7 @@
 #  sh:minCount 1;
 #  sh:maxCount 1 .
 
-# Dates must be xsd:date for dates associated with either :hasBeginning or :hasEnd
-#  Other predicates can be added here for additional dates.
-:DateShape a sh:NodeShape ;
-  sh:targetObjectsOf time:hasBeginning ;
-  sh:targetObjectsOf time:hasEnd ;
-  sh:class study:ReferenceEnd ;
-  sh:property [
-    sh:path time:inXSDDate ;  
-    sh:datatype xsd:date ;
-  ] .  
-
-# AnimalSubject must have one and only one ReferenceInterval
-#  SHACL-SPARQL to traverse graph from AnimalSubject to
-#  date values.  
-
-## Reference Interval 
+# Rule Component 1.3 SD1002: Start Date must be less than or equal to End Date
 #:SD1002RuleShape a sh:NodeShape ;
 # sh:targetClass study:ReferenceInterval ;
 # sh:sparql [
@@ -66,5 +71,4 @@
 #] .
 #
 #:SD1002RuleShape sh:deactivated true .
-
-# :RefIntervalShape sh:deactivated true .
+#:RefIntervalShape sh:deactivated true .

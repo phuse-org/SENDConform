@@ -3,7 +3,13 @@ FILE: styles.css
 DESC: CSS for SENDConform repository
 IN  :
 OUT :
-REQ :
+REQ : 
+ COLORS: 
+        Shapes graph   #DDEEBB green
+        data           #EEEEBB olive
+        result        #EEDDBB brown
+        sparq/text     #DDEEFF blue
+        syntax fules   #F6F6F6 grey
 NOTES: https://gridbyexample.com/examples/example21/  Grid within grid
 -----------------------------------------------------------------------------*/
 body{
@@ -41,3 +47,38 @@ body{
   font-weight: bold;
 }
 
+
+.objectIRI{
+  color: #00008b;     /* dark blue */
+  font-weight: bold;
+}
+
+.predicate{
+  color: #e67e00;     /* dark orange */
+  font-weight: bold;
+  font-family: courier, sans-serif, Consolas;
+}
+
+.literal{
+  color: #9c9c9c;     /* dark grey */
+  font-weight: bold;
+}
+
+/* Formatting of <pre> boxes 
+   Shapes graph   #DDEEBB green
+   data           #EEEEBB olive
+   result        #EEDDBB brown
+   sparql/text     #DDEEFF blue
+   syntax fules   #F6F6F6 grey
+*/
+
+.data{
+  background: #EEEEBB; 
+}
+
+.shacl{
+  background: #DDEEBB ;
+}  
+.result{
+ background: #EEDDBB ; 
+}
