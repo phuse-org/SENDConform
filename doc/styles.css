@@ -70,15 +70,19 @@ body{
    result        #EEDDBB brown
    sparql/text     #DDEEFF blue
    syntax fules   #F6F6F6 grey
+ NB: Githubpages not recognizing background: for color.  
 */
 
 .data{
-  background: #EEEEBB; 
+  background:       #EEEEBB; 
+  background-color: #EEEEBB; 
 }
 
 .shacl{
-  background: #DDEEBB ;
+  background:       #DDEEBB ;
+  background-color: #DDEEBB ;
 }  
 .result{
- background: #EEDDBB ; 
+ background:       #EEDDBB ; 
+ background-color: #EEDDBB ; 
 }
