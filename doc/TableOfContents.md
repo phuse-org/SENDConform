@@ -16,8 +16,18 @@ This project provides a Proof of Concept for representing SEND conformance check
 Resources for learning SHACL
 
 #### [2.2 Modeling an Example SEND Rule using SHACL](SHACL-SENDRuleEg.md)
-An example of how a SEND Rule is modeled using SHACL.
+An example of how a SEND Rule is modeled on a simple dataset using SHACL. The data is for illustrative purposes only and does not have the same schema as the project data.
 
+#### 2.3 SHACL for Project Data
+Example models and documentation for the SHACL rules applied to the data schema used in this project.
+
+##### [2.3.1 Example SEND Rule 102 in SHACL](SHACL-SENDRule102Details.md)
+
+##### 2.3.2 Details for other rules
+
+###### DM Domain
+
+###### TS Domain
 
 
 ### 3.Reference

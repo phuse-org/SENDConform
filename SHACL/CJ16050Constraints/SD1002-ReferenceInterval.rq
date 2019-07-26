@@ -1,0 +1,12 @@
+PREFIX study: <https://w3id.org/phuse/study#> 
+PREFIX sh:   <http://www.w3.org/ns/shacl#> 
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT $this (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
+    WHERE {
+      $this     time:hasBeginning  ?beginIRI ;
+                time:hasEnd        ?endIRI .
+      ?beginIRI time:inXSDDate     ?beginDate .
+      ?endIRI   time:inXSDDate     ?endDate .
+      FILTER  (! (?endDate >= ?beginDate ))
+    }

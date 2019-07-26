@@ -17,7 +17,7 @@ cj16050:send-graph
     dcterms:description "This graph is populated from example SEND data  provided by the FDA."^^xsd:string ;
     dcterms:title "PhUSE Project: Going Translational with Linked Data (GoTWLD)"^^xsd:string ;
     bibio:status " Under Construction/incomplete"^^xsd:string ;
-    pav:createdOn "2019-07-22T15:29:21-04:00"^^xsd:dateTime ;
+    pav:createdOn "2019-07-26T08:02:01-04:00"^^xsd:dateTime ;
     pav:version "0.0.1"^^xsd:string ;
     rdfs:label "SEND Conformance data for CJ16050"^^xsd:string .
 

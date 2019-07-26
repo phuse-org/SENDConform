@@ -1,0 +1,39 @@
+# SHACL_AnimalSubjectShape.TTL
+# Constraints on AnimalSubjectShape, example for FDA Rule SD1002 
+#
+@prefix study: <https://w3id.org/phuse/study#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+
+# Define the outer AnimalSubjectShape that has a number of consituent shapes
+:AnimalSubjectShape a sh:NodeShape ;
+  sh:targetClass  study:AnimalSubject ;
+  sh:property     :rfstdtcShape ;
+  sh:property     :rfendtcShape ;
+  sh:property     :SD1002RuleShape .
+  # additional constraints here for FDA Rules
+
+# RFSTDTC Constraints
+:rfstdtcShape a  sh:PropertyShape;
+  sh:path     study:rfstdtc ;
+  sh:or (
+    [sh:datatype xsd:date ; ]
+    [sh:datatype xsd:dateTime ; ]
+  ) ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
+# RFENDTC Constraints
+:rfendtcShape a  sh:PropertyShape;
+  sh:path     study:rfendtc ;
+  sh:or (
+    [sh:datatype xsd:date ; ]
+    [sh:datatype xsd:dateTime ; ]
+  ) ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
+# SD1002 Constraint
+:SD1002RuleShape a :PropertyShape  ;
+  sh:path              study:rfstdtc ;
+  sh:lessThanOrEquals  study:rfendtc ;
+  sh:message "RFSTDTC is after RFENDTC." .

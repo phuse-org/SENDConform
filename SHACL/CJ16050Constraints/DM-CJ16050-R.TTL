@@ -144,7 +144,7 @@ cj16050:Date_2016-12-08
 cj16050:Date_7-DEC-16
     a study:ReferenceEnd ;
     skos:prefLabel "Date 7-DEC-16"^^xsd:string ;
-    time:inXSDDate "7-DEC-16"^^xsd:date ;
+    time:inXSDDate "7-DEC-16"^^xsd:string ;
     study:dateTimeInXSDString "7-DEC-16"^^xsd:string .
 
 cj16050:Interval_2016-12-07_2016-12-06

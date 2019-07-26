@@ -1,0 +1,32 @@
+# SHACL-SD1002.TTL
+# FDA Rule SD1002 for CJ16050
+#
+@prefix study: <https://w3id.org/phuse/study#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#>  .
+@prefix time: <http://www.w3.org/2006/time#> .
+
+# Rerference Interval 
+:ReferenceIntervalShape a sh:NodeShape ;
+ sh:targetClass study:ReferenceInterval ;
+ sh:sparql [
+  a sh:SPARQLConstraint ;
+  sh:message "End Date must be greater than or equal to Begin Date";
+  sh:prefixes [
+    sh:declare [
+      sh:prefix "time" ;
+      sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
+    ], [
+      sh:prefix "study" ;
+      sh:namespace "https://w3id.org/phuse/study#"^^xsd:anyURI ;
+    ]  
+  ] ;
+ sh:select
+  """SELECT $this (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
+    WHERE {
+      $this     time:hasBeginning  ?beginIRI ;
+                time:hasEnd        ?endIRI .
+      ?beginIRI time:inXSDDate     ?beginDate .
+      ?endIRI   time:inXSDDate     ?endDate .
+      FILTER  (! (?endDate >= ?beginDate ))
+    }""" ;
+] .

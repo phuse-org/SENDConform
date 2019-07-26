@@ -38,7 +38,7 @@ cj16050:Animal_00M01
   study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-07 ;
   study:hasSubjectID cj16050:SubjectIdentifier_1 ;
   study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_1 ;
-  study:memberOf cjprot:Set_0 ;
+  study:memberOf cjprot:Set_00 ;
   study:memberOf code:Species_Rat ;
   study:participatesIn cj16050:AgeDataCollection_1 ;
   study:participatesIn cj16050:SexDataCollection_1 ;

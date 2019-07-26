@@ -21,6 +21,45 @@ dm$ROWID_IM <-  (1:nrow(dm))
 dm$SPECIESCD_IM <- "Rat"
 dm$AGEUNIT_IM   <- "Week" # to link to time namespace
 dm$DURATION_IM  <- "P56D" 
+
+# Necessary for later manipulation
+dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
+
+#' Add errors to DM Domain for testing constraints
+#' 
+
+#TWaddErrDM<-function()
+#TW{
+  # Create test data that contains errors
+  dmErr <- data.frame(dm[1:4,])  # pick off a range of rows at the top of the DF  (only 1 avail during dev!)
+  
+  
+  dmErr$subjid <- gsub("0", "9", dmErr$subjid )
+  dmErr$usubjid <- paste0("CJ16050_", gsub("0", "9", dmErr$subjid ) )
+  
+  # Set ROWID_IM (used in creating identifiers for that row of data)
+  dmErr$ROWID_IM <- paste0("99-", dmErr$ROWID_IM )
+  
+  # Trip: RFENDTC prior to RFSTDTC
+  dmErr[dmErr$subjid == '99M91', "rfendtc"] <- "2016-12-06"
+
+  # Trip: More than one RFSTDTC and RDFENDTC for a single subject
+  #   Merge test subject data from 99M92, 99M93 into single subject 99M92
+  #   99M92 - start=12-07, end = 12-07 
+  #   99M93 - start=12-08, end = 12-08 
+  #   So reassign the 99M3 subjid and usubjid to 99M92 to get duplicate dates
+  dmErr[dmErr$subjid == '99M93', "subjid"] <- "99M92"
+  dmErr[dmErr$usubjid == 'CJ16050_99M93', "usubjid"] <- "CJ16050_99M92"
+  
+  # Trip: End is xsd:date
+  dmErr[dmErr$subjid == '99M94', "rfendtc"] <- "7-DEC-16"
+  
+  # Error data appended to real data.
+  dm <-rbind (dm, dmErr)
+#TW}
+#TWdm <- addErrDM()
+
+  
 #------------------------------------------------------------------------------
 #--- RDF Creation Statements --------------------------------------------------
 some_rdf <- rdf()  # initialize 
@@ -262,13 +301,6 @@ for(i in 1:nrow(dm))
     subject      = paste0(CJPROT, paste0("Study_", dm[i,"studyid"])), 
     predicate    = paste0(STUDY,  "hasStudyParticipant"), 
     object       = paste0(CJ16050, "Animal_", dm[i,"subjid"])
-  )
-  
-  # Code  (should move to code?)
-  rdf_add(some_rdf, 
-    subject      = paste0(CODE, paste0("Species_", dm[i,"SPECIESCD_IM"])), 
-    predicate    = paste0(RDF,  "type"), 
-    object       = paste0(STUDY, "Species")
   )
 
 }

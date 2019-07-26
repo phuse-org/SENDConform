@@ -12,9 +12,6 @@ The conversion process will provide a minimum of two alternatives. A third alter
 1. R to CSV, CSV to Stardog triplestore using SMS
    The same scripts used to create TTL files also output a CSV file that can be mapped to the Stardog triplestore using Stardog Mapping Syntax (SMS) or other triplestore using R2RML. A benefit of this approach is that the team already has an RShiny app for visualizing SMS files, which is very helpful for validating the schema and later as an aid for constructing queries.
 
-
-
-
 ## Source Data
 
 SAS transport XPT data files for conversion and testing are located in the folder:
@@ -62,10 +59,7 @@ TBD
 ### Miscellaneous RDF Guidance
 #### Labels
 
-* `skos:prefLabel` is the primary label used in the graph. It may be supplemented later with `rdfs:label` and language tags. 
-* Labels specific to a person, including intervals specific to that person, include the value of usubjid in that label.
-* Labels for *intervals* use the imputed (_im) values as the `skos:prefLabel` instead of the more readable individual dates. The reason is that if one date is missing, as is common for LifeSpan and InformedConsent intervals, the label is not created. 
-
+* `skos:prefLabel` is the primary label used in the graph. `rdfs:label` contains supplemental labels. For controlled terms, `skos:prefLabel` contains the industry standard (CDISC) label, which is often in plural form (DAYS, WEEKS, etc.) while `rdfs:label` contains the W3C standard in singular form (DAY, WEEK, etc.)
 
 # Data Files and Mapping Detail
 
@@ -74,8 +68,39 @@ Graph metadata, including data conversion date and graph version, is created wit
 
 | File      | Role                     | Description                                  |
 | --------- | ------------------------ | ---------------------------------------------|
-|Graphmeta.csv | Basic graph metadata | Description of graph content, status, version, and time stamp information.
-|Graphmeta_map.TTL|SMS Map | Map to graph. |
+|Graphmeta-*StudyName*.csv | Basic graph metadata | Description of graph content, status, version, and time stamp information.
+|Graphmeta-*StudyName*-map.TTL|SMS Map | Map CSV to Stardog graph. |
+|Graphmeta-*StudyName*.TTL| RDF Triples | TTL file for loading directly into triplestore. |
+
+
+## Trial Data
+ 
+ Imputed variables are named in UPPERCASE and include the suffix `_IM` .
+
+| File      | Role                     | Description                                  |
+| --------- | ------------------------ | ---------------------------------------------|
+| driver.R  | driver program           | Calls data conversion programs in sequence. Creates graph metadata files.
+
+ 
+### DM 
+| File      | Role                     | Description                                  |
+| --------- | ------------------------ | ---------------------------------------------|
+| DM-Convert.R| Data conversion        | XPT to CVS and TTL. Data imputation.
+| DM-CJ16050.CSV | Demographics        |  May be a subset during development. |
+| DM-CJ16050-R-map.TTL | SMS Map       | Map CSV to Stardog graph. |
+| DM-CJ16050-R.TTL | RDF Triples       | TTL file for loading directly into triplestore. |
+
+#### CJ16050
+##### Data Imputation
+| Variable     | Value(s)            | Description                                  |
+| ------------ | ------------------- | ---------------------------------------------|
+| SPECIESCD_IM |  "Rat"              | Species Code not specified in DM data file.
+| AGEUNIT_IM   |  "Week"             | A representation of the age unit that is used to link to time namespace. |
+| DURATION_IM  | "P56D"              | Duraction code, derived from 8 weeks x 7 days/wk. |
+
+### TS
+
+*Future development*
 
 
 

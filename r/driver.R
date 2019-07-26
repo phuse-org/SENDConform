@@ -13,6 +13,8 @@
 # NOTE: Example uses study CJ16050. Change code to set this value as a variable.
 # TODO: Add .csv files for SMS alternate approach.
 #______________________________________________________________________________
+options(stringsAsFactors = FALSE)
+
 library(data.table)  # dcast
 library(dplyr)       # Recode, mutate with pipe in Functions.R, other dplyr goodness
 library(Hmisc)       # Import XPT
@@ -28,7 +30,7 @@ source('r/Functions.R')  # Functions: readXPT(), encodeCol(), etc.
 studyNameUc <- "CJ16050"  # Change for other studies.
 studyNameLc <- tolower(studyNameUc)
 
-dm_n=1;  # The first n patients from the DM domain.
+dm_n=4;  # The first n patients from the DM domain.
 
 # sendPath="data/studies/send/FFU-Contribution-to-FDA"
 sendPath="data/studies/RE Function in Rats"
@@ -161,7 +163,8 @@ write.csv(graphMeta, file="data/studies/RE Function in Rats/ttl/Graphmeta-CJ1605
 # --- XPT Import -------------------------------------------------------------
 # --- DM ----
 
-dm <- readXPT(dataPath = sendPath, domain = "dm")
+dm <- data.frame(readXPT(dataPath = sendPath, domain = "dm"), stringsAsFactors=FALSE)
+
 dm  <- head(dm, dm_n) #subset for development
 
 # source('R/DM_convert.R')  # Impute values 
