@@ -4,29 +4,67 @@
 @prefix study: <https://w3id.org/phuse/study#> .
 @prefix sh:   <http://www.w3.org/ns/shacl#>  .
 @prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-# Rerference Interval 
-:ReferenceIntervalShape a sh:NodeShape ;
- sh:targetClass study:ReferenceInterval ;
- sh:sparql [
-  a sh:SPARQLConstraint ;
-  sh:message "End Date must be greater than or equal to Begin Date";
-  sh:prefixes [
-    sh:declare [
-      sh:prefix "time" ;
-      sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
-    ], [
-      sh:prefix "study" ;
-      sh:namespace "https://w3id.org/phuse/study#"^^xsd:anyURI ;
-    ]  
-  ] ;
- sh:select
-  """SELECT $this (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
-    WHERE {
-      $this     time:hasBeginning  ?beginIRI ;
-                time:hasEnd        ?endIRI .
-      ?beginIRI time:inXSDDate     ?beginDate .
-      ?endIRI   time:inXSDDate     ?endDate .
-      FILTER  (! (?endDate >= ?beginDate ))
-    }""" ;
-] .
+# Define the outer AnimalSubjectShape that has a number of consituent shapes
+#:AnimalSubjectShape a sh:NodeShape ;
+#  sh:targetClass  study:AnimalSubject ;
+#  sh:property     :rfstdtcShape .
+#  sh:property     :rfendtcShape ;
+#  sh:property     :SD1002RuleShape .
+  # additional constraints here for FDA Rules
+
+# An AnimalSubject must have one and only one ReferenceInterval
+#  When a subject has >1 date for a begin or and end, it results
+#  in a new interval IRI, so no need to check for >1 :hasBeginning
+#  or >1 :hasEnd.
+#:RefIntervalShape a sh:NodeShape ;
+#  sh:targetClass study:AnimalSubject ;  
+#  sh:nodeKind sh:IRI ;
+#  sh:path study:hasReferenceInterval ;
+#  sh:minCount 1;
+#  sh:maxCount 1 .
+
+# Dates must be xsd:date for dates associated with either :hasBeginning or :hasEnd
+#  Other predicates can be added here for additional dates.
+:DateShape a sh:NodeShape ;
+  sh:targetObjectsOf time:hasBeginning ;
+  sh:targetObjectsOf time:hasEnd ;
+  sh:class study:ReferenceEnd ;
+  sh:property [
+    sh:path time:inXSDDate ;  
+    sh:datatype xsd:date ;
+  ] .  
+
+# AnimalSubject must have one and only one ReferenceInterval
+#  SHACL-SPARQL to traverse graph from AnimalSubject to
+#  date values.  
+
+## Reference Interval 
+#:SD1002RuleShape a sh:NodeShape ;
+# sh:targetClass study:ReferenceInterval ;
+# sh:sparql [
+#  a sh:SPARQLConstraint ;
+#  sh:message "End Date must be greater than or equal to Begin Date";
+#  sh:prefixes [
+#    sh:declare [ sh:prefix "time" ;
+#      sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
+#    ],
+#    [ sh:prefix "study" ;
+#      sh:namespace "https://w3id.org/phuse/study#"^^xsd:anyURI ;
+#    ]  
+#  ] ;
+# sh:select
+#  """SELECT $this (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
+#    WHERE {
+#      $this     time:hasBeginning  ?beginIRI ;
+#                time:hasEnd        ?endIRI .
+#      ?beginIRI time:inXSDDate     ?beginDate .
+#      ?endIRI   time:inXSDDate     ?endDate .
+#      FILTER  (! (?endDate >= ?beginDate ))
+#    }""" ;
+#] .
+#
+#:SD1002RuleShape sh:deactivated true .
+
+# :RefIntervalShape sh:deactivated true .
