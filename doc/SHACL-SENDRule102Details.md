@@ -147,7 +147,7 @@ Shape        | Rule Component | Check
 
 Validation Report (excerpt):
 
-<pre class='result'>
+<pre style="background-color:#EEDDBB">
     a sh:ValidationReport ;
         sh:conforms false ;
         sh:result [
