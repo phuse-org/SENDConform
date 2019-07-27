@@ -178,7 +178,7 @@ Validation Report (excerpt):
 
 Validation Report (excerpt):
 
-<pre class='result'>
+<pre style="background-color:red;">
    COMING SOON
 </pre>
 
