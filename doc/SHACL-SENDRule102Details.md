@@ -38,7 +38,15 @@ A TTL file for development and testing purposes is  created in the location /SHA
 
 <pre class='data'>
 time:inXSDDate "7-DEC-16"^^xsd:<font class="error">string</font> ;
+(this used a class)
 </pre>
+
+
+<pre style="background-color:#EEEEBB;">
+time:inXSDDate "7-DEC-16"^^xsd:<font class="error">string</font> ;
+(this used an inline style)
+</pre>
+
 
 Rules violated by test data include: 
 
@@ -147,7 +155,7 @@ Shape        | Rule Component | Check
 
 Validation Report (excerpt):
 
-<pre style="background-color:#EEDDBB">
+<div style="background-color:#E2EC9A;">
     a sh:ValidationReport ;
         sh:conforms false ;
         sh:result [
@@ -179,7 +187,7 @@ Validation Report (excerpt):
 
 Validation Report (excerpt):
 
-<pre style='background-color:red; background:red;'>
+<div style="background-color:#E2EC9A;">
    COMING SOON
 </pre>
 
