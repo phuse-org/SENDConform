@@ -165,20 +165,21 @@ Validation Report (excerpt):
 **3.1.2 RefIntervalShape**
 
 <font class='error'>This section subject to change based on ReferenceInterval IRI creation method</font>
+<div  style="background-color:#E2EC9A;">
+<pre>
+:RefIntervalShape a sh:NodeShape ;
+  sh:targetClass study:AnimalSubject ;  
+  sh:nodeKind sh:IRI ;
+  sh:path study:hasReferenceInterval ;
+  sh:minCount 1;
+  sh:maxCount 1 .
+</pre>  
 
-<pre class='shacl'>
-  :RefIntervalShape a sh:NodeShape ;
-    sh:targetClass study:AnimalSubject ;  
-    sh:nodeKind sh:IRI ;
-    sh:path study:hasReferenceInterval ;
-    sh:minCount 1;
-    sh:maxCount 1 .
-</pre>
-
+</div>
 
 Validation Report (excerpt):
 
-<pre style="background-color:red;">
+<pre style='background-color:red; background:red;'>
    COMING SOON
 </pre>
 
@@ -215,10 +216,9 @@ The SD1002RuleShape uses SHACL-SPARQL to determine if the end date (rfendtc) is 
 
 Validation Report (excerpt):
 
-<pre class='result'>
+<div style="background-color:#E2EC9A;">
    COMING SOON
-</pre>
-
+</div>
 
 
 ### 4. Applying the Constraints
