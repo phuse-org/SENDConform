@@ -283,7 +283,9 @@ Validation Report (excerpt):
 
 1. Assuming Stardog is available on the command line and the data and constraints are added into the SHACLTest database, execute this command:
 
-    stardog icv report SENDConform
+<pre style="background-color:#F6F6F6;">
+  stardog icv report SENDConform
+</pre>
 
 You may redirect the report to a text file on your local machine, assuming you have the repository cloned to C:\_github\SENDConform 
 
