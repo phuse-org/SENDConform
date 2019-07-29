@@ -21,22 +21,19 @@ Contains the following explicit and implicit components:
 #### Rule Components
 
 <div style='background-color:#F6F6F6;'>
-
 1.1 Reference Start Date (RFSTDTC) and End Date (RFENDTC) must be in <font class="emph">date format</font>. The study in this example uses xsd:date while other datasets could also use xsd:dateTime. 
 </div>
+<br/><br/>
 
 <div style='background-color:#F6F6F6;'>
-
 1.2 Animal Subject must have <font class='emph'>one and only one value</font> for each of RFSTDTC and RFENDTC. (Not explicitly stated   in the FDA text.)
-
 </div>
+<br/><br/>
 
 <div style='background-color:#F6F6F6;'>
-    
 1.3 The <b>SD1002 rule</b>: Start Date must be less than or equal to End Date (<font class='emph'>RFSTDTC</font> less than or equal to RFENDTC</font>). When this rule is violated, the system should supply the standard FDA message <font class='error msg'>"RFSTDTC is after RFENDTC"</font>. 
-
 </div>
-
+<br/><br/>
 
 ### 2. Data 
 
