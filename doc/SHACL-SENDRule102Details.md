@@ -1,8 +1,12 @@
-<link href="styles.css" rel="stylesheet"/>
+<link href="styles.css?v=1" rel="stylesheet"/>
 
 # Modeling SEND Rule SD1002 in SHACL
 
 ### 1. FDA Rule
+
+<pre class="result">
+TEST
+</pre>
 
 This example models the SEND-IG 3.0 rule **SD1020** for the DM domain as defined in the file [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx)
 
