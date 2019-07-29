@@ -19,19 +19,19 @@
 # Rule Component 1.1 Start and End Dates as xsd:date
 #   Dates are associated with :hasBeginning or :hasEnd
 #   Other predicates can be added here for additional dates.
-:DateShape a sh:NodeShape ;
-  sh:targetObjectsOf time:hasBeginning ;
-  sh:targetObjectsOf time:hasEnd ;
-  sh:class study:ReferenceEnd ;
-  sh:prefixes [
-    sh:declare [ sh:prefix "cj16050" ;
-      sh:namespace "https://example.org/cj16050#"^^xsd:anyURI ;
-    ]
-  ] ;
-  sh:property [
-    sh:path time:inXSDDate ;  
-    sh:datatype xsd:date ;
-  ] .  
+#:DateShape a sh:NodeShape ;
+#  sh:targetObjectsOf time:hasBeginning ;
+#  sh:targetObjectsOf time:hasEnd ;
+#  sh:class study:ReferenceEnd ;
+#  sh:prefixes [
+#    sh:declare [ sh:prefix "cj16050" ;
+#      sh:namespace "https://example.org/cj16050#"^^xsd:anyURI ;
+#    ]
+#  ] ;
+#  sh:property [
+#    sh:path time:inXSDDate ;  
+#    sh:datatype xsd:date ;
+#  ] .  
 
 # Rule Component 1.2 Animal Subject has one and only one value for RFSTDTC and RFENDTC
 # An AnimalSubject must have one and only one ReferenceInterval
@@ -46,29 +46,29 @@
 #  sh:maxCount 1 .
 
 # Rule Component 1.3 SD1002: Start Date must be less than or equal to End Date
-#:SD1002RuleShape a sh:NodeShape ;
-# sh:targetClass study:ReferenceInterval ;
-# sh:sparql [
-#  a sh:SPARQLConstraint ;
-#  sh:message "End Date must be greater than or equal to Begin Date";
-#  sh:prefixes [
-#    sh:declare [ sh:prefix "time" ;
-#      sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
-#    ],
-#    [ sh:prefix "study" ;
-#      sh:namespace "https://w3id.org/phuse/study#"^^xsd:anyURI ;
-#    ]  
-#  ] ;
-# sh:select
-#  """SELECT $this (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
-#    WHERE {
-#      $this     time:hasBeginning  ?beginIRI ;
-#                time:hasEnd        ?endIRI .
-#      ?beginIRI time:inXSDDate     ?beginDate .
-#      ?endIRI   time:inXSDDate     ?endDate .
-#      FILTER  (! (?endDate >= ?beginDate ))
-#    }""" ;
-#] .
+:SD1002RuleShape a sh:NodeShape ;
+ sh:targetClass study:ReferenceInterval ;
+ sh:sparql [
+  a sh:SPARQLConstraint ;
+  sh:message "RFSTDTC is after RFENDTC";
+  sh:prefixes [
+    sh:declare [ sh:prefix "time" ;
+      sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
+    ],
+    [ sh:prefix "study" ;
+      sh:namespace "https://w3id.org/phuse/study#"^^xsd:anyURI ;
+    ]  
+  ] ;
+ sh:select
+  """SELECT $this (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
+    WHERE {
+      $this     time:hasBeginning  ?beginIRI ;
+                time:hasEnd        ?endIRI .
+      ?beginIRI time:inXSDDate     ?beginDate .
+      ?endIRI   time:inXSDDate     ?endDate .
+      FILTER  (! (?endDate >= ?beginDate ))
+    }""" ;
+] .
 #
 #:SD1002RuleShape sh:deactivated true .
 #:RefIntervalShape sh:deactivated true .

@@ -145,17 +145,10 @@ cj16050:Animal_99M94
 cj16050:Animal_99M95
     a study:AnimalSubject ;
     skos:prefLabel "Animal 99M95"^^xsd:string ;
-    study:hasReferenceInterval <https://example.org/cj16050#Interval_2016-12-09_\u0020> ;
     study:hasSubjectID cj16050:SubjectIdentifier_99-5 ;
     study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_99-5 ;
     study:memberOf cjprot:Set_00, code:Species_Rat ;
     study:participatesIn cj16050:AgeDataCollection_99-5, cj16050:SexDataCollection_99-5 .
-
-<https://example.org/cj16050#Date_\u0020>
-    a study:ReferenceEnd ;
-    skos:prefLabel "Date  "^^xsd:string ;
-    time:inXSDDate " "^^xsd:date ;
-    study:dateTimeInXSDString " "^^xsd:string .
 
 cj16050:Date_2016-12-06
     a study:ReferenceEnd ;
@@ -184,7 +177,7 @@ cj16050:Date_2016-12-09
 cj16050:Date_7-DEC-16
     a study:ReferenceEnd ;
     skos:prefLabel "Date 7-DEC-16"^^xsd:string ;
-    time:inXSDDate "7-DEC-16"^^xsd:date ;
+    time:inXSDDate "7-DEC-16"^^xsd:string ;
     study:dateTimeInXSDString "7-DEC-16"^^xsd:string .
 
 cj16050:Interval_2016-12-07_2016-12-06
@@ -210,12 +203,6 @@ cj16050:Interval_2016-12-08_7-DEC-16
     skos:prefLabel "Interval 2016-12-08 7-DEC-16"^^xsd:string ;
     time:hasBeginning cj16050:Date_2016-12-08 ;
     time:hasEnd cj16050:Date_7-DEC-16 .
-
-<https://example.org/cj16050#Interval_2016-12-09_\u0020>
-    a study:ReferenceInterval ;
-    skos:prefLabel "Interval 2016-12-09  "^^xsd:string ;
-    time:hasBeginning cj16050:Date_2016-12-09 ;
-    time:hasEnd <https://example.org/cj16050#Date_\u0020> .
 
 cj16050:Interval_2016-12-09_2016-12-09
     a study:ReferenceInterval ;

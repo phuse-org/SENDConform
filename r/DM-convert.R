@@ -31,19 +31,18 @@ dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
 #TWaddErrDM<-function()
 #TW{
   # Create test data that contains errors
-  dmErr <- data.frame(dm[1:5,])  # pick off a range of rows at the top of the DF  (only 1 avail during dev!)
-  
-  
+  dmErr <- data.frame(dm[1:5,])  # pick off a range of rows at the top of the DF  
+
   dmErr$subjid <- gsub("0", "9", dmErr$subjid )
   dmErr$usubjid <- paste0("CJ16050_", gsub("0", "9", dmErr$subjid ) )
   
   # Set ROWID_IM (used in creating identifiers for that row of data)
   dmErr$ROWID_IM <- paste0("99-", dmErr$ROWID_IM )
   
-  # Trip: RFENDTC prior to RFSTDTC
+  # Test Case: RFENDTC prior to RFSTDTC
   dmErr[dmErr$subjid == '99M91', "rfendtc"] <- "2016-12-06"
 
-  # Trip: More than one RFSTDTC and RDFENDTC for a single subject
+  # Test Case: More than one RFSTDTC and RDFENDTC for a single subject
   #   Merge test subject data from 99M92, 99M93 into single subject 99M92
   #   99M92 - start=12-07, end = 12-07 
   #   99M93 - start=12-08, end = 12-08 
@@ -51,11 +50,11 @@ dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
   dmErr[dmErr$subjid == '99M93', "subjid"] <- "99M92"
   dmErr[dmErr$usubjid == 'CJ16050_99M93', "usubjid"] <- "CJ16050_99M92"
   
-  # Trip: End is xsd:date
+  # Test Case: rfendtc as xsd:string
   dmErr[dmErr$subjid == '99M94', "rfendtc"] <- "7-DEC-16"
 
   # Trip: Missing End date 
-  dmErr[dmErr$subjid == '99M95', "rfendtc"] <- " "
+  dmErr[dmErr$subjid == '99M95', "rfendtc"] <- NA
   
     
   # Error data appended to real data.
@@ -84,14 +83,17 @@ for(i in 1:nrow(dm))
     datatype_uri = paste0(XSD,"string")
   )
   
+  ## Reference Interval
   # only create interval when both rfstdtc and rfendtc are present
-  # TODO: ADD THE CODE!
-  
-  rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
-    predicate    = paste0(STUDY,  "hasReferenceInterval"), 
-    object       = paste0(CJ16050, paste0("Interval_",dm[i,"rfstdtc"], "_", dm[i,"rfendtc"]))
-  )
+  if( ! is.na (dm[i,"rfstdtc"]) &&
+      ! is.na (dm[i,"rfendtc"]) )
+  {    
+    rdf_add(some_rdf, 
+      subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+      predicate    = paste0(STUDY,  "hasReferenceInterval"), 
+      object       = paste0(CJ16050, paste0("Interval_",dm[i,"rfstdtc"], "_", dm[i,"rfendtc"]))
+    )
+  }  
   rdf_add(some_rdf, 
     subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
     predicate   = paste0(STUDY,  "hasSubjectID"), 
@@ -127,7 +129,7 @@ for(i in 1:nrow(dm))
     # TODO: ADD THE CODE!
     ## Reference Interval
     if( ! is.na (dm[i,"rfstdtc"]) &&
-        ! is.na (dm[i,"rfstdtc"]) )
+        ! is.na (dm[i,"rfendtc"]) )
     {    
       rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Interval_",dm[i,"rfstdtc"], "_", dm[i,"rfendtc"])),
@@ -153,7 +155,8 @@ for(i in 1:nrow(dm))
       ) 
     }
     # END OF INTERVAL CREATION
-      # Begin Date
+    # Begin Date
+    if( ! is.na (dm[i,"rfstdtc"])){
       rdf_add(some_rdf, 
         subject      = paste0(CJ16050, "Date_", dm[i,"rfstdtc"]),
         predicate    = paste0(RDF,  "type"), 
@@ -180,34 +183,38 @@ for(i in 1:nrow(dm))
         objectType   = "literal", 
         datatype_uri = paste0(XSD,"string")
       )
-
-      # End Date
-      rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
-        predicate    = paste0(RDF,  "type"), 
-        object       = paste0(STUDY, "ReferenceEnd")
-      )    
-      rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
-        predicate    = paste0(SKOS, "prefLabel"),
-        object       = paste0("Date ", dm[i, "rfendtc"]),
-        objectType   = "literal", 
-        datatype_uri = paste0(XSD,"string")
-      )
-      rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
-        predicate    = paste0(TIME, "inXSDDate"),
-        object       = dm[i, "rfendtc"],
-        objectType   = "literal", 
-        datatype_uri = paste0(XSD,"date")
-      )
-      rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
-        predicate    = paste0(STUDY, "dateTimeInXSDString"),
-        object       = dm[i, "rfendtc"],
-        objectType   = "literal", 
-        datatype_uri = paste0(XSD,"string")
-      )
+    }
+      
+    # End Date
+     if( ! is.na (dm[i,"rfendtc"]) ) {
+        rdf_add(some_rdf, 
+          subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
+          predicate    = paste0(RDF,  "type"), 
+          object       = paste0(STUDY, "ReferenceEnd")
+        )    
+        
+        rdf_add(some_rdf, 
+          subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
+          predicate    = paste0(SKOS, "prefLabel"),
+          object       = paste0("Date ", dm[i, "rfendtc"]),
+          objectType   = "literal", 
+          datatype_uri = paste0(XSD,"string")
+        )
+        rdf_add(some_rdf, 
+          subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
+          predicate    = paste0(TIME, "inXSDDate"),
+          object       = dm[i, "rfendtc"],
+          objectType   = "literal", 
+          datatype_uri = paste0(XSD,"date")
+        )
+        rdf_add(some_rdf, 
+          subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
+          predicate    = paste0(STUDY, "dateTimeInXSDString"),
+          object       = dm[i, "rfendtc"],
+          objectType   = "literal", 
+          datatype_uri = paste0(XSD,"string")
+        )
+      }
 
   ## Subject Identifier
   rdf_add(some_rdf, 
@@ -380,3 +387,6 @@ csvFile = paste0(sendPath, "/ttl/DM-CJ16050-R.csv")
 write.csv(dm, file=csvFile, 
    row.names = F,
    na = "")
+
+# reset dm to null
+dm <- dm[0,]

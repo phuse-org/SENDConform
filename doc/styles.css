@@ -64,7 +64,7 @@ body{
   font-weight: bold;
 }
 
-/* Formatting of <pre> boxes 
+/* Formatting of boxes 
    Shapes graph   #DDEEBB green
    data           #EEEEBB olive
    result        #EEDDBB brown
@@ -74,15 +74,12 @@ body{
 */
 
 .data{
-  background:       #EEEEBB; 
   background-color: #EEEEBB; 
 }
 
 .shacl{
-  background:       #DDEEBB;
   background-color: #DDEEBB;
 }  
 .result{
- background:       #EEDDBB; 
  background-color: #EEDDBB; 
 }
