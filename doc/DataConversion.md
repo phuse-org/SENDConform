@@ -30,8 +30,6 @@ Another folder contains DM and TS data in CSV form for ease of loading into Exce
     SENDConform\data\studies\<font class="extraInfo">Study Name</font>\csv
 </pre>
 
-
-
 ## Conversion Scripts
 
 
@@ -43,12 +41,50 @@ Another folder contains DM and TS data in CSV form for ease of loading into Exce
 | 3.     | TS_convert.R         | TM conversion to TTL (not yet written)   |
 
 
+## General Guidance
 
-## General Rules
-TBD
+#### Generating Unique Identifiers for Animal Subjects
+Traditionally, SUBJID and USUBJID are used as unique identifiers withing and between studies. There is a temptation to use these identifiers when forming IRIs. The approach simplifies IRI creation and is very human readable allowing the person to immediately determine that this subject is the animal with the SUBJID of "00M01".
 
+`cj16050:Animal_00M01`
 
-### Data Creation: Adding Rules
+The use of SUBJID is also fraught with problems. 
+
+* A SUBJID is accidentally re-used and assigned to more than one animal, so two distinct animals have the same ID number. The  resulting RDF would have all observations assigned to a single IRI and it would be difficult to identify the duplication. 
+
+* The same animal is accidentally assigned two different SUBJID values. Results are now seen as belonging to two separate individuals, which is also incorrect. 
+
+The solution is to generated a Globally Unique Identifier for each animal subject and associate SUBJID and USUBJID with that ID.
+
+# Create Study URI from programmatically generated UUID
+
+<pre style="background-color:#DDEEFF;">
+  library(uuid)
+  animalUID <- UUIDgenerate()
+  animalIRI    <- paste0("cj16050:Animal_", animalUID)
+  animalIRI                                 
+</pre>
+
+The code above will result in a new identifier string each time the code is run. For this project we want the identifiers to remain constant over time as the code is developed. A compromise was chosen where the UID is generated as an SHA-1 hash of the animal's assigned USUBJID. To increase readabilty for the for the prototype, the SHA-1 values are shortened to 10 characters from the original 40 characters.
+
+<pre style="background-color:#DDEEFF;">
+  library(digest)
+  usubjid <- 'CJ16050_00M01'
+  animalIRI <- paste0("cj16050:Animal_", strtrim(sha1(usubjid), 8))  # Truncate for readabilty in the pilot
+  animalIRI
+</pre>
+
+Results consistently in the value:
+`cj16050:Animal_a6d09184`
+
+While dependent on the USUBJID for generation of the ID, this method allows:
+* the ID value to remain constant over time 
+* separation of the SUBJID or USUBJID from Animal IRI
+* facilitates testing for duplicate, missing, and incorrectly assigned SUBJID/USUBJID values.
+
+See the [Technical Details page](https://github.com/phuse-org/UIDPharma/blob/master/UUIDTechDetails.md)) of the project [Unique Identifiers for the Pharmaceutical Industry]https://github.com/phuse-org/UIDPharma) for more information on generating unique identifiers.
+
+### Data Creation: More details.
 TBD
 
 
@@ -68,7 +104,7 @@ Graph metadata, including data conversion date and graph version, is created wit
 
 | File      | Role                     | Description                                  |
 | --------- | ------------------------ | ---------------------------------------------|
-|Graphmeta-*StudyName*.csv | Basic graph metadata | Description of graph content, status, version, and time stamp information.
+|Graphmeta-*StudyName*.csv | Basic graph metadata | Description of graph content, status, version, and time stamp information. |
 |Graphmeta-*StudyName*-map.TTL|SMS Map | Map CSV to Stardog graph. |
 |Graphmeta-*StudyName*.TTL| RDF Triples | TTL file for loading directly into triplestore. |
 
@@ -77,8 +113,8 @@ Graph metadata, including data conversion date and graph version, is created wit
  
  Imputed variables are named in UPPERCASE and include the suffix `_IM` .
 
-| File      | Role                     | Description  |                                |
-| --------- | ------------------------ |              | -----------------------------------------------------------|
+| File      | Role                     | Description                  |
+| --------- | ------------------------ |------------------------------|
 | driver.R  | driver program           | Calls data conversion programs in sequence. Creates graph metadata files.
 
  
