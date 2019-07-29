@@ -4,10 +4,6 @@
 
 ### 1. FDA Rule
 
-<pre class="result">
-TEST
-</pre>
-
 This example models the SEND-IG 3.0 rule **SD1020** for the DM domain as defined in the file [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx)
 
 FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Business or Conformance Rule Validated | FDA Validator Rule  
@@ -40,23 +36,16 @@ The R script adds observations to test the rule components using SHACL constrain
 
 A TTL file for development and testing purposes is  created in the location /SHACL/CJ16050Constraints. The TTL file is manually edited to change the format of the date value `7-DEC-16` to `xsd:string` from the original `xsd:date`.
 
-<pre class='data'>
-time:inXSDDate "7-DEC-16"^^xsd:<font class="error">string</font> ;
-(this used a class)
-</pre>
-
-
 <pre style="background-color:#EEEEBB;">
 time:inXSDDate "7-DEC-16"^^xsd:<font class="error">string</font> ;
 (this used an inline style)
 </pre>
 
-
 Rules violated by test data include: 
 
 **Rule Component 1.1** Start Date and End Date in date (xsd:date) format 
 
-<pre class='data'>
+<pre style="background-color:#EEEEBB;">
     cj16050:Interval_2016-12-08_7-DEC-16
       a study:ReferenceInterval ;
       time:hasBeginning cj16050:Date_2016-12-08 ;
@@ -75,39 +64,38 @@ As a result of how the reference intervals are constructed in RDF, duplicate `rf
 
 *a) More than one interval*
 
-<pre class='data'>
-    cj16050:Animal_99M92
-      a study:AnimalSubject ;
-      study:hasReferenceInterval <font class='error'>cj16050:Interval_2016-12-07_2016-12-07, 
-                                 cj16050:Interval_2016-12-08_2016-12-08 </font> .
+<pre style="background-color:#EEEEBB;">
+  cj16050:Animal_99M92
+    a study:AnimalSubject ;
+    study:hasReferenceInterval <font class='error'>cj16050:Interval_2016-12-07_2016-12-07, 
+                               cj16050:Interval_2016-12-08_2016-12-08 </font> .
 </pre>
 
 *b) no interval*
-<pre class='data'>
-
-  *Example Data coming soon*
+<pre style="background-color:#EEEEBB;">
+   *Example Data coming soon*
 </pre>
 
 
 **Rule Component 1.3** : Reference Interval End Date is on or after Start Date 
 
-<pre class='data'>
-    cj16050:<font class='emph'>Animal_99M91</font>
-      a                          study:AnimalSubject ;
-      study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-06 .
+<pre style="background-color:#EEEEBB;">
+  cj16050:<font class='emph'>Animal_99M91</font>
+    a                          study:AnimalSubject ;
+    study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-06 .
     
-    cj16050:Interval_2016-12-07_2016-12-06
-      a                 study:ReferenceInterval ;
-      time:<font class='emph'>hasBeginning</font> cj16050:<font class='error'>Date_2016-12-07</font> ;
-      time:<font class='emph'>hasEnd</font>       cj16050:<font class='error'>Date_2016-12-06</font> .
+  cj16050:Interval_2016-12-07_2016-12-06
+    a                 study:ReferenceInterval ;
+    time:<font class='emph'>hasBeginning</font> cj16050:<font class='error'>Date_2016-12-07</font> ;
+    time:<font class='emph'>hasEnd</font>       cj16050:<font class='error'>Date_2016-12-06</font> .
     
-    cj16050:Date_2016-12-07
-      a              study:ReferenceBegin ;
-      time:inXSDDate "2016-12-07"^^xsd:date .
+  cj16050:Date_2016-12-07
+    a              study:ReferenceBegin ;
+    time:inXSDDate "2016-12-07"^^xsd:date .
     
-    cj16050:Date_2016-12-06
-      a              study:ReferenceEnd ;
-      time:inXSDDate "2016-12-06"^^xsd:date .
+  cj16050:Date_2016-12-06
+    a              study:ReferenceEnd ;
+    time:inXSDDate "2016-12-06"^^xsd:date .
 </pre>
 
 
@@ -120,7 +108,6 @@ A graphical representation of the data is shown in Figure 1.
 *Figure 1: Animal_99M91 (incomplete data)*
 
 The full data file used in developing this page is available here: [SHACL\CJ16050Constraints\DM-CJ16050-R.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/DM-CJ16050-R.TT)
-
 
 ### 3. SHACL Constraints
 
@@ -136,8 +123,6 @@ Shape        | Rule Component | Check
 `:RefIntervalShape` |1.2 | One and only one ReferenceInterval per AnimalSubject
 `:SD1002RuleShape`  |1.3 | SD1002 Rule: rfstdtc less than or equal to rfendtc
 
-
-
 **3.1.1 :DateShape**
 `:DateShape` uses `sh:targetObjectsOf` to select the interval IRI as the (Subject) focus node. The two `sh:targetObjectsOf` follow these paths through the data to obtain the date values: 
 <pre>
@@ -146,61 +131,56 @@ Shape        | Rule Component | Check
 <font class='objectIRI'>Interval IRI</font> - - - <font class='predicate'>time:hasEnd</font>  - - > <font class='objectIRI'>Date IRI</font> - - > <font class='predicate'>time:inXSDDate</font> - - > <font class='literal'>Date value</font>
 </pre>
 
-<pre class='shacl'>
-    :DateShape a sh:NodeShape ;
-      sh:targetObjectsOf time:hasBeginning ;
-      sh:targetObjectsOf time:hasEnd ;
-      sh:class study:ReferenceEnd ;
-      sh:property [
-        sh:path time:inXSDDate ;  
-        sh:datatype xsd:date ;
-      ] .  
+<pre style="background-color:#DDEEBB;">
+  :DateShape a sh:NodeShape ;
+    sh:targetObjectsOf time:hasBeginning ;
+    sh:targetObjectsOf time:hasEnd ;
+    sh:class study:ReferenceEnd ;
+    sh:property [
+      sh:path time:inXSDDate ;  
+      sh:datatype xsd:date ;
+    ] .  
 </pre>
 
 Validation Report (excerpt):
 
-<div style="background-color:#E2EC9A;">
-    a sh:ValidationReport ;
-        sh:conforms false ;
-        sh:result [
-            a sh:ValidationResult ;
-                sh:value "<font class='error'>7-DEC-16</font>" ;
-                sh:resultPath <http://www.w3.org/2006/time#inXSDDate> ;
-                sh:sourceConstraintComponent sh:DatatypeConstraintComponent ;
-                sh:focusNode <font class='objectIRI'>cj16050:Date_7-DEC-16 </font>;
-                sh:sourceShape [] ;
-                sh:resultSeverity sh:<font class='error'>Violation</font>
+<pre style="background-color:#EEDDBB;">
+  a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [
+      a sh:ValidationResult ;
+        sh:value "<font class='error'>7-DEC-16</font>" ;
+        sh:resultPath <http://www.w3.org/2006/time#inXSDDate> ;
+        sh:sourceConstraintComponent sh:DatatypeConstraintComponent ;
+        sh:focusNode <font class='objectIRI'>cj16050:Date_7-DEC-16 </font>;
+        sh:sourceShape [] ;
+        sh:resultSeverity sh:<font class='error'>Violation</font>
+    ]  
 </pre>
-
-
 
 **3.1.2 RefIntervalShape**
 
 <font class='error'>This section subject to change based on ReferenceInterval IRI creation method</font>
-<div  style="background-color:#E2EC9A;">
-<pre>
-:RefIntervalShape a sh:NodeShape ;
-  sh:targetClass study:AnimalSubject ;  
-  sh:nodeKind sh:IRI ;
-  sh:path study:hasReferenceInterval ;
-  sh:minCount 1;
-  sh:maxCount 1 .
-</pre>  
 
-</div>
+<pre style="background-color:#DDEEBB;">
+  :RefIntervalShape a sh:NodeShape ;
+    sh:targetClass study:AnimalSubject ;  
+    sh:nodeKind sh:IRI ;
+    sh:path study:hasReferenceInterval ;
+    sh:minCount 1;
+    sh:maxCount 1 .
+</pre>  
 
 Validation Report (excerpt):
 
-<div style="background-color:#E2EC9A;">
+<pre style="background-color:#EEDDBB;">
    COMING SOON
 </pre>
-
-
 
 **3.1.3 SD1002RuleShape**
 The SD1002RuleShape uses SHACL-SPARQL to determine if the end date (rfendtc) is *NOT* greater than or equal to the start date (rfstdtc), as required by the rule. SHACL Core can not be used for this constraint because the date values are not directly attached to a focus node (refer back to Figure 1). 
 
-<pre class='shacl'>
+<pre style="background-color:#DDEEBB;">
   :SD1002RuleShape a sh:NodeShape ;
    sh:targetClass study:ReferenceInterval ;
    sh:sparql [
@@ -228,10 +208,9 @@ The SD1002RuleShape uses SHACL-SPARQL to determine if the end date (rfendtc) is 
 
 Validation Report (excerpt):
 
-<div style="background-color:#E2EC9A;">
+<pre style="background-color:#EEDDBB;">
    COMING SOON
-</div>
-
+</pre>
 
 ### 4. Applying the Constraints
 
@@ -255,8 +234,9 @@ Validation Report (excerpt):
 
 You may redirect the report to a text file on your local machine, assuming you have the repository cloned to C:\_github\SENDConform 
 
-    stardog icv report SHACLTest > "C:\_github\SENDConform\SHACL\CJ16050Constraints\ValReport.txt"
-
+<pre style="background-color:#F6F6F6;">
+  stardog icv report SHACLTest > "C:\_github\SENDConform\SHACL\CJ16050Constraints\ValReport.txt"
+</pre>
 
 **4.2  TopBraid**
 
