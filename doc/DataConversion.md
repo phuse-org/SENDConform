@@ -77,8 +77,8 @@ Graph metadata, including data conversion date and graph version, is created wit
  
  Imputed variables are named in UPPERCASE and include the suffix `_IM` .
 
-| File      | Role                     | Description                                  |
-| --------- | ------------------------ | ---------------------------------------------|
+| File      | Role                     | Description  |                                |
+| --------- | ------------------------ |              | -----------------------------------------------------------|
 | driver.R  | driver program           | Calls data conversion programs in sequence. Creates graph metadata files.
 
  
