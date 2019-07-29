@@ -34,6 +34,7 @@ Another folder contains DM and TS data in CSV form for ease of loading into Exce
 
 
 ### R Programs
+
 | Order  | File                 | Description                                  |
 | ------ | -------------------- | ---------------------------------------------|
 | 1.     | driver.R             | Main driver program for data conversion. Graph metadata creation. |
@@ -117,20 +118,22 @@ Graph metadata, including data conversion date and graph version, is created wit
 
  
 ### DM 
+
 | File      | Role                     | Description                                  |
 | --------- | ------------------------ | ---------------------------------------------|
 | DM-Convert.R| Data conversion        | XPT to CVS and TTL. Data imputation.
-| DM-CJ16050.CSV | Demographics        |  May be a subset during development. |
-| DM-CJ16050-R-map.TTL | SMS Map       | Map CSV to Stardog graph. |
-| DM-CJ16050-R.TTL | RDF Triples       | TTL file for loading directly into triplestore. |
+| DM-CJ16050.CSV | Demographics        |  May be a subset during development. 
+| DM-CJ16050-R-map.TTL | SMS Map       | Map CSV to Stardog graph. 
+| DM-CJ16050-R.TTL | RDF Triples       | TTL file for loading directly into triplestore. 
 
 #### CJ16050
 ##### Data Imputation
+
 | Variable     | Value(s)            | Description                                  |
 | ------------ | ------------------- | ---------------------------------------------|
 | SPECIESCD_IM |  "Rat"              | Species Code not specified in DM data file.
-| AGEUNIT_IM   |  "Week"             | A representation of the age unit that is used to link to time namespace. |
-| DURATION_IM  | "P56D"              | Duraction code, derived from 8 weeks x 7 days/wk. |
+| AGEUNIT_IM   |  "Week"             | A representation of the age unit that is used to link to time namespace. 
+| DURATION_IM  | "P56D"              | Duraction code, derived from 8 weeks x 7 days/wk. 
 
 ### TS
 
