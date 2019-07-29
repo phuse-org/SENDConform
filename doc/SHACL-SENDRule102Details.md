@@ -41,7 +41,7 @@ This example uses the DM domain data from the study "RE Function in Rats", locat
 
 #### 2.1 Data preparation
 
-The R script adds observations to test the rule components using SHACL constraints. Test observations are identified by  `subjid` and `usubjid` values containing the pattern 99M9<n>. 
+The R script adds observations to test the rule components using SHACL constraints. Test observations are identified by  `subjid` and `usubjid` values containing the pattern 99T<n> in place of the study data 00M0<n>. 
 
 A TTL file for development and testing purposes is  created in the location /SHACL/CJ16050Constraints. The TTL file is manually edited to change the format of the date value `7-DEC-16` to `xsd:string` from the original `xsd:date`.
 
@@ -77,7 +77,7 @@ As a result of how the reference intervals are constructed in RDF, duplicate `rf
 *a) More than one interval*
 
 <pre style="background-color:#EEEEBB;">
-  cj16050:Animal_99M92
+  cj16050:Animal_99T2
     a study:AnimalSubject ;
     study:hasReferenceInterval <font class='error'>cj16050:Interval_2016-12-07_2016-12-07, 
                                cj16050:Interval_2016-12-08_2016-12-08 </font> .
@@ -93,7 +93,7 @@ As a result of how the reference intervals are constructed in RDF, duplicate `rf
 **Rule Component 1.3** : Reference Interval End Date is on or after Start Date 
 
 <pre style="background-color:#EEEEBB;">
-  cj16050:<font class='emph'>Animal_99M91</font>
+  cj16050:<font class='emph'>Animal_99T1</font>
     a                          study:AnimalSubject ;
     study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-06 .
     
@@ -113,12 +113,12 @@ As a result of how the reference intervals are constructed in RDF, duplicate `rf
 
 
 #### 2.2 Data Structure
-Familiarity with the data structure in TTL is necessary to explain the constraints. Here is a partial set of data for subjid 99M91 that violates rule SD1002 because end date preceeds start date.
+Familiarity with the data structure in TTL is necessary to explain the constraints. Here is a partial set of data for subjid 99T1 that violates rule SD1002 because end date preceeds start date.
 
 A graphical representation of the data is shown in Figure 1. 
 
 <img src="images/RefIntervalDataFail.PNG">
-*Figure 1: Animal_99M91 (incomplete data)*
+*Figure 1: Animal_99T1 (incomplete data)*
 
 The full data file used in developing this page is available here: [SHACL\CJ16050Constraints\DM-CJ16050-R.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/DM-CJ16050-R.TT)
 

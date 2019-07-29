@@ -18,7 +18,8 @@ options(stringsAsFactors = FALSE)
 library(data.table)  # dcast
 library(dplyr)       # Recode, mutate with pipe in Functions.R, other dplyr goodness
 library(Hmisc)       # Import XPT
-library(rdflib)      # serialize to RDF
+library(mefa)        # Easy replication of data
+library(rdflib)      # Serialize to RDF
 library(readxl)      # Supplemental data
 library(tidyverse)
 
