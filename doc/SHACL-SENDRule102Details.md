@@ -217,7 +217,7 @@ Next, add the SPARQL query to the SHACL file to create a SHACL-SPARQL shape.
    sh:targetClass study:ReferenceInterval ;
    sh:sparql [
     a sh:SPARQLConstraint ;
-    sh:message "End Date must be greater than or equal to Begin Date";
+    sh:message "RFSTDTC is after RFENDTC";
     sh:prefixes [
       sh:declare [ sh:prefix "time" ;
         sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
@@ -241,18 +241,17 @@ Next, add the SPARQL query to the SHACL file to create a SHACL-SPARQL shape.
 Validation Report (excerpt):
 
 <pre style="background-color:#EEDDBB;">
-  a sh:ValidationReport ;
-    sh:conforms false ;
-    sh:result [
-      a sh:ValidationResult ;
-        sh:resultSeverity sh:Violation ;
-        sh:resultMessage "<font class='error msg'>RFSTDTC is after RFENDTC</font>" ;
-        sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
-        sh:focusNode <https://example.org/cj16050#Interval_2016-12-07_2016-12-06> ;
-        sh:sourceShape :SD1002RuleShape ;
-        sh:sourceConstraint [] ;
-        sh:value <https://example.org/cj16050#Interval_2016-12-07_2016-12-06>
-    ]
+ a sh:ValidationReport ;
+  sh:conforms false ;
+  sh:result [
+    a sh:ValidationResult ;
+      sh:sourceConstraint [] ;
+      sh:focusNode cj16050:Interval_2016-12-07_2016-12-06 ;
+      sh:resultSeverity sh:Violation ;
+      sh:sourceShape :SD1002RuleShape ;
+      sh:resultMessage "<font class='error'>RFSTDTC is after RFENDTC</font>" ;
+      sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+      sh:value <font class='error'>cj16050:Interval_2016-12-07_2016-12-06
 </pre>
 
 ### 4. Applying the Constraints
