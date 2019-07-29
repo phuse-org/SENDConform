@@ -54,7 +54,7 @@ The use of SUBJID is also fraught with problems.
 
 * The same animal is accidentally assigned two different SUBJID values. Results are now seen as belonging to two separate individuals, which is also incorrect. 
 
-The solution is to generated a Globally Unique Identifier for each animal subject and associate SUBJID and USUBJID with that ID.
+A possbile  solution is to generat a Globally Unique Identifier for each animal subject and associate SUBJID and USUBJID with that ID.
 
 <pre style="background-color:#DDEEFF;">
   library(uuid)
@@ -63,7 +63,7 @@ The solution is to generated a Globally Unique Identifier for each animal subjec
   animalIRI                                 
 </pre>
 
-The code above will result in a new identifier string each time the code is run. For this project we want the identifiers to remain constant over time as the code is developed. A compromise was chosen where the UID is generated as an SHA-1 hash of the animal's assigned USUBJID. To increase readabilty for the for the prototype, the SHA-1 values are shortened to eight characters from the original forty.
+The code above results in a new identifier each time the code is run. For this project, identifiers must remain constant over time as the code is developed and examples are documented. A compromise is to generate UUIDs based on the SHA-1 hash of the animal's assigned USUBJID. To increase readabilty for the for the prototype, the SHA-1 values are shortened to eight characters from the original forty.
 
 <pre style="background-color:#DDEEFF;">
   library(digest)
@@ -75,12 +75,12 @@ The code above will result in a new identifier string each time the code is run.
 Results consistently in the value:
 `cj16050:Animal_a6d09184`
 
-While dependent on the USUBJID for generation of the ID, this method allows:
-* the ID value to remain constant over time 
-* separation of the SUBJID or USUBJID from Animal IRI
+While this method is dependent on the USUBJID for ID generation, it has several advantages: 
+* the ID value remains constant over time 
+* SUBJID/USUBJID are not direclty part of the animal subject IRI
 * facilitates testing for duplicate, missing, and incorrectly assigned SUBJID/USUBJID values.
 
-See the [Technical Details page](https://github.com/phuse-org/UIDPharma/blob/master/UUIDTechDetails.md)) of the project [Unique Identifiers for the Pharmaceutical Industry]https://github.com/phuse-org/UIDPharma) for more information on generating unique identifiers.
+See the [Technical Details page](https://github.com/phuse-org/UIDPharma/blob/master/UUIDTechDetails.md)) of the project [Unique Identifiers for the Pharmaceutical Industry]https://github.com/phuse-org/UIDPharma) for more information on generating unique identifiers. Methods to generate UIDs for subjects in real-world settings is beyond the mandate of this project.
 
 ### Data Creation: More details.
 TBD
