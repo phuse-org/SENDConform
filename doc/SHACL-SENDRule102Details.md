@@ -24,13 +24,16 @@ Contains the following explicit and implicit components:
 1.1 Reference Start Date (RFSTDTC) and End Date (RFENDTC) must be in <font class="emph">date format</font>. The study in this example uses xsd:date while other datasets could also use xsd:dateTime. 
 </div>
 
+
 <div style="background-color:#F6F6F6;">
 1.2 Animal Subject must have <font class="emph">one and only one value</font> for each of RFSTDTC and RFENDTC. (Not explicitly stated in the FDA text.)
 </div>
 
+
 <div style="background-color:#F6F6F6;">
 1.3 The <b>SD1002 rule</b>: Start Date must be less than or equal to End Date (<font class="emph">RFSTDTC</font> less than or equal to RFENDTC</font>). When this rule is violated, the system should supply the standard FDA message <font class="error msg">"RFSTDTC is after RFENDTC"</font>. 
 </div>
+
 
 ### 2. Data 
 
@@ -125,9 +128,9 @@ Shapes defined below the prefixes include:
 
 Shape        | Rule Component | Check 
 -------------|------------|-------------------
-<pre style="background-color:#DDEEBB;">:DateShape</pre>        |1.1 | rfstdtc/rfendtc as xsd:date format 
-<pre style="background-color:#DDEEBB;">:RefIntervalShape</pre> |1.1 | rfstdtc/rfendtc as xsd:date format  |1.2 | One and only one ReferenceInterval per AnimalSubject
-<pre style="background-color:#DDEEBB;">:SD1002RuleShape</pre>  |1.1 | rfstdtc/rfendtc as xsd:date format   |1.3 | SD1002 Rule: rfstdtc less than or equal to rfendtc
+<span style="background-color:#DDEEBB;">:DateShape</span>        |1.1 | rfstdtc/rfendtc as xsd:date format 
+<span style="background-color:#DDEEBB;">:RefIntervalShape</span> |1.1 | rfstdtc/rfendtc as xsd:date format  |1.2 | One and only one ReferenceInterval per AnimalSubject
+<span style="background-color:#DDEEBB;">:SD1002RuleShape</span>  |1.1 | rfstdtc/rfendtc as xsd:date format   |1.3 | SD1002 Rule: rfstdtc less than or equal to rfendtc
 
 **3.1.1 :DateShape**
 `:DateShape` uses `sh:targetObjectsOf` to select the interval IRI as the (Subject) focus node. The two `sh:targetObjectsOf` follow these paths through the data to obtain the date values: 
@@ -185,6 +188,26 @@ Validation Report (excerpt):
 
 **3.1.3 SD1002RuleShape**
 The SD1002RuleShape uses SHACL-SPARQL to determine if the end date (rfendtc) is *NOT* greater than or equal to the start date (rfstdtc), as required by the rule. SHACL Core can not be used for this constraint because the date values are not directly attached to a focus node (refer back to Figure 1). 
+
+The first step is to create a SPARQL query that detects the data violation where End Data is not greater than or equal to start date.
+
+<pre style="background-color:#DDEEFF;">
+  PREFIX study: <https://w3id.org/phuse/study#> 
+  PREFIX sh:   <http://www.w3.org/ns/shacl#> 
+  PREFIX time: <http://www.w3.org/2006/time#>
+
+  SELECT $this (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
+      WHERE {
+        $this     time:hasBeginning  ?beginIRI ;
+                  time:hasEnd        ?endIRI .
+        ?beginIRI time:inXSDDate     ?beginDate .
+        ?endIRI   time:inXSDDate     ?endDate .
+        FILTER  (! (?endDate >= ?beginDate ))
+      }
+</pre>
+
+
+Next, add the SPARQL query to the SHACL file to create a SHACL-SPARQL shape. 
 
 <pre style="background-color:#DDEEBB;">
   :SD1002RuleShape a sh:NodeShape ;
