@@ -55,6 +55,7 @@ time:inXSDDate "7-DEC-16"^^xsd:<font class="error">string</font> ;
 
 Rules violated by test data include: 
 
+
 **Rule Component 1.1** Start Date and End Date in date (xsd:date) format 
 
 <pre style="background-color:#EEEEBB;">
@@ -67,6 +68,8 @@ Rules violated by test data include:
       a study:ReferenceEnd ;
       time:inXSDDate <font class='error'>"7-DEC-16"^^xsd:string</font> .
 </pre>    
+
+
 
 **Rule Component 1.2** One RFSTDTC/RFENDTC per AnimalSubject 
 <font class='error'>This section subject to change based on ReferenceInterval IRI creation method</font>
@@ -83,12 +86,13 @@ As a result of how the reference intervals are constructed in RDF, duplicate `rf
                                cj16050:Interval_2016-12-08_2016-12-08 </font> .
 </pre>
 
-*b) no interval*
+*b) No interval*
 <pre style="background-color:#EEEEBB;">
    *Example Data coming soon*
 </pre>
 
 
+ 
 **Rule Component 1.3** : Reference Interval End Date is on or after Start Date 
 
 <pre style="background-color:#EEEEBB;">
@@ -162,7 +166,7 @@ Validation Report (excerpt):
     sh:result [
       a sh:ValidationResult ;
         sh:value "<font class='error'>7-DEC-16</font>" ;
-        sh:resultPath <http://www.w3.org/2006/time#inXSDDate> ;
+        sh:resultPath time:inXSDDate ;
         sh:sourceConstraintComponent sh:DatatypeConstraintComponent ;
         sh:focusNode <font class='objectIRI'>cj16050:Date_7-DEC-16 </font>;
         sh:sourceShape [] ;
@@ -185,9 +189,19 @@ Validation Report (excerpt):
 
 Validation Report (excerpt):
 
+*a) More than one interval*
+
 <pre style="background-color:#EEDDBB;">
    COMING SOON
 </pre>
+
+*b) No interval*
+
+<pre style="background-color:#EEDDBB;">
+   COMING SOON
+</pre>
+
+
 
 **3.1.3 SD1002RuleShape**
 The SD1002RuleShape uses SHACL-SPARQL to determine if the end date (rfendtc) is *NOT* greater than or equal to the start date (rfstdtc), as required by the rule. SHACL Core can not be used for this constraint because the date values are not directly attached to a focus node (refer back to Figure 1). 
@@ -251,7 +265,7 @@ Validation Report (excerpt):
       sh:sourceShape :SD1002RuleShape ;
       sh:resultMessage "<font class='error'>RFSTDTC is after RFENDTC</font>" ;
       sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
-      sh:value <font class='error'>cj16050:Interval_2016-12-07_2016-12-06
+      sh:value <font class='error'>cj16050:Interval_2016-12-07_2016-12-06</font>
 </pre>
 
 ### 4. Applying the Constraints
