@@ -20,18 +20,21 @@ Contains the following explicit and implicit components:
 
 #### Rule Components
 
-<div style="background-color:#F6F6F6;">
+<div style='background-color:#F6F6F6;'>
+
 1.1 Reference Start Date (RFSTDTC) and End Date (RFENDTC) must be in <font class="emph">date format</font>. The study in this example uses xsd:date while other datasets could also use xsd:dateTime. 
 </div>
 
+<div style='background-color:#F6F6F6;'>
 
-<div style="background-color:#F6F6F6;">
-1.2 Animal Subject must have <font class="emph">one and only one value</font> for each of RFSTDTC and RFENDTC. (Not explicitly stated in the FDA text.)
+1.2 Animal Subject must have <font class='emph'>one and only one value</font> for each of RFSTDTC and RFENDTC. (Not explicitly stated   in the FDA text.)
+
 </div>
 
+<div style='background-color:#F6F6F6;'>
+    
+1.3 The <b>SD1002 rule</b>: Start Date must be less than or equal to End Date (<font class='emph'>RFSTDTC</font> less than or equal to RFENDTC</font>). When this rule is violated, the system should supply the standard FDA message <font class='error msg'>"RFSTDTC is after RFENDTC"</font>. 
 
-<div style="background-color:#F6F6F6;">
-1.3 The <b>SD1002 rule</b>: Start Date must be less than or equal to End Date (<font class="emph">RFSTDTC</font> less than or equal to RFENDTC</font>). When this rule is violated, the system should supply the standard FDA message <font class="error msg">"RFSTDTC is after RFENDTC"</font>. 
 </div>
 
 
@@ -129,8 +132,8 @@ Shapes defined below the prefixes include:
 Shape        | Rule Component | Check 
 -------------|------------|-------------------
 <span style="background-color:#DDEEBB;">:DateShape</span>        |1.1 | rfstdtc/rfendtc as xsd:date format 
-<span style="background-color:#DDEEBB;">:RefIntervalShape</span> |1.1 | rfstdtc/rfendtc as xsd:date format  |1.2 | One and only one ReferenceInterval per AnimalSubject
-<span style="background-color:#DDEEBB;">:SD1002RuleShape</span>  |1.1 | rfstdtc/rfendtc as xsd:date format   |1.3 | SD1002 Rule: rfstdtc less than or equal to rfendtc
+<span style="background-color:#DDEEBB;">:RefIntervalShape</span> |1.2 | rfstdtc/rfendtc as xsd:date format  |1.2 | One and only one ReferenceInterval per AnimalSubject
+<span style="background-color:#DDEEBB;">:SD1002RuleShape</span>  |1.3 | rfstdtc/rfendtc as xsd:date format   |1.3 | SD1002 Rule: rfstdtc less than or equal to rfendtc
 
 **3.1.1 :DateShape**
 `:DateShape` uses `sh:targetObjectsOf` to select the interval IRI as the (Subject) focus node. The two `sh:targetObjectsOf` follow these paths through the data to obtain the date values: 
@@ -238,7 +241,18 @@ Next, add the SPARQL query to the SHACL file to create a SHACL-SPARQL shape.
 Validation Report (excerpt):
 
 <pre style="background-color:#EEDDBB;">
-   COMING SOON
+  a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [
+      a sh:ValidationResult ;
+        sh:resultSeverity sh:Violation ;
+        sh:resultMessage "<font class='error msg'>RFSTDTC is after RFENDTC</font>" ;
+        sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+        sh:focusNode <https://example.org/cj16050#Interval_2016-12-07_2016-12-06> ;
+        sh:sourceShape :SD1002RuleShape ;
+        sh:sourceConstraint [] ;
+        sh:value <https://example.org/cj16050#Interval_2016-12-07_2016-12-06>
+    ]
 </pre>
 
 ### 4. Applying the Constraints
