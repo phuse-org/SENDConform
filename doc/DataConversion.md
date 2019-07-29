@@ -56,8 +56,6 @@ The use of SUBJID is also fraught with problems.
 
 The solution is to generated a Globally Unique Identifier for each animal subject and associate SUBJID and USUBJID with that ID.
 
-# Create Study URI from programmatically generated UUID
-
 <pre style="background-color:#DDEEFF;">
   library(uuid)
   animalUID <- UUIDgenerate()
@@ -65,7 +63,7 @@ The solution is to generated a Globally Unique Identifier for each animal subjec
   animalIRI                                 
 </pre>
 
-The code above will result in a new identifier string each time the code is run. For this project we want the identifiers to remain constant over time as the code is developed. A compromise was chosen where the UID is generated as an SHA-1 hash of the animal's assigned USUBJID. To increase readabilty for the for the prototype, the SHA-1 values are shortened to 10 characters from the original 40 characters.
+The code above will result in a new identifier string each time the code is run. For this project we want the identifiers to remain constant over time as the code is developed. A compromise was chosen where the UID is generated as an SHA-1 hash of the animal's assigned USUBJID. To increase readabilty for the for the prototype, the SHA-1 values are shortened to eight characters from the original forty.
 
 <pre style="background-color:#DDEEFF;">
   library(digest)
