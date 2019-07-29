@@ -20,11 +20,17 @@ Contains the following explicit and implicit components:
 
 #### Rule Components
 
+<div style="background-color:#F6F6F6;">
 1.1 Reference Start Date (RFSTDTC) and End Date (RFENDTC) must be in <font class="emph">date format</font>. The study in this example uses xsd:date while other datasets could also use xsd:dateTime. 
+</div>
 
+<div style="background-color:#F6F6F6;">
 1.2 Animal Subject must have <font class="emph">one and only one value</font> for each of RFSTDTC and RFENDTC. (Not explicitly stated in the FDA text.)
+</div>
 
+<div style="background-color:#F6F6F6;">
 1.3 The <b>SD1002 rule</b>: Start Date must be less than or equal to End Date (<font class="emph">RFSTDTC</font> less than or equal to RFENDTC</font>). When this rule is violated, the system should supply the standard FDA message <font class="error msg">"RFSTDTC is after RFENDTC"</font>. 
+</div>
 
 ### 2. Data 
 
@@ -119,9 +125,9 @@ Shapes defined below the prefixes include:
 
 Shape        | Rule Component | Check 
 -------------|------------|-------------------
-`:DateShape`        |1.1 | rfstdtc/rfendtc as xsd:date format 
-`:RefIntervalShape` |1.2 | One and only one ReferenceInterval per AnimalSubject
-`:SD1002RuleShape`  |1.3 | SD1002 Rule: rfstdtc less than or equal to rfendtc
+<pre style="background-color:#DDEEBB;">:DateShape</pre>        |1.1 | rfstdtc/rfendtc as xsd:date format 
+<pre style="background-color:#DDEEBB;">:RefIntervalShape</pre> |1.1 | rfstdtc/rfendtc as xsd:date format  |1.2 | One and only one ReferenceInterval per AnimalSubject
+<pre style="background-color:#DDEEBB;">:SD1002RuleShape</pre>  |1.1 | rfstdtc/rfendtc as xsd:date format   |1.3 | SD1002 Rule: rfstdtc less than or equal to rfendtc
 
 **3.1.1 :DateShape**
 `:DateShape` uses `sh:targetObjectsOf` to select the interval IRI as the (Subject) focus node. The two `sh:targetObjectsOf` follow these paths through the data to obtain the date values: 
