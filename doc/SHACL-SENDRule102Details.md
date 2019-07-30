@@ -41,19 +41,15 @@ This example uses the DM domain data from the study "RE Function in Rats", locat
 
 #### 2.1 Data preparation
 
-The R script adds observations to test the rule components using SHACL constraints. Test observations are identified by  `subjid` and `usubjid` values containing the pattern 99T<n> in place of the study data 00M0<n>. 
+The R script DM-convert.R adds observations to test the rule components using SHACL constraints. Test observations are identified by  `subjid` and `usubjid` values containing the pattern 99T<n> in contrast with the original study data values of 00M0<n>. 
 
-A TTL file for development and testing purposes is  created in the location /SHACL/CJ16050Constraints. The TTL file is manually edited to change the format of the date value `7-DEC-16` to `xsd:string` from the original `xsd:date`.
+An additional TTL file for development and testing purposes is created in the location /SHACL/CJ16050Constraints. 
 
-<pre style="background-color:#EEEEBB;">
-time:inXSDDate "7-DEC-16"^^xsd:<font class="error">string</font> ;
-(this used an inline style)
-</pre>
 
 Rules violated by test data include: 
 
 
-**Rule Component 1.1** Start Date and End Date in date (xsd:date) format 
+**Rule Component 1** Start Date and End Date in date (xsd:date) format 
 
 <pre style="background-color:#EEEEBB;">
     cj16050:Interval_2016-12-08_7-DEC-16
@@ -67,8 +63,7 @@ Rules violated by test data include:
 </pre>    
 
 
-
-**Rule Component 1.2** One RFSTDTC/RFENDTC per AnimalSubject 
+**Rule Component 2** One RFSTDTC/RFENDTC per AnimalSubject 
 <font class='error'>This section subject to change based on ReferenceInterval IRI creation method</font>
 
 As a result of how the reference intervals are constructed in RDF, duplicate `rfstdtc` and `rfendtc` values will result in additional <font class='emph'>cj16050:Interval_</font>  values, violating the condition of one interval per AnimalSubject.
@@ -89,8 +84,8 @@ As a result of how the reference intervals are constructed in RDF, duplicate `rf
 </pre>
 
 
- 
-**Rule Component 1.3** : Reference Interval End Date is on or after Start Date 
+
+**Rule Component 3** : Reference Interval End Date is on or after Start Date 
 
 <pre style="background-color:#EEEEBB;">
   cj16050:<font class='emph'>Animal_99T1</font>
@@ -132,11 +127,11 @@ Shapes defined below the prefixes include:
 
 Shape        | Rule Component | Check 
 -------------|------------|-------------------
-<span style="background-color:#DDEEBB;">:DateShape</span>        |1.1 | rfstdtc/rfendtc as xsd:date format 
-<span style="background-color:#DDEEBB;">:RefIntervalShape</span> |1.2 | rfstdtc/rfendtc as xsd:date format  |1.2 | One and only one ReferenceInterval per AnimalSubject
-<span style="background-color:#DDEEBB;">:SD1002RuleShape</span>  |1.3 | rfstdtc/rfendtc as xsd:date format   |1.3 | SD1002 Rule: rfstdtc less than or equal to rfendtc
+<span style="background-color:#DDEEBB;">:DateShape</span>        |1 | rfstdtc/rfendtc as xsd:date format 
+<span style="background-color:#DDEEBB;">:RefIntervalShape</span> |2 |  One and only one rfstdtc, rfendtc per AnimalSubject
+<span style="background-color:#DDEEBB;">:SD1002RuleShape</span>  |3 |  SD1002 Rule: rfstdtc less than or equal to rfendtc
 
-**3.1.1 :DateShape**
+**3.1.1 :DateShape** (Rule Component 1)
 `:DateShape` uses `sh:targetObjectsOf` to select the interval IRI as the (Subject) focus node. The two `sh:targetObjectsOf` follow these paths through the data to obtain the date values: 
 <pre>
  <font class='objectIRI'>Interval IRI</font> - - - <font c lass='predicate'>time:hasBeginning</font>  - - > <font class='objectIRI'>Date IRI</font> - - > <font class='predicate'>time:inXSDDate</font> - - > <font class='literal'>Date value</font>
@@ -172,6 +167,8 @@ Validation Report (excerpt):
 </pre>
 
 **3.1.2 RefIntervalShape**
+
+*THIS SECTION IS BEING REWORKED* 
 
 <font class='error'>This section subject to change based on ReferenceInterval IRI creation method</font>
 
