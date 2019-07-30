@@ -54,37 +54,32 @@ Traditionally, SUBJID and USUBJID are used as unique identifiers withing and bet
 
 `cj16050:Animal_00M01`
 
-The use of SUBJID is also fraught with problems. 
+The use of SUBJID is fraught with problems. 
 
 * A SUBJID is accidentally re-used and assigned to more than one animal, so two distinct animals have the same ID number. The  resulting RDF would have all observations assigned to a single IRI and it would be difficult to identify the duplication. 
 
 * The same animal is accidentally assigned two different SUBJID values. Results are now seen as belonging to two separate individuals, which is also incorrect. 
 
-A possbile  solution is to generat a Globally Unique Identifier for each animal subject and associate SUBJID and USUBJID with that ID.
+* A row of data is accidentally duplicated, a condition that could go undetected when converting the data to RDF.
+
+A solution is to create IRIs for critical components like Animal Subject and Intervals using IRIs that are independed of the data. For the purpose of this prototype, a truncated SHA-1 hash of a randomly generated value (with a known seed value) will be used to create the required IRIs. 
+
+Following this method:
+
+* IRI's remain constant during mutliple runs of the development code. 
+* SUBJID/USUBJID are not direclty part of the animal subject IRI and can be evaluated using test data in SHACL.
+* Facilitates testing for duplicate, missing, and incorrect instance data, independent of IRIs. 
+
+
+EXAMPLE CODE:
 
 <pre style="background-color:#DDEEFF;">
-  library(uuid)
-  animalUID <- UUIDgenerate()
-  animalIRI    <- paste0("cj16050:Animal_", animalUID)
-  animalIRI                                 
-</pre>
-
-The code above results in a new identifier each time the code is run. For this project, identifiers must remain constant over time as the code is developed and examples are documented. A compromise is to generate UUIDs based on the SHA-1 hash of the animal's assigned USUBJID. To increase readabilty for the for the prototype, the SHA-1 values are shortened to eight characters from the original forty.
-
-<pre style="background-color:#DDEEFF;">
-  library(digest)
-  usubjid <- 'CJ16050_00M01'
-  animalIRI <- paste0("cj16050:Animal_", strtrim(sha1(usubjid), 8))  # Truncate for readabilty in the pilot
-  animalIRI
+  Example code here. 
+  
 </pre>
 
 Results consistently in the value:
 `cj16050:Animal_a6d09184`
-
-While this method is dependent on the USUBJID for ID generation, it has several advantages: 
-* the ID value remains constant over time 
-* SUBJID/USUBJID are not direclty part of the animal subject IRI
-* facilitates testing for duplicate, missing, and incorrectly assigned SUBJID/USUBJID values.
 
 See the [Technical Details page](https://github.com/phuse-org/UIDPharma/blob/master/UUIDTechDetails.md)) of the project [Unique Identifiers for the Pharmaceutical Industry]https://github.com/phuse-org/UIDPharma) for more information on generating unique identifiers. Methods to generate UIDs for subjects in real-world settings is beyond the mandate of this project.
 
