@@ -4,13 +4,18 @@
 # Data Conversion
 
 ## Introduction
-Only the DM and TS domains are modeled for this proof of concept. Data was obtained from Phuse Scripts repository, [SEND subfolder](https://github.com/phuse-org/phuse-scripts/tree/master/data/send) and copied over to this repository for ease of access.
+Only the <b>DM</b> and <b>TS</b> domains are modeled for this proof of concept. Data was obtained from Phuse Scripts repository, [SEND subfolder](https://github.com/phuse-org/phuse-scripts/tree/master/data/send) and copied over to this repository under /SENDConform/data/studies/  .
 
-The conversion process will provide a minimum of two alternatives. A third alternative using SAS may be provided, time permitting.
+A minimum of two alternatives are provided for the data conversion process:
 1. R to TTL
+
    R scripts read in the source SAS XPT file and output TTL files for import into a triplestore.
+
 1. R to CSV, CSV to Stardog triplestore using SMS
+
    The same scripts used to create TTL files also output a CSV file that can be mapped to the Stardog triplestore using Stardog Mapping Syntax (SMS) or other triplestore using R2RML. A benefit of this approach is that the team already has an RShiny app for visualizing SMS files, which is very helpful for validating the schema and later as an aid for constructing queries.
+
+A third alternative using SAS may be provided, time permitting.
 
 ## Source Data
 
@@ -37,7 +42,7 @@ Another folder contains DM and TS data in CSV form for ease of loading into Exce
 
 | Order  | File                 | Description                                  |
 | ------ | -------------------- | ---------------------------------------------|
-| 1.     | driver.R             | Main driver program for data conversion. Graph metadata creation. |
+| 1.     | driver.R             | Main driver program for data conversion. Graph metadata creation. Creation of observations to test constraints|
 | 2.     | DM_convert.R         | DM conversion to TTL file. (under development) |
 | 3.     | TS_convert.R         | TM conversion to TTL (not yet written)   |
 
