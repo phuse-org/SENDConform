@@ -8,7 +8,7 @@
 #                                   DM-CJ16050-R.csv
 # NOTE: New subjects created for Test Cases use 99T<n> for SUBJID and USUBJID 
 # TODO:  
-# 
+#  Move the SHA1 creation to after merge of the error data back to the main data.
 #______________________________________________________________________________
 
 #--- Data imputations
@@ -17,6 +17,13 @@ dm$ROWID_IM <-  (1:nrow(dm))
 dm$SPECIESCD_IM <- "Rat"
 dm$AGEUNIT_IM   <- "Week" # to link to time namespace
 dm$DURATION_IM  <- "P56D" 
+
+# Create the SHA-1 has value of USUBJID for use in creating Animal IRIs. 
+#   Shortened to 8 char for readability in the examples.
+for(i in 1:nrow(dm))
+{
+   dm[i,"USUBJIDSHORTHASH_IM"] <- strtrim(sha1(paste(dm[i,"usubjid"])), 8)  # Truncate for readabilty in the pilot
+}
 
 # Necessary for later manipulation
 dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
@@ -96,12 +103,12 @@ for(i in 1:nrow(dm))
 {
   ## Animal Subject   
   rdf_add(some_rdf, 
-     subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+     subject     = paste0(CJ16050, paste0("Animal_", dm[i,"USUBJIDSHORTHASH_IM"])), 
      predicate   = paste0(RDF,  "type"), 
      object      = paste0(STUDY, "AnimalSubject")
   )
   rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"USUBJIDSHORTHASH_IM"])), 
     predicate    = paste0(SKOS,  "prefLabel"), 
     object       = paste0("Animal ", dm[i, "subjid"]),
     objectType   = "literal", 
@@ -114,28 +121,28 @@ for(i in 1:nrow(dm))
       ! is.na (dm[i,"rfendtc"]) )
   {    
     rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+      subject      = paste0(CJ16050, paste0("Animal_", dm[i,"USUBJIDSHORTHASH_IM"])), 
       predicate    = paste0(STUDY,  "hasReferenceInterval"), 
       object       = paste0(CJ16050, paste0("Interval_",dm[i,"rfstdtc"], "_", dm[i,"rfendtc"]))
     )
   }  
   rdf_add(some_rdf, 
-    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"USUBJIDSHORTHASH_IM"])), 
     predicate   = paste0(STUDY,  "hasSubjectID"), 
     object      = paste0(CJ16050, "SubjectIdentifier_", dm[i,"ROWID_IM"])
   )
   rdf_add(some_rdf, 
-    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"USUBJIDSHORTHASH_IM"])), 
     predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
     object      = paste0(CJ16050, "UniqueSubjectIdentifier_", dm[i,"ROWID_IM"])
   )
   rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"USUBJIDSHORTHASH_IM"])), 
     predicate    = paste0(STUDY,  "memberOf"), 
     object       = paste0(CJPROT, paste0("Set_", dm[i,"setcd"]))
   )
   rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"USUBJIDSHORTHASH_IM"])), 
     predicate    = paste0(STUDY,  "memberOf"), 
     object       = paste0(CODE, paste0("Species_", dm[i,"SPECIESCD_IM"]))
   )
@@ -143,13 +150,13 @@ for(i in 1:nrow(dm))
   if( ! is.na (dm[i,"age"])){
 
     rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+      subject      = paste0(CJ16050, paste0("Animal_", dm[i,"USUBJIDSHORTHASH_IM"])), 
       predicate    = paste0(STUDY,  "participatesIn"), 
       object       = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"ROWID_IM"]))
     )
   }  
   rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"subjid"])), 
+    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"USUBJIDSHORTHASH_IM"])), 
     predicate    = paste0(STUDY,  "participatesIn"), 
     object       = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"ROWID_IM"]))
   )
@@ -351,7 +358,7 @@ for(i in 1:nrow(dm))
   rdf_add(some_rdf, 
     subject      = paste0(CJPROT, paste0("Study_", dm[i,"studyid"])), 
     predicate    = paste0(STUDY,  "hasStudyParticipant"), 
-    object       = paste0(CJ16050, "Animal_", dm[i,"subjid"])
+    object       = paste0(CJ16050, "Animal_", dm[i,"USUBJIDSHORTHASH_IM"])
   )
 
 }

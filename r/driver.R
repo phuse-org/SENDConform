@@ -16,6 +16,7 @@
 options(stringsAsFactors = FALSE)
 
 library(data.table)  # dcast
+library(digest)      # SHA-1 hash
 library(dplyr)       # Recode, mutate with pipe in Functions.R, other dplyr goodness
 library(Hmisc)       # Import XPT
 library(mefa)        # Easy replication of data
