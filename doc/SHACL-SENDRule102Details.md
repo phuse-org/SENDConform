@@ -46,13 +46,13 @@ The R script DM-convert.R adds observations to test the rule components using SH
 An additional TTL file for development and testing purposes is created in the location /SHACL/CJ16050Constraints. 
 
 
-Rules violated by test data include: 
+#### 2.2 Rules violated by test data include: 
 
 
 **Rule Component 1** Start Date and End Date in date (xsd:date) format 
 
 <pre style="background-color:#EEEEBB;">
-    cj16050:Interval_2016-12-08_7-DEC-16
+    cj16050:Interval_XXXXXXX
       a study:ReferenceInterval ;
       time:hasBeginning cj16050:Date_2016-12-08 ;
       time:hasEnd cj16050:Date_7-DEC-16 .
@@ -107,7 +107,7 @@ As a result of how the reference intervals are constructed in RDF, duplicate `rf
 </pre>
 
 
-#### 2.2 Data Structure
+#### 2.3 Data Structure
 Familiarity with the data structure in TTL is necessary to explain the constraints. Here is a partial set of data for subjid 99T1 that violates rule SD1002 because end date preceeds start date.
 
 A graphical representation of the data is shown in Figure 1. 
