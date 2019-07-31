@@ -32,7 +32,7 @@ source('r/Functions.R')  # Functions: readXPT(), encodeCol(), etc.
 studyNameUc <- "CJ16050"  # Change for other studies.
 studyNameLc <- tolower(studyNameUc)
 
-dm_n=5;  # The first n patients from the DM domain.
+dm_n=1;  # The first n patients from the DM domain.
 
 # sendPath="data/studies/send/FFU-Contribution-to-FDA"
 sendPath="data/studies/RE Function in Rats"

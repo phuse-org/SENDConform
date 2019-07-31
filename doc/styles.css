@@ -37,6 +37,15 @@ body{
   font-size:1.1em;
 }
 
+.parameter{
+  color: #9c9c9c;     /* dark grey */
+  font-weight: bold;
+  font-style: italic;
+  font-size:1.1em;
+}
+
+
+
 .codeCom{
   color: #9c9c9c;     /* dark green */
 }
