@@ -4,7 +4,7 @@
 # Data Conversion
 
 ## Introduction
-Only the <b>DM</b> and <b>TS</b> domains are modeled for this proof of concept. Data was obtained from Phuse Scripts repository, [SEND subfolder](https://github.com/phuse-org/phuse-scripts/tree/master/data/send) and copied over to this repository under /SENDConform/data/studies/  .
+The proof of concept is limited to the <b>DM</b> and <b>TS</b> domains. Data was obtained from Phuse Scripts repository, [SEND subfolder](https://github.com/phuse-org/phuse-scripts/tree/master/data/send) and copied over to this repository under /SENDConform/data/studies/<font class="parameter">Study Name</font>  .
 
 A minimum of two alternatives are provided for the data conversion process:
 1. R to TTL
@@ -21,18 +21,18 @@ A third alternative using SAS may be provided, time permitting.
 
 SAS transport XPT data files for conversion and testing are located in the folder:
 <pre>
-  SENDConform\data\studies\<font class="extraInfo">Study Name</font> 
+  SENDConform\data\studies\<font class="parameter">Study Name</font> 
 </pre>
 
 These files are read in by the conversion scripts with data exported to the ttl folder:
 <pre>
-    SENDConform\data\studies\<font class="extraInfo">Study Name</font>\ttl
+    SENDConform\data\studies\<font class="parameter">Study Name</font>\ttl
 </pre>
 
 Another folder contains DM and TS data in CSV form for ease of loading into Excel to view the data:
 
 <pre>
-    SENDConform\data\studies\<font class="extraInfo">Study Name</font>\csv
+    SENDConform\data\studies\<font class="parameter">Study Name</font>\csv
 </pre>
 
 ## Conversion Scripts
@@ -50,11 +50,10 @@ Another folder contains DM and TS data in CSV form for ease of loading into Exce
 ## General Guidance
 
 #### Generating Unique Identifiers for Animal Subjects
-Traditionally, SUBJID and USUBJID are used as unique identifiers withing and between studies. There is a temptation to use these identifiers when forming IRIs. The approach simplifies IRI creation and is very human readable allowing the person to immediately determine that this subject is the animal with the SUBJID of "00M01".
-
+It may seem reasonable to use SUBJID and USUBJID when forming IRIs. The approach simplifies IRI creation and is very human readable, allowing the person to trace data back to a specific subject. In this example, Subject 00M01:
 `cj16050:Animal_00M01`
 
-The use of SUBJID is fraught with problems. 
+However, the use of SUBJID is fraught with problems. Consider cases where:
 
 * A SUBJID is accidentally re-used and assigned to more than one animal, so two distinct animals have the same ID number. The  resulting RDF would have all observations assigned to a single IRI and it would be difficult to identify the duplication. 
 
@@ -62,13 +61,13 @@ The use of SUBJID is fraught with problems.
 
 * A row of data is accidentally duplicated, a condition that could go undetected when converting the data to RDF.
 
-A solution is to create IRIs for critical components like Animal Subject and Intervals using IRIs that are independed of the data. For the purpose of this prototype, a truncated SHA-1 hash of a randomly generated value (with a known seed value) will be used to create the required IRIs. 
+A solution is to create IRIs for critical components like Animal Subject and Intervals using IRIs that are independed of the data. For the purpose of this prototype, a truncated SHA-1 hash of a randomly generated value (with a known seed value) is used to create the required IRIs, including IRIs for data collection events, intervals, and other components in the data model.
 
 Following this method:
 
 * IRI's remain constant during mutliple runs of the development code. 
-* SUBJID/USUBJID are not direclty part of the animal subject IRI and can be evaluated using test data in SHACL.
-* Facilitates testing for duplicate, missing, and incorrect instance data, independent of IRIs. 
+* IRIS for subject identifiers, intervals, data collection events and other components in the data model are not dependent on instance data, which could be incorrect. 
+* Testing for duplicate, missing, and incorrect instance data becomes possible thanks to data-independent of IRIs. 
 
 
 EXAMPLE CODE:
