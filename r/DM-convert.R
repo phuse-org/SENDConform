@@ -8,15 +8,13 @@
 #                                   DM-CJ16050-R.csv
 #       /SHACL/CD16050Constraints/DM-CJ16050-R.TTL  - dev/testing
 # NOTE: New subjects created for Test Cases use 99T<n> for SUBJID and USUBJID 
-#       SHA-1 hash values based on a random numbercomputed for IRI creation.
-#         TWO hash values are created:
-#           - The first has value is re-used for IRIs that are unique to that line
-#             in the source data. Eg: Animal_,  Interval_ , etc.
+#       SHA-1 hash values based on a random number computed for IRI creation.
+#           - The hash value is re-used for IRIs that are unique to that line
+#             in the source data. Eg: Animal_,  Interval_ , etc. but for values
+#             that may be common to multiple submjects (eg: Age) or refer out to 
+#             code lists (Set_)
 #           RANVAL1SHORTHASH_IM can be thought of as a unique ID for that row of source
 #              data, similar to ROWID in other datasets.
-#           - The second hash value facilitates IRIs of the same type that come from
-#             the same line of source data. 
-#              Eg: rfendtc stendtc : Date_<hash1>  , Date_<hash2>
 #       Error Testing:
 #       IF statement in the RDF creation for dates with -DEC- for error testing
 # TODO:  
@@ -25,15 +23,12 @@
 
 # Seed values for random number generation to create data-independent IRIs 
 ranSeed1 <-  16050
-ranSeed2 <-  05016
 
 #--- Data imputations
-dm$RANVAL1SHORTHASH_IM <-  (1:nrow(dm))
-
 dm$SPECIESCD_IM <- "Rat"
 dm$AGEUNIT_IM   <- "Week" # to link to time namespace
 dm$DURATION_IM  <- "P56D" 
-
+dm$ROWID_IM <-  (1:nrow(dmErr)) # To match with ERR dataset. Will later be deleted.
 # Necessary for later manipulation
 dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
 
@@ -47,13 +42,13 @@ dmErr <- dm[1,]
 numDMTestSubjects <- 7  # Number of DM Test subjects for test cases
 
 dmErr <- rep(dmErr, numDMTestSubjects)
-dmErr$RANVAL1SHORTHASH_IM <-  (1:nrow(dmErr))
+dmErr$ROWID_IM <-  (1:nrow(dmErr))
 
-addErrDM<-function()
-{
+#addErrDM<-function()
+#{
   # Create test data that contains errors
   # new subjid with 99T prefix + row identifier in the dmErr df
-  dmErr$subjid <- paste0(gsub("00M01", "99T", dmErr$subjid ), dmErr$RANVAL1SHORTHASH_IM)
+  dmErr$subjid <- paste0(gsub("00M01", "99T", dmErr$subjid ), dmErr$ROWID_IM)
   
   dmErr$usubjid <- paste0("CJ16050_", dmErr$subjid )
   
@@ -96,12 +91,14 @@ addErrDM<-function()
   dmErr[dmErr$subjid == '99T4', "armcd"] <- "NOTASSGN"
   
   #--- END test data creation -------
+  
 
-  # Error data appended to real data.
+#}
+#dm <- addErrDM()
+
+# Error data appended to real data.
   dm <-rbind (dm, dmErr)
 
-}
-#TWdm <- addErrDM()
   
   # Create data-independed IRI values based on random values  
   
@@ -112,18 +109,12 @@ for(i in 1:nrow(dm))
 {
   dm[i,"RANVAL1SHORTHASH_IM"] <- strtrim(sha1(paste(dm[i,"ranVal1"])), 8)  # Truncate for readabilty in the pilot
 }
-# Set seed for next loop
-set.seed(ranSeed2)
-dm$intervalRanVal <- runif(nrow(dm))
-for(i in 1:nrow(dm))  
-{
-  dm[i,"RANVAL2SHORTHASH_IM"] <- strtrim(sha1(paste(dm[i,"ranVal2"])), 8)  # Truncate for readabilty in the pilot  
-}
-    
+
   ##TODO Additional step here to re-assign and SEED values for 
   ##   animal subject and intervals to create appropriate test cases
 
-  
+# drop columns used for computations that will not become part of the graph
+dm <- dm[, !names(dm) %in% c("ranVal1", 'ROWID_IM')]
 
   
 #------------------------------------------------------------------------------
