@@ -138,7 +138,7 @@ Shape        | Rule Component | Check
 <font class='objectIRI'>Interval IRI</font> - - - <font class='predicate'>time:hasEnd</font>  - - > <font class='objectIRI'>Date IRI</font> - - > <font class='predicate'>time:inXSDDate</font> - - > <font class='literal'>Date value</font>
 </pre>
 
-<font class="labelShape">Shape</font>
+<font class='labelShape'>Shape</font>
 <pre style="background-color:#DDEEBB;">
   :DateShape a sh:NodeShape ;
     sh:targetObjectsOf time:hasBeginning ;
@@ -150,7 +150,7 @@ Shape        | Rule Component | Check
     ] .  
 </pre>
 
-Validation Report (excerpt):
+<font class='labelReport'>Validation Report</font> (excerpt):
 
 <pre style="background-color:#EEDDBB;">
   a sh:ValidationReport ;
