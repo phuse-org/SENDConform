@@ -120,7 +120,7 @@ The full data file used in developing this page is available here: [SHACL\CJ1605
 
 ### 3. SHACL Constraints
 
-**3.1 Constraint File**
+#### 3.1 Constraint File
 
 The SHACL file [SHACL\CJ16050Constraints\SHACL-SD1002.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints\SHACL-SD1002.TTL) begins with the prefixes used in the shapes. 
 
@@ -132,8 +132,10 @@ Shape        | Rule Component | Check
 <span style="background-color:#DDEEBB;">:RefIntervalShape</span> |2 |  One and only one rfstdtc, rfendtc per AnimalSubject
 <span style="background-color:#DDEEBB;">:SD1002RuleShape</span>  |3 |  SD1002 Rule: rfstdtc less than or equal to rfendtc
 
-**3.1.1 :DateShape** (Rule Component 1)
+##### 3.1.1 :DateShape (Rule Component 1: Start and End Dates as xsd:date)
+
 `:DateShape` uses `sh:targetObjectsOf` to select the interval IRI as the (Subject) focus node. The two `sh:targetObjectsOf` follow these paths through the data to obtain the date values: 
+
 <pre>
 <font class='objectIRI'>Interval IRI</font> - - - <font c lass='predicate'>time:hasBeginning</font>  - - > <font class='objectIRI'>Date IRI</font> - - > <font class='predicate'>time:inXSDDate</font> - - > <font class='literal'>Date value</font>
 
@@ -153,6 +155,9 @@ Shape        | Rule Component | Check
 </pre>
 
 <font class='labelReport'>Validation Report (excerpt)</font>
+
+The report correctly identifies the value '7-Dec-16' as a string, violating the xsd:date requirement.
+
 <pre style="background-color:#EEDDBB;">
   a sh:ValidationReport ;
     sh:conforms false ;
@@ -167,12 +172,13 @@ Shape        | Rule Component | Check
     ]  
 </pre>
 
-**3.1.2 RefIntervalShape**
+#####3.1.2 RefIntervalShape (Rule Component 2:  One and only one start and end date per Animal Subject)
 
-*THIS SECTION IS BEING REWORKED* 
+This constraint could be coded more than one way. Options include:
+1. SHACL-SPARQL to determine if the count of start and end date per Animal does not equal 1
+1. SHACL contstraint on the interval IRI. This SHACL-Core approach is less complex and relies on the fact that an interval IRI is created for each row of data in the DM domain *when both start and end dates are present*. Duplicate data for a subject will create more than one reference interval, and lack of data will create no reference interval. Therefore, a constraint of minCount and maxCount can be placed directly on the interval IRI to detect violations.
 
-<font class='error'>This section subject to change based on ReferenceInterval IRI creation method</font>
-
+<font class='labelShape'>Shape</font>
 <pre style="background-color:#DDEEBB;">
   :RefIntervalShape a sh:NodeShape ;
     sh:targetClass study:AnimalSubject ;  
@@ -182,16 +188,22 @@ Shape        | Rule Component | Check
     sh:maxCount 1 .
 </pre>  
 
+**Test Cases **
+
+*a) More than one interval* : Animal Subject 99T2
+Animal Subject 99T2 erroneously has two lines of data in DM, resulting in more than one reference interval.
 Validation Report (excerpt):
 
-*a) More than one interval*
-
+<font class='labelReport'>Validation Report (excerpt)</font>
 <pre style="background-color:#EEDDBB;">
    COMING SOON
 </pre>
 
-*b) No interval*
+*b) No interval* : Animal Subject 99T5
 
+
+
+<font class='labelReport'>Validation Report (excerpt)</font>
 <pre style="background-color:#EEDDBB;">
    COMING SOON
 </pre>
