@@ -56,14 +56,18 @@ body{
   font-weight: bold;
 }
 
+.labelData{
+  color: #9e9e27; /* dark olive */
+  font-weight: bold;
+}
 
 .labelShape{
-  color: #9fd041; /* dark green */
+  color: #759e27; /* dark green */
   font-weight: bold;
 }  
 
 .labelReport{
-  color: #d09f41; /* dark br/orange */
+  color: #c69331; /* dark br/orange */
   font-weight: bold;
 
 }  

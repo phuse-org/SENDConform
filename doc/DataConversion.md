@@ -78,6 +78,13 @@ See the [Technical Details page](https://github.com/phuse-org/UIDPharma/blob/mas
 
 Date values for reference start date (rfstdtc) and reference end date (rfendtc) are not direclty attached to the Animal subject IRI. Rather, the `cj16050:Animal_<hashvalue>` has a reference interval IRI `cj16050:Interval_<hashvalue>` which in turn has two date IRIs attached via the `time:hasBeginning` and `time:hasEnd` predicates (See Figure 1).  
 
+<img src="images/RefIntervalDataFail.PNG"/>
+*Figure 1: Animal_99T1 (incomplete data)*
+
+An interval IRI is still created in cases where either start or end date is missing, because the data for the non-missing date value must be captured in the graph. In cases where both start and end date are missing, no interval IRI is created.
+
+<img src="images/RefIntervalMissEndDate.PNG"/>
+*Figure 2: Animal_99T5 Missing rfendtc*
 
 
 ### Data Creation: More details.

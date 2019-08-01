@@ -23,6 +23,11 @@ cj16050:AgeDataCollection_184f16eb
     skos:prefLabel "Age data collection 99T1"^^xsd:string ;
     code:outcome cj16050:Age_-10_WEEKS .
 
+cj16050:AgeDataCollection_24908fa7
+    a code:AgeDataCollection ;
+    skos:prefLabel "Age data collection 99T8"^^xsd:string ;
+    code:outcome cj16050:Age_8_WEEKS .
+
 cj16050:AgeDataCollection_252450f2
     a code:AgeDataCollection ;
     skos:prefLabel "Age data collection 99T6"^^xsd:string ;
@@ -31,6 +36,11 @@ cj16050:AgeDataCollection_252450f2
 cj16050:AgeDataCollection_2706cb1e
     a code:AgeDataCollection ;
     skos:prefLabel "Age data collection 99T7"^^xsd:string ;
+    code:outcome cj16050:Age_8_WEEKS .
+
+cj16050:AgeDataCollection_6f395f06
+    a code:AgeDataCollection ;
+    skos:prefLabel "Age data collection 99T9"^^xsd:string ;
     code:outcome cj16050:Age_8_WEEKS .
 
 cj16050:AgeDataCollection_db3c6403
@@ -79,6 +89,14 @@ cj16050:Animal_21316392
     study:memberOf cjprot:Set_00, code:Species_Rat ;
     study:participatesIn cj16050:SexDataCollection_21316392 .
 
+cj16050:Animal_24908fa7
+    a study:AnimalSubject ;
+    skos:prefLabel "Animal 99T8"^^xsd:string ;
+    study:hasSubjectID cj16050:SubjectIdentifier_24908fa7 ;
+    study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_24908fa7 ;
+    study:memberOf cjprot:Set_00, code:Species_Rat ;
+    study:participatesIn cj16050:AgeDataCollection_24908fa7, cj16050:SexDataCollection_24908fa7 .
+
 cj16050:Animal_252450f2
     a study:AnimalSubject ;
     skos:prefLabel "Animal 99T6"^^xsd:string ;
@@ -106,9 +124,19 @@ cj16050:Animal_68bab561
     study:memberOf cjprot:Set_00, code:Species_Rat ;
     study:participatesIn cj16050:SexDataCollection_68bab561 .
 
+cj16050:Animal_6f395f06
+    a study:AnimalSubject ;
+    skos:prefLabel "Animal 99T9"^^xsd:string ;
+    study:hasReferenceInterval cj16050:Interval_6f395f06 ;
+    study:hasSubjectID cj16050:SubjectIdentifier_6f395f06 ;
+    study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_6f395f06 ;
+    study:memberOf cjprot:Set_00, code:Species_Rat ;
+    study:participatesIn cj16050:AgeDataCollection_6f395f06, cj16050:SexDataCollection_6f395f06 .
+
 cj16050:Animal_db3c6403
     a study:AnimalSubject ;
     skos:prefLabel "Animal 99T5"^^xsd:string ;
+    study:hasReferenceInterval cj16050:Interval_db3c6403 ;
     study:hasSubjectID cj16050:SubjectIdentifier_db3c6403 ;
     study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_db3c6403 ;
     study:memberOf cjprot:Set_00, code:Species_Rat ;
@@ -177,6 +205,16 @@ cj16050:Interval_68bab561
     time:hasBeginning cj16050:Date_2016-12-07 ;
     time:hasEnd cj16050:Date_7-DEC-16 .
 
+cj16050:Interval_6f395f06
+    a study:ReferenceInterval ;
+    skos:prefLabel "Interval NA 2016-12-07"^^xsd:string ;
+    time:hasEnd cj16050:Date_2016-12-07 .
+
+cj16050:Interval_db3c6403
+    a study:ReferenceInterval ;
+    skos:prefLabel "Interval 2016-12-07 NA"^^xsd:string ;
+    time:hasBeginning cj16050:Date_2016-12-07 .
+
 cj16050:Interval_f0c433d9
     a study:ReferenceInterval ;
     skos:prefLabel "Interval 2016-12-07 2016-12-07"^^xsd:string ;
@@ -198,6 +236,11 @@ cj16050:SexDataCollection_21316392
     skos:prefLabel "Sex data collection 21316392"^^xsd:string ;
     code:outcome code:Sex_M .
 
+cj16050:SexDataCollection_24908fa7
+    a code:SexDataCollection ;
+    skos:prefLabel "Sex data collection 24908fa7"^^xsd:string ;
+    code:outcome code:Sex_M .
+
 cj16050:SexDataCollection_252450f2
     a code:SexDataCollection ;
     skos:prefLabel "Sex data collection 252450f2"^^xsd:string ;
@@ -211,6 +254,11 @@ cj16050:SexDataCollection_2706cb1e
 cj16050:SexDataCollection_68bab561
     a code:SexDataCollection ;
     skos:prefLabel "Sex data collection 68bab561"^^xsd:string ;
+    code:outcome code:Sex_M .
+
+cj16050:SexDataCollection_6f395f06
+    a code:SexDataCollection ;
+    skos:prefLabel "Sex data collection 6f395f06"^^xsd:string ;
     code:outcome code:Sex_M .
 
 cj16050:SexDataCollection_db3c6403
@@ -235,6 +283,10 @@ cj16050:SubjectIdentifier_21316392
     a study:SubjectIdentifier ;
     skos:prefLabel "99T2"^^xsd:string .
 
+cj16050:SubjectIdentifier_24908fa7
+    a study:SubjectIdentifier ;
+    skos:prefLabel "99T8"^^xsd:string .
+
 cj16050:SubjectIdentifier_252450f2
     a study:SubjectIdentifier ;
     skos:prefLabel "99T6"^^xsd:string .
@@ -246,6 +298,10 @@ cj16050:SubjectIdentifier_2706cb1e
 cj16050:SubjectIdentifier_68bab561
     a study:SubjectIdentifier ;
     skos:prefLabel "99T4"^^xsd:string .
+
+cj16050:SubjectIdentifier_6f395f06
+    a study:SubjectIdentifier ;
+    skos:prefLabel "99T9"^^xsd:string .
 
 cj16050:SubjectIdentifier_db3c6403
     a study:SubjectIdentifier ;
@@ -267,6 +323,10 @@ cj16050:UniqueSubjectIdentifier_21316392
     a study:UniqueSubjectIdentifier ;
     skos:prefLabel "CJ16050_99T2"^^xsd:string .
 
+cj16050:UniqueSubjectIdentifier_24908fa7
+    a study:UniqueSubjectIdentifier ;
+    skos:prefLabel "CJ16050_99T8"^^xsd:string .
+
 cj16050:UniqueSubjectIdentifier_252450f2
     a study:UniqueSubjectIdentifier ;
     skos:prefLabel "CJ16050_99T6"^^xsd:string .
@@ -279,6 +339,10 @@ cj16050:UniqueSubjectIdentifier_68bab561
     a study:UniqueSubjectIdentifier ;
     skos:prefLabel "CJ16050_99T4"^^xsd:string .
 
+cj16050:UniqueSubjectIdentifier_6f395f06
+    a study:UniqueSubjectIdentifier ;
+    skos:prefLabel "CJ16050_99T9"^^xsd:string .
+
 cj16050:UniqueSubjectIdentifier_db3c6403
     a study:UniqueSubjectIdentifier ;
     skos:prefLabel "CJ16050_99T5"^^xsd:string .
@@ -288,5 +352,5 @@ cj16050:UniqueSubjectIdentifier_f0c433d9
     skos:prefLabel "CJ16050_99T2"^^xsd:string .
 
 cjprot:Study_CJ16050
-    study:hasStudyParticipant cj16050:Animal_037c2fdc, cj16050:Animal_184f16eb, cj16050:Animal_21316392, cj16050:Animal_252450f2, cj16050:Animal_2706cb1e, cj16050:Animal_68bab561, cj16050:Animal_db3c6403, cj16050:Animal_f0c433d9 .
+    study:hasStudyParticipant cj16050:Animal_037c2fdc, cj16050:Animal_184f16eb, cj16050:Animal_21316392, cj16050:Animal_24908fa7, cj16050:Animal_252450f2, cj16050:Animal_2706cb1e, cj16050:Animal_68bab561, cj16050:Animal_6f395f06, cj16050:Animal_db3c6403, cj16050:Animal_f0c433d9 .
 

@@ -25,9 +25,10 @@
 ranSeed1 <-  16050
 
 #--- Data imputations
-dm$SPECIESCD_IM <- "Rat"
-dm$AGEUNIT_IM   <- "Week" # to link to time namespace
-dm$DURATION_IM  <- "P56D" 
+dm$SPECIESCD_IM   <- "Rat"
+dm$AGEUNIT_IM     <- "Week" # to link to time namespace
+dm$DURATION_IM    <- "P56D" 
+numDMTestSubjects <- 9  # Number of DM Test subjects for test cases
 dm$ROWID_IM <-  (1:nrow(dm)) # To match with ERR dataset. Will later be deleted.
 # Necessary for later manipulation
 dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
@@ -38,8 +39,6 @@ dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
 # Create the Errors DF using the first row of the DM DF
 # reset dm to null
 dmErr <- dm[1,]
-
-numDMTestSubjects <- 7  # Number of DM Test subjects for test cases
 
 dmErr <- rep(dmErr, numDMTestSubjects)
 dmErr$ROWID_IM <-  (1:nrow(dmErr))
@@ -69,6 +68,15 @@ dmErr$ROWID_IM <-  (1:nrow(dmErr))
 
   # Test Case: Missing End date 
   dmErr[dmErr$subjid == '99T5', "rfendtc"] <- NA
+  
+  # Test Case: Missing Start date 
+  dmErr[dmErr$subjid == '99T9', "rfstdtc"] <- NA
+
+  
+  # Test Case: Missing Start Date and Missing End date 
+  dmErr[dmErr$subjid == '99T8', "rfstdtc"] <- NA
+  dmErr[dmErr$subjid == '99T8', "rfendtc"] <- NA
+  
   
 
   #--- END SD1002 -------------------------------------------------------------
@@ -138,83 +146,43 @@ for(i in 1:nrow(dm))
   )
   
   ## Reference Interval
-  # only create interval when both rfstdtc and rfendtc are present
-  if( ! is.na (dm[i,"rfstdtc"]) &&
+  #  Create interval when at least one of either rfstdtc, rfendtc are present
+  #    An interval can have a missing start or end, but not both.
+  if( ! is.na (dm[i,"rfstdtc"]) ||
       ! is.na (dm[i,"rfendtc"]) )
-  {    
+  {  
+    # Interval attached to Animal IRI  
     rdf_add(some_rdf, 
       subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
       predicate    = paste0(STUDY,  "hasReferenceInterval"), 
       object       = paste0(CJ16050, paste0("Interval_",dm[i,"DMROWSHORTHASH_IM"]))
     )
-  }  
-  rdf_add(some_rdf, 
-    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
-    predicate   = paste0(STUDY,  "hasSubjectID"), 
-    object      = paste0(CJ16050, "SubjectIdentifier_", dm[i,"DMROWSHORTHASH_IM"])
-  )
-  rdf_add(some_rdf, 
-    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
-    predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
-    object      = paste0(CJ16050, "UniqueSubjectIdentifier_", dm[i,"DMROWSHORTHASH_IM"])
-  )
-  rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
-    predicate    = paste0(STUDY,  "memberOf"), 
-    object       = paste0(CJPROT, paste0("Set_", dm[i,"setcd"]))
-  )
-  rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
-    predicate    = paste0(STUDY,  "memberOf"), 
-    object       = paste0(CODE, paste0("Species_", dm[i,"SPECIESCD_IM"]))
-  )
-  # AgeDataCollection only when age value is present
-  if( ! is.na (dm[i,"age"])){
-
+    
+    # Interval Triples and subtriples
     rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
-      predicate    = paste0(STUDY,  "participatesIn"), 
-      object       = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"]))
+      subject      = paste0(CJ16050, paste0("Interval_", dm[i,"DMROWSHORTHASH_IM"])),
+      predicate    = paste0(RDF,  "type"), 
+      object       = paste0(STUDY, "ReferenceInterval")
     )
-  }  
-  rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
-    predicate    = paste0(STUDY,  "participatesIn"), 
-    object       = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"DMROWSHORTHASH_IM"]))
-  )
-  
-    # only create interval when both rfstdtc and rfendtc are present
-    # TODO: ADD THE CODE!
-    ## Reference Interval
-    if( ! is.na (dm[i,"rfstdtc"]) &&
-        ! is.na (dm[i,"rfendtc"]) )
-    {    
-      rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("Interval_", dm[i,"DMROWSHORTHASH_IM"])),
-        predicate    = paste0(RDF,  "type"), 
-        object       = paste0(STUDY, "ReferenceInterval")
-      )
-      rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("Interval_",dm[i,"DMROWSHORTHASH_IM"])),
-        predicate    = paste0(SKOS,  "prefLabel"), 
-        object       = paste0("Interval ", dm[i,"rfstdtc"], " ", dm[i,"rfendtc"] ),
-        objectType   = "literal", 
-        datatype_uri = paste0(XSD,"string")
-      )
+    rdf_add(some_rdf, 
+      subject      = paste0(CJ16050, paste0("Interval_",dm[i,"DMROWSHORTHASH_IM"])),
+      predicate    = paste0(SKOS,  "prefLabel"), 
+      object       = paste0("Interval ", dm[i,"rfstdtc"], " ", dm[i,"rfendtc"] ),
+      objectType   = "literal", 
+      datatype_uri = paste0(XSD,"string")
+    )
+      
+    # Start Date IRI if rfstdtc is non-missing
+    if( ! is.na (dm[i,"rfstdtc"]) )
+    {  
+      # Start date attached to the interval
       rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("Interval_",dm[i,"DMROWSHORTHASH_IM"])),
         predicate    = paste0(TIME,  "hasBeginning"),     
         object       = paste0(CJ16050, "Date_", dm[i,"rfstdtc"])
-      )      
-      rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("Interval_",dm[i,"DMROWSHORTHASH_IM"])),
-        predicate    = paste0(TIME,  "hasEnd"),     
-        object       = paste0(CJ16050, "Date_", dm[i,"rfendtc"])
-      ) 
-    }
-    # END OF INTERVAL CREATION
-    # Begin Date
-    if( ! is.na (dm[i,"rfstdtc"])){
+      )  
+      
+      # Start Date Triples 
       rdf_add(some_rdf, 
         subject      = paste0(CJ16050, "Date_", dm[i,"rfstdtc"]),
         predicate    = paste0(RDF,  "type"), 
@@ -241,50 +209,96 @@ for(i in 1:nrow(dm))
         objectType   = "literal", 
         datatype_uri = paste0(XSD,"string")
       )
-    }
+    }  
+
+    # End Date IRI if rfendtc is non-missing
+    if( ! is.na (dm[i,"rfendtc"]) )
+    {  
+      # End date attached to the interval
+      rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, paste0("Interval_",dm[i,"DMROWSHORTHASH_IM"])),
+        predicate    = paste0(TIME,  "hasEnd"),     
+        object       = paste0(CJ16050, "Date_", dm[i,"rfendtc"])
+      )
+
+      # End Date triples
+      rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
+        predicate    = paste0(RDF,  "type"), 
+        object       = paste0(STUDY, "ReferenceEnd")
+      )    
+      rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
+        predicate    = paste0(SKOS, "prefLabel"),
+        object       = paste0("Date ", dm[i, "rfendtc"]),
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"string")
+      )
       
-    # End Date
-     if( ! is.na (dm[i,"rfendtc"]) ) {
+      # Test case:  hard-coded string for date when date value contains "-Dec-", 
+      #  else the format is the correct xsd:date
+      if (grepl("-Dec-", dm[i,"rfendtc"], ignore.case = TRUE)) {
         rdf_add(some_rdf, 
           subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
-          predicate    = paste0(RDF,  "type"), 
-          object       = paste0(STUDY, "ReferenceEnd")
-        )    
-        
-        rdf_add(some_rdf, 
-          subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
-          predicate    = paste0(SKOS, "prefLabel"),
-          object       = paste0("Date ", dm[i, "rfendtc"]),
-          objectType   = "literal", 
-          datatype_uri = paste0(XSD,"string")
-        )
-        
-        # Test case:  hard-coded string for date. 
-        if (grepl("-Dec-", dm[i,"rfendtc"], ignore.case = TRUE)) {
-          rdf_add(some_rdf, 
-            subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
-            predicate    = paste0(TIME, "inXSDDate"),
-            object       = dm[i, "rfendtc"],
-            objectType   = "literal", 
-            datatype_uri = paste0(XSD,"string")
-          )
-        }else{
-          rdf_add(some_rdf, 
-            subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
-            predicate    = paste0(TIME, "inXSDDate"),
-            object       = dm[i, "rfendtc"],
-            objectType   = "literal", 
-            datatype_uri = paste0(XSD,"date")
-          )
-        }  
-        rdf_add(some_rdf, 
-          subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
-          predicate    = paste0(STUDY, "dateTimeInXSDString"),
+          predicate    = paste0(TIME, "inXSDDate"),
           object       = dm[i, "rfendtc"],
           objectType   = "literal", 
           datatype_uri = paste0(XSD,"string")
         )
-      }
+      }else{
+        rdf_add(some_rdf, 
+          subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
+          predicate    = paste0(TIME, "inXSDDate"),
+          object       = dm[i, "rfendtc"],
+          objectType   = "literal", 
+          datatype_uri = paste0(XSD,"date")
+        )
+      }  
+      rdf_add(some_rdf, 
+        subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
+        predicate    = paste0(STUDY, "dateTimeInXSDString"),
+        object       = dm[i, "rfendtc"],
+        objectType   = "literal", 
+        datatype_uri = paste0(XSD,"string")
+      )
+    }  # End of End Date creation
+  } ## ---- END OF INTERVAL CREATION ------------------------------------------
+  
+  rdf_add(some_rdf, 
+    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+    predicate   = paste0(STUDY,  "hasSubjectID"), 
+    object      = paste0(CJ16050, "SubjectIdentifier_", dm[i,"DMROWSHORTHASH_IM"])
+  )
+  rdf_add(some_rdf, 
+    subject     = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+    predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
+    object      = paste0(CJ16050, "UniqueSubjectIdentifier_", dm[i,"DMROWSHORTHASH_IM"])
+  )
+  rdf_add(some_rdf, 
+    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+    predicate    = paste0(STUDY,  "memberOf"), 
+    object       = paste0(CJPROT, paste0("Set_", dm[i,"setcd"]))
+  )
+  rdf_add(some_rdf, 
+    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+    predicate    = paste0(STUDY,  "memberOf"), 
+    object       = paste0(CODE, paste0("Species_", dm[i,"SPECIESCD_IM"]))
+  )
+  # AgeDataCollection only when age value is present
+  if( ! is.na (dm[i,"age"]))
+  {
+    rdf_add(some_rdf, 
+      subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+      predicate    = paste0(STUDY,  "participatesIn"), 
+      object       = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"]))
+    )
+  }  
+  rdf_add(some_rdf, 
+    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+    predicate    = paste0(STUDY,  "participatesIn"), 
+    object       = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"DMROWSHORTHASH_IM"]))
+  )
+ 
 
   ## Subject Identifier
   rdf_add(some_rdf, 

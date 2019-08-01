@@ -50,10 +50,11 @@ An additional TTL file for development and testing purposes is created in the lo
 
 
 **Rule Component 1** Start Date and End Date in date (xsd:date) format 
+Subject 99T4 with string for end date.
+
 <font class='labelData'>Data</font>
-Subject 99T1 with string for end date.
 <pre style="background-color:#EEEEBB;">
-    cj16050:Interval_XXXXXXX
+    cj16050:Interval_68bab561
       a study:ReferenceInterval ;
       time:hasBeginning cj16050:Date_2016-12-08 ;
       time:hasEnd cj16050:Date_7-DEC-16 .
@@ -71,10 +72,11 @@ As a result of how the reference intervals are constructed in RDF, duplicate `rf
 
 
 *a) More than one interval*
+Subject 99T4 with string for end date.
+
 <font class='labelData'>Data</font>
-Subject 99T2 with string for end date.
 <pre style="background-color:#EEEEBB;">
-  cj16050:Animal_99T2
+  cj16050:Animal_68bab561
     a study:AnimalSubject ;
     study:hasReferenceInterval <font class='error'>cj16050:Interval_2016-12-07_2016-12-07, 
                                cj16050:Interval_2016-12-08_2016-12-08 </font> .
