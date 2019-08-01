@@ -69,18 +69,16 @@ Following this method:
 * IRIS for subject identifiers, intervals, data collection events and other components in the data model are not dependent on instance data, which could be incorrect. 
 * Testing for duplicate, missing, and incorrect instance data becomes possible thanks to data-independent of IRIs. 
 
-
-EXAMPLE CODE:
-
-<pre style="background-color:#DDEEFF;">
-  Example code here. 
-  
-</pre>
-
-Results consistently in the value:
-`cj16050:Animal_a6d09184`
+Example Animal Subject IRI: `cj16050:Animal_a6d09184`
 
 See the [Technical Details page](https://github.com/phuse-org/UIDPharma/blob/master/UUIDTechDetails.md)) of the project [Unique Identifiers for the Pharmaceutical Industry]https://github.com/phuse-org/UIDPharma) for more information on generating unique identifiers. Methods to generate UIDs for subjects in real-world settings is beyond the mandate of this project.
+
+
+#### Reference Interval IRIs
+
+Date values for reference start date (rfstdtc) and reference end date (rfendtc) are not direclty attached to the Animal subject IRI. Rather, the `cj16050:Animal_<hashvalue>` has a reference interval IRI `cj16050:Interval_<hashvalue>` which in turn has two date IRIs attached via the `time:hasBeginning` and `time:hasEnd` predicates (See Figure 1).  
+
+
 
 ### Data Creation: More details.
 TBD
