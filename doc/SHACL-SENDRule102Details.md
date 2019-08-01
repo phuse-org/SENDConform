@@ -151,7 +151,6 @@ Shape        | Rule Component | Check
 </pre>
 
 <font class='labelReport'>Validation Report</font> (excerpt):
-
 <pre style="background-color:#EEDDBB;">
   a sh:ValidationReport ;
     sh:conforms false ;
