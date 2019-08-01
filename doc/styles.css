@@ -57,6 +57,17 @@ body{
 }
 
 
+.labelShape{
+  color: #9fd041; /* dark green */
+  font-weight: bold;
+}  
+
+.labelReport{
+  color: #d09f41; /* dark br/orange */
+  font-weight: bold;
+
+}  
+
 .objectIRI{
   color: #00008b;     /* dark blue */
   font-weight: bold;
