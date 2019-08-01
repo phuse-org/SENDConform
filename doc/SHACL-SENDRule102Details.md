@@ -108,12 +108,11 @@ As a result of how the reference intervals are constructed in RDF, duplicate `rf
 
 
 #### 2.3 Data Structure
-Familiarity with the data structure in TTL is necessary to explain the constraints. Here is a partial set of data for subjid 99T1 that violates rule SD1002 because end date preceeds start date.
+Familiarity with the data structure is necessary to explain the constraints. Figure 1 illustrates a partial set of data for test subject subjid=99T1 that violates rule SD1002 where end date preceeds start date.
 
-A graphical representation of the data is shown in Figure 1. 
-
-<img src="images/RefIntervalDataFail.PNG">
+<img src="images/RefIntervalDataFail.PNG"/>
 *Figure 1: Animal_99T1 (incomplete data)*
+
 
 The full data file used in developing this page is available here: [SHACL\CJ16050Constraints\DM-CJ16050-R.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/DM-CJ16050-R.TT)
 
@@ -134,11 +133,12 @@ Shape        | Rule Component | Check
 **3.1.1 :DateShape** (Rule Component 1)
 `:DateShape` uses `sh:targetObjectsOf` to select the interval IRI as the (Subject) focus node. The two `sh:targetObjectsOf` follow these paths through the data to obtain the date values: 
 <pre>
- <font class='objectIRI'>Interval IRI</font> - - - <font c lass='predicate'>time:hasBeginning</font>  - - > <font class='objectIRI'>Date IRI</font> - - > <font class='predicate'>time:inXSDDate</font> - - > <font class='literal'>Date value</font>
+<font class='objectIRI'>Interval IRI</font> - - - <font c lass='predicate'>time:hasBeginning</font>  - - > <font class='objectIRI'>Date IRI</font> - - > <font class='predicate'>time:inXSDDate</font> - - > <font class='literal'>Date value</font>
 
 <font class='objectIRI'>Interval IRI</font> - - - <font class='predicate'>time:hasEnd</font>  - - > <font class='objectIRI'>Date IRI</font> - - > <font class='predicate'>time:inXSDDate</font> - - > <font class='literal'>Date value</font>
 </pre>
 
+<font class="labelShape">Shape</font>
 <pre style="background-color:#DDEEBB;">
   :DateShape a sh:NodeShape ;
     sh:targetObjectsOf time:hasBeginning ;
