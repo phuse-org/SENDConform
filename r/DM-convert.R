@@ -28,7 +28,7 @@ ranSeed1 <-  16050
 dm$SPECIESCD_IM   <- "Rat"
 dm$AGEUNIT_IM     <- "Week" # to link to time namespace
 dm$DURATION_IM    <- "P56D" 
-numDMTestSubjects <- 9  # Number of DM Test subjects for test cases
+numDMTestSubjects <- 11  # Number of DM Test subjects for test cases
 dm$ROWID_IM <-  (1:nrow(dm)) # To match with ERR dataset. Will later be deleted.
 # Necessary for later manipulation
 dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
@@ -40,11 +40,12 @@ dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
 # reset dm to null
 dmErr <- dm[1,]
 
-dmErr <- rep(dmErr, numDMTestSubjects)
-dmErr$ROWID_IM <-  (1:nrow(dmErr))
 
 #addErrDM<-function()
 #{
+  dmErr <- rep(dmErr, numDMTestSubjects)
+  dmErr$ROWID_IM <-  (1:nrow(dmErr))
+
   # Create test data that contains errors
   # new subjid with 99T prefix + row identifier in the dmErr df
   dmErr$subjid <- paste0(gsub("00M01", "99T", dmErr$subjid ), dmErr$ROWID_IM)
@@ -62,10 +63,14 @@ dmErr$ROWID_IM <-  (1:nrow(dmErr))
   #   So reassign the 99T3 subjid and usubjid to 99T2 to get duplicate dates
   dmErr[dmErr$subjid == '99T3', "subjid"] <- "99T2"
   dmErr[dmErr$usubjid == 'CJ16050_99T3', "usubjid"] <- "CJ16050_99T2"
-  
+
+  # Dates as strings must have -DEC- for later regex  
   # Test Case: rfendtc as xsd:string
   dmErr[dmErr$subjid == '99T4', "rfendtc"] <- "7-DEC-16"
-
+  # Test Case: rfendtc as xsd:string
+  dmErr[dmErr$subjid == '99T10', "rfstdtc"] <- "6-DEC-16"
+  
+  
   # Test Case: Missing End date 
   dmErr[dmErr$subjid == '99T5', "rfendtc"] <- NA
   
@@ -99,13 +104,12 @@ dmErr$ROWID_IM <-  (1:nrow(dmErr))
   dmErr[dmErr$subjid == '99T4', "armcd"] <- "NOTASSGN"
   
   #--- END test data creation -------
-  
-
-#}
-#dm <- addErrDM()
-
-# Error data appended to real data.
+  # Error data appended to real data.
   dm <-rbind (dm, dmErr)
+ 
+#}
+#dm <- addErrDM(dm)
+
 
   
   # Create data-independed IRI values based on random values  
@@ -117,9 +121,6 @@ for(i in 1:nrow(dm))
 {
   dm[i,"DMROWSHORTHASH_IM"] <- strtrim(sha1(paste(dm[i,"dmRowRanVal"])), 8)  # Truncate for readabilty in the pilot
 }
-
-  ##TODO Additional step here to re-assign and SEED values for 
-  ##   animal subject and intervals to create appropriate test cases
 
 # drop columns used for computations that will not become part of the graph
 dm <- dm[, !names(dm) %in% c("dmRowRanVal", 'ROWID_IM')]
@@ -146,18 +147,20 @@ for(i in 1:nrow(dm))
   )
   
   ## Reference Interval
-  #  Create interval when at least one of either rfstdtc, rfendtc are present
-  #    An interval can have a missing start or end, but not both.
-  if( ! is.na (dm[i,"rfstdtc"]) ||
-      ! is.na (dm[i,"rfendtc"]) )
+  #  Intervals without start and end dates are valid. See AO email 2019-08-01
+  #    An interval can also have a missing start or end date. 
+  #  Test Case: 99T11 has no reference interval present.
+  
+  # Interval attached to Animal IRI  
+  if( ! dm[i,"subjid"] %in% c("99T11") )
   {  
-    # Interval attached to Animal IRI  
+  
     rdf_add(some_rdf, 
       subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
       predicate    = paste0(STUDY,  "hasReferenceInterval"), 
       object       = paste0(CJ16050, paste0("Interval_",dm[i,"DMROWSHORTHASH_IM"]))
     )
-    
+      
     # Interval Triples and subtriples
     rdf_add(some_rdf, 
       subject      = paste0(CJ16050, paste0("Interval_", dm[i,"DMROWSHORTHASH_IM"])),
@@ -171,7 +174,7 @@ for(i in 1:nrow(dm))
       objectType   = "literal", 
       datatype_uri = paste0(XSD,"string")
     )
-      
+        
     # Start Date IRI if rfstdtc is non-missing
     if( ! is.na (dm[i,"rfstdtc"]) )
     {  
@@ -181,7 +184,7 @@ for(i in 1:nrow(dm))
         predicate    = paste0(TIME,  "hasBeginning"),     
         object       = paste0(CJ16050, "Date_", dm[i,"rfstdtc"])
       )  
-      
+        
       # Start Date Triples 
       rdf_add(some_rdf, 
         subject      = paste0(CJ16050, "Date_", dm[i,"rfstdtc"]),
@@ -195,13 +198,27 @@ for(i in 1:nrow(dm))
         objectType   = "literal", 
         datatype_uri = paste0(XSD,"string")
       )
-      rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, "Date_", dm[i,"rfstdtc"]),
-        predicate    = paste0(TIME, "inXSDDate"),
-        object       = dm[i, "rfstdtc"],
-        objectType   = "literal", 
-        datatype_uri = paste0(XSD,"date")
-      )
+        
+      # Test Case:  
+      # Hard-coded string for date when date value contains "-Dec-", 
+      #  else the format is the correct xsd:date
+      if (grepl("-DEC-", dm[i,"rfstdtc"], ignore.case = TRUE)) {
+        rdf_add(some_rdf, 
+          subject      = paste0(CJ16050, "Date_", dm[i,"rfstdtc"]),
+          predicate    = paste0(TIME, "inXSDDate"),
+          object       = dm[i, "rfstdtc"],
+          objectType   = "literal", 
+          datatype_uri = paste0(XSD,"string")
+        )
+      }else{
+        rdf_add(some_rdf, 
+          subject      = paste0(CJ16050, "Date_", dm[i,"rfstdtc"]),
+          predicate    = paste0(TIME, "inXSDDate"),
+          object       = dm[i, "rfstdtc"],
+          objectType   = "literal", 
+          datatype_uri = paste0(XSD,"date")
+        )
+      }  
       rdf_add(some_rdf, 
         subject      = paste0(CJ16050, "Date_", dm[i,"rfstdtc"]),
         predicate    = paste0(STUDY, "dateTimeInXSDString"),
@@ -209,8 +226,8 @@ for(i in 1:nrow(dm))
         objectType   = "literal", 
         datatype_uri = paste0(XSD,"string")
       )
-    }  
-
+    }  # End of start date IRI  
+    
     # End Date IRI if rfendtc is non-missing
     if( ! is.na (dm[i,"rfendtc"]) )
     {  
@@ -220,7 +237,7 @@ for(i in 1:nrow(dm))
         predicate    = paste0(TIME,  "hasEnd"),     
         object       = paste0(CJ16050, "Date_", dm[i,"rfendtc"])
       )
-
+    
       # End Date triples
       rdf_add(some_rdf, 
         subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
@@ -232,12 +249,13 @@ for(i in 1:nrow(dm))
         predicate    = paste0(SKOS, "prefLabel"),
         object       = paste0("Date ", dm[i, "rfendtc"]),
         objectType   = "literal", 
-        datatype_uri = paste0(XSD,"string")
+          datatype_uri = paste0(XSD,"string")
       )
-      
-      # Test case:  hard-coded string for date when date value contains "-Dec-", 
+        
+      # Test Case:  
+      #   Hard-coded string for date when date value contains "-Dec-", 
       #  else the format is the correct xsd:date
-      if (grepl("-Dec-", dm[i,"rfendtc"], ignore.case = TRUE)) {
+      if (grepl("-DEC-", dm[i,"rfendtc"], ignore.case = TRUE)) {
         rdf_add(some_rdf, 
           subject      = paste0(CJ16050, "Date_", dm[i,"rfendtc"]),
           predicate    = paste0(TIME, "inXSDDate"),
@@ -262,7 +280,8 @@ for(i in 1:nrow(dm))
         datatype_uri = paste0(XSD,"string")
       )
     }  # End of End Date creation
-  } ## ---- END OF INTERVAL CREATION ------------------------------------------
+  }  
+  ## ---- END OF INTERVAL CREATION ------------------------------------------
   
   rdf_add(some_rdf, 
     subject     = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 

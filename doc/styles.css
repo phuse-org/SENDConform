@@ -7,7 +7,7 @@ REQ :
  COLORS: 
         Shapes graph   #DDEEBB green
         data           #EEEEBB olive
-        result        #EEDDBB brown
+        report        #EEDDBB brown
         sparq/text     #DDEEFF blue
         syntax fules   #F6F6F6 grey
 NOTES: https://gridbyexample.com/examples/example21/  Grid within grid
@@ -91,11 +91,15 @@ body{
 /* Formatting of boxes 
    Shapes graph   #DDEEBB green
    data           #EEEEBB olive
-   result        #EEDDBB brown
+   report        #EEDDBB brown
    sparql/text     #DDEEFF blue
    syntax rules   #F6F6F6 grey
  NB: Githubpages not recognizing background: for color.  
 */
+
+.rule{
+  background-color: #F7F7F7; 
+}   
 
 .data{
   background-color: #EEEEBB; 
@@ -104,6 +108,191 @@ body{
 .shacl{
   background-color: #DDEEBB;
 }  
-.result{
+.report{
  background-color: #EEDDBB; 
 }
+
+
+/*---------------- FROM SHACL online ----------------*/
+.syntax {
+    border-left-style: solid;
+    border-left-width: .5em;
+    border-color: #d0d0d0;
+    margin-bottom: 16px;
+    padding: .5em 1em;
+    background-color: #f6f6f6;
+}
+
+.def {
+    background: #DDEEFF;
+    border-left-style: solid;
+    border-left-width: .5em;
+    border-color: #8CCBF2;
+    margin-bottom: 16px;
+    padding: 0.5em;
+}
+
+       
+       
+       
+       
+       
+.def-sparql {}
+
+.def-sparql-body {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.def-text {}
+
+.def-text-body {}
+
+.def-header {
+  color: #a0a0a0;
+  font-size: 16px;
+  padding-bottom: 8px;
+}
+
+.ruleState {
+    background: #F6F6F6;
+    border-left-style: solid;
+    border-left-width: .5em;
+    border-color: #D0D0D0;
+    margin-bottom: 16px;
+    padding: 0.5em;
+}
+
+.ruleState-header {
+  color: #7A7A7A;
+  font-size: 16px;
+  padding-bottom: 8px;
+}
+
+
+                                            
+pre {                                       
+    tab-size: 3;                            
+    -moz-tab-size: 3;                       
+    /* Code for Firefox */                  
+    -o-tab-size: 3;                         
+}                                           
+                                            
+pre {                                       
+    word-wrap: normal;                      
+}                                           
+/* example pre taken / adapted from R2RML */
+/* and then from www.w3.org/TR/shacl */                                            
+pre.shapes,                                 
+pre.shape,                         
+pre.data, 
+pre.example-rule,  /*TW */                  
+pre.report,                        
+pre.example-other {                         
+    margin-left: 0;                         
+    padding: 0 2em;                         
+    margin-top: 1.5em;                      
+    padding: 1em;                           
+}                                           
+                                            
+pre.shape:before,                  
+pre.data:before, 
+pre.example-rule:before, /*TW*/                   
+pre.report:before,                 
+pre.example-other:before {                  
+    background: white;                      
+    display: block;                         
+    font-family: sans-serif;                
+    margin: -1em 0 0.4em -1em;              
+    padding: 0.2em 1em;                     
+}                                           
+                                            
+
+pre.shape {                        
+    background: #deb;                       
+}                                           
+                                            
+pre.shapes,                                 
+pre.shape,                         
+pre.example-shapes:before {                 
+    border: 1px solid #bbb;                 
+}                                           
+                                            
+pre.shape:before {                 
+    color: #888;                            
+    content: "SHACL";        
+    width: 6em;                            
+}                                           
+                                           
+pre.data {                          
+    background: #eeb;                       
+}                                           
+   
+                                            
+pre.data,                           
+pre.data:before {                   
+    border: 1px solid #cc9;                 
+}                                           
+                                            
+pre.data:before {                   
+    color: #996;                            
+    content: "Data";
+    width: 4em;                            
+}                                           
+                                            
+/*TW RULE */
+pre.example-rule {                          
+    background: #bbd5ee;                    
+}                                           
+   
+                                            
+pre.example-rule,                           
+pre.example-rule:before {                   
+    border: 1px solid #5596d5; /* darker blue */
+}                                           
+                                            
+pre.example-rule:before {
+    color: #5596d5;
+    content: "Rule";
+    width: 4em; 
+    font-size:1.1em;
+    font-weight:bold;
+}                                           
+
+/* END RULE */
+
+.report {                          
+    background: #edb;                       
+}                                           
+                                            
+.report,                           
+.report:before,                    
+.report th,                        
+.report td {                       
+    border: 1px solid #cca;                 
+}                                           
+                                            
+pre.report:before {                
+    color: #997;                            
+    content: "Report";
+    width: 6em;
+}                                           
+                                            
+pre.example-other {                         
+    background: #bed;                       
+}                                           
+                                            
+pre.example-other,                          
+pre.example-other:before {                  
+    border: 1px solid #ddd;                 
+}                                           
+                                            
+pre.example-other:before {                  
+    color: #888;                            
+    content: "Example";                     
+    width: 13em;                            
+}                                           
+
+
+
+

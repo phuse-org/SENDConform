@@ -16,14 +16,19 @@
 #  sh:property     :SD1002RuleShape .
   # additional constraints here for FDA Rules
 
-#Rule Component 1,2 : Start and End Dates as xsd:date
-#  Dates are associated with :hasBeginning or :hasEnd
-#  Other predicates can be added here for additional dates.
+# Rule Component 1 : Start and End Dates as xsd:date
+# Violations :  99T4 (rfendtc), 99T10 (rfstdtc)
+#   Dates are associated with :hasBeginning or :hasEnd
+#   Other predicates can be added here for additional dates.
+# STATUS: Passed 2019-08-01
 
 :DateShape a sh:NodeShape ;
  sh:targetObjectsOf time:hasBeginning ;
  sh:targetObjectsOf time:hasEnd ;
- sh:class study:ReferenceEnd ;
+ sh:or (
+   [ sh:class study:ReferenceBegin ]
+   [ sh:class study:ReferenceEnd ]
+ ) ;  
  sh:prefixes [
    sh:declare [ sh:prefix "cj16050" ;
      sh:namespace "https://example.org/cj16050#"^^xsd:anyURI ;
@@ -33,6 +38,8 @@
    sh:path time:inXSDDate ;  
    sh:datatype xsd:date ;
  ] .  
+
+
 
 # Rule Component2 Animal Subject has one and only one value for RFSTDTC and RFENDTC
 # An AnimalSubject must have one and only one ReferenceInterval

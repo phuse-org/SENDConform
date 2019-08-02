@@ -35,6 +35,8 @@ Example models and documentation for the SHACL rules applied to the data schema 
 
 ###### TS Domain
 
+##### [3.3.3 Applying SHACL to Data](SHACL-ApplyToData.md)
+
 
 ### 4.Reference
 
