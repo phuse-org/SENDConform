@@ -1,0 +1,26 @@
+# baseURI: http://example.org/cj16050-send
+# imports: http://datashapes.org/dash
+# imports: http://example.org/send
+# imports: https://example.org/cj16050
+# prefix: cj16050-send
+
+@prefix cj16050-send: <http://example.org/cj16050-send#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/cj16050-send>
+  rdf:type owl:Ontology ;
+  owl:imports <http://datashapes.org/dash> ;
+  owl:imports <http://example.org/send> ;
+  owl:imports <https://example.org/cj16050> ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.
+cj16050-send:SEND_DM_Record_1
+  rdf:type <http://example.org/send#SEND_DM_Record> ;
+  <http://example.org/send#hasEntity> <https://example.org/cj16050#Animal_00M01> ;
+  <http://www.w3.org/2004/02/skos/core#prefLabel> "SEND DM Record 1" ;
+.

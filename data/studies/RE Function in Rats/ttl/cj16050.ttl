@@ -41,7 +41,15 @@ cj16050:Animal_00M01
   study:memberOf cjprot:Set_00 ;
   study:memberOf code:Species_Rat ;
   study:participatesIn cj16050:AgeDataCollection_1 ;
+  study:participatesIn cj16050:Randomization_1 ;
   study:participatesIn cj16050:SexDataCollection_1 ;
+.
+cj16050:Date_2016-12-06
+  rdf:type study:ReferenceEnd ;
+  rdfs:comment "Dummy Data created to illustrate SPARQL SHACL constraint." ;
+  skos:prefLabel "Date 2016-12-07" ;
+  time:inXSDDate "2016-12-06"^^xsd:date ;
+  study:dateTimeInXSDString "2016-12-07" ;
 .
 cj16050:Date_2016-12-07
   rdf:type study:ReferenceBegin ;
@@ -54,7 +62,12 @@ cj16050:Interval_2016-12-07_2016-12-07
   rdf:type study:ReferenceInterval ;
   skos:prefLabel "Interval 2016-12-07 2016-12-07" ;
   time:hasBeginning cj16050:Date_2016-12-07 ;
-  time:hasEnd cj16050:Date_2016-12-07 ;
+  time:hasEnd cj16050:Date_2016-12-06 ;
+.
+cj16050:Randomization_1
+  rdf:type study:Randomization ;
+  skos:prefLabel "Randomization 1" ;
+  code:outcome cjprot:ControlArm_00 ;
 .
 cj16050:SexDataCollection_1
   rdf:type code:SexDataCollection ;

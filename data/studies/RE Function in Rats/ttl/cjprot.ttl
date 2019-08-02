@@ -28,7 +28,7 @@ cjprot:InvestigationalArm_CompoundA
 cjprot:Set_00
   rdf:type study:Set ;
   skos:altLabel "00" ;
-  skos:prefLabel "Set 00" ;
+  skos:prefLabel "00" ;
 .
 cjprot:StudyIdentifier_1
   rdf:type study:StudyIdentifier ;

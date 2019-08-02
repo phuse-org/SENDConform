@@ -1,0 +1,968 @@
+# baseURI: http://example.org/send
+# imports: http://rdf.cdisc.org/std/sendig-3-0
+# imports: http://spinrdf.org/spl
+# imports: https://w3id.org/phuse/study
+# prefix: send
+
+@prefix arg: <http://spinrdf.org/arg#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix send: <http://example.org/send#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix spl: <http://spinrdf.org/spl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/send>
+  rdf:type owl:Ontology ;
+  owl:imports <http://rdf.cdisc.org/std/sendig-3-0> ;
+  owl:imports <http://spinrdf.org/spl> ;
+  owl:imports <https://w3id.org/phuse/study> ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.
+send:Domain
+  rdf:type owl:Class ;
+  rdfs:subClassOf send:SENDTerminology ;
+.
+send:Parameter
+  rdf:type owl:Class ;
+  rdfs:subClassOf send:SENDTerminology ;
+.
+send:SENDComponent
+  rdf:type owl:Class ;
+  rdfs:subClassOf owl:Thing ;
+.
+send:SENDDomain
+  rdf:type owl:Class ;
+  rdfs:subClassOf send:SENDComponent ;
+.
+send:SENDDomain_DM
+  rdf:type send:SENDDomain ;
+  skos:prefLabel "SENDDomain DM" ;
+.
+send:SENDDomain_TS
+  rdf:type send:SENDDomain ;
+  skos:prefLabel "SENDDomain DM" ;
+.
+send:SENDRecord
+  rdf:type owl:Class ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "STUDYID" ;
+              ] ;
+            sp:predicate send:hasSTUDYID ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object send:SENDRecord ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "subject" ;
+              ] ;
+            sp:predicate send:hasEntity ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "subject" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/study#hasStudyParticipant> ;
+            sp:subject [
+                sp:varName "study" ;
+              ] ;
+          ]
+          [
+            sp:object <https://w3id.org/phuse/study#Study> ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "study" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "stuid" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/study#hasStudyID> ;
+            sp:subject [
+                sp:varName "study" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "STUDYID" ;
+              ] ;
+            sp:predicate skos:prefLabel ;
+            sp:subject [
+                sp:varName "stuid" ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  rdfs:subClassOf send:SENDComponent ;
+.
+send:SENDSubjectLevelRecord
+  rdf:type owl:Class ;
+  rdf:type sh:NodeShape ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "SUBJID" ;
+              ] ;
+            sp:predicate send:hasSUBJID ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "USUBJID" ;
+              ] ;
+            sp:predicate send:hasUSUBJID ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object send:SENDRecord ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "subject" ;
+              ] ;
+            sp:predicate send:hasEntity ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "sid" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/study#hasSubjectID> ;
+            sp:subject [
+                sp:varName "subject" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "SUBJID" ;
+              ] ;
+            sp:predicate skos:prefLabel ;
+            sp:subject [
+                sp:varName "sid" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "usid" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/study#hasUniqueSubjectID> ;
+            sp:subject [
+                sp:varName "subject" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "USUBJID" ;
+              ] ;
+            sp:predicate skos:prefLabel ;
+            sp:subject [
+                sp:varName "usid" ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  rdfs:subClassOf send:SENDRecord ;
+  skos:prefLabel "SENDSubject level record" ;
+.
+send:SENDTerminology
+  rdf:type owl:Class ;
+  rdfs:subClassOf owl:Thing ;
+.
+send:SEND_DM_Record
+  rdf:type owl:Class ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "AGE" ;
+              ] ;
+            sp:predicate send:hasAGE ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "AGEU" ;
+              ] ;
+            sp:predicate send:hasAGEU ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object send:SENDRecord ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "subject" ;
+              ] ;
+            sp:predicate send:hasEntity ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "ageoutcome" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/code#hasAge> ;
+            sp:subject [
+                sp:varName "subject" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "AGE" ;
+              ] ;
+            sp:predicate <http://www.w3.org/2006/time#numericDuration> ;
+            sp:subject [
+                sp:varName "ageoutcome" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "ageunit" ;
+              ] ;
+            sp:predicate <http://www.w3.org/2006/time#unitType> ;
+            sp:subject [
+                sp:varName "ageoutcome" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "AGEU" ;
+              ] ;
+            sp:predicate skos:prefLabel ;
+            sp:subject [
+                sp:varName "ageunit" ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:eq ;
+                sp:arg1 [
+                    rdf:type sp:lang ;
+                    sp:arg1 [
+                        sp:varName "AGEU" ;
+                      ] ;
+                  ] ;
+                sp:arg2 "en" ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "ARM" ;
+              ] ;
+            sp:predicate send:hasARM ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "ARMCD" ;
+              ] ;
+            sp:predicate send:hasARMCD ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object send:SENDRecord ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "subject" ;
+              ] ;
+            sp:predicate send:hasEntity ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "rndmact" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/study#participatesIn> ;
+            sp:subject [
+                sp:varName "subject" ;
+              ] ;
+          ]
+          [
+            sp:object <https://w3id.org/phuse/study#Randomization> ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "rndmact" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "plannedarm" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/code#outcome> ;
+            sp:subject [
+                sp:varName "rndmact" ;
+              ] ;
+          ]
+          [
+            sp:object <https://w3id.org/phuse/study#RandomizationOutcome> ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "plannedarm" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "ARM" ;
+              ] ;
+            sp:predicate skos:prefLabel ;
+            sp:subject [
+                sp:varName "plannedarm" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "ARMCD" ;
+              ] ;
+            sp:predicate skos:altLabel ;
+            sp:subject [
+                sp:varName "plannedarm" ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "RFSTDTC" ;
+              ] ;
+            sp:predicate send:hasRFSTDTC ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "RFENDTC" ;
+              ] ;
+            sp:predicate send:hasRFENDTC ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object send:SENDRecord ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "subject" ;
+              ] ;
+            sp:predicate send:hasEntity ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "refintrvl" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/study#hasReferenceInterval> ;
+            sp:subject [
+                sp:varName "subject" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "refstrt" ;
+              ] ;
+            sp:predicate <http://www.w3.org/2006/time#hasBeginning> ;
+            sp:subject [
+                sp:varName "refintrvl" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "RFSTDTC" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/study#dateTimeInXSDString> ;
+            sp:subject [
+                sp:varName "refstrt" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "refend" ;
+              ] ;
+            sp:predicate <http://www.w3.org/2006/time#hasEnd> ;
+            sp:subject [
+                sp:varName "refintrvl" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "RFENDTC" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/study#dateTimeInXSDString> ;
+            sp:subject [
+                sp:varName "refend" ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "SETCD" ;
+              ] ;
+            sp:predicate send:hasSETCD ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object send:SENDRecord ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "subject" ;
+              ] ;
+            sp:predicate send:hasEntity ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "set" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/study#memberOf> ;
+            sp:subject [
+                sp:varName "subject" ;
+              ] ;
+          ]
+          [
+            sp:object <https://w3id.org/phuse/study#Set> ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "set" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "SETCD" ;
+              ] ;
+            sp:predicate skos:prefLabel ;
+            sp:subject [
+                sp:varName "set" ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "SEX" ;
+              ] ;
+            sp:predicate send:hasSEX ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object send:SEND_DM_Record ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "subject" ;
+              ] ;
+            sp:predicate send:hasEntity ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "sx" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/study#participatesIn> ;
+            sp:subject [
+                sp:varName "subject" ;
+              ] ;
+          ]
+          [
+            sp:object <https://w3id.org/phuse/code#SexDataCollection> ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "sx" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "sexout" ;
+              ] ;
+            sp:predicate <https://w3id.org/phuse/code#outcome> ;
+            sp:subject [
+                sp:varName "sx" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "SEX" ;
+              ] ;
+            sp:predicate skos:prefLabel ;
+            sp:subject [
+                sp:varName "sexout" ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  rdfs:subClassOf send:SENDSubjectLevelRecord ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:hasValue "DM" ;
+      owl:onProperty send:hasDOMAIN ;
+    ] ;
+.
+send:SEND_TS_Record
+  rdf:type owl:Class ;
+  rdfs:subClassOf send:SENDRecord ;
+.
+send:Study
+  rdf:type owl:ObjectProperty ;
+.
+send:Variable
+  rdf:type owl:Class ;
+  rdfs:subClassOf send:SENDTerminology ;
+.
+send:hasAGE
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:integer ;
+  skos:prefLabel "has AGE" ;
+.
+send:hasAGEU
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:string ;
+  skos:prefLabel "has AGEU" ;
+.
+send:hasARM
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:string ;
+  skos:prefLabel "has ARM" ;
+.
+send:hasARMCD
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:string ;
+  skos:prefLabel "has ARMCD" ;
+.
+send:hasActivity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range <https://w3id.org/phuse/study#Activity> ;
+.
+send:hasCode
+  rdf:type owl:ObjectProperty ;
+.
+send:hasDOMAIN
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:string ;
+  skos:prefLabel "has DOMAIN" ;
+.
+send:hasEntity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range <https://w3id.org/phuse/study#Subject> ;
+.
+send:hasRFENDTC
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:date ;
+  skos:prefLabel "has RFENDTC" ;
+.
+send:hasRFSTDTC
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:date ;
+  skos:prefLabel "has RFSTDTC" ;
+.
+send:hasRecord
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain send:SENDDomain ;
+  rdfs:range send:SENDRecord ;
+.
+send:hasSETCD
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:string ;
+  skos:prefLabel "has SETCD" ;
+.
+send:hasSEX
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:string ;
+  skos:prefLabel "has SEX" ;
+.
+send:hasSTUDYID
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:string ;
+  skos:prefLabel "has STUDYID" ;
+.
+send:hasSUBJID
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:string ;
+  skos:prefLabel "has SUBJID" ;
+.
+send:hasTSParameter
+  rdf:type owl:ObjectProperty ;
+.
+send:hasUSUBJID
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain send:SENDRecord ;
+  rdfs:range xsd:string ;
+  skos:prefLabel "has USUBJID" ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C19924>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C25150>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C25488>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C38114>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C41161>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C49647>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C49696>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C50400>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C51878>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C73558>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C83081>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C83216>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90352>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90354>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90359>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90364>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90365>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90366>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90372>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90377>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90378>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90379>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90380>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90381>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90382>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90383>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90389>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90391>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90394>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90395>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90396>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90397>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90398>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90399>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90419>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90422>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90423>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90437>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90438>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90439>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90446>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90455>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90456>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90457>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90458>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90459>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90460>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90461>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90463>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90466>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90467>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90468>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90469>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90470>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90471>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90472>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90473>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90474>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90477>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90486>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C90487>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C92644>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C92645>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C92646>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C927>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C95082>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C95104>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C95105>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C95106>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C95107>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C95108>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C96370>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C96373>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C96433>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C99156>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/send-terminology#C90009.C99157>
+  rdf:type send:Parameter ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.AGE>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.AGETXT>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.AGEU>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.ARM>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.ARMCD>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.BRTHDTC>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.DOMAIN>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.RFENDTC>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.RFSTDTC>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.SBSTRAIN>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.SETCD>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.SEX>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.SITEID>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.SPECIES>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.STRAIN>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.STUDYID>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.SUBJID>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.DM.USUBJID>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.TS.DOMAIN>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.TS.STUDYID>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.TS.TSGRPID>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.TS.TSPARM>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.TS.TSPARMCD>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.TS.TSSEQ>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Column.TS.TSVAL>
+  rdf:type send:Variable ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Dataset.DM>
+  rdf:type send:Domain ;
+.
+<http://rdf.cdisc.org/std/sendig-3-0#Dataset.TS>
+  rdf:type send:Domain ;
+.
