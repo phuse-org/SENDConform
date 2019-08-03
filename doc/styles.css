@@ -184,7 +184,7 @@ pre {
 /* example pre taken / adapted from R2RML */
 /* and then from www.w3.org/TR/shacl */                                            
 pre.shapes,                                 
-pre.shape,                         
+pre.shacl,                         
 pre.data, 
 pre.example-rule,  /*TW */                  
 pre.report,                        
@@ -195,7 +195,7 @@ pre.example-other {
     padding: 1em;                           
 }                                           
                                             
-pre.shape:before,                  
+pre.shacl:before,                  
 pre.data:before, 
 pre.example-rule:before, /*TW*/                   
 pre.report:before,                 
@@ -208,21 +208,22 @@ pre.example-other:before {
 }                                           
                                             
 
-pre.shape {                        
+pre.shacl {                        
     background: #deb;                       
 }                                           
                                             
 pre.shapes,                                 
-pre.shape,                         
+pre.shacl,
 pre.example-shapes:before {                 
     border: 1px solid #bbb;                 
 }                                           
                                             
-pre.shape:before {                 
-    color: #888;                            
-    content: "SHACL";        
-    width: 6em;                            
-}                                           
+pre.shacl:before {
+    color: #779E27;
+    content: "SHACL";
+    width: 5em;
+    font-weight: bold;
+}
                                            
 pre.data {                          
     background: #eeb;                       
@@ -235,9 +236,10 @@ pre.data:before {
 }                                           
                                             
 pre.data:before {                   
-    color: #996;                            
+    color: #9E9E27;                            
     content: "Data";
-    width: 4em;                            
+    width: 4em;
+    font-weight: bold;
 }                                           
                                             
 /*TW RULE */
@@ -272,11 +274,12 @@ pre.example-rule:before {
     border: 1px solid #cca;                 
 }                                           
                                             
-pre.report:before {                
-    color: #997;                            
+pre.report:before {
+    color: #D09F41; /* text color */
     content: "Report";
     width: 6em;
-}                                           
+    font-weight:bold;
+}
                                             
 pre.example-other {                         
     background: #bed;                       

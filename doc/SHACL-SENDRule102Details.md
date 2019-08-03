@@ -20,7 +20,7 @@ The full data file used in developing this page is available here: [SHACL/CJ1605
 
 A detailed description of SHACL syntax is beyond the scope of this document. Please refer to the [SHACL Introduction](SHACL-Intro.md) page for a list of resources. Only the details relevant to a specific rule component will be explained in this project.
 
-The SHACL file [SHACL/CJ16050Constraints/SHACL-SD1002.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints\SHACL-SD1002.TTL) contains the constraints for this example. It is a work in progress and subject t change.  
+The SHACL file [SHACL/CJ16050Constraints/SHACL-SD1002.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints\SHACL-SD1002.TTL) contains the constraints for this example. It is a work in progress and subject to change.  
 
 
 
@@ -60,7 +60,7 @@ The SHACL shape `:DateShape` is constructed using `sh:targetObjectsOf` to select
 <font class='objectIRI'>Interval IRI</font> - - - <font class='predicate'>time:hasEnd</font>  - - > <font class='objectIRI'>Date IRI</font> - - > <font class='predicate'>time:inXSDDate</font> - - > <font class='literal'>Date value</font>
 </pre>
 
-<pre class="shape">
+<pre class="shacl">
   :DateShape a sh:NodeShape ;
     sh:targetObjectsOf time:hasBeginning ;
     sh:targetObjectsOf time:hasEnd ;
