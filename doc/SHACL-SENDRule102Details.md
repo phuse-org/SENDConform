@@ -1,13 +1,13 @@
 <link href="styles.css?v=1" rel="stylesheet"/>
 
-# Modeling SEND Rule SD1002 in SHACL
-
+Modeling SEND Rule SD1002 in SHACL
+-----------------------------------
 
 # Data 
 
-This example uses the DM domain data from the study "RE Function in Rats", located in the repository at [/data/studies/RE Function in Rats](https://github.com/phuse-org/SENDConform/tree/master/data/studies/RE%20Function%20in%20Rats) and converted to .TTL using the script [r\\DM-convert.R](https://github.com/phuse-org/SENDConform/blob/master/r/DM-convert.R). The R script adds observations to test the rule components using SHACL constraints. Test observations are identified by `subjid` and `usubjid` values containing the pattern 99T<n> in contrast with the original study data values of 00M0<n>. See the [Data Conversion](DataConversion.md) page for details on how the data is converted to TTL.
+This example uses the DM domain data from the study "RE Function in Rats", located in the repository at [/data/studies/RE Function in Rats](https://github.com/phuse-org/SENDConform/tree/master/data/studies/RE%20Function%20in%20Rats) and converted to .TTL using the script [r\\DM-convert.R](https://github.com/phuse-org/SENDConform/blob/master/r/DM-convert.R). The R script adds observations to the original data in order to test the rule components. Test observations are identified by `subjid` and `usubjid` values containing the pattern 99T<n>, in contrast to the original study data values of 00M0<n>. See the [Data Conversion](DataConversion.md) page for details on how the data is converted to TTL.
 
-Familiarity with the data structure is necessary to explain the constraints and test cases. Figure 1 illustrates a partial set of data for test subject subjid=99T1 that violates rule SD1002 where end date precedes start date.
+Familiarity with the data structure is necessary to explain the constraints and test cases. Figure 1 illustrates a partial set of data for test subject subjid=99T1 where the end date precedes start date, thus violating the rule SD1002.
 
 <img src="images/RefIntervalDataFail.PNG"/>
 *Figure 1: Reference Interval for Animal 99T1 (incomplete data)*
@@ -18,26 +18,60 @@ The full data file used in developing this page is available here: [SHACL/CJ1605
 
 # SHACL Constraints
 
-A detailed description of SHACL syntax is beyond the scope of this document. Please refer to the [SHACL Introduction](SHACL-Intro.md) page for a list of resources. Only the details relevant to a specific rule component will be explained in this project.
+A detailed description of SHACL syntax is beyond the scope of this document. Please refer to the [SHACL Introduction](SHACL-Intro.md) page for a list of resources. 
 
-The SHACL file [SHACL/CJ16050Constraints/SHACL-SD1002.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints\SHACL-SD1002.TTL) contains the constraints for this example. It is a work in progress and subject to change.  
-
+The SHACL file [SHACL/CJ16050Constraints/SHACL-SD1002.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/SHACL-SD1002.TTL) contains the constraints for this example. 
 
 
 # FDA Rule SD1002
 
-This example details the constraints for the SEND-IG 3.0 rule **SD1020** for the DM domain as defined in the file [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx)
+The SEND-IG 3.0 rule **SD1020** is defined in the file [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) as:
 
 FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Business or Conformance Rule Validated | FDA Validator Rule  
 ------|-------------------|-----|-------|--------------------------|-----------------------------
 **SD1002** |RFSTDTC is after RFENDTC | FDA| FDAB034    |Study Start and End Dates must be submitted and complete. | Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)
 
-Implicit and explicit components of the  *FDA Validator Rule* are detailed below, along with additional components based on knowledge of how a clinical trial is performed, and how the data is captured and modeled. 
+The following Rule Components are defined based on the data, RDF data model, and SD1002 rule:
+
+1. Reference Start Date and End Date in xsd:date format
+1. A Subject has one Reference Interval 
+1. A Reference Interval has one Start Date and one End Date
+1. The SD1002 Rule itself: Start Date on or before End Date
+
+Translation of each Rule Component into SHACL and evaluation of Test data is described below.  Test cases and the values used to evaluate them are recorded in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
+
+# Document Conventions
+ Color coding is used as a content guide. 
+
+<div class='def'>
+  <div class='def-header'>Description</div>
+  A description of the Rule Component. 
+</div>
+ 
+ 
+<div class='ruleState'>
+  <div class='ruleState-header'>Rule Statement</div>
+  The rule in short form or pseudo code.
+</div>
+ 
+
+<pre class="shacl">
+  SHACL Shape (full or partial)
+</pre> 
 
 
-## SD1002 Rule Components
+<pre class="data">
+   Example data in TTL format.
+</pre>
 
-### Date format
+<pre class="report">
+  Excerpts from the SHACL Validation Report.
+</pre>
+
+
+# SD1002 Rule Translation into SHACL
+
+## 1. Reference Start Date and End Date in xsd:date format
 
 <div class='def'>
   <div class='def-header'>Description</div>
@@ -52,7 +86,7 @@ Implicit and explicit components of the  *FDA Validator Rule* are detailed below
   `rfstdtc` and `rfendtc` in `xsd:date` format.  
 </div>
 
-The SHACL shape `:DateShape` is constructed using `sh:targetObjectsOf` to select the interval IRI as the (Subject) focus node. The two `sh:targetObjectsOf` follow these paths through the data to obtain the date values: 
+The SHACL shape `:DateFmtShape` is constructed using `sh:targetObjectsOf` to select the interval IRI as the (Subject) focus node. The two `sh:targetObjectsOf` follow these paths through the data to obtain the date values: 
 
 <pre>
 <font class='objectIRI'>Interval IRI</font> - - - <font class='predicate'>time:hasBeginning</font>  - - > <font class='objectIRI'>Date IRI</font> - - > <font class='predicate'>time:inXSDDate</font> - - > <font class='literal'>Date value</font>
@@ -61,14 +95,22 @@ The SHACL shape `:DateShape` is constructed using `sh:targetObjectsOf` to select
 </pre>
 
 <pre class="shacl">
-  :DateShape a sh:NodeShape ;
-    sh:targetObjectsOf time:hasBeginning ;
-    sh:targetObjectsOf time:hasEnd ;
-    sh:class study:ReferenceEnd ;
-    sh:property [
-      sh:path time:inXSDDate ;  
-      sh:datatype xsd:date ;
-    ] .  
+:DateFmtShape a sh:NodeShape ;
+  sh:targetObjectsOf time:hasBeginning ;
+  sh:targetObjectsOf time:hasEnd ;
+  sh:or (
+    [ sh:class study:ReferenceBegin ]
+    [ sh:class study:ReferenceEnd ]
+  ) ;  
+  sh:prefixes [
+    sh:declare [ sh:prefix "cj16050" ;
+      sh:namespace "https://example.org/cj16050#"^^xsd:anyURI ;
+    ]
+  ] ;
+  sh:property [
+    sh:path time:inXSDDate ;  
+    sh:datatype xsd:date ;
+  ] .  
 </pre>
 
 The test data includes subject 99T4 with string for `rfendtc`. Not shown: Subject 9T10 with string for `rfstdtc`.
@@ -97,6 +139,95 @@ The report correctly identifies the value '7-Dec-16' as a string, violating the 
         sh:sourceShape [] ;
         sh:resultSeverity sh:<font class='error'>Violation</font>
     ]  
+</pre>
+
+
+<br/><br/<br/>
+
+
+***Rules 2-4 Coming Soon***
+
+## 2. Subject has one Reference Interval
+
+<div class='def'>
+  <div class='def-header'>Description</div>
+
+</div>
+ 
+ 
+<div class='ruleState'>
+  <div class='ruleState-header'>Rule Statement</div>
+
+</div>
+ 
+
+<pre class="shacl">
+
+</pre> 
+
+
+<pre class="data">
+
+</pre>
+
+<pre class="report">
+
+</pre>
+
+
+
+## 3. Reference Interval has one Start Date and one End Date
+
+<div class='def'>
+  <div class='def-header'>Description</div>
+
+</div>
+ 
+ 
+<div class='ruleState'>
+  <div class='ruleState-header'>Rule Statement</div>
+
+</div>
+ 
+
+<pre class="shacl">
+
+</pre> 
+
+
+<pre class="data">
+
+</pre>
+
+<pre class="report">
+
+</pre>
+
+## 4. SD1002: Start Date on or before End Date
+
+<div class='def'>
+  <div class='def-header'>Description</div>
+
+</div>
+ 
+ 
+<div class='ruleState'>
+  <div class='ruleState-header'>Rule Statement</div>
+
+</div>
+ 
+
+<pre class="shacl">
+
+</pre> 
+
+
+<pre class="data">
+
+</pre>
+
+<pre class="report">
+
 </pre>
 
 
