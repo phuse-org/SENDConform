@@ -6,7 +6,12 @@ Folder Structure
 Project folder structure and content. Documentation is currently incomplete and focuses on the current work that uses data from the study CJ16050
 
 
-### Data for Project CJ16050
+# Data 
+SEND XPT data files were copid from the PhUSE Scripts Project: <https://github.com/phuse-org/phuse-scripts/tree/master/data/send> to the  /data/studies folder in this repository.
+-   **/data/studies/**
+
+
+## for Project CJ16050
 
 -   **/data/studies/RE Function in Rats/ttl**
     -   TTL files created by the conversion process

@@ -71,7 +71,7 @@ The SHACL shape `:DateShape` is constructed using `sh:targetObjectsOf` to select
     ] .  
 </pre>
 
-The test data includes subject 99T4 with string for `rfendtc`. Not shown: Subject 9T10 with string for `stdtc`.
+The test data includes subject 99T4 with string for `rfendtc`. Not shown: Subject 9T10 with string for `rfstdtc`.
 <pre class="data">
     cj16050:Interval_68bab561
       a study:ReferenceInterval ;

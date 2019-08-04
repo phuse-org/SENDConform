@@ -33,6 +33,9 @@ dm$ROWID_IM <-  (1:nrow(dm)) # To match with ERR dataset. Will later be deleted.
 # Necessary for later manipulation
 dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
 
+
+dm$ORIGSUBJID_IM <- dm$subjid  # reference for later data manip. for error testing.
+
 #' Add errors to DM Domain for testing constraints
 #' 
 
@@ -45,10 +48,14 @@ dmErr <- dm[1,]
 #{
   dmErr <- rep(dmErr, numDMTestSubjects)
   dmErr$ROWID_IM <-  (1:nrow(dmErr))
+  
+  
 
   # Create test data that contains errors
   # new subjid with 99T prefix + row identifier in the dmErr df
   dmErr$subjid <- paste0(gsub("00M01", "99T", dmErr$subjid ), dmErr$ROWID_IM)
+
+  dmErr$ORIGSUBJID_IM <- dmErr$subjid  # reference for later data manip. for error testing.
   
   dmErr$usubjid <- paste0("CJ16050_", dmErr$subjid )
   
@@ -61,6 +68,14 @@ dmErr <- dm[1,]
   #   99T2 - start=12-07, end = 12-07 
   #   99T3 - start=12-08, end = 12-08 
   #   So reassign the 99T3 subjid and usubjid to 99T2 to get duplicate dates
+  # Assign the short hash from 99T2 to 99T3 to create same reference IRI in later steps.
+  dmErr[dmErr$subjid == '99T3', "subjid"] <- "99T2"
+  
+  # set different dates on the "new" TT92 using ORIGSUBJID_IM to create a reference interval
+  #  with more than one start and more than one end.
+  dmErr[dmErr$ORIGSUBJID_IM == '99T3', "rfstdtc"] <- "2016-12-08"
+  dmErr[dmErr$ORIGSUBJID_IM == '99T3', "rfendtc"] <- "2016-12-09"
+  
   dmErr[dmErr$subjid == '99T3', "subjid"] <- "99T2"
   dmErr[dmErr$usubjid == 'CJ16050_99T3', "usubjid"] <- "CJ16050_99T2"
 
@@ -69,7 +84,6 @@ dmErr <- dm[1,]
   dmErr[dmErr$subjid == '99T4', "rfendtc"] <- "7-DEC-16"
   # Test Case: rfendtc as xsd:string
   dmErr[dmErr$subjid == '99T10', "rfstdtc"] <- "6-DEC-16"
-  
   
   # Test Case: Missing End date 
   dmErr[dmErr$subjid == '99T5', "rfendtc"] <- NA
@@ -121,6 +135,10 @@ for(i in 1:nrow(dm))
 {
   dm[i,"DMROWSHORTHASH_IM"] <- strtrim(sha1(paste(dm[i,"dmRowRanVal"])), 8)  # Truncate for readabilty in the pilot
 }
+
+# kludge so the duplicate 99T2 has the same short hash (replace origin from 99T3)
+#  Not possible in
+dm[dm$subjid == '99T2', "DMROWSHORTHASH_IM"] <- "21316392"
 
 # drop columns used for computations that will not become part of the graph
 dm <- dm[, !names(dm) %in% c("dmRowRanVal", 'ROWID_IM')]
