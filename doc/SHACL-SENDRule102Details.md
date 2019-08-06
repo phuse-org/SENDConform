@@ -33,10 +33,10 @@ FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Busin
 
 The following Rule Components are defined based on the data, RDF data model, and SD1002 rule:
 
-1. Reference Start Date and End Date in xsd:date format
-1. A Subject has one Reference Interval 
-1. A Reference Interval has one Start Date and one End Date
-1. The SD1002 Rule itself: Start Date on or before End Date
+**1. Reference Start Date and End Date in xsd:date format**
+**1. A Subject has one Reference Interval **
+**1. A Reference Interval has one Start Date and one End Date**
+**1. The SD1002 Rule itself: Start Date on or before End Date**
 
 Translation of each Rule Component into SHACL and evaluation of Test data is described below.  Test cases and the values used to evaluate them are recorded in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
 
@@ -70,6 +70,8 @@ Translation of each Rule Component into SHACL and evaluation of Test data is des
 
 
 # SD1002 Rule Translation into SHACL
+
+<!--- RULE COMPONENT 1 ------------------------------------------------------->
 
 ## 1. Reference Start Date and End Date in xsd:date format
 
@@ -116,9 +118,9 @@ The SHACL shape `:DateFmtShape` is constructed using `sh:targetObjectsOf` to sel
 The test data includes subject 99T4 with string for `rfendtc`. Not shown: Subject 9T10 with string for `rfstdtc`.
 <pre class="data">
     cj16050:Interval_68bab561
-      a study:ReferenceInterval ;
+      a                 study:ReferenceInterval ;
       time:hasBeginning cj16050:Date_2016-12-08 ;
-      time:hasEnd cj16050:Date_7-DEC-16 .
+      time:hasEnd       cj16050:Date_7-DEC-16 .
        
     cj16050:Date_7-DEC-16
       a study:ReferenceEnd ;
@@ -138,43 +140,69 @@ The report correctly identifies the value '7-Dec-16' as a string, violating the 
         sh:focusNode <font class='objectIRI'>cj16050:Date_7-DEC-16 </font>;
         sh:sourceShape [] ;
         sh:resultSeverity sh:<font class='error'>Violation</font>
-    ]  
+    ]
 </pre>
 
+<br/><br/><br/>
 
-<br/><br/<br/>
+<!--- RULE COMPONENT 2 ------------------------------------------------------->
 
-
-***Rules 2-4 Coming Soon***
 
 ## 2. Subject has one Reference Interval
 
+This check determines if the Animal Subject has one and only one Reference Interval IRI. It is possible to have an Interval IRI with no start date and no end date (see [Data Conversion](DataConversion.md) for details). Test data only evaluates the case of missing Interval IRI. Multiple start/end dates for a single subject are evaluated in Rule Component 3. 
+
 <div class='def'>
   <div class='def-header'>Description</div>
-
+  Animal Subjects should have one and only one Reference Interval IRI.
 </div>
  
  
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-
+  `:AnimalSubject`  `:hasReferenceInterval`  with `sh:minCount` and `sh:maxCount` of 1
 </div>
  
 
 <pre class="shacl">
-
+:SubjectOneRefIntervalShape a sh:NodeShape ;
+  sh:targetClass study:AnimalSubject ;
+  sh:path study:hasReferenceInterval ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
 </pre> 
+<br/>
 
-
+Data for 99T11 has no `study:hasReferenceInterval`
 <pre class="data">
-
+cj16050:Animal_6204e90c
+    a                        study:AnimalSubject ;
+    skos:prefLabel           "Animal 99T11"^^xsd:string ;
+    study:hasSubjectID       cj16050:SubjectIdentifier_6204e90c ;
+    study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_6204e90c ;
+    study:memberOf           cjprot:Set_00, code:Species_Rat ;
+    study:participatesIn     cj16050:AgeDataCollection_6204e90c, cj16050:SexDataCollection_6204e90c .
 </pre>
 
+The report identifies the IRI `cj16050:Animal_6204e90c` , corresponding to Animal Subject 99T11.
 <pre class="report">
-
+a sh:ValidationReport ;
+  sh:conforms false
+  sh:result [
+    a sh:ValidationResult ;
+    sh:focusNode cj16050:<font class='error'>Animal_6204e90c</font>;
+    sh:resultSeverity sh:Violation ;
+    sh:sourceShape :SubjectOneRefIntervalShape ;
+    sh:resultPath study:hasReferenceInterval ;
+    sh:sourceConstraintComponent sh:MinCountConstraintComponent
+  ] 
 </pre>
 
+<br/><br/>
 
+***Rules 3-4 Coming Soon***
+
+<!--- RULE COMPONENT 3 ------------------------------------------------------->
 
 ## 3. Reference Interval has one Start Date and one End Date
 
@@ -202,6 +230,9 @@ The report correctly identifies the value '7-Dec-16' as a string, violating the 
 <pre class="report">
 
 </pre>
+
+<!--- RULE COMPONENT 4 ------------------------------------------------------->
+
 
 ## 4. SD1002: Start Date on or before End Date
 
