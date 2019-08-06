@@ -78,7 +78,7 @@
 # Rule Component 4
 # SD1002: Start Date on or before End Date
 # Violations:
-#  99T1  start precedes end
+#  99T1  start is after end
 #  99T2  multiple start/end values, one start is before one end value
 #  99T10 String value for rfstdtc strips violation in comparision with rfendtc
 # STATUS: Passed 2019-08-04
@@ -107,7 +107,7 @@
     }""" ;
 ] .
 
-:DateFmtShape               sh:deactivated false .
-:SubjectOneRefIntervalShape sh:deactivated false .
-:RefIntervalDateShape       sh:deactivated false .
-:SD1002RuleShape            sh:deactivated false .
+:DateFmtShape               sh:deactivated true .  # Rule Component 1
+:SubjectOneRefIntervalShape sh:deactivated true .  # Rule Component 2
+:RefIntervalDateShape       sh:deactivated true .  # Rule Component 3
+:SD1002RuleShape            sh:deactivated false .  # Rule Component 4

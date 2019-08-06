@@ -47,7 +47,12 @@ body{
 
 
 .codeCom{
-  color: #9c9c9c;     /* dark green */
+  color: #759e27;     /* dark green */
+}
+
+.goodData{
+  color: #759e27;     /* dark green */
+  font-weight: bold;
 }
 
 

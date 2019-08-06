@@ -139,14 +139,13 @@ The report correctly identifies the value '7-Dec-16' as a string, violating the 
         sh:sourceConstraintComponent sh:DatatypeConstraintComponent ;
         sh:focusNode <font class='objectIRI'>cj16050:Date_7-DEC-16 </font>;
         sh:sourceShape [] ;
-        sh:resultSeverity sh:<font class='error'>Violation</font>
+        sh:resultSeverity sh:Violation
     ]
 </pre>
 
-<br/><br/><br/>
+<br/>
 
 <!--- RULE COMPONENT 2 ------------------------------------------------------->
-
 
 ## 2. Subject has one Reference Interval
 
@@ -200,64 +199,170 @@ a sh:ValidationReport ;
 
 <br/><br/>
 
-***Rules 3-4 Coming Soon***
 
 <!--- RULE COMPONENT 3 ------------------------------------------------------->
 
 ## 3. Reference Interval has one Start Date and one End Date
 
+Reference interval IRIs are connected to their date values through the paths `time:hasBeginning` and `time:hasEnd`. A correctly formed interval has both start and end dates.
+
 <div class='def'>
   <div class='def-header'>Description</div>
+  Each Reference interval should have one and only one start date and end date.
 
 </div>
  
  
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-
+  `study:ReferenceInterval` `time:hasBeginning` with `sh:minCount` and `sh:maxCount` of 1, `sh:and` `time:hasEnd` with `sh:minCount` and `sh:maxCount` of 1
 </div>
  
 
 <pre class="shacl">
-
+:RefIntervalDateShape a sh:NodeShape ;
+  sh:targetClass study:ReferenceInterval ;
+  sh:and (
+    [ sh:path time:hasBeginning ;
+      sh:minCount 1;
+      sh:maxCount 1
+    ]
+    [
+      sh:path time:hasEnd ;
+      sh:minCount 1;
+      sh:maxCount 1
+    ]
+ )
+.
 </pre> 
 
+Test data provides the following violations:
 
+* 99T5 missing rfendtc
+* 99T9 missing rfstdtc
+* 99T8 missing both rfendtc, rfstdtc
+* 99T2 >1 rfstdtc, >1 rfendtc  
+
+Only the data and report for 99T5 is shown here, where start date is present and end date is missing for the interval.
 <pre class="data">
+cj16050:Animal_db3c6403
+    a study:AnimalSubject ;
+    skos:prefLabel "Animal 99T5"^^xsd:string ;
+    study:hasReferenceInterval <font class='goodData'>cj16050:Interval_db3c6403 </font> ;
+    study:hasSubjectID cj16050:SubjectIdentifier_db3c6403 ;
+    study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_db3c6403 ;
+    study:memberOf cjprot:Set_00, code:Species_Rat ;
+    study:participatesIn cj16050:AgeDataCollection_db3c6403, cj16050:SexDataCollection_db3c6403 .
 
+<font class='goodData'>cj16050:Interval_db3c6403</font>
+    a study:ReferenceInterval ;
+    skos:prefLabel "Interval 2016-12-07 NA"^^xsd:string ;
+    <font class='goodData'>time:hasBeginning cj16050:Date_2016-12-07 </font>.
 </pre>
 
+Report for Animal Subject 99T5 (`cj16050:Interval_db3c6403`)
 <pre class="report">
-
+  a sh:ValidationResult ;
+    sh:sourceConstraintComponent sh:AndConstraintComponent ;
+    sh:resultSeverity sh:Violation ;
+    sh:value cj16050:<font class='error'>Interval_db3c6403 </font> ;
+    sh:sourceShape :RefIntervalDateShape ;
+    sh:focusNode cj16050:Interval_db3c6403
 </pre>
+
+
 
 <!--- RULE COMPONENT 4 ------------------------------------------------------->
 
-
 ## 4. SD1002: Start Date on or before End Date
+
 
 <div class='def'>
   <div class='def-header'>Description</div>
-
+  Interval end date must be on or before start date. When the constraint is violated, the **FDA Validator Message** must appear:  "RFSTDTC is after RFENDTC"
 </div>
  
  
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-
+  For interval, `! (?endDate >= ?beginDate )`
 </div>
  
+Referring back to **Figure 1**,   the reference start and end dates are not directly attached to either an Animal Subject or that Subject's Reference Interval IRI. This indirect connection makes the comparison of the two date values more complex, so SHACL-SPARQL is used in place of SHACL-Core. The SPARQL query is written to find cases where the end date is NOT greater than or equal to the start date.
 
 <pre class="shacl">
-
+:SD1002RuleShape a sh:NodeShape ;
+ sh:targetClass study:ReferenceInterval ;
+ sh:sparql [
+  a sh:SPARQLConstraint ;
+  sh:message "RFSTDTC is after RFENDTC";
+  sh:prefixes [
+    sh:declare [ sh:prefix "time" ;
+      sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
+    ],
+    [ sh:prefix "study" ;
+      sh:namespace "https://w3id.org/phuse/study#"^^xsd:anyURI ;
+    ]  
+  ] ;
+ sh:select
+  """SELECT $this (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
+    WHERE {
+      $this     time:hasBeginning  ?beginIRI ;
+                time:hasEnd        ?endIRI .
+      ?beginIRI time:inXSDDate     ?beginDate .
+      ?endIRI   time:inXSDDate     ?endDate .
+      FILTER  (! (?endDate >= ?beginDate ))
+    }""" ;
+] .
 </pre> 
 
+Test data provides the following violations:
+*  99T1  start is after end
+*  99T2  multiple start/end values, one start is before one end value
+*  99T10 String value for rfstdtc strips violation in comparison with rfendtc
+
+Only the data and report for 99T1 is shown here.
 
 <pre class="data">
+cj16050:Animal_184f16eb
+    a study:AnimalSubject ;
+    skos:prefLabel "Animal 99T1"^^xsd:string ;
+    study:hasReferenceInterval cj16050:<font class='objectIRI'>Interval_184f16eb</font> ;
+    study:hasSubjectID cj16050:SubjectIdentifier_184f16eb ;
+    study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_184f16eb ;
+    study:memberOf cjprot:Set_00, code:Species_Rat ;
+    study:participatesIn cj16050:AgeDataCollection_184f16eb, cj16050:SexDataCollection_184f16eb .
 
+cj16050:<font class='objectIRI'>Interval_184f16eb</font>
+    a study:ReferenceInterval ;
+    skos:prefLabel "Interval 2016-12-07 2016-12-06"^^xsd:string ;
+    time:hasBeginning cj16050:<font class='objectIRI'>Date_2016-12-07</font> ;
+    time:hasEnd cj16050:<font class='objectIRI'>Date_2016-12-06</font> .
+
+
+<font class='objectIRI'>cj16050:Date_2016-12-07</font>
+    a study:ReferenceBegin ;
+    skos:prefLabel "Date 2016-12-07"^^xsd:string ;
+    time:inXSDDate "2016-12-07"^^xsd:date ;
+    study:dateTimeInXSDString "<font class='error'>2016-12-07</font>"^^xsd:string .
+
+<font class='objectIRI'>cj16050:Date_2016-12-06</font>
+    a study:ReferenceEnd ;
+    skos:prefLabel "Date 2016-12-06"^^xsd:string ;
+    time:inXSDDate "2016-12-06"^^xsd:date ;
+    study:dateTimeInXSDString "<font class='error'>2016-12-06</font>"^^xsd:string .
 </pre>
 
 <pre class="report">
+sh:result [
+  a sh:ValidationResult ;
+  sh:focusNode cj16050:Interval_184f16eb ;
+  sh:sourceConstraint _:bnode_cacffc33_62e3_4c8b_bdba_e71e398a23dc_29 ;
+  sh:sourceShape :SD1002RuleShape ;
+  sh:resultSeverity sh:Violation ;
+  sh:resultMessage "<font class='msg'>RFSTDTC is after RFENDTC</font>" ;
+  sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+  sh:value <font class='error'>cj16050:Interval_184f16eb</font>        ]
 
 </pre>
 
