@@ -25,7 +25,7 @@
 You may redirect the report to a text file on your local machine: 
 
 <pre style="background-color:#F6F6F6;">
-  stardog icv report SENDConform > "C:\temp\Report.txt"
+  stardog icv report SENDConform > C:\temp\Report.txt
 </pre>
 
 ## TopBraid
