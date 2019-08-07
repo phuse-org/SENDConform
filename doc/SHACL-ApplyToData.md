@@ -2,6 +2,8 @@
 
 # Applying SHACL Constraints to Data
 
+These instructions show how to apply a SHACL constraint file to data using the Stardog triplestore or TopBraid.
+
 ## Stardog
 
 ### Stardog Studio Without Adding Constraints to the Database
