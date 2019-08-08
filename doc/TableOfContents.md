@@ -7,7 +7,8 @@ Table of Contents
 
 ### 1. Explanation
 
-This project provides a Proof of Concept for representing SEND conformance checks using Shapes Constraint Language (SHACL). SEND data is converted to Linked Data as Resource Description Format (RDF) and SHACL is used to create validation reports for the data. The goal is to increase efficiency by decreasing labor-intensive checks by both the sponsor and regulatory agencies. 
+SEND data is converted to Linked Data as Resource Description Format (RDF) using an ontology-based data schema. FDA Validation Rules are translated to SHACL to create validation reports. 
+
 
 ### 2. Data Conversion, Modeling, Mapping
 
