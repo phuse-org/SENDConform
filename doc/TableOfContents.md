@@ -2,63 +2,47 @@
 Project Documentation
 =====================
 
-Table of Contents
-----------------
+# Table of Contents
 
-### 1. Explanation
+## 1. Data Conversion, Modeling, Mapping
 
-SEND data is converted to Linked Data as Resource Description Format (RDF) using an ontology-based data schema. FDA Validation Rules are translated to SHACL to create validation reports. 
+SEND data is converted to Linked Data as Resource Description Format (RDF) using an ontology-based schema.
 
+* [1.1 SEND Mapping and conversion](DataConversion.md)  SAS XPT to RDF.
 
-### 2. Data Conversion, Modeling, Mapping
+## 2. SHACL for Project Data
 
-Data conversion from source XPT files to graph. 
+FDA Validation Rules are translated to SHACL to create validation reports. 
 
-* [2.1 SEND Mapping and conversion](DataConversion.md)
+### [2.1 SEND Rule DM SD1002 in SHACL](SHACL-SENDRule102Details.md)
 
-
-### 3. SHACL 
-
-#### [3.1 SHACL Introduction and Resources](SHACL-Intro.md)
-Resources for learning SHACL
-
-#### [3.2 Modeling an Example SEND Rule using SHACL](SHACL-SENDRuleEg.md)
-An example of how a SEND Rule is modeled on a simple dataset using SHACL. The data is for illustrative purposes only and does not have the same schema as the project data.
-
-#### 3.3 SHACL for Project Data
-Example models and documentation for the SHACL rules applied to the data schema used in this project.
-
-##### [3.3.1 Example SEND Rule 102 in SHACL](SHACL-SENDRule102Details.md)
-
-##### 3.3.2 Details for other rules
-
-###### DM Domain
-
-###### TS Domain
-
-##### [3.3.3 Applying SHACL to Data](SHACL-ApplyToData.md)
+#### [2.2 How to run Validation Reports](SHACL-ApplyToData.md)
 
 
-### 4.Reference
+## References and Resources
 
-Details of project structure and methods including project data files, scripts, coding conventions, and data modeling decisions.
+* Project structure and methods including project data files, scripts, coding conventions, and data modeling decisions.
+
+### [Project Repository Structure](Repository-Ref.md)
+
+* Details of the GitHub repository structure and content.
+
+### [Regulatory](Regulatory-Ref.md)
+
+* Regulatory Reference Documentation (Conformance rules, documentation).
+
+### [SHACL Introduction and Resources](SHACL-Intro.md)
+
+* Resources for learning SHACL
+
+### [Modeling an Example SEND Rule using SHACL](SHACL-SENDRuleEg.md)
+An example of how a SEND Rule is modeled in SHACL for a simple dataset. The source row-by-column data structure is converted to RDF without following an ontology-based schema and is for illustrative purposes only. The resulting graph data does not follow the approach used in this project.
+
+### [Ontology](Ontology-Ref.md)
+
+* Ontology details.  *To be added*
 
 
-#### [4.1 Regulatory](Regulatory-Ref.md)
+## How-To Guides
 
-Regulatory Reference Documentation (Conformance rules, documentation).
-
-
-#### [4.2 Project Repository Structure](Repository-Ref.md)
-
-Github repository structure, including the data files used and created within the project. 
-
-#### [4.3 Ontology](Ontology-Ref.md)
-
-Ontology details.
-
-
-How-To Guides
----------------------
-
-Step-by-step guides to working with the data.  TO BE DEVELOPED/
+* Step-by-step guides to working with the data.  ***TO BE DEVELOPED***
