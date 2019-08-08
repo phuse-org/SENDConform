@@ -8,7 +8,7 @@ Project Documentation
 
 SEND data is converted to Linked Data as Resource Description Format (RDF) using an ontology-based schema.
 
-* [1.1 SEND Mapping and conversion](DataConversion.md)  SAS XPT to RDF.
+* [1.1 SEND Data Conversion and Mapping](DataConversion.md)  SAS XPT to RDF.
 
 ## 2. SHACL for Project Data
 
@@ -16,7 +16,7 @@ FDA Validation Rules are translated to SHACL to create validation reports.
 
 ### [2.1 SEND Rule DM SD1002 in SHACL](SHACL-SENDRule102Details.md)
 
-#### [2.2 How to run Validation Reports](SHACL-ApplyToData.md)
+#### [2.2 Running Validation Reports](SHACL-RunValReport.md)
 
 
 ## References and Resources

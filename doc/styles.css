@@ -23,6 +23,7 @@ body{
 
 .msg{
   font-style: italic;
+  font-weight: bold;
 }
 
 .error2{
@@ -44,8 +45,6 @@ body{
   font-size:1.1em;
 }
 
-
-
 .codeCom{
   color: #759e27;     /* dark green */
 }
@@ -54,7 +53,6 @@ body{
   color: #759e27;     /* dark green */
   font-weight: bold;
 }
-
 
 .emph{
   color: #00008b;     /* dark blue */

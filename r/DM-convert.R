@@ -49,7 +49,6 @@ dmErr <- dm[1,]
   dmErr <- rep(dmErr, numDMTestSubjects)
   dmErr$ROWID_IM <-  (1:nrow(dmErr))
   
-  
 
   # Create test data that contains errors
   # new subjid with 99T prefix + row identifier in the dmErr df
