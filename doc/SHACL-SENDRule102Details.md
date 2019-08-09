@@ -93,7 +93,7 @@ Translation of each Rule Component into SHACL and evaluation of test data is des
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-  <font class='code'>rfstdtc</font> and <font class='code'>rfendtc</font> in <font class='code'>xsd:date</font> format.  
+  <code>rfstdtc</code> and <code>rfendtc</code> in <code>xsd:date</code> format.  
 </div>
 
 Refer back to [*Figure 1*](#figure1) to compare the data to the SHACL, below.  The shape `:DateFmtShape` uses `sh:targetObjectsOf` to begin evaluation at the <font class='object'>object</font> of the <font class='predicate'>predicates</font> `time:hasBeginning` and `time:hasEnd`. These <font class='object'>objects</font> must be of type `study:ReferenceBegin` or `study:ReferenceEnd` and have the <font class='predicate'>predicate</font> `time:inXSDDate` that leads to the date value that must be in `xsd:date` format.  
@@ -168,7 +168,7 @@ This check determines if the Animal Subject has one and only one Reference Inter
  
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-  `:AnimalSubject`  `:hasReferenceInterval`  with `sh:minCount` and `sh:maxCount` of 1
+  <code>:AnimalSubject</code>  <code>:hasReferenceInterval</code>  with <code>sh:minCount</code> and <code>sh:maxCount</code> of 1
 </div>
  
 
@@ -230,7 +230,7 @@ Reference interval IRIs are connected to their date values through the paths `ti
  
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-  `study:ReferenceInterval` `time:hasBeginning` with `sh:minCount` and `sh:maxCount` of 1, `sh:and` `time:hasEnd` with `sh:minCount` and `sh:maxCount` of 1
+  <code>study:ReferenceInterval</code> <code>time:hasBeginning</code> with <code>sh:minCount</code> and <code>sh:maxCount</code> of 1, <code>sh:and</code> <code>time:hasEnd</code> with <code>sh:minCount</code> and <code>sh:maxCount</code> of 1
 </div>
  
 
@@ -305,7 +305,7 @@ Report for Animal Subject 99T5 (`cj16050:Interval_db3c6403`)
  
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-  For interval, `! (?endDate >= ?beginDate )`
+  For interval, <code>! (?endDate >= ?beginDate )</code>
 </div>
  
 Referring back to [**Figure 1**](#figure1), the reference start and end dates are not directly attached to either an Animal Subject or that Subject's Reference Interval IRI. This indirect connection makes the comparison of the two date values more complex, so SHACL-SPARQL is used in place of SHACL-Core. The SPARQL query is written to find cases where the end date is NOT greater than or equal to the start date.

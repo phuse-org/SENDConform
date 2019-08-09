@@ -129,6 +129,10 @@ body{
  background-color: #EEDDBB; 
 }
 
+.code{
+  font-family: courier;
+} 
+
 /*---  from Github styles ---------------------------------------------------*/
 /* https://gist.github.com/andyferra/2554919  */
 table {
@@ -278,6 +282,38 @@ pre.data:before {
     font-weight: bold;
 }                                           
                                             
+//////////////////////////////////////
+pre.report {
+    background: #EEDDBB;
+}
+pre.report,
+pre.report:before {
+    border: 1px solid  #EEDDBB;
+}
+pre.report:before {
+    color: #D09F41;  /* text color */
+    content: "Report";
+    width: 4em;
+    font-weight: bold;
+}
+
+//////////////////////////////////////
+pre.report {                          
+    background: #edb;                       
+}                                           
+pre.report,                           
+pre.report:before,                    
+.report th,                        
+.report td {                       
+    border: 1px solid #D09F41;                 
+}                                           
+pre.report:before {
+    color: #D09F41; /* text color */
+    content: "Report";
+    width: 6em;
+    font-weight:bold;
+}
+
 
 
 /*TW RULE */
@@ -298,22 +334,6 @@ pre.example-rule:before {
 }                                           
 
 /* END RULE */
-
-.report {                          
-    background: #edb;                       
-}                                           
-.report,                           
-.report:before,                    
-.report th,                        
-.report td {                       
-    border: 1px solid #D09F41;                 
-}                                           
-pre.report:before {
-    color: #D09F41; /* text color */
-    content: "Report";
-    width: 6em;
-    font-weight:bold;
-}
 
 
 pre.example-other {                         
