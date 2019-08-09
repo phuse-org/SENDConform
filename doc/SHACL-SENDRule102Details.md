@@ -14,6 +14,7 @@ Familiarity with the data structure is necessary to explain the constraints and 
 
 <a name='figure1'/>
   <img src="images/RefIntervalDataFail.PNG"/>
+  
   ***Figure 1: Reference Interval for Animal 99T1 (incomplete data)***
   
 
