@@ -93,7 +93,7 @@ Translation of each Rule Component into SHACL and evaluation of test data is des
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-  <pre>rfstdtc</pre> and <pre>rfendtc</pre> in <pre>xsd:date</pre> format.  
+  <font class='code'>rfstdtc</font> and <font class='code'>rfendtc</font> in <font class='code'>xsd:date</font> format.  
 </div>
 
 Refer back to [*Figure 1*](#figure1) to compare the data to the SHACL, below.  The shape `:DateFmtShape` uses `sh:targetObjectsOf` to begin evaluation at the <font class='object'>object</font> of the <font class='predicate'>predicates</font> `time:hasBeginning` and `time:hasEnd`. These <font class='object'>objects</font> must be of type `study:ReferenceBegin` or `study:ReferenceEnd` and have the <font class='predicate'>predicate</font> `time:inXSDDate` that leads to the date value that must be in `xsd:date` format.  
