@@ -13,12 +13,9 @@ The complete data file is available here: [SHACL/CJ16050Constraints/DM-CJ16050-R
 Familiarity with the data structure is necessary to explain the constraints and test cases. **Figure 1** illustrates a partial set of data for test subject 99T1 where the Reference Interval end date *precedes* the start date, thus violating rule SD1002.
 
 <a name='figure1'/>
-<div align='center'>
   <img src="images/RefIntervalDataFail.PNG"/>
-  
   ***Figure 1: Reference Interval for Animal 99T1 (incomplete data)***
   
-</div>
 
 
 # SHACL Constraints
@@ -390,7 +387,6 @@ cj16050:<font class='objectIRI'>Interval_184f16eb</font>
 
 
 [Back to top of page](#top) 
+<br/>
+[Back to TOC](TableOfContents.md)
 
-<div align='right'>
-  [Back to TOC](TableOfContents.md)
-</div>
