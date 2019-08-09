@@ -1,26 +1,27 @@
 <link href="styles.css?v=1" rel="stylesheet"/>
+<a name='top'></a>
 
-Modeling SEND Rule SD1002 in SHACL
------------------------------------
+Modeling FDA SEND-IG 3.0 Rule SD1002 in SHACL
+==================================
 
 # Data 
 
-This example uses the DM domain data from the study "RE Function in Rats", located in the repository at [/data/studies/RE Function in Rats](https://github.com/phuse-org/SENDConform/tree/master/data/studies/RE%20Function%20in%20Rats) and converted to .TTL using the script [r\\DM-convert.R](https://github.com/phuse-org/SENDConform/blob/master/r/DM-convert.R). The R script adds observations to the original data in order to test the rule components. Test observations are identified by `subjid` and `usubjid` values containing the pattern 99T<n>, in contrast to the original study data values of 00M0<n>. See the [Data Conversion](DataConversion.md) page for details on how the data is converted to TTL.
+This example uses data from the demographics (DM) domain in the study "RE Function in Rats", located in the repository at [/data/studies/RE Function in Rats](https://github.com/phuse-org/SENDConform/tree/master/data/studies/RE%20Function%20in%20Rats) and converted to .TTL using the script [r/DM-convert.R](https://github.com/phuse-org/SENDConform/blob/master/r/DM-convert.R). The R script aligns date the graph schema used in this project and adds observations to test the rule components. Test observations are identified by `subjid` and `usubjid` values containing the pattern 99T<font class='parameter'>n</font>, in contrast to the original study data values of 00M0<n>. See the [Data Conversion](DataConversion.md) for additional details. The complete data file is available here: [SHACL/CJ16050Constraints/DM-CJ16050-R.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/DM-CJ16050-R.TT)
 
-Familiarity with the data structure is necessary to explain the constraints and test cases. Figure 1 illustrates a partial set of data for test subject subjid=99T1 where the end date precedes start date, thus violating the rule SD1002.
+Familiarity with the data structure is necessary to explain the constraints and test cases. **Figure 1** illustrates a partial set of data for test subject 99T1 where the Reference Interval end date *precedes* the start date, thus violating rule SD1002.
 
-<img src="images/RefIntervalDataFail.PNG"/>
-*Figure 1: Reference Interval for Animal 99T1 (incomplete data)*
-
-
-The full data file used in developing this page is available here: [SHACL/CJ16050Constraints/DM-CJ16050-R.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/DM-CJ16050-R.TT)
+<a name='figure1'/>
+<div align='center'>
+  <img src="images/RefIntervalDataFail.PNG"/>
+  ***Figure 1: Reference Interval for Animal 99T1 (incomplete data)***
+</div>
 
 
 # SHACL Constraints
 
 A detailed description of SHACL syntax is beyond the scope of this document. Please refer to the [SHACL Introduction](SHACL-Intro.md) page for a list of resources. 
 
-The SHACL file [SHACL/CJ16050Constraints/SHACL-SD1002.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/SHACL-SD1002.TTL) contains the constraints for this example. 
+The SHACL shapes described on this page are available in the file  [SHACL/CJ16050Constraints/SHACL-SD1002.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/SHACL-SD1002.TTL). 
 
 
 # FDA Rule SD1002
@@ -29,16 +30,19 @@ The SEND-IG 3.0 rule **SD1020** is defined in the file [FDA-Validator-Rules.xlsx
 
 FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Business or Conformance Rule Validated | FDA Validator Rule  
 ------|-------------------|-----|-------|--------------------------|-----------------------------
-**SD1002** |RFSTDTC is after RFENDTC | FDA| FDAB034    |Study Start and End Dates must be submitted and complete. | Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)
+**SD1002** |RFSTDTC is after RFENDTC | FDA| FDAB034    |Study Start and End Dates must be submitted and complete. | **Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)**
 
 The following Rule Components are defined based on the data, RDF data model, and SD1002 rule:
 
-**1. Reference Start Date and End Date in xsd:date format**
-**1. A Subject has one Reference Interval **
-**1. A Reference Interval has one Start Date and one End Date**
-**1. The SD1002 Rule itself: Start Date on or before End Date**
+**1. [Reference Start Date and End Date in xsd:date format](#rc1)**
 
-Translation of each Rule Component into SHACL and evaluation of Test data is described below.  Test cases and the values used to evaluate them are recorded in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
+**2. [A Subject has one Reference Interval](#rc2)**
+
+**3. [A Reference Interval has one Start Date and one End Date](#rc3)**
+
+**4. [The SD1002 Rule itself: Start Date on or before End Date](#rc4)**
+
+Translation of each Rule Component into SHACL and evaluation of test data is described below. Test cases and data for evaluation purposes are recorded in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
 
 # Document Conventions
  Color coding is used as a content guide. 
@@ -72,6 +76,7 @@ Translation of each Rule Component into SHACL and evaluation of Test data is des
 # SD1002 Rule Translation into SHACL
 
 <!--- RULE COMPONENT 1 ------------------------------------------------------->
+<a name='rc1'></a>
 
 ## 1. Reference Start Date and End Date in xsd:date format
 
@@ -88,7 +93,7 @@ Translation of each Rule Component into SHACL and evaluation of Test data is des
   `rfstdtc` and `rfendtc` in `xsd:date` format.  
 </div>
 
-The SHACL shape `:DateFmtShape` is constructed using `sh:targetObjectsOf` to select the interval IRI as the (Subject) focus node. The two `sh:targetObjectsOf` follow these paths through the data to obtain the date values: 
+Refer back to [*Figure 1*](#figure1) to compare the data to the SHACL, below.  The shape `:DateFmtShape` uses `sh:targetObjectsOf` to begin evaluation at the <font class='object'>object</font> of the <font class='predicate'>predicates</font> `time:hasBeginning` and `time:hasEnd`. These <font class='object'>objects</font> must be of type `study:ReferenceBegin` or `study:ReferenceEnd` and have the <font class='predicate'>predicate</font> `time:inXSDDate` that leads to the date value that must be in `xsd:date` format.  
 
 <pre>
 <font class='objectIRI'>Interval IRI</font> - - - <font class='predicate'>time:hasBeginning</font>  - - > <font class='objectIRI'>Date IRI</font> - - > <font class='predicate'>time:inXSDDate</font> - - > <font class='literal'>Date value</font>
@@ -104,18 +109,17 @@ The SHACL shape `:DateFmtShape` is constructed using `sh:targetObjectsOf` to sel
     [ sh:class study:ReferenceBegin ]
     [ sh:class study:ReferenceEnd ]
   ) ;  
-  sh:prefixes [
-    sh:declare [ sh:prefix "cj16050" ;
-      sh:namespace "https://example.org/cj16050#"^^xsd:anyURI ;
-    ]
   ] ;
   sh:property [
-    sh:path time:inXSDDate ;  
-    sh:datatype xsd:date ;
+    sh:path        time:inXSDDate ;  
+    sh:datatype    xsd:date ;
+    sh:name        "xsd:date format";
+    sh:description "Date format as xsd:date.";
+    sh:message     "Date not in xsd:date format."
   ] .  
 </pre>
 
-The test data includes subject 99T4 with string for `rfendtc`. Not shown: Subject 9T10 with string for `rfstdtc`.
+The test data includes subject 99T4 with a string value for `rfendtc`. Not shown: Subject 9T10 with string value for `rfstdtc`.
 <pre class="data">
     cj16050:Interval_68bab561
       a                 study:ReferenceInterval ;
@@ -128,28 +132,30 @@ The test data includes subject 99T4 with string for `rfendtc`. Not shown: Subjec
 </pre>
 
 
-The report correctly identifies the value '7-Dec-16' as a string, violating the xsd:date requirement.
+The report correctly identifies the value '7-DEC-16' as a string, violating the xsd:date requirement.
 <pre class="report">
   a sh:ValidationReport ;
     sh:conforms false ;
     sh:result [
       a sh:ValidationResult ;
-        sh:value "<font class='error'>7-DEC-16</font>" ;
         sh:resultPath time:inXSDDate ;
+        sh:resultSeverity sh:Violation ;
+        sh:resultMessage "<font class="msg">Date not in xsd:date format.</font>" ;
+        sh:value "<font class='error'>7-DEC-16</font>" ;
+        sh:sourceShape _:bnode_3c9cf811_13d4_43cb_b212_b7097d00b1ed_221 ;
         sh:sourceConstraintComponent sh:DatatypeConstraintComponent ;
         sh:focusNode <font class='objectIRI'>cj16050:Date_7-DEC-16 </font>;
-        sh:sourceShape [] ;
-        sh:resultSeverity sh:Violation
     ]
 </pre>
 
 <br/>
 
 <!--- RULE COMPONENT 2 ------------------------------------------------------->
+<a name='rc2'></a>
 
 ## 2. Subject has one Reference Interval
 
-This check determines if the Animal Subject has one and only one Reference Interval IRI. It is possible to have an Interval IRI with no start date and no end date (see [Data Conversion](DataConversion.md) for details). Test data only evaluates the case of missing Interval IRI. Multiple start/end dates for a single subject are evaluated in Rule Component 3. 
+This check determines if the Animal Subject has one and only one Reference Interval IRI. While it is possible to have an Interval IRI with no start date and no end date (see [Data Conversion](DataConversion.md)), this rule component only evaluates the case of missing Referenece Interval IRIs. Multiple start/end dates for a single subject are evaluated in Rule Component 3. 
 
 <div class='def'>
   <div class='def-header'>Description</div>
@@ -166,13 +172,16 @@ This check determines if the Animal Subject has one and only one Reference Inter
 <pre class="shacl">
 :SubjectOneRefIntervalShape a sh:NodeShape ;
   sh:targetClass study:AnimalSubject ;
-  sh:path study:hasReferenceInterval ;
+  sh:path        study:hasReferenceInterval ;
+  sh:name        "reference interval present";
+  sh:description "Animal Subject must have one and only one reference interval IRI.";
+  sh:message     "Animal Subject does not have one Reference Interval IRI." ;
   sh:minCount 1 ;
   sh:maxCount 1 .
 </pre> 
 <br/>
 
-Data for 99T11 has no `study:hasReferenceInterval`
+Animal Subject 99T11 has no `study:hasReferenceInterval`
 <pre class="data">
 cj16050:Animal_6204e90c
     a                        study:AnimalSubject ;
@@ -185,22 +194,25 @@ cj16050:Animal_6204e90c
 
 The report identifies the IRI `cj16050:Animal_6204e90c` , corresponding to Animal Subject 99T11.
 <pre class="report">
-a sh:ValidationReport ;
-  sh:conforms false
-  sh:result [
-    a sh:ValidationResult ;
-    sh:focusNode cj16050:<font class='error'>Animal_6204e90c</font>;
-    sh:resultSeverity sh:Violation ;
-    sh:sourceShape :SubjectOneRefIntervalShape ;
-    sh:resultPath study:hasReferenceInterval ;
-    sh:sourceConstraintComponent sh:MinCountConstraintComponent
-  ] 
+a sh:ValidationReport ;                                                                  
+  sh:conforms false ;                                                                  
+  sh:result [                                                                          
+    a sh:ValidationResult ;                                                          
+      sh:sourceShape :SubjectOneRefIntervalShape ;                                 
+      sh:resultPath study:hasReferenceInterval ;                                   
+      sh:resultSeverity sh:Violation ;                                             
+      sh:focusNode cj16050:<font class='error'>Animal_6204e90c</font> ;                                       
+      sh:resultMessage "<font class='msg'>Animal Subject does not have one Reference Interval IRI.</font>" ;
+      sh:sourceConstraintComponent sh:MinCountConstraintComponent                  
+  ]                                                                                    
+
 </pre>
 
 <br/><br/>
 
 
 <!--- RULE COMPONENT 3 ------------------------------------------------------->
+<a name='rc3'></a>
 
 ## 3. Reference Interval has one Start Date and one End Date
 
@@ -222,6 +234,9 @@ Reference interval IRIs are connected to their date values through the paths `ti
 <pre class="shacl">
 :RefIntervalDateShape a sh:NodeShape ;
   sh:targetClass study:ReferenceInterval ;
+  sh:name        "reference interval date count" ;
+  sh:description "Interval has One and only one start and end date." ;
+  sh:message     "Problem with Reference Interval date." ;
   sh:and (
     [ sh:path time:hasBeginning ;
       sh:minCount 1;
@@ -243,7 +258,7 @@ Test data provides the following violations:
 * 99T8 missing both rfendtc, rfstdtc
 * 99T2 >1 rfstdtc, >1 rfendtc  
 
-Only the data and report for 99T5 is shown here, where start date is present and end date is missing for the interval.
+Only the data and report for 99T5 is shown here, where start date is present and end date is missing for the Reference Interval.
 <pre class="data">
 cj16050:Animal_db3c6403
     a study:AnimalSubject ;
@@ -264,22 +279,24 @@ Report for Animal Subject 99T5 (`cj16050:Interval_db3c6403`)
 <pre class="report">
   a sh:ValidationResult ;
     sh:sourceConstraintComponent sh:AndConstraintComponent ;
-    sh:resultSeverity sh:Violation ;
+    sh:focusNode cj16050:Interval_db3c6403 ;
+    sh:resultMessage "<font class='msg'>Problem with Reference Interval date.</font>" ;
     sh:value cj16050:<font class='error'>Interval_db3c6403 </font> ;
     sh:sourceShape :RefIntervalDateShape ;
-    sh:focusNode cj16050:Interval_db3c6403
+    sh:resultSeverity sh:Violation ;
 </pre>
 
 
 
 <!--- RULE COMPONENT 4 ------------------------------------------------------->
+<a name='rc4'></a>
 
 ## 4. SD1002: Start Date on or before End Date
 
 
 <div class='def'>
   <div class='def-header'>Description</div>
-  Interval end date must be on or before start date. When the constraint is violated, the **FDA Validator Message** must appear:  "RFSTDTC is after RFENDTC"
+  Interval start date must be on or before end date. When the constraint is violated the report must display the **FDA Validator Message** "RFSTDTC is after RFENDTC"
 </div>
  
  
@@ -288,14 +305,16 @@ Report for Animal Subject 99T5 (`cj16050:Interval_db3c6403`)
   For interval, `! (?endDate >= ?beginDate )`
 </div>
  
-Referring back to **Figure 1**,   the reference start and end dates are not directly attached to either an Animal Subject or that Subject's Reference Interval IRI. This indirect connection makes the comparison of the two date values more complex, so SHACL-SPARQL is used in place of SHACL-Core. The SPARQL query is written to find cases where the end date is NOT greater than or equal to the start date.
+Referring back to [**Figure 1**](#figure1), the reference start and end dates are not directly attached to either an Animal Subject or that Subject's Reference Interval IRI. This indirect connection makes the comparison of the two date values more complex, so SHACL-SPARQL is used in place of SHACL-Core. The SPARQL query is written to find cases where the end date is NOT greater than or equal to the start date.
 
 <pre class="shacl">
 :SD1002RuleShape a sh:NodeShape ;
  sh:targetClass study:ReferenceInterval ;
  sh:sparql [
-  a sh:SPARQLConstraint ;
-  sh:message "RFSTDTC is after RFENDTC";
+  a              sh:SPARQLConstraint ;
+  sh:name        "sd1002" ;
+  sh:description "SEND-IG 3.0 Rule SD1002. Reference Interval start date on or before end date." ;
+  sh:message     "RFSTDTC is after RFENDTC";
   sh:prefixes [
     sh:declare [ sh:prefix "time" ;
       sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
@@ -317,11 +336,12 @@ Referring back to **Figure 1**,   the reference start and end dates are not dire
 </pre> 
 
 Test data provides the following violations:
-*  99T1  start is after end
-*  99T2  multiple start/end values, one start is before one end value
-*  99T10 String value for rfstdtc strips violation in comparison with rfendtc
 
-Only the data and report for 99T1 is shown here.
+*  99T1  start date is after end date
+*  99T2  multiple start/end date values, one start date is before one end date value
+*  99T10 String value for rfstdtc results in a violation when comparing to rfendtc
+
+Only the data and report for 99T1 is shown below.
 
 <pre class="data">
 cj16050:Animal_184f16eb
@@ -354,17 +374,19 @@ cj16050:<font class='objectIRI'>Interval_184f16eb</font>
 </pre>
 
 <pre class="report">
-sh:result [
   a sh:ValidationResult ;
-  sh:focusNode cj16050:Interval_184f16eb ;
   sh:sourceConstraint _:bnode_cacffc33_62e3_4c8b_bdba_e71e398a23dc_29 ;
   sh:sourceShape :SD1002RuleShape ;
-  sh:resultSeverity sh:Violation ;
   sh:resultMessage "<font class='msg'>RFSTDTC is after RFENDTC</font>" ;
-  sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
   sh:value <font class='error'>cj16050:Interval_184f16eb</font>        ]
-
+  sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+  sh:resultSeverity sh:Violation ;
+  sh:focusNode cj16050:Interval_184f16eb 
 </pre>
 
 
-[Back to TOC](TableOfContents.md)
+[Back to top of page](#top) 
+
+<div align='right'>
+  [Back to TOC](TableOfContents.md)
+</div>

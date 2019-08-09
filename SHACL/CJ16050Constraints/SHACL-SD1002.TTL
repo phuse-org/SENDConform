@@ -25,14 +25,12 @@
     [ sh:class study:ReferenceBegin ]
     [ sh:class study:ReferenceEnd ]
   ) ;  
-  sh:prefixes [
-    sh:declare [ sh:prefix "cj16050" ;
-      sh:namespace "https://example.org/cj16050#"^^xsd:anyURI ;
-    ]
-  ] ;
   sh:property [
-    sh:path time:inXSDDate ;  
-    sh:datatype xsd:date ;
+    sh:path        time:inXSDDate ;  
+    sh:datatype    xsd:date ;
+    sh:name        "xsd:date format";
+    sh:description "Date format as xsd:date.";
+    sh:message     "Date not in xsd:date format."
   ] .  
 
 #------------------------------------------------------------------------------
@@ -46,6 +44,9 @@
 :SubjectOneRefIntervalShape a sh:NodeShape ;
   sh:targetClass study:AnimalSubject ;
   sh:path study:hasReferenceInterval ;
+  sh:name        "reference interval present";
+  sh:description "Animal Subject must have one and only one reference interval IRI.";
+  sh:message     "Animal Subject does not have one Reference Interval IRI." ;
   sh:minCount 1 ;
   sh:maxCount 1 .
 
@@ -62,6 +63,9 @@
 
 :RefIntervalDateShape a sh:NodeShape ;
   sh:targetClass study:ReferenceInterval ;
+  sh:name        "reference interval date count" ;
+  sh:description "Interval has One and only one start and end date." ;
+  sh:message "Problem with Reference Interval date." ;
   sh:and (
     [ sh:path time:hasBeginning ;
       sh:minCount 1;
@@ -86,8 +90,10 @@
 :SD1002RuleShape a sh:NodeShape ;
  sh:targetClass study:ReferenceInterval ;
  sh:sparql [
-  a sh:SPARQLConstraint ;
-  sh:message "RFSTDTC is after RFENDTC";
+  a              sh:SPARQLConstraint ;
+  sh:name        "sd1002" ;
+  sh:description "SEND-IG 3.0 Rule SD1002. Reference Interval start date on or before end date." ;
+  sh:message     "RFSTDTC is after RFENDTC";
   sh:prefixes [
     sh:declare [ sh:prefix "time" ;
       sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
@@ -109,5 +115,5 @@
 
 :DateFmtShape               sh:deactivated true .  # Rule Component 1
 :SubjectOneRefIntervalShape sh:deactivated true .  # Rule Component 2
-:RefIntervalDateShape       sh:deactivated true .  # Rule Component 3
+:RefIntervalDateShape       sh:deactivated false .  # Rule Component 3
 :SD1002RuleShape            sh:deactivated false .  # Rule Component 4

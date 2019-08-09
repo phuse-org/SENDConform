@@ -75,15 +75,29 @@ body{
 
 }  
 
-.objectIRI{
-  color: #00008b;     /* dark blue */
+
+
+.subject{
+  color: #486118;     /* dark green */
+  font-weight: bold;
+  
+}
+.predicate{
+  color:  #c69331;     /*  dk orange */
   font-weight: bold;
 }
 
-.predicate{
-  color: #e67e00;     /* dark orange */
+.object{
+  color: #182461; /* dk blue */
   font-weight: bold;
-  font-family: courier, sans-serif, Consolas;
+  
+
+}
+
+
+.objectIRI{
+    color: #759e27; /* dark green */
+   font-weight: bold;
 }
 
 .literal{
@@ -115,6 +129,36 @@ body{
  background-color: #EEDDBB; 
 }
 
+/*---  from Github styles ---------------------------------------------------*/
+/* https://gist.github.com/andyferra/2554919  */
+table {
+  padding: 0; }
+  table th {
+    background-color: #8ccbf2;
+  } 
+  table tr {
+    border-top: 2px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 2px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 2px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
 
 /*---------------- FROM SHACL online ----------------*/
 .syntax {
@@ -134,11 +178,6 @@ body{
     margin-bottom: 16px;
     padding: 0.5em;
 }
-
-       
-       
-       
-       
        
 .def-sparql {}
 
@@ -210,17 +249,14 @@ pre.example-other:before {
     padding: 0.2em 1em;                     
 }                                           
                                             
-
-pre.shacl {                        
-    background: #deb;                       
-}                                           
-                                            
+pre.shacl {
+    background: #deb;
+}
 pre.shapes,                                 
 pre.shacl,
-pre.example-shapes:before {                 
-    border: 1px solid #bbb;                 
-}                                           
-                                            
+pre.shacl:before {
+    border: 1px solid #779E27;
+}
 pre.shacl:before {
     color: #779E27;
     content: "SHACL";
@@ -231,13 +267,10 @@ pre.shacl:before {
 pre.data {                          
     background: #eeb;                       
 }                                           
-   
-                                            
 pre.data,                           
 pre.data:before {                   
-    border: 1px solid #cc9;                 
+    border: 1px solid #9E9E27;                 
 }                                           
-                                            
 pre.data:before {                   
     color: #9E9E27;                            
     content: "Data";
@@ -245,12 +278,12 @@ pre.data:before {
     font-weight: bold;
 }                                           
                                             
+
+
 /*TW RULE */
 pre.example-rule {                          
     background: #bbd5ee;                    
 }                                           
-   
-                                            
 pre.example-rule,                           
 pre.example-rule:before {                   
     border: 1px solid #5596d5; /* darker blue */
@@ -269,21 +302,20 @@ pre.example-rule:before {
 .report {                          
     background: #edb;                       
 }                                           
-                                            
 .report,                           
 .report:before,                    
 .report th,                        
 .report td {                       
-    border: 1px solid #cca;                 
+    border: 1px solid #D09F41;                 
 }                                           
-                                            
 pre.report:before {
     color: #D09F41; /* text color */
     content: "Report";
     width: 6em;
     font-weight:bold;
 }
-                                            
+
+
 pre.example-other {                         
     background: #bed;                       
 }                                           
