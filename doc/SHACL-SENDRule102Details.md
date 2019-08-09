@@ -299,7 +299,7 @@ Report for Animal Subject 99T5 (`cj16050:Interval_db3c6403`)
 
 <div class='def'>
   <div class='def-header'>Description</div>
-  Interval start date must be on or before end date. When the constraint is violated the report must display the **FDA Validator Message** "RFSTDTC is after RFENDTC"
+  Interval start date must be on or before end date. When the constraint is violated the report must display the <b>FDA Validator Message</b> "RFSTDTC is after RFENDTC"
 </div>
  
  
