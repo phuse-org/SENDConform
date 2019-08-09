@@ -6,7 +6,7 @@ Modeling FDA SEND-IG 3.0 Rule SD1002 in SHACL
 
 # Data 
 
-This example uses data from the demographics (DM) domain in the study "RE Function in Rats", located in the repository at [/data/studies/RE Function in Rats](https://github.com/phuse-org/SENDConform/tree/master/data/studies/RE%20Function%20in%20Rats) and converted to .TTL using the script [r/DM-convert.R](https://github.com/phuse-org/SENDConform/blob/master/r/DM-convert.R). The R script aligns date the graph schema used in this project and adds observations to test the rule components. Test observations are identified by `subjid` and `usubjid` values containing the pattern 99T<font class='parameter'>n</font>, in contrast to the original study data values of 00M0<n>. See the [Data Conversion](DataConversion.md) for additional details. 
+This example uses data from the demographics (DM) domain in the study "RE Function in Rats", located in the repository at [/data/studies/RE Function in Rats](https://github.com/phuse-org/SENDConform/tree/master/data/studies/RE%20Function%20in%20Rats) and converted to .TTL using the script [r/DM-convert.R](https://github.com/phuse-org/SENDConform/blob/master/r/DM-convert.R). The R script aligns date the graph schema used in this project and adds observations to test the rule components. Test observations are identified by `subjid` and `usubjid` values containing the pattern 99T<font class='parameter'>n</font>, in contrast to the original study data values of 00M0<n>. [Data Conversion](DataConversion.md) provides additional details.  
 
 The complete data file is available here: [SHACL/CJ16050Constraints/DM-CJ16050-R.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/DM-CJ16050-R.TTL) and instructions on how to create valdiation reports in Stardog is available on the  [Running Validation Reports](SHACL-RunValReport.md) page.
 
@@ -15,7 +15,9 @@ Familiarity with the data structure is necessary to explain the constraints and 
 <a name='figure1'/>
 <div align='center'>
   <img src="images/RefIntervalDataFail.PNG"/>
+  
   ***Figure 1: Reference Interval for Animal 99T1 (incomplete data)***
+  
 </div>
 
 
