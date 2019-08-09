@@ -231,12 +231,12 @@ pre {
 }                                           
 /* example pre taken / adapted from R2RML */
 /* and then from www.w3.org/TR/shacl */                                            
-pre.shapes,                                 
-pre.shacl,                         
-pre.data, 
-pre.example-rule,  /*TW */                  
-pre.report,                        
-pre.example-other {                         
+pre.shapes,
+pre.shacl,
+pre.data,
+pre.example-rule, 
+pre.report,
+pre.example-other {
     margin-left: 0;                         
     padding: 0 2em;                         
     margin-top: 1.5em;                      
@@ -245,7 +245,7 @@ pre.example-other {
                                             
 pre.shacl:before,                  
 pre.data:before, 
-pre.example-rule:before, /*TW*/
+pre.example-rule:before, 
 pre.report:before,                 
 pre.example-other:before {                  
     background: white;                      
@@ -289,7 +289,7 @@ pre.report {
 }
 pre.report,
 pre.report:before {
-    border: 1px solid  #EEDDBB;
+    border: 1px solid #D09F41;   /* border around the report box */
 }
 pre.report:before {
     color: #D09F41;  /* text color */
