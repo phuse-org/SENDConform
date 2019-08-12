@@ -99,7 +99,7 @@ dmErr <- dm[1,]
 
   #--- END SD1002 -------------------------------------------------------------
 
-  # --- SD0083
+  #DEL NO LONGER WORKS WITH NEW APPROACH --- SD0083
   # Duplicate USUBJID: Both 99T6 and 99T7 have USUBJID = CJ16050_99T6  
     dmErr[dmErr$subjid == '99T7', "usubjid"] <- "CJ16050_99T6"
   
