@@ -1,0 +1,39 @@
+@prefix study: <https://w3id.org/phuse/study#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#>  .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cj16050: <https://example.org/cj16050#> .
+
+# Animal Subject Shape
+study:AnimalSubjectShape
+  a              sh:NodeShape ;
+  sh:targetclass study:AnimalSubject ;
+  sh:property    study:hasMin1Max1Shape-SubjID ;
+  sh:property    study:hasMin1Max1Shape-USubjID .
+
+# Subject ID (SUBJID)
+study:hasMin1Max1Shape-SubjID 
+  a              sh:NodeShape ;
+  sh:targetClass study:AnimalSubject ;   
+  sh:name        "unique usubjid" ;
+  sh:description "Value of SUBJID must present/unique." ;
+  sh:message     "SUBJID value violation" ;
+  sh:path        study:hasSubjectID ;
+  sh:minCount    1 ;
+  sh:maxCount    1 ;
+  sh:severity    sh:Violation .
+
+# Unique Subject ID (USUBJID)
+study:hasMin1Max1Shape-USubjID 
+  a              sh:NodeShape ;
+  sh:targetClass study:AnimalSubject ;   
+  sh:name        "unique usubjid" ;
+  sh:description "Value of USUBJID must present/unique." ;
+  sh:message     "USUBJID value violation" ;
+  sh:path        study:hasUniqueSubjectID ;
+  sh:minCount    1 ;
+  sh:maxCount    1 ;
+  sh:severity    sh:Violation .
+
+study:hasMin1Max1Shape-USubjID  sh:deactivated false .  # Rule Component 
+study:hasMin1Max1Shape-SubjID   sh:deactivated false .  # Rule Component 

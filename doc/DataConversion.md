@@ -6,9 +6,12 @@
 ## Introduction
 The proof of concept is limited to the <b>DM</b> and <b>TS</b> domains. Data was obtained from PHUSE Scripts repository [SEND subfolder](https://github.com/phuse-org/phuse-scripts/tree/master/data/send) and copied over to this project under folders for each example study: /SENDConform/data/studies/<font class="parameter">Study Name</font>  .
 
+The easiest data conversion method would be to read in the row-by-column source data and convert it to RDF, using column names to represent the types of entities represented by the values in each cell, and the rows as individuals. This is not the approach taken in this project. Data is re-formed to match an ontology that represents the types of entities and their relationships in the trial based on knowledge of the data and clinical trial process. This latter approach has many advantages that are detailed elsewhere (*add references*)
+
+
 Two alternate methods are provided for the data conversion process. In method one, R scripts read the source SAS XPT file and convert it to TTL for import into any triplestore. 
 
-The same data conversion R scripts simultaneously create .CSV files to support a second method of importing data into a Stardog triplestore using Stardog Mapping Syntax (SMS). A benefit of using SMS is that the project team already has an RShiny app for visualizing the SMS map files. The visualizations assist schema validation and aid construction of SPARQL queries. R2RML is a vendor-neutral alternative to SMS that is out of scope for this project. 
+The same data conversion R scripts simultaneously create .CSV files to support a second method of importing data into a Stardog triplestore using Stardog Mapping Syntax (SMS). A benefit of using SMS is that the project team already has an RShiny app for visualizing the SMS map files. The visualizations assist schema validation and aid construction of SPARQL queries. R2RML is a vendor-neutral alternative to SMS that is out of scope for this project. ***The .CSV files do not contain the full set of data for evaluating the test cases.***
 
 A third SAS-based method may be provided later, time permitting.
 

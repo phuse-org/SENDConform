@@ -1,6 +1,6 @@
 #______________________________________________________________________________
 # FILE: driver.R
-# DESC: Driver program that calls the other R scripts involved in the data
+# DESC: Driver program that calls the other R scripts i nvolved in the data
 #         conversion process. Loads required packages, sets global options.
 # SRC :
 # IN  : 1. R Scripts for each domain
@@ -68,7 +68,6 @@ list2env(prefixUC , envir = .GlobalEnv)
 #--- Graph Metadata
 #------------------------------------------------------------------------------
 # Create data for graph metadata. 
-#  TODO: Create CSV and SMS map as an alternative approach.
 
 # Create the dataframe. Use a dataframe instead of direct RDF statements to allow
 #   future export to .CSV and use of SMS.
@@ -168,6 +167,8 @@ write.csv(graphMeta, file="data/studies/RE Function in Rats/ttl/Graphmeta-CJ1605
 dm <- data.frame(readXPT(dataPath = sendPath, domain = "dm"), stringsAsFactors=FALSE)
 
 dm  <- head(dm, dm_n) #subset for development
+
+
 
 source('R/DM-convert.R')  # Impute values 
 

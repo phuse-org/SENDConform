@@ -78,7 +78,7 @@ RDF triples for this example are created by associating values with an AnimalSub
         a              study:AnimalSubject ;
         study:rfendtc  "2016-12-07"^^xsd:date ;
         study:rfstdtc  "2016-12-07"^^xsd:date  ;
-      <font class="extraInfo">... more data</font>
+      <font class="infoExtra">... more data</font>
 </pre>
 The FDA Rules are translated to SHACL Shapes that evaluate portions of the data as illustrated in Figure 1. 
 

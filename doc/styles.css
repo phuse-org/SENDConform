@@ -31,11 +31,20 @@ body{
   font-weight: bold;
 }
 
-.extraInfo{
+.infoExtra{
   color: #9c9c9c;     /* dark grey */
   font-weight: bold;
   font-style: italic;
   font-size:1.1em;
+}
+
+.infoOmitted{
+  color: #4e4e4e;     /* dark grey */
+  background-color: #e1e1e1; /* Light grey */ 
+  font-weight: bold;
+  font-style: italic;
+  font-size:1.1em;
+  
 }
 
 .parameter{
@@ -64,10 +73,17 @@ body{
   font-weight: bold;
 }
 
-.labelShape{
+.available, .labelShape{
   color: #759e27; /* dark green */
   font-weight: bold;
 }  
+
+.development{
+  font-weight: bold;
+  font-style: italic;
+
+}  
+
 
 .labelReport{
   color: #c69331; /* dark br/orange */
@@ -87,11 +103,16 @@ body{
   font-weight: bold;
 }
 
+.nodeBold{
+  color: #182461; /* dk blue */
+  font-weight: bold;
+  font-size:1.1em;
+}
+
+
 .object{
   color: #182461; /* dk blue */
   font-weight: bold;
-  
-
 }
 
 
@@ -294,7 +315,7 @@ pre.report:before {
 pre.report:before {
     color: #D09F41;  /* text color */
     content: "Report";
-    width: 4em;
+    width: 5em;
     font-weight: bold;
 }
 
