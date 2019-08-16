@@ -18,9 +18,9 @@ FDA Validation Rules are translated to SHACL to create validation reports.
 
 * *Start here!*
 
-### 2.2 Core Shapes
+### 2.2 Shapes
 
-* [AnimalSubject](SHACL-AnimalSubject-Details.md)
+* [AnimalSubject - Demographics Domain](SHACL-AnimalSubject-Details.md)
 
 ### [2.3 Running Validation Reports](SHACL-RunValReport.md)
 
@@ -55,7 +55,7 @@ An example of how a SEND Rule is modeled in SHACL for a simple dataset. The sour
 
 
 # Depreciated content
-  Outdated material from pervious efforts. Destined for the dust bin, but not just yet.
+  Outdated material from previous work. Destined for the dust bin but currently available for reference purposes.
 
 * [SD1002 - Reference Start, End Date ](SHACL-SENDRule102Details.md)
 * [SD0083, SD1001 - SUBJID, USUBJID](SHACL-IDRuleDetails.md)

@@ -16,8 +16,6 @@ The SHACL described in this section is available in the  file [SHACL-AnimalSubje
 
 ## Conventions For Shapes
 
-*Parts of this section may mmove to separate page.*
-
 SHACL shapes are created with reuse in mind, as reflected in both the structure and naming conventions. Property shapes are defined explicitly, starting at the <font class='shapeName'>AnimalSubjectShape</font>. While there is no technical requirement to provide this explicit definition, doing so guides the creation reusable shapes and provides a development pattern that is easy to follow.
 
 ***Figure 1*** illustrates how the <font class='shapeName'>AnimalSubjectShape</font> contains a Property Shape definition for each type of Predicate--->Object attached to the Animal Subject IRI. Shapes that describe similar data, like the identifiers USUBJID and SUBJID, could have been combined into a single shape. However, they are kept separate to provide reporting that is better-aligned with the FDA rules.
