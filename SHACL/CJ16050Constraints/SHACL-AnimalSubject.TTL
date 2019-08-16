@@ -8,12 +8,12 @@
 study:AnimalSubjectShape
   a              sh:NodeShape ;
   sh:targetClass study:AnimalSubject ;
-  sh:property    study:hasMin1Max1Shape-USubjID ;
-  sh:property    study:isUniqueShape-USubjID ;
-  sh:property    study:hasMin1Max1Shape-SubjID ;
-  sh:property    study:isUniqueShape-SubjID .
+  sh:property    study:hasMin1Max1Shape-USubjID ; # Rule SD0083
+  sh:property    study:isUniqueShape-USubjID ;    # Rule SD0083
+  sh:property    study:hasMin1Max1Shape-SubjID ;  # Rule SD1001
+  sh:property    study:isUniqueShape-SubjID .     # Rule SD1001
 
-# Animal Subject has one Unique Subject ID (USUBJID)
+# Animal Subject has one Unique Subject ID (USUBJID). Rule SD0083
 study:hasMin1Max1Shape-USubjID 
   a              sh:NodeShape ;
   sh:targetClass study:AnimalSubject ;   
@@ -37,7 +37,7 @@ study:hasMin1Max1Shape-USubjID
 #    sh:maxCount 1
 #  ] .
 
-#  Method 2 : Identifies the Animal Subjects that are assigned the same USSUBJID
+#  Method 2 : Identifies the Animal Subjects that are assigned the same USUBJID. Rule SD0083
 study:isUniqueShape-USubjID a sh:PropertyShape ; 
   sh:targetClass   study:AnimalSubject ;   
   sh:property [
@@ -48,7 +48,7 @@ study:isUniqueShape-USubjID a sh:PropertyShape ;
     sh:maxCount 1
   ] .
 
-# Subject ID (SUBJID)
+# Animal Subject has one Subject ID (SUBJID). Rule SD1001
 study:hasMin1Max1Shape-SubjID 
   a              sh:NodeShape ;
   sh:targetClass study:AnimalSubject ;   
@@ -59,6 +59,8 @@ study:hasMin1Max1Shape-SubjID
   sh:minCount  1 ;
   sh:maxCount  1 
 .
+
+# Identifies the Animal Subjects that are assigned the same SUBJID. Rule SD1001
 study:isUniqueShape-SubjID a sh:PropertyShape ; 
   sh:targetObjectsOf study:hasSubjectID ;
   sh:name            "uniqueSubjid" ;

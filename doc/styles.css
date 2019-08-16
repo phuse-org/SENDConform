@@ -58,7 +58,7 @@ body{
   color: #759e27;     /* dark green */
 }
 
-.goodData{
+.shapeName, .goodData{
   color: #486118;     /* very dark green */
   font-weight: bold;
 }
