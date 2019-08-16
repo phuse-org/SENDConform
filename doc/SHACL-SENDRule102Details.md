@@ -4,7 +4,7 @@
 Rule SD1002 : Reference Interval
 ==================================
 
-The SEND-IG 3.0 rule **SD1020** is defined in the file [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) as:
+The SEND-IG 3.0 rule **SD1002** is defined in the file [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) as:
 
 FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Business or Conformance Rule Validated | FDA Validator Rule  
 ------|-------------------|-----|-------|--------------------------|-----------------------------

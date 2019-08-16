@@ -4,6 +4,9 @@
 Animal Subject Shape - Demographics Domain
 ==================================
 
+## **AnimalSubjectShape** , **USUBJID,SUBJID** : FDA Rule SD1002
+
+
 The Animal Subject IRI `:Animal_xxx` is a natural starting point for developing rules based on the Demographics domain because each row in the source DM data holds values for an Animal Subject. ***Figure 1*** provides an overview of the Animal Subject data structure, and corresponding SHACL Shapes and SEND Rules for the DM domain. The constraints in the shapes include rules that go beyond the standard requirements outlined in FDA documentation. 
 
 <a name='figure1'/>
@@ -81,7 +84,7 @@ study:AnimalSubjectShape
 
 <a name='ruleSD0083'></a>
 
-##  **USUBJID** FDA Rule SD0083
+##  **USUBJID** : FDA Rule SD0083
 
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for USUBJID in the DM Domain as:
@@ -126,8 +129,9 @@ cj16050:Animal_037c2fdc
 </pre>
 <br/>
 
-
 The SHACL shape `study:hasMin1Max1Shape-USubjID` evaluates the path `study:hasUniqueSubjectID` to determine if one and only one value of USSUBJID IRI is present. 
+
+<font class='futureSHACL'>FUTURE:</font>  This shape can be updated to `sh:targetClass study:Subject` to be applied to multiple types of Sujbects (Animal, Human) when the proper ontology and reasoner is applied.
 
 <pre class='shacl'>
 # Unique Subject ID (USUBJID)
@@ -136,7 +140,7 @@ study:hasMin1Max1Shape-USubjID
   sh:targetClass study:AnimalSubject ;   
   sh:name        "minmaxUniqueSubjid" ;
   sh:description "A single, exclusive USUBJID must be assigned to a Subject." ;
-  sh:message     "Animal Subject --> USUBJID violation [SD0083]" ;
+  sh:message     "Animal Subject --> USUBJID violation. [SD0083]" ;
   sh:path study:hasUniqueSubjectID ;
   sh:minCount  1 ;
   sh:maxCount  1 .
@@ -172,7 +176,7 @@ The report correctly identifies Animal Subject Animal_6204e90c as having more th
     sh:resultSeverity            sh:Violation ;
     sh:sourceShape               study:hasMin1Max1Shape-USubjID ;
     sh:focusNode                 cj16050:<font class='error'>Animal_6204e90c </font>;
-    sh:resultMessage             <font class='msg'>"Animal Subject --> USUBJID violation [SD0083]"</font> ;
+    sh:resultMessage             <font class='msg'>"Animal Subject --> USUBJID violation. [SD0083]"</font> ;
     sh:resultPath                study:hasUniqueSubjectID ;
     sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>
 </pre>

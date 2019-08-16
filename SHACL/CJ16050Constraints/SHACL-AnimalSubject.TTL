@@ -13,16 +13,18 @@ study:AnimalSubjectShape
   sh:property    study:hasMin1Max1Shape-SubjID ;  # Rule SD1001
   sh:property    study:isUniqueShape-SubjID .     # Rule SD1001
 
-# Animal Subject has one Unique Subject ID (USUBJID). Rule SD0083
+#--- USUBJID ---------------------------------------------------------------
+
+# Animal Subject has one Unique Subject ID (USUBJID). [SD0083]
 study:hasMin1Max1Shape-USubjID 
   a              sh:NodeShape ;
   sh:targetClass study:AnimalSubject ;   
   sh:name        "minmaxUniqueSubjid" ;
   sh:description "A single, exclusive USUBJID must be assigned to a Subject." ;
   sh:message     "Animal Subject --> USUBJID violation [SD0083]" ;
-  sh:path study:hasUniqueSubjectID ;
-  sh:minCount  1 ;
-  sh:maxCount  1 .
+  sh:path        study:hasUniqueSubjectID ;
+  sh:minCount    1 ;
+  sh:maxCount    1 .
 
 #--- Identify USUBJID values assigned to more than one Animal Subject.
 #  Method 1 : Identifies the SUBJID
@@ -37,42 +39,44 @@ study:hasMin1Max1Shape-USubjID
 #    sh:maxCount 1
 #  ] .
 
-#  Method 2 : Identifies the Animal Subjects that are assigned the same USUBJID. Rule SD0083
+#  Method 2 : Identifies the Animal Subjects that are assigned the same USUBJID.[SD0083]
 study:isUniqueShape-USubjID a sh:PropertyShape ; 
   sh:targetClass   study:AnimalSubject ;   
   sh:property [
     sh:name            "uniqueUSubjid" ;
     sh:description     "A USUBJID must only be assigned to one Subject." ;
-    sh:message         "USUBJID assigned to more than one Subject." ;
+    sh:message         "USUBJID assigned to more than one Subject. [SD0083]" ;
     sh:path (study:hasUniqueSubjectID [sh:inversePath study:hasUniqueSubjectID]) ;
     sh:maxCount 1
   ] .
 
-# Animal Subject has one Subject ID (SUBJID). Rule SD1001
+#--- SUBJID ----------------------------------------------------------------  
+# Animal Subject has one Subject ID (SUBJID). [SD1001]
 study:hasMin1Max1Shape-SubjID 
   a              sh:NodeShape ;
   sh:targetClass study:AnimalSubject ;   
   sh:name        "minMaxSubjid" ;
   sh:description "A single, exclusive SUBJID must be assigned to a Subject." ;
-  sh:message     "Animal Subject --> USUBJID violation" ;
+  sh:message     "Animal Subject --> USUBJID violation. [SD1001]" ;
   sh:path (study:hasSubjectID [sh:inversePath study:hasSubjectID]) ;
   sh:minCount  1 ;
   sh:maxCount  1 
 .
 
-# Identifies the Animal Subjects that are assigned the same SUBJID. Rule SD1001
+# Identifies the Animal Subjects that are assigned the same SUBJID. [SD1001]
 study:isUniqueShape-SubjID a sh:PropertyShape ; 
   sh:targetObjectsOf study:hasSubjectID ;
   sh:name            "uniqueSubjid" ;
   sh:description     "A SUBJID must only be assigned to one Subject." ;
-  sh:message         "SUBJID assigned to more than one Subject." ;
+  sh:message         "SUBJID assigned to more than one Subject. [SD1001]" ;
   sh:property [
     sh:path [sh:inversePath study:hasUniqueSubjectID] ;
     sh:maxCount 1
   ] .
 
+#--- USUBJID --------------------------------------  
 study:hasMin1Max1Shape-USubjID sh:deactivated false . 
 study:isUniqueShape-USubjID    sh:deactivated false .  
-
+#--- SUBJID ---------------------------------------
 study:hasMin1Max1Shape-SubjID  sh:deactivated true . 
 study:isUniqueShape-SubjID     sh:deactivated true .

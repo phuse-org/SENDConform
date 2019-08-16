@@ -21,6 +21,13 @@ body{
   font-weight: bold;
 }
 
+.futureSHACL{
+  background-color: #9fd041;
+  color: #000000;
+  font-family: Arial;
+  font-weight: bold;
+}
+
 .msg{
   font-style: italic;
   font-weight: bold;

@@ -8,17 +8,17 @@
 @prefix cj16050: <https://example.org/cj16050#> .
 
 #------------------------------------------------------------------------------
-# Rule Component 1
-# Reference Start Date and End Date in xsd:date format
-# Note:  Dates are associated with :hasBeginning or :hasEnd, other predicates
+# SHAPE: study:hasTypeXsdDate-Date
+# DESCR: Targets of predicates that refer to dates must be in xsd:date format.
+# RULEC: Reference Interval Rule Component 1
+# NOTES: Dates are associated with :hasBeginning or :hasEnd, other predicates
 #        can be added for additional dates attached to different IRIs.
-# Violations:
+# VIOLATIONS:
 #   99T4  rfendtc as string
 #   99T10 rfstdtc as string
 # STATUS: Passed 2019-08-01
 #------------------------------------------------------------------------------
-
-:DateFmtShape a sh:NodeShape ;
+study:hasTypeXsdDateShape-Date a sh:NodeShape ;
   sh:targetObjectsOf time:hasBeginning ;
   sh:targetObjectsOf time:hasEnd ;
   sh:or (
@@ -30,42 +30,44 @@
     sh:datatype    xsd:date ;
     sh:name        "xsd:date format";
     sh:description "Date format as xsd:date.";
-    sh:message     "Date not in xsd:date format."
+    sh:message     "Date not in xsd:date format. [SD1002] "
   ] .  
 
 #------------------------------------------------------------------------------
-# Rule Component 2
-# Subject has one reference interval 
-# Violations:
+# SHAPE: study:hasMin1Max1Shape-Interval
+# DESCR: Animal Subject has one reference interval 
+# RULEC: Reference Interval Rule Component 2
+# NOTES: 
+# VIOLATIONS:
 #   99T11 No reference interval
 # STATUS: Passed 2019-08-04
 #------------------------------------------------------------------------------
-
-:SubjectOneRefIntervalShape a sh:NodeShape ;
+study:hasMin1Max1Shape-Interval a sh:NodeShape ;
   sh:targetClass study:AnimalSubject ;
   sh:path study:hasReferenceInterval ;
   sh:name        "reference interval present";
   sh:description "Animal Subject must have one and only one reference interval IRI.";
-  sh:message     "Animal Subject does not have one Reference Interval IRI." ;
-  sh:minCount 1 ;
-  sh:maxCount 1 .
+  sh:message     "Animal Subject does not have one Reference Interval IRI.  [SD1002]" ;
+  sh:minCount    1 ;
+  sh:maxCount    1 .
 
 #------------------------------------------------------------------------------
-# Rule Component 3
-# Reference Interval has one Start Date and one End Date
-# Violations:  
+# SHAPE: study:hasMin1Max1Shape-StartEndDates
+# DESCR: Reference Interval has one Start Date and one End Date
+# RULEC: Reference Interval Rule Component 3
+# NOTES:
+# VIOLATIONS:  
 #   99T5 missing rfendtc
 #   99T9 missing rfstdtc
 #   99T8 missing both rfendtc, rfstdtc
 #   99T2 >1 rfstdtc, >1 rfendtc  
 # STATUS: Passed 2019-08-04
 #------------------------------------------------------------------------------
-
-:RefIntervalDateShape a sh:NodeShape ;
+study:hasMin1Max1Shape-StartEndDates a sh:NodeShape ;
   sh:targetClass study:ReferenceInterval ;
   sh:name        "reference interval date count" ;
   sh:description "Interval has One and only one start and end date." ;
-  sh:message "Problem with Reference Interval date." ;
+  sh:message "Problem with Reference Interval date.  [SD1002]" ;
   sh:and (
     [ sh:path time:hasBeginning ;
       sh:minCount 1;
@@ -79,21 +81,24 @@
  )
 .
 
-# Rule Component 4
-# SD1002: Start Date on or before End Date
-# Violations:
+#------------------------------------------------------------------------------
+# SHAPE: study:hasStartLEEndShape-Interval
+# DESCR: Start Date on or before End Date
+# RULEC: Reference Interval Rule Component 4  
+# NOTES:
+# VIOLATIONS:
 #  99T1  start is after end
 #  99T2  multiple start/end values, one start is before one end value
 #  99T10 String value for rfstdtc strips violation in comparision with rfendtc
 # STATUS: Passed 2019-08-04
-
-:SD1002RuleShape a sh:NodeShape ;
+#------------------------------------------------------------------------------
+study:hasStartLEEndShape-Interval a sh:NodeShape ;
  sh:targetClass study:ReferenceInterval ;
  sh:sparql [
   a              sh:SPARQLConstraint ;
   sh:name        "sd1002" ;
   sh:description "SEND-IG 3.0 Rule SD1002. Reference Interval start date on or before end date." ;
-  sh:message     "RFSTDTC is after RFENDTC";
+  sh:message     "RFSTDTC is after RFENDTC. [SD1002]";
   sh:prefixes [
     sh:declare [ sh:prefix "time" ;
       sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
@@ -113,7 +118,7 @@
     }""" ;
 ] .
 
-:DateFmtShape               sh:deactivated true .  # Rule Component 1
-:SubjectOneRefIntervalShape sh:deactivated true .  # Rule Component 2
-:RefIntervalDateShape       sh:deactivated false .  # Rule Component 3
-:SD1002RuleShape            sh:deactivated false .  # Rule Component 4
+study:hasTypeXsdDate-Date            sh:deactivated true .  # RefInterval RC 1
+study:hasMin1Max1Shape-Interval      sh:deactivated true .  # RefInterval RC 2
+study:hasMin1Max1Shape-StartEndDates sh:deactivated false . # RefInterval RC 3
+study:hasStartLEEndShape-Interval    sh:deactivated false . # RefInterval RC 4
