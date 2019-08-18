@@ -70,7 +70,7 @@ DM | SD0066 | arm         | <font class='error'>excluded</font> | requires TA da
 
 The project defines a number of basic shapes that re-use core components for data validation. Follow the links below for details. The list will continue to grow as more data and shapes are added.
 
-* [AnimalShape](SHACL-AnimalSubject-Details.md)
+* [AnimalSubjectShape](SHACL-AnimalSubject-Details.md)
 
 
 # Content Conventions

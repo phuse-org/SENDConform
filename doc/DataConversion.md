@@ -57,7 +57,7 @@ Following this method:
 
 Example Animal Subject IRI: `cj16050:Animal_a6d09184`
 
-Methods to generate UIDs for subjects in real-world settings is beyond the mandate of this project.See the [Technical Details page](https://github.com/phuse-org/UIDPharma/blob/master/UUIDTechDetails.md)) of the project [Unique Identifiers for the Pharmaceutical Industry]https://github.com/phuse-org/UIDPharma) for more information on generating unique identifiers. 
+Methods to generate UIDs for subjects in real-world settings is beyond the mandate of this project.See the [Technical Details page](https://github.com/phuse-org/UIDPharma/blob/master/UUIDTechDetails.md)) of the project [Unique Identifiers for the Pharmaceutical Industry](https://github.com/phuse-org/UIDPharma) for more information on generating unique identifiers. 
 
 
 ### Reference Interval IRIs
@@ -65,16 +65,18 @@ Methods to generate UIDs for subjects in real-world settings is beyond the manda
 Date values for reference start date (rfstdtc) and reference end date (rfendtc) are not directly attached to the Animal Subject IRI. Rather, the `cj16050:Animal_<hashvalue>` has a Reference Interval IRI `cj16050:Interval_<hashvalue>` which in turn has two date IRIs attached via the `time:hasBeginning` and `time:hasEnd` predicates (**Figure 1**).  
 
 <img src="images/RefIntervalDataFail.PNG"/>
-<div align=center>
-  **Figure 1: Animal_99T1 (incomplete data)**
-</div>
+
+**Figure 1: Animal_99T1 (incomplete data)**
+
 
 Reference Interval IRIs are still created when either start or end date is missing (**Figure 2**), because the data for the non-missing date  must be captured in the graph. A Reference Interval may also be created when ***both** start and end dates are missing. 
 
 <img src="images/RefIntervalMissEndDate.PNG"/>
-<div align=center>
-  **Figure 2: Animal_99T5 Missing rfendtc**
-</div>
+
+**Figure 2: Animal_99T5 Missing rfendtc**
+
+See the [Animal Subject Reference Interval](SHACL-AnimalSubject-ReferenceInterval.md) page for how SHACL shapes are constructed based on this model.
+
 
 ### RDF Project Conventions
 #### Labels

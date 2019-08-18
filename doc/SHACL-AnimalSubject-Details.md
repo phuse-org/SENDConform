@@ -4,7 +4,7 @@
 Animal Subject Shape - Demographics Domain
 ==================================
 
-## **AnimalSubjectShape** , **USUBJID,SUBJID** : FDA Rule SD1002
+## **AnimalSubjectShape** , **USUBJID,SUBJID** : FDA Rules SD0083, SD1001
 
 
 The Animal Subject IRI `:Animal_xxx` is a natural starting point for developing rules based on the Demographics domain because each row in the source DM data holds values for an Animal Subject. ***Figure 1*** provides an overview of the Animal Subject data structure, and corresponding SHACL Shapes and SEND Rules for the DM domain. The constraints in the shapes include rules that go beyond the standard requirements outlined in FDA documentation. 
@@ -131,7 +131,7 @@ cj16050:Animal_037c2fdc
 
 The SHACL shape `study:hasMin1Max1Shape-USubjID` evaluates the path `study:hasUniqueSubjectID` to determine if one and only one value of USSUBJID IRI is present. 
 
-<font class='futureSHACL'>FUTURE:</font>  This shape can be updated to `sh:targetClass study:Subject` to be applied to multiple types of Sujbects (Animal, Human) when the proper ontology and reasoner is applied.
+<font class='futureSHACL'>FUTURE:</font>  This shape can be updated to `sh:targetClass study:Subject` to be applied to multiple types of Subjects (Animal, Human) when the proper ontology and reasoner is applied.
 
 <pre class='shacl'>
 # Unique Subject ID (USUBJID)
@@ -215,7 +215,7 @@ There are multiple ways to assess the USUBJID requirement in SHACL-Core and SHAC
 
 <div class='def'>
   <div class='def-header'>Description</div>
-  Targeting the Object of (`sh:targetObjectsOf `) the inverse of (`sh:inversePath`) the predicate `study:hasUniqueSubjectID` identifies USBUJID values that are assigned to more than one AnimalSubject. This test is the most informative when trying to quickly identify *duplicate USUBJID values*. 
+  Targeting the Object of (`sh:targetObjectsOf `) the inverse of (`sh:inversePath`) the predicate `study:hasUniqueSubjectID` identifies USBUJID values that are assigned to more than one AnimalSubject. This test is the most informative when trying to quickly identify <i>duplicate USUBJID values</i>. 
 </div>
 
 SHACL Shape Method 1: Identify duplicate USUBJID values.

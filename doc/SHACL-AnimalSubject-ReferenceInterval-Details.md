@@ -25,18 +25,18 @@ In the SENDConform Project, RFSTDTC and RFENDTC are modeled as part of a Referen
 
 **1. [Reference Start Date and End Date must be in xsd:date format.](#rc1)**
 
-**2. [A Animal Subject has one Reference Interval.](#rc2)**
+**2. [An Animal Subject has one Reference Interval.](#rc2)**
 
-**3. [A Reference Interval has one Start Date and one End Date](#rc3)**
+**3. [A Reference Interval has one Start Date and one End Date.](#rc3)**
 
-**4. [Start Date must be on or before End Date](#rc4)**
+**4. [Start Date must be on or before End Date.](#rc4)**
 
 Translation of each Rule Component into SHACL and evaluation of test data is described below. Test cases in addition to those documented on these pages are available in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
 
 
 # Data Structure
 
-Familiarity with the data structure is necessary to explain the constraints and test cases. **Figure 1** illustrates a partial set of data for test subject 99T1 where the Reference Interval end date *precedes* the start date, thus violating rule SD1002.
+Familiarity with the data structure is necessary to explain the constraints and test cases. **Figure 1** illustrates a partial set of data for test subject 99T1 where the Reference Interval end date *precedes* the start date, thus violating Rule Component 4 of SD1002.
 
 <a name='figure1'/>
   <img src="images/RefIntervalDataFail.PNG"/>
@@ -392,6 +392,8 @@ The report identifies the interval for Animal Subject 99T1 where End Date preced
 Next Section: [**TBD** FDA Rule TBD](SHACL-AnimalSubject-TBD-Details.md)
 <br/>
 [Back to top of page](#top) 
+<br/>
+[Back to start of AnimalSubjectShape SHACL](sHACL-AnimalSubject-Details.md) 
 <br/>
 [Back to TOC](TableOfContents.md)
 
