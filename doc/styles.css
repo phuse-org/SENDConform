@@ -158,6 +158,10 @@ text-right{
   background-color: #EEEEBB; 
 }
 
+.owl{
+  background-color: #F8E4F7;
+}  
+
 .shacl{
   background-color: #DDEEBB;
 }  
@@ -268,8 +272,9 @@ pre {
 /* example pre taken / adapted from R2RML */
 /* and then from www.w3.org/TR/shacl */                                            
 pre.shapes,
-pre.shacl,
 pre.data,
+pre.owl,
+pre.shacl,
 pre.example-rule, 
 pre.report,
 pre.example-other {
@@ -278,9 +283,10 @@ pre.example-other {
     margin-top: 1.5em;                      
     padding: 1em;                           
 }                                           
-                                            
-pre.shacl:before,                  
-pre.data:before, 
+
+pre.data:before,                                             
+pre.shacl:before,
+pre.owl:before,
 pre.example-rule:before, 
 pre.report:before,                 
 pre.example-other:before {                  
@@ -290,6 +296,35 @@ pre.example-other:before {
     margin: -1em 0 0.4em -1em;              
     padding: 0.2em 1em;                     
 }                                           
+
+pre.data {
+  background: #eeb;
+}
+pre.data,
+pre.data:before {
+    border: 1px solid #9E9E27;
+}
+pre.data:before {
+    color: #9E9E27;
+    content: "Data";
+    width: 4em;
+    font-weight: bold;
+}
+
+pre.owl {
+    background: #E4ECF8;
+}
+pre.shapes,                                 
+pre.owl,
+pre.owl:before {
+    border: 1px solid #417CD0;
+}
+pre.owl:before {
+    color: #417CD0;
+    content: "OWL";
+    width: 5em;
+    font-weight: bold;
+}
                                             
 pre.shacl {
     background: #deb;
@@ -303,20 +338,6 @@ pre.shacl:before {
     color: #779E27;
     content: "SHACL";
     width: 5em;
-    font-weight: bold;
-}
-                                           
-pre.data {
-  background: #eeb;
-}
-pre.data,
-pre.data:before {
-    border: 1px solid #9E9E27;
-}
-pre.data:before {
-    color: #9E9E27;
-    content: "Data";
-    width: 4em;
     font-weight: bold;
 }
 

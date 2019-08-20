@@ -1,0 +1,219 @@
+
+
+
+
+
+
+
+
+
+# OLD CONTENT BELOW HERE
+
+
+* Animal Subjects must have <font class='emph'>one and only one value</font> for each of RFSTDTC and RFENDTC. This rule is not explicitly stated in the FDA text.
+
+
+<br/>
+
+3. <b>Reference Interval</b>
+
+Reference interval has no standard definition. This interval between a start and end date is sponsor-defined and is <i>usually</i> the time between the date when treatment was first administered and the last day the subject was in the study (the last day of participation in any study activity.) Randomization date may sometimes be used as start date.
+
+Consider these two cases for missing data related to the reference interval.
+
+a) A subject was randomized to a treatment arm and received treatment but the start and end dates are unknown (an interval with both rfstdtc and rfendtc missing.) It is appropriate to have a reference interval for this subject with no dates associated with it. In our data model this translates to the presence of a reference interval IRI without start and end date IRIS attached to it. A warning should be issued in the validation report.
+
+b) A subject failed screening and was therefore not in the trial long enough to have a reference interval. In our data model, no reference interval would be recorded. For this study, all subject in the DM domain should have a reference interval. Lack of this interval for a subject consistitutes a violation.
+
+Rules associated with these considerations:
+
+
+<div style='background-color:#F6F6F6;'>
+  3. a) A reference interval with no start date and no end date should issue a violation.
+
+</div>
+<br/>
+
+
+<div style='background-color:#F6F6F6;'>
+  3. b) An Animal Subject with no reference interval IRI should issue a violation.
+</div>
+<br/>
+
+<div style='background-color:#F6F6F6;'>
+4 The <b>SD1002 rule</b>: Start Date must be less than or equal to End Date (<font class='emph'>RFSTDTC</font> less than or equal to RFENDTC</font>). When this rule is violated, the system should supply the standard FDA message <font class='error msg'>"RFSTDTC is after RFENDTC"</font>. 
+</div>
+<br/>
+
+
+
+
+
+
+
+
+
+
+
+#### 2.2 Rules violated by test data include: 
+
+
+
+**Rule Component 2** One RFSTDTC/RFENDTC per AnimalSubject 
+<font class='error'>This section subject to change based on ReferenceInterval IRI creation method</font>
+
+As a result of how the reference intervals are constructed in RDF, duplicate `rfstdtc` and `rfendtc` values will result in additional <font class='emph'>cj16050:Interval_</font>  values, violating the condition of one interval per AnimalSubject.
+
+
+*a) More than one interval*
+
+
+<font class='labelData'>Data</font>
+<pre style="background-color:#EEEEBB;">
+  cj16050:Animal_68bab561
+    a study:AnimalSubject ;
+    study:hasReferenceInterval <font class='error'>cj16050:Interval_2016-12-07_2016-12-07, 
+                               cj16050:Interval_2016-12-08_2016-12-08 </font> .
+</pre>
+
+
+
+**Rule Component 3** : Reference Interval End Date is on or after Start Date 
+
+<pre style="background-color:#EEEEBB;">
+  cj16050:<font class='emph'>Animal_99T1</font>
+    a                          study:AnimalSubject ;
+    study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-06 .
+    
+  cj16050:Interval_2016-12-07_2016-12-06
+    a                 study:ReferenceInterval ;
+    time:<font class='emph'>hasBeginning</font> cj16050:<font class='error'>Date_2016-12-07</font> ;
+    time:<font class='emph'>hasEnd</font>       cj16050:<font class='error'>Date_2016-12-06</font> .
+    
+  cj16050:Date_2016-12-07
+    a              study:ReferenceBegin ;
+    time:inXSDDate "2016-12-07"^^xsd:date .
+    
+  cj16050:Date_2016-12-06
+    a              study:ReferenceEnd ;
+    time:inXSDDate "2016-12-06"^^xsd:date .
+</pre>
+
+
+
+
+Shapes defined below the prefixes include: 
+
+Shape        | Rule Component | Check 
+-------------|------------|-------------------
+<span style="background-color:#DDEEBB;">:DateShape</span>        |1 | rfstdtc/rfendtc as xsd:date format 
+<span style="background-color:#DDEEBB;">:RefIntervalShape</span> |2 |  One and only one rfstdtc, rfendtc per AnimalSubject
+<span style="background-color:#DDEEBB;">:SD1002RuleShape</span>  |3 |  SD1002 Rule: rfstdtc less than or equal to rfendtc
+
+##### 3.1.1 :DateShape (Rule Component 1: Start and End Dates as xsd:date)
+
+
+
+#####3.1.2 RefIntervalShape (Rule Component 2:  One and only one start and end date per Animal Subject)
+
+This constraint could be coded more than one way. Options include:
+1. SHACL-SPARQL to determine if the count of start and end date per Animal does not equal 1
+1. SHACL contstraint on the interval IRI. This SHACL-Core approach is less complex and relies on the fact that an interval IRI is created for each row of data in the DM domain *when both start and end dates are present*. Duplicate data for a subject will create more than one reference interval, and lack of data will create no reference interval. Therefore, a constraint of minCount and maxCount can be placed directly on the interval IRI to detect violations.
+
+<font class='labelShape'>Shape</font>
+<pre style="background-color:#DDEEBB;">
+  :RefIntervalShape a sh:NodeShape ;
+    sh:targetClass study:AnimalSubject ;  
+    sh:nodeKind sh:IRI ;
+    sh:path study:hasReferenceInterval ;
+    sh:minCount 1;
+    sh:maxCount 1 .
+</pre>  
+
+**Test Cases **
+
+*a) More than one interval* : Animal Subject 99T2
+Animal Subject 99T2 erroneously has two lines of data in DM, resulting in more than one reference interval.
+Validation Report (excerpt):
+
+<font class='labelReport'>Validation Report (excerpt)</font>
+<pre style="background-color:#EEDDBB;">
+   COMING SOON
+</pre>
+
+*b) No interval* : Animal Subject 99T5
+
+
+
+<font class='labelReport'>Validation Report (excerpt)</font>
+<pre style="background-color:#EEDDBB;">
+   COMING SOON
+</pre>
+
+
+
+**3.1.3 SD1002RuleShape**
+The SD1002RuleShape uses SHACL-SPARQL to determine if the end date (rfendtc) is *NOT* greater than or equal to the start date (rfstdtc), as required by the rule. SHACL Core can not be used for this constraint because the date values are not directly attached to a focus node (refer back to Figure 1). 
+
+The first step is to create a SPARQL query that detects the data violation where End Data is not greater than or equal to start date.
+
+<pre style="background-color:#DDEEFF;">
+  PREFIX study: <https://w3id.org/phuse/study#> 
+  PREFIX sh:   <http://www.w3.org/ns/shacl#> 
+  PREFIX time: <http://www.w3.org/2006/time#>
+
+  SELECT $this (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
+      WHERE {
+        $this     time:hasBeginning  ?beginIRI ;
+                  time:hasEnd        ?endIRI .
+        ?beginIRI time:inXSDDate     ?beginDate .
+        ?endIRI   time:inXSDDate     ?endDate .
+        FILTER  (! (?endDate >= ?beginDate ))
+      }
+</pre>
+
+
+Next, add the SPARQL query to the SHACL file to create a SHACL-SPARQL shape. 
+
+<pre style="background-color:#DDEEBB;">
+  :SD1002RuleShape a sh:NodeShape ;
+   sh:targetClass study:ReferenceInterval ;
+   sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "RFSTDTC is after RFENDTC";
+    sh:prefixes [
+      sh:declare [ sh:prefix "time" ;
+        sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
+      ],
+      [ sh:prefix "study" ;
+        sh:namespace "https://w3id.org/phuse/study#"^^xsd:anyURI ;
+      ]  
+    ] ;
+   sh:select
+    """SELECT $this (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
+      WHERE {
+        $this     time:hasBeginning  ?beginIRI ;
+                  time:hasEnd        ?endIRI .
+        ?beginIRI time:inXSDDate     ?beginDate .
+        ?endIRI   time:inXSDDate     ?endDate .
+        FILTER  (! (?endDate >= ?beginDate ))
+      }""" ;
+  ] .
+</pre>
+
+Validation Report (excerpt):
+
+<pre style="background-color:#EEDDBB;">
+ a sh:ValidationReport ;
+  sh:conforms false ;
+  sh:result [
+    a sh:ValidationResult ;
+      sh:sourceConstraint [] ;
+      sh:focusNode cj16050:Interval_2016-12-07_2016-12-06 ;
+      sh:resultSeverity sh:Violation ;
+      sh:sourceShape :SD1002RuleShape ;
+      sh:resultMessage "<font class='error'>RFSTDTC is after RFENDTC</font>" ;
+      sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
+      sh:value <font class='error'>cj16050:Interval_2016-12-07_2016-12-06</font>
+</pre>
+

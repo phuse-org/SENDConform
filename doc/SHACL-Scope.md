@@ -67,8 +67,7 @@ The project defines a number of basic shapes that re-use core components for dat
 
 # Content Conventions
 
- Color coding is used as a content guide. 
-
+ Color coding provides a content guide. 
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
@@ -85,6 +84,12 @@ The project defines a number of basic shapes that re-use core components for dat
    Intentional error values are <font class='error'>highlighted in red.</font>
    Omitted data is shown as <font class='infoOmitted'>...</font>
 </pre>
+
+<pre class="owl">
+   Contains an excerpt from an ontology that applies to the rule being described.
+   Optional. Not all rules rely on ontologies. 
+</pre>
+
 
 <pre class="shacl">
   This box contains a representation of the shapes graph (in full or in part). 
