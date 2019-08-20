@@ -94,7 +94,7 @@ The project defines a number of basic shapes that re-use core components for dat
   Excerpts from the SHACL Validation Report (the output results graph.)
 </pre>
 
-<font class='navNext'>Next: </font>[Animal Subject Shape](SHACL-AnimalSubject-Details.md)
+<b>Next: </b>[Animal Subject Shape](SHACL-AnimalSubject-Details.md)
 
 <p class='text-right'>Back to [Top of page](#top)<br/>
 Back to [Table of Contents](TableOfContents.md)</p>
