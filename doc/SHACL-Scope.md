@@ -95,8 +95,9 @@ The project defines a number of basic shapes that re-use core components for dat
 </pre>
 
 <b>Next: </b>[Animal Subject Shape](SHACL-AnimalSubject-Details.md)
+<br/>
+<br/>
+Back to [Top of page](#top) <br/>
+Back to [Table of Contents](TableOfContents.md)
 
-<p align='right'>foo [Top of page](#top) </p>
-<p align='right'>Back to [Table of Contents](TableOfContents.md)</p>
-</p>
 
