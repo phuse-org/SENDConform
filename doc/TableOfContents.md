@@ -16,7 +16,7 @@ FDA Validation Rules are translated to SHACL to create validation reports.
 
 ### [2.1 Project scope, conventions](SHACL-Scope.md)
 
-* *Start here!*
+* Start here for an introduction, then progress through the descriptions of rules and shapes in this section.
 
 ### 2.2 Shapes
 

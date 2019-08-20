@@ -4,33 +4,14 @@
 Animal Subject Shape - Demographics Domain
 ==================================
 
-## **AnimalSubjectShape** , **USUBJID,SUBJID** : FDA Rules SD0083, SD1001
-
-
-The Animal Subject IRI `:Animal_xxx` is a natural starting point for developing rules based on the Demographics domain because each row in the source DM data holds values for an Animal Subject. ***Figure 1*** provides an overview of the Animal Subject data structure, and corresponding SHACL Shapes and SEND Rules for the DM domain. The constraints in the shapes include rules that go beyond the standard requirements outlined in FDA documentation. 
-
-<a name='figure1'/>
-  <img src="images/AnimalSubjectShape.PNG"/>
-  
-  ***Figure 1: Animal Subject Data Structure, SHACL Shapes, FDA Rules***
-
-
-The SHACL described in this section is available in the  file [SHACL-AnimalSubject.TTL](SHACL-AnimalSubject.TTL)
-
-## Conventions For Shapes
-
-SHACL shapes are created with reuse in mind, as reflected in both the structure and naming conventions. Property shapes are defined explicitly, starting at the <font class='shapeName'>AnimalSubjectShape</font>. While there is no technical requirement to provide this explicit definition, doing so guides the creation reusable shapes and provides a development pattern that is easy to follow.
-
-***Figure 1*** illustrates how the <font class='shapeName'>AnimalSubjectShape</font> contains a Property Shape definition for each type of Predicate--->Object attached to the Animal Subject IRI. Shapes that describe similar data, like the identifiers USUBJID and SUBJID, could have been combined into a single shape. However, they are kept separate to provide reporting that is better-aligned with the FDA rules.
-
-Shapes declared within the explicit Property Shape (under the <font class='shapeName'>AnimalSubjectShape</font> in ***Figure1***) are named using a description of their function, a dash, and then an abbreviated name of the class or entity they act upon. Examples:
+The Animal Subject IRI `:Animal_xxx` is a natural starting point for developing rules based on the Demographics domain because each row in the source DM data holds values for an Animal Subject. SHACL shapes are created with reuse in mind, as reflected in both the structure and naming conventions. Where practical, shapes are named using a description of their function, a dash, and then an abbreviated name of the class or entity they act upon. Examples:
 
 * `hasMin1Max1Shape-USubjID` - validates that each Animal Subject has a minimum of one and maximum of one USUBJID assigned.  
-* `isUniqueShape-USubjID`    -  validates the *uniqueness* of USUBJID values. A SUBJID cannot be assigned to more than one Animal Subject.
+* `isUniqueShape-USubjID`    - validates the *uniqueness* of USUBJID values. A SUBJID cannot be assigned to more than one Animal Subject.
 
 Shapes may include additional constraints such as data type, length, and other restrictions not explicitly stated in the original FDA rules.
 
-Shapes must include the `sh:message` property to provide meaningful messages about the violation. Where applicable, a reference to the related FDA Rule ID number is provided in square brackets at the end of the message text.
+Shapes must include the `sh:message` property to provide meaningful messages about the violation. Where applicable, a reference to the related FDA Rule ID number must be provided in square brackets at the end of the message text. In cases where a shape may be applied to more than one Rule, all rules are provided.
 
 Example:  <code>sh:message "Animal Subject --> USUBJID violation. <b>[SD0083]</b>" ;</code>
 
@@ -39,13 +20,13 @@ Example:  <code>sh:message "Animal Subject --> USUBJID violation. <b>[SD0083]</b
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-   One <code>sh:property</code> for each type of <code>predicate</code>---> <code>object</code> relation.
+   One <code>sh:property</code> for each type of <code>predicate</code>---> <code>object</code> relation attached directly to the AnimalSubject IRI.
 </div>
 
 
 <div class='def'>
   <div class='def-header'>Description</div>
-  Each type of <code>predicate ----> object </code> relation for the AnimalSubject class, with the exception of predicates like `rdf:type`, `skos:prefLabel`, etc.,  has a `sh:property` definition to a shape for validation of that object.
+  Each type of <code>predicate ----> object </code> relation for the AnimalSubject class, with the exception of predicates like `rdf:type`, `skos:prefLabel`, etc.,  has a `sh:property` definition for a shape that validates that type of entity.
 </div>
 
 
@@ -77,7 +58,7 @@ study:AnimalSubjectShape
   sh:property    study:hasMin1Max1Shape-SubjID ;  # <a href='#ruleSD1001'>Rule SD1001</a>
   sh:property    study:isUniqueShape-SubjID ;     # <a href='#ruleSD1001'>Rule SD1001</a>
   
-  <font class='infoOmitted'>... more child shapes will be added as they are developed</font>
+  <font class='infoOmitted'>... more property shapes will be added as they are developed</font>
 </pre>
 <br/>
 
@@ -304,6 +285,7 @@ FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Busin
 The Rule Components and corresponding SHACL shapes for SD1001 are similar to those defined for <a href='#ruleSD0083'>USUBJID/SD0083</a> with exception of the predicate changing to `study:hasSubjectID`and result messages specific to SUBJID instead of USUBJID. Details for SD1001 are therefore not provided here. The SHACL is available in the Shapes file [SHACL-AnimalSubject.TTL](../SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL)
 
 
-Next Section: [**Reference Interval** FDA Rule SD1002](SHACL-AnimalSubject-ReferenceInterval-Details.md)
-
+<font class='navNext'>Next:</font> [Reference Interval (FDA Rule SD1002)](SHACL-AnimalSubject-ReferenceInterval-Details.md)
+<div style='text-align: right'>Back to [top of page](#top)</div>
+<div style='text-align: right'>Back to [TOC](TableOfContents.md)</div>
 

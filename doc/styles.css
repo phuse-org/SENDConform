@@ -22,7 +22,7 @@ body{
 }
 
 .futureSHACL{
-  background-color: #9fd041;
+  background-color: #9fd041;  /* solid background */
   color: #000000;
   font-family: Arial;
   font-weight: bold;
@@ -110,10 +110,17 @@ body{
   font-weight: bold;
 }
 
-.nodeBold{
+.navNext, .nodeBold{
   color: #182461; /* dk blue */
   font-weight: bold;
   font-size:1.1em;
+}
+
+.navNext{
+  color: #273b9e; /* dk blue */
+  font-weight: bold;
+  font-size:1.2em;
+  font-style: italic;
 }
 
 

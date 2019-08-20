@@ -4,19 +4,11 @@
 Project Scope, Conventions
 ==================================
 
-# Project Scope
+# Data
+The prototype uses data from the study "RE Function in Rats", located in the repository 
+at [/data/studies/RE Function in Rats](https://github.com/phuse-org/SENDConform/tree/master/data/studies/RE%20Function%20in%20Rats) and is limited to the Demographics (DM) and Trial Summary (TS) domains. Original source data is converted to .TTL using the driver script [r/driver.R](https://github.com/phuse-org/SENDConform/blob/master/r/driver.R) as described on the [Data Conversion](DataConversion.md) page. 
 
-## Data
-This example uses data from the study "RE Function in Rats", located in the repository 
-at [/data/studies/RE Function in Rats](https://github.com/phuse-org/SENDConform/tree/master/data/studies/RE%20Function%20in%20Rats).
-Original source data is converted to .TTL using the script [r/driver.R](https://github.com/phuse-org/SENDConform/blob/master/r/driver.R) 
-that in turn calls scripts to covert the data domain files used in the prototype. Initial work is based on the DM domain. The TS Domain will be added in the future. 
-
-The data conversion process aligns the data with the graph schema (*link to ontology to be added*) used in this 
-project. It also adds observations to test the various SHACL shapes that represent the rule components. Test observations are identified by `subjid` and `usubjid`
-values containing the pattern 99T<font class='parameter'>n</font>, in contrast to the original study data values of 00M0<font class='parameter'>n</font>. The [Data Conversion](DataConversion.md) page provides additional details.  
-
-The data file used for developing SHACL is available here: [SHACL/CJ16050Constraints/DM-CJ16050-R.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/DM-CJ16050-R.TTL) 
+The converted data file used for developing SHACL is available here: [SHACL/CJ16050Constraints/DM-CJ16050-R.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/DM-CJ16050-R.TTL) 
 
 Instructions on how to create validation reports in Stardog is available on the [Running Validation Reports](SHACL-RunValReport.md) page.
 
@@ -33,13 +25,13 @@ The project team considered two alternative approaches to modeling the SEND Rule
 1. Create SHACL shapes based on the [FDA Validator Rules Workbook](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) and then apply those shapes to the data.  The advantage of this approach is that shapes can be constructed to provide error messages that match the rule's  Validator message. However, this approach results in the creation of many overlapping and redundant SHACL shapes and does not leverage the full power of SHACL validation.
    
 
-2. Create *modular* SHACL shapes based on the data schema that satisify the [FDA Validator Rules Workbook](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) and provide additional, comprehsensive checks as re-usable modules. The disadvantage of this approach is the loss of the original Validator Messages.  However, checks can be tied back to the original rule identifiers, allowing some backward compatibility. 
+2. Create *modular* SHACL shapes based on the data schema that satisfy the [FDA Validator Rules Workbook](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) and provide additional, comprehensive checks as re-usable modules. The disadvantage of this approach is the loss of the original Validator Messages.  However, checks can be tied back to the original rule identifiers, allowing some backward compatibility. 
 
 
 The second approach was chosen for the project.
 
 Because the prototype is limited to the TS and DM domains to RDF, only a subset of the rules for each domain will be developed. Rules that cross multiple studies (example: identifiers that must be unique across multiple trials) are only evaluated within the context of the single-study in the prototype. To obtain the list of rules, the [FDA Validator Rules Workbook](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx)
-was filtered to include exclusively the DM domain for SEND 3.0. This resulted in a list of 19 rules that are specific to that DM domain. Of these, only 14 are independed of other domains. Rule SD1020 is dependent on the SEND ontology and may be added at a later time.
+was filtered to include exclusively the DM domain for SEND 3.0. This resulted in a list of 19 rules that are specific to that DM domain. Of these, only 14 are independent of other domains. Rule SD1020 is dependent on the SEND ontology and may be added at a later time.
 
 **Table 1. Rules Exclusive to DM Domain**
 
@@ -102,9 +94,7 @@ The project defines a number of basic shapes that re-use core components for dat
   Excerpts from the SHACL Validation Report (the output results graph.)
 </pre>
 
-
-
-[Back to top of page](#top) 
-<br/>
-[Back to TOC](TableOfContents.md)
+<font class='navNext'>Next:</font> [Animal Subject Shape](SHACL-AnimalSubject-Details.md)
+<div style='text-align: right'>Back to [top of page](#top)</div>
+<div style='text-align: right'>Back to [TOC](TableOfContents.md)</div>
 

@@ -6,10 +6,10 @@
 ## Introduction
 The proof of concept is limited to the <b>DM</b> and <b>TS</b> domains. Data was obtained from PHUSE Scripts repository [SEND subfolder](https://github.com/phuse-org/phuse-scripts/tree/master/data/send) and copied over to this project under folders for each example study: /SENDConform/data/studies/<font class="parameter">Study Name</font>  .
 
-The easiest data conversion method would be to read in the row-by-column source data and convert it to RDF, using column names to represent the types of entities represented by the values in each cell, and the rows as individuals. This is not the approach taken in this project. Data is re-formed to match an ontology that represents the types of entities and their relationships in the trial based on knowledge of the data and clinical trial process. This latter approach has many advantages that are detailed elsewhere (*add references*)
+The easiest data conversion method would be to read in the row-by-column source data and convert it to RDF, using column names to represent the types of entities represented by the values in each cell, and the rows as individuals. This is not the approach taken in this project. Data is re-formed to match an ontology that represents the types of entities and their relationships in the trial based on knowledge of the data and clinical trial process.
 
 
-Two alternate methods are provided for the data conversion process. In method one, R scripts read the source SAS XPT file and convert it to TTL for import into any triplestore. 
+Two alternate methods are provided for the data conversion process. In method one, R scripts read the source SAS XPT file and convert it to TTL for import into a triplestore. 
 
 The same data conversion R scripts simultaneously create .CSV files to support a second method of importing data into a Stardog triplestore using Stardog Mapping Syntax (SMS). A benefit of using SMS is that the project team already has an RShiny app for visualizing the SMS map files. The visualizations assist schema validation and aid construction of SPARQL queries. R2RML is a vendor-neutral alternative to SMS that is out of scope for this project. ***The .CSV files do not contain the full set of data for evaluating the test cases.***
 
@@ -33,27 +33,33 @@ The /csv folder contains data in comma-delimited format for ease of viewing the 
     SENDConform/data/studies/<font class="parameter">Study Name</font>/csv
 </pre>
 
+## Test Case Data
+
+The data conversion process adds observations to test the various SHACL shapes that represent the rule components. Test observations are identified by `subjid` and `usubjid` values containing the pattern 99T<font class='parameter'>n</font>, in contrast to the original study data values of 00M0<font class='parameter'>n</font>. The [Data Conversion](DataConversion.md) page provides additional details. Test cases are documented in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
+
+
+
 ## General Guidance
 
 ### Generating Unique Identifiers for Animal Subjects
-It may seem reasonable to use SUBJID and USUBJID when forming IRIs for Animal Subjects. IRI creation is simple and the human-readable IRI facilitates traceability back to the original source values. For example, the IRI for Subject 00M01 would be:
+It may seem reasonable to use SUBJID or USUBJID when forming IRIs for Animal Subjects. IRI creation is simple and the human-readable value facilitates traceability back to the original source. For example, the IRI for Subject 00M01 would be:
 `cj16050:Animal_00M01`
 
 However, the use of SUBJID is fraught with problems. Consider cases where:
 
-* A SUBJID is accidentally re-used and assigned to more than one animal. Two unique individuals would have the same ID number and the resulting RDF would have all observations assigned to a single IRI. There would be difficult to detect this duplication after data is converted to the graph. 
+* A SUBJID is accidentally re-used and assigned to more than one animal. Two unique individuals would have the same ID number and the resulting RDF would have all observations assigned to a single IRI. It would be difficult to detect this duplication after data is converted to the graph. 
 
 * The same animal is accidentally assigned two different SUBJID values. Values are incorrectly assigned to two separate individuals. 
 
 * A row of data is accidentally duplicated, a condition that could go undetected when converting the data to RDF.
 
-A solution is to create IRIs for critical components like **Animal Subject** and **Reference Intervals** that are independent from values in the source data. For the purpose of this prototype, a truncated SHA-1 hash of a randomly generated value (with a known seed value) is used to create the required IRIs, including IRIs for data collection events, intervals, and other components in the data model.
+A solution is to create IRIs for critical components like **Animal Subject** and **Reference Interval** that are independent from values in the source data. For the purpose of this prototype, a truncated SHA-1 hash of a randomly generated value (with a known seed value) is used to create select IRIs where missing, duplicate, or partial data would be problematic.
 
 Following this method:
 
-* IRIs remain constant during multiple runs of the development code. 
-* IRIs for subject identifiers, intervals, data collection events and other components in the data model are not dependent on instance data, which could be incorrect. 
-* Testing for duplicate, missing, and incorrect instance data becomes possible thanks to data-independent of IRIs. 
+* IRIs remain constant during multiple runs during project development. 
+* IRIs for subjects, intervals, and other critical components become independent of the source data.
+* Testing for duplicate, missing, and incorrect instance data becomes possible thanks to IRIs that are independent from instance data.
 
 Example Animal Subject IRI: `cj16050:Animal_a6d09184`
 
@@ -62,26 +68,26 @@ Methods to generate UIDs for subjects in real-world settings is beyond the manda
 
 ### Reference Interval IRIs
 
-Date values for reference start date (rfstdtc) and reference end date (rfendtc) are not directly attached to the Animal Subject IRI. Rather, the `cj16050:Animal_<hashvalue>` has a Reference Interval IRI `cj16050:Interval_<hashvalue>` which in turn has two date IRIs attached via the `time:hasBeginning` and `time:hasEnd` predicates (**Figure 1**).  
+Date values for reference start date (rfstdtc) and reference end date (rfendtc) are not directly attached to the Animal Subject IRI. Rather, the <code>cj16050:Animal_<font class="parameter">hashvalue</font></code> has a Reference Interval IRI <code>cj16050:Interval_<font class="parameter">hashvalue</font></code> which in turn has two date IRIs attached via the `time:hasBeginning` and `time:hasEnd` predicates (**Figure 1**).  
 
 <img src="images/RefIntervalDataFail.PNG"/>
 
 **Figure 1: Animal_99T1 (incomplete data)**
 
 
-Reference Interval IRIs are still created when either start or end date is missing (**Figure 2**), because the data for the non-missing date  must be captured in the graph. A Reference Interval may also be created when ***both** start and end dates are missing. 
+Reference Interval IRIs are still created when either start or end date is missing (**Figure 2**), because the data for the non-missing date  must be captured in the graph. A Reference Interval may also be created when ***both*** start and end dates are missing. 
 
 <img src="images/RefIntervalMissEndDate.PNG"/>
 
 **Figure 2: Animal_99T5 Missing rfendtc**
 
-See the [Animal Subject Reference Interval](SHACL-AnimalSubject-ReferenceInterval.md) page for how SHACL shapes are constructed based on this model.
+See the [Animal Subject Reference Interval](SHACL-AnimalSubject-ReferenceInterval-Details.md) page for how SHACL shapes are constructed based on this model.
 
 
 ### RDF Project Conventions
 #### Labels
 
-* `skos:prefLabel` is the primary label used in the graph. `rdfs:label` contains supplemental labels. For controlled terms, `skos:prefLabel` contains the industry standard (CDISC) label, which is often in plural form (DAYS, WEEKS, etc.) while `rdfs:label` contains the W3C standard in singular form (DAY, WEEK, etc.)
+* `skos:prefLabel` is the primary label used in the graph. For controlled terms, `skos:prefLabel` contains the industry standard (CDISC) label, which is often in plural form (DAYS, WEEKS, etc.) while `rdfs:label` contains the W3C standard in singular form (DAY, WEEK, etc.). `rdfs:label` is optional for all other triples.
 
 # Conversion Details 
 
@@ -89,10 +95,9 @@ See the [Animal Subject Reference Interval](SHACL-AnimalSubject-ReferenceInterva
 
 | Order  | File                 | Description                                  |
 | ------ | -------------------- | ---------------------------------------------|
-| 1.     | driver.R             | Main driver program for data conversion. Graph metadata creation. Creation of observations to test constraints.|
-| 2.     | DM_convert.R         | DM conversion to TTL file. (under development) |
-| 3.     | TS_convert.R         | TM conversion to TTL (not yet written)   |
-
+| 1.     | driver.R             | Main driver program for data conversion. Graph metadata creation.|
+| 2.     | DM_convert.R         | DM instance data conversion to TTL, addition of observations to test constraints. (Under construction)|
+| 3.     | TS_convert.R         | TS instance data conversion to TTL, addition of observations to test constraints. (Not yet written)|
 
 
 ## Graph Metadata 
@@ -100,12 +105,12 @@ Graph metadata, including data conversion date and graph version, is created wit
 
 | File      | Role                     | Description                                  |
 | --------- | ------------------------ | ---------------------------------------------|
-|Graphmeta-*StudyName*.csv | Basic graph metadata | Description of graph content, status, version, and time stamp information. |
-|Graphmeta-*StudyName*-map.TTL|SMS Map | Map CSV to Stardog graph. |
-|Graphmeta-*StudyName*.TTL| RDF Triples | TTL file for loading directly into triplestore. |
+|Graphmeta-<font class='parameter'>StudyName</font>.csv | Basic graph metadata | Description of graph content, status, version, and time stamp information. |
+|Graphmeta-<font class='parameter'>StudyName</font>-map.TTL|SMS Map | Map CSV to Stardog graph. |
+|Graphmeta-<font class='parameter'>StudyName</font>.TTL| RDF Triples | TTL file for loading directly into triplestore. |
 
 
-### DM 
+## DM 
 
 | File      | Role                     | Description                                  |
 | --------- | ------------------------ | ---------------------------------------------|
@@ -113,8 +118,10 @@ Graph metadata, including data conversion date and graph version, is created wit
 | DM-CJ16050-R-map.TTL | SMS Map       | Map CSV to Stardog graph. 
 | DM-CJ16050-R.TTL | RDF Triples       | TTL file for loading directly into triplestore. 
 
-#### CJ16050
-##### Data Imputation
+### CJ16050
+#### Data Imputation
+
+Creation of values not in the original study data, or located in domains that are not part of the pilot.
 
 | Variable     | Value(s)            | Description                                  |
 | ------------ | ------------------- | ---------------------------------------------|
@@ -123,7 +130,7 @@ Graph metadata, including data conversion date and graph version, is created wit
 | DURATION_IM  | "P56D"              | Duration code, derived from 8 weeks x 7 days/wk. 
 
 
-##### Data
+#### Data
 -   **/data/studies/RE Function in Rats/ttl**
 
 File  | Description    | Contact
@@ -141,16 +148,8 @@ SENDConform-CJ106050LoadDriver.bat | Driver .BAT file that calls SENDConform-CJ1
 SENDConform-CJ106050LoadSequence.bat | Loads data into Stardog using a series of SMS calls.
 study.ttl | Ontology file from the CTDasRDF project, updated to support nonclinical data | AO
 send.ttl |  "bare bones" SEND ontology to allow exporting protocol and instance data into SEND format. | AO
- 
 
-**Additional Details**  
 
-The protocol file imports the study ontology. The instance file imports the protocol file. When ready to "publish" in SEND it also imports the SEND ontology into a new file called:  cj160500send.shapes.ttl
-
- cj160500send.shapes.ttl has everything integrated and linked into one mega-graph, so that SHACL rules pertaining to data quality have a home by linking to resources under the study: namespace and SHACL rules pertaining to SEND conformance issues can be linked to resources under the send: namespace.  For example, time interval is a universal concept with start date must be before end date is a universal, "data quality" type of issue, and sure enough the rules can be linked to the time:Interval class. On the other hand, the fact that a SEND domain like DM or TS must be present, this is a SEND specific conformance rule that can be linked to the send:SENDDomain_DM  or send:SENDDomain_TS class.  - AO
- 
-send.ttl file is a bare bones ontology written by AO from scratch to support the pilot. It in essence documents the requirements for what a robust SEND ontology should be able to support at a minimum to allow round-tripping and now, SHACL rules validation.  It would be useful if other team members could look at this work and try replacing this rudimentary ontology with something more robust, capable of supporting all the domains not just DM/TS.  - AO
-    
 ### TS
 
 *Future development*
