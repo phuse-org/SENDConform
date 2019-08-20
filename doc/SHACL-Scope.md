@@ -99,5 +99,3 @@ The project defines a number of basic shapes that re-use core components for dat
 <br/>
 Back to [Top of page](#top) <br/>
 Back to [Table of Contents](TableOfContents.md)
-
-
