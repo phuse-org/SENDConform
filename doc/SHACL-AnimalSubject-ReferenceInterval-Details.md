@@ -390,7 +390,7 @@ The report identifies the interval for Animal Subject 99T1 where End Date preced
 
 <br/>
 
-<font class='navNext'>Next:</font> COMING SOON: Animal Subject age. 
-<div style='text-align: right'>Back to [top of page](#top)</div>
-<div style='text-align: right'>Back to [TOC](TableOfContents.md)</div>
+<font class='navNext'>Next: </font>COMING SOON: Animal Subject age. 
 
+<p class='text-right'>Back to [Top of page](#top)<br/>
+Back to [Table of Contents](TableOfContents.md)</p>

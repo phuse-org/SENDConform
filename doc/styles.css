@@ -98,8 +98,9 @@ body{
 
 }  
 
-
-
+p.text-right{
+  text-align: right ;
+}
 .subject{
   color: #486118;     /* dark green */
   font-weight: bold;

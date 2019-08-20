@@ -285,7 +285,8 @@ FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Busin
 The Rule Components and corresponding SHACL shapes for SD1001 are similar to those defined for <a href='#ruleSD0083'>USUBJID/SD0083</a> with exception of the predicate changing to `study:hasSubjectID`and result messages specific to SUBJID instead of USUBJID. Details for SD1001 are therefore not provided here. The SHACL is available in the Shapes file [SHACL-AnimalSubject.TTL](../SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL)
 
 
-<font class='navNext'>Next:</font> [Reference Interval (FDA Rule SD1002)](SHACL-AnimalSubject-ReferenceInterval-Details.md)
-<div style='text-align: right'>Back to [top of page](#top)</div>
-<div style='text-align: right'>Back to [TOC](TableOfContents.md)</div>
+<font class='navNext'>Next: </font>[Reference Interval (FDA Rule SD1002)](SHACL-AnimalSubject-ReferenceInterval-Details.md)
+
+<p class='text-right'>Back to [Top of page](#top)<br/>
+Back to [Table of Contents](TableOfContents.md)</p>
 
