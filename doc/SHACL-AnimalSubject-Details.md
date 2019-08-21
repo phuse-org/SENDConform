@@ -57,10 +57,10 @@ study:AnimalSubjectShape
   sh:property    study:isUniqueShape-USubjID ;           # <a href='#ruleSD0083'>Rule SD0083</a>
   sh:property    study:hasMin1Max1Shape-SubjID ;         # <a href='#ruleSD1001'>Rule SD1001</a>
   sh:property    study:isUniqueShape-SubjID ;            # <a href='#ruleSD1001'>Rule SD1001</a>
-  sh:property    study:hasTypeXsdDate-Date ;             # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.md'>Rule SD1002</a>
-  sh:property    study:hasMin1Max1Shape-Interval ;       # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.md'>Rule SD1002</a>
-  sh:property    study:hasMin1Max1Shape-StartEndDates ;  # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.md'>Rule SD1002</a>
-  sh:property    study:hasStartLEEndShape-Interval ;     # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.md'>Rule SD1002</a>
+  sh:property    study:hasTypeXsdDate-Date ;             # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.html'>Rule SD1002</a>
+  sh:property    study:hasMin1Max1Shape-Interval ;       # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.html'>Rule SD1002</a>
+  sh:property    study:hasMin1Max1Shape-StartEndDates ;  # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.html'>Rule SD1002</a>
+  sh:property    study:hasStartLEEndShape-Interval ;     # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.html'>Rule SD1002</a>
 
   
   <font class='infoOmitted'>... more property shapes will be added as they are developed</font>
