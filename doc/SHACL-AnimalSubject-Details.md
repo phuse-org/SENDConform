@@ -67,6 +67,12 @@ study:AnimalSubjectShape
 
 ##  **USUBJID** : FDA Rule SD0083
 
+***Figure 1*** shows the connection from the Animal Subject IRI to the USUBJID and SUBJID IRI's along with the associated  SHACL Shapes and SEND Rules.
+
+<a name='figure1'/>
+  <img src="images/AnimalSubjectStructure.PNG"/>
+  
+  ***Figure 1: Animal Subject to ID Values, SHACL Shapes, FDA Rules***
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for USUBJID in the DM Domain as:
 
@@ -273,7 +279,7 @@ a sh:ValidationResult ;
 
 <a name='ruleSD1001'></a>
 
-##  **SUBJID** FDA Rule SD1001
+##  **SUBJID** : FDA Rule SD1001
 
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for SUBJID in the DM Domain as:

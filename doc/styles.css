@@ -155,8 +155,24 @@ text-right{
 }   
 
 .data{
-  background-color: #EEEEBB; 
+  background-color: #EEEEBB; /* 238,238,187 */
 }
+
+pre.data {
+  background: #eeb;
+}
+pre.data,
+pre.data:before {
+    border: 1px solid #9E9E27;  /* 158,158,39 */
+}
+pre.data:before {
+    color: #9E9E27;
+    content: "Data";
+    width: 4em;
+    font-weight: bold;
+}
+
+
 
 .owl{
   background-color: #F8E4F7;
@@ -297,22 +313,13 @@ pre.example-other:before {
     padding: 0.2em 1em;                     
 }                                           
 
-pre.data {
-  background: #eeb;
-}
-pre.data,
-pre.data:before {
-    border: 1px solid #9E9E27;
-}
-pre.data:before {
-    color: #9E9E27;
-    content: "Data";
-    width: 4em;
-    font-weight: bold;
-}
+
+
+
+
 
 pre.owl {
-    background: #E4ECF8;
+    background: #E4ECF8;  /* #E4ECF8 = 228,236,248 */
 }
 pre.shapes,                                 
 pre.owl,

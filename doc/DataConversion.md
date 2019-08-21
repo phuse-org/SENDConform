@@ -70,14 +70,14 @@ Methods to generate UIDs for subjects in real-world settings is beyond the manda
 
 Date values for reference start date (rfstdtc) and reference end date (rfendtc) are not directly attached to the Animal Subject IRI. Rather, the <code>cj16050:Animal_<font class="parameter">hashvalue</font></code> has a Reference Interval IRI <code>cj16050:Interval_<font class="parameter">hashvalue</font></code> which in turn has two date IRIs attached via the `time:hasBeginning` and `time:hasEnd` predicates (**Figure 1**).  
 
-<img src="images/RefIntervalDataFail.PNG"/>
+<img src="images/RefIntervalStructureDateFail.PNG"/>
 
 **Figure 1: Animal_99T1 (incomplete data)**
 
 
 Reference Interval IRIs are still created when either start or end date is missing (**Figure 2**), because the data for the non-missing date  must be captured in the graph. A Reference Interval may also be created when ***both*** start and end dates are missing. 
 
-<img src="images/RefIntervalMissEndDate.PNG"/>
+<img src="images/RefIntervalStructureMissEndDate.PNG"/>
 
 **Figure 2: Animal_99T5 Missing rfendtc**
 

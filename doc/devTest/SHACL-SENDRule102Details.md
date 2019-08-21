@@ -28,7 +28,7 @@ Translation of each Rule Component into SHACL and evaluation of test data is des
 Familiarity with the data structure is necessary to explain the constraints and test cases. **Figure 1** illustrates a partial set of data for test subject 99T1 where the Reference Interval end date *precedes* the start date, thus violating rule SD1002.
 
 <a name='figure1'/>
-  <img src="images/RefIntervalDataFail.PNG"/>
+  <img src="images/RefIntervalStructureDateFail.PNG"/>
   
   ***Figure 1: Reference Interval for Animal 99T1 (incomplete data)***
   
