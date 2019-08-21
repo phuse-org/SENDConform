@@ -1,0 +1,18 @@
+@prefix : <https://foo.bar/test#> .
+
+:Person_1
+    a :Person ;
+    :hasUniqueID :UID_A .
+
+:Person_2
+    a :Person ;
+    :hasUniqueID :UID_B .
+
+:Person_3
+    a :Person ;
+    :hasUniqueID :UID_C ;
+    :hasUniqueID :UID_D .
+
+:Person_4
+    a :Person ;
+    :hasUniqueID :UID_A .

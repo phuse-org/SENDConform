@@ -1,0 +1,38 @@
+# SHACL-SD00083.TTL
+# FDA Rule SD0083 for CJ16050
+#   TESTING. Rule not implemented.
+#
+@prefix study: <https://w3id.org/phuse/study#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#>  .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cj16050: <https://example.org/cj16050#> .
+
+#------------------------------------------------------------------------------
+# Rule Component x
+# Animal SUBJID and USUBJID rules 
+# Violations:  
+#   99Tx, 99Tx Two Animal Subjects share the same SUBJID
+#   99Tx, 99Tx Two Animal Subjects share the same USUBJID
+#   99Tx Animal Subject with more than one SUBJID
+#   99Tx Animal Subject with more than one USUBJID
+#   99Tx Animal with missing SUBJID 
+#   99Tx Animal with missing USUBJID 
+
+# STATUS: DEV 
+#------------------------------------------------------------------------------
+
+
+# Rule SDXXXX  
+:AnimalUIdShape a sh:NodeShape ;
+  sh:targetClass study:AnimalSubject ;   
+  sh:name        "unique usubjid" ;
+  sh:description "Value of USUBJID must be unique." ;
+  sh:message     "Duplicate USUBJID" ;
+  sh:path        study:hasUniqueSubjectID ;
+  sh:minCount    1 ;
+  sh:maxCount    1 . 
+
+:AnimalUsubjidShape  sh:deactivated false .  # Rule Component 
+
+

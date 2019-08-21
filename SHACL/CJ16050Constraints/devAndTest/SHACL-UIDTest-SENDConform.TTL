@@ -1,0 +1,29 @@
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix study:   <https://w3id.org/phuse/study#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#>  .
+@prefix time:    <http://www.w3.org/2006/time#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix cj16050: <https://example.org/cj16050#> .
+
+:NotUniqueShape-SubjectID a sh:NodeShape ;
+ sh:targetClass study:AnimalSubject ;
+ sh:sparql [
+  a              sh:SPARQLConstraint ;
+  sh:prefixes [
+    sh:declare 
+    [ sh:prefix "study" ;
+      sh:namespace "https://w3id.org/phuse/study#"^^xsd:anyURI ;
+    ],
+    [ sh:prefix "skos" ;
+      sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ;
+    ]  
+  ] ;
+ sh:select
+"""SELECT $this (COUNT($this) AS ?count) 
+WHERE{
+    ?animalSubjectIRI a study:AnimalSubject ;
+          study:hasSubjectID $this .
+  }  GROUP BY $this
+     HAVING (?count >1)
+   """ ;
+] .

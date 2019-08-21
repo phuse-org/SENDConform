@@ -1,0 +1,26 @@
+@prefix : <https://foo.bar/test#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#>  .
+
+:TestShape a sh:NodeShape ;
+ sh:targetClass :Person ;
+ sh:sparql [
+  a              sh:SPARQLConstraint ;
+  sh:prefixes [
+    sh:declare 
+    [ sh:prefix "study" ;
+      sh:namespace "https://w3id.org/phuse/study#"^^xsd:anyURI ;
+    ],
+    [ sh:prefix "skos" ;
+      sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ;
+    ]  
+  ] ;
+ sh:select
+"""SELECT $this (COUNT($this) AS ?count) 
+WHERE{
+    ?personIRI a :Person ;
+          :hasUniqueID $this .
+  }  GROUP BY $this
+     HAVING (?count >1)
+   """ ;
+] .

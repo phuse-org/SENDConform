@@ -13,7 +13,7 @@ Shapes may include additional constraints such as data type, length, and other r
 
 Shapes must include the `sh:message` property to provide meaningful messages about the violation. Where applicable, a reference to the related FDA Rule ID number must be provided in square brackets at the end of the message text. In cases where a shape may be applied to more than one Rule, all rules are provided.
 
-Example:  <code>sh:message "Animal Subject --> USUBJID violation. <b>[SD0083]</b>" ;</code>
+Example:  <code>sh:message "Subject --> USUBJID violation. <b>[SD0083]</b>" ;</code>
 
 
 # Animal Subject Shape
@@ -53,10 +53,15 @@ cj16050:Animal_037c2fdc
 study:AnimalSubjectShape
   a              sh:NodeShape ;
   sh:targetClass study:AnimalSubject ;
-  sh:property    study:hasMin1Max1Shape-USubjID ; # <a href='#ruleSD0083'>Rule SD0083</a>
-  sh:property    study:isUniqueShape-USubjID ;    # <a href='#ruleSD0083'>Rule SD0083</a>
-  sh:property    study:hasMin1Max1Shape-SubjID ;  # <a href='#ruleSD1001'>Rule SD1001</a>
-  sh:property    study:isUniqueShape-SubjID ;     # <a href='#ruleSD1001'>Rule SD1001</a>
+  sh:property    study:hasMin1Max1Shape-USubjID ;        # <a href='#ruleSD0083'>Rule SD0083</a>
+  sh:property    study:isUniqueShape-USubjID ;           # <a href='#ruleSD0083'>Rule SD0083</a>
+  sh:property    study:hasMin1Max1Shape-SubjID ;         # <a href='#ruleSD1001'>Rule SD1001</a>
+  sh:property    study:isUniqueShape-SubjID ;            # <a href='#ruleSD1001'>Rule SD1001</a>
+  sh:property    study:hasTypeXsdDate-Date ;             # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.md'>Rule SD1002</a>
+  sh:property    study:hasMin1Max1Shape-Interval ;       # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.md'>Rule SD1002</a>
+  sh:property    study:hasMin1Max1Shape-StartEndDates ;  # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.md'>Rule SD1002</a>
+  sh:property    study:hasStartLEEndShape-Interval ;     # <a href='SHACL-AnimalSubject-ReferenceInterval-Details.md'>Rule SD1002</a>
+
   
   <font class='infoOmitted'>... more property shapes will be added as they are developed</font>
 </pre>
@@ -84,14 +89,16 @@ FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Busin
 
 The Rule is deconstructed into the following components based on familiarity with instance data, RDF data model (schema), and SD0083 rule statement:
 
-**1. An Animal Subject cannot have more than one USUBJID**.
+**1. [An Animal Subject cannot have more than one USUBJID.](#rc12)**
 
-**2. An Animal Subject cannot have a missing USUBJID**.
+**2. [An Animal Subject cannot have a missing USUBJID.](#rc12)**
 
-**3. A USUBJID cannot be assigned to more than one Animal Subject**.
+**3. [A USUBJID cannot be assigned to more than one Animal Subject.](#rc3)**
 
 
 Translation of Rule Components into SHACL and evaluation of test data is described below. The first two Rule Components are satisfied by a single SHACL Shape while a second shape is employed for the third component. Test cases in addition to those documented on these pages are available in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
+
+<a name='rc12'></a>
 
 ### Rule Components 1,2 : A single,non-missing USUBJID per Animal Subject.
 
@@ -116,22 +123,42 @@ cj16050:Animal_037c2fdc
 </pre>
 <br/>
 
-The SHACL shape `study:hasMin1Max1Shape-USubjID` evaluates the path `study:hasUniqueSubjectID` to determine if one and only one value of USSUBJID IRI is present. 
+The study ontology defines`study:AnimalSubject` as a sub class of both `study:Subject` and `study:Animal`.  Study subjects, be they animal or person, are assigned the identifiers USUBJID and SUBJID. Therefore, when the ontology is loaded into the database, the same constraint can be used for both pre-clinical (SEND) and clinical (SDTM) studies.  
 
-<font class='futureSHACL'>FUTURE:</font>  This shape can be updated to `sh:targetClass study:Subject` to be applied to multiple types of Subjects (Animal, Human) when the proper ontology and reasoner is applied.
+<pre class='owl'>
+<font class='nodeBold'>study:Subject</font>
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:Party ;
+  skos:prefLabel "Subject" ;
+.
+study:Animal
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:BiologicEntity ;
+  skos:prefLabel "Animal" ;
+.
+<font class='nodeBold'>study:AnimalSubject</font>
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:Animal ;
+  <font class='nodeBold'>rdfs:subClassOf study:Subject ;</font>
+  skos:prefLabel "Animal subject" ;
+.
+</pre>
+<br/>
+
+The SHACL shape `study:hasMin1Max1Shape-USubjID` evaluates the path `study:hasUniqueSubjectID` from the targetClass to determine if one and only one value of USSUBJID IRI is present. When the ontology is loaded, the more general `study:Subject` can be leveraged as the targetClass. The commented-out alternative is also provided for when the ontology is not loaded, or for cases where the constraint should only apply to `study:AnimalSubject` and not other classes like `study:HumanSubject`.
 
 <pre class='shacl'>
 # Unique Subject ID (USUBJID)
 study:hasMin1Max1Shape-USubjID 
   a              sh:NodeShape ;
-  sh:targetClass study:AnimalSubject ;   
+  <font class='nodeBold'>sh:targetClass study:Subject</font> ;  <font class='greyedOut'># Ontology</font>
+  <font class='greyedOut'># sh:targetClass study:AnimalSubject ; # No Ontology </font>
   sh:name        "minmaxUniqueSubjid" ;
   sh:description "A single, exclusive USUBJID must be assigned to a Subject." ;
-  sh:message     "Animal Subject --> USUBJID violation. [SD0083]" ;
+  sh:message     "Subject --> USUBJID violation. [SD0083]" ;
   sh:path study:hasUniqueSubjectID ;
   sh:minCount  1 ;
   sh:maxCount  1 .
-
 </pre>
 <br/>
 
@@ -163,7 +190,7 @@ The report correctly identifies Animal Subject Animal_6204e90c as having more th
     sh:resultSeverity            sh:Violation ;
     sh:sourceShape               study:hasMin1Max1Shape-USubjID ;
     sh:focusNode                 cj16050:<font class='error'>Animal_6204e90c </font>;
-    sh:resultMessage             <font class='msg'>"Animal Subject --> USUBJID violation. [SD0083]"</font> ;
+    sh:resultMessage             <font class='msg'>"Subject --> USUBJID violation. [SD0083]"</font> ;
     sh:resultPath                study:hasUniqueSubjectID ;
     sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>
 </pre>
@@ -171,6 +198,8 @@ The report correctly identifies Animal Subject Animal_6204e90c as having more th
 <br/>
 
 <!--- SD003 Rule Component 3 ------------------------------------------------->
+
+<a name='rc3'></a>
 
 ### Rule Component 3: A USUBJID cannot be assigned to more than one Animal Subject
 
@@ -205,7 +234,7 @@ There are multiple ways to assess the USUBJID requirement in SHACL-Core and SHAC
   Targeting the Object of (`sh:targetObjectsOf `) the inverse of (`sh:inversePath`) the predicate `study:hasUniqueSubjectID` identifies USBUJID values that are assigned to more than one AnimalSubject. This test is the most informative when trying to quickly identify <i>duplicate USUBJID values</i>. 
 </div>
 
-SHACL Shape Method 1: Identify duplicate USUBJID values.
+SHACL Shape for Method 1: Identify duplicate USUBJID values. This shape is applied to all uses of the predicate `study:hasUniqueSubjectID`, allowing its use for both SEND and SDTM data sets when this predicates is present.  
 <pre class='shacl'>
 study:isUniqueShape-USubjID a sh:PropertyShape ; 
   <font class='nodeBold'>sh:targetObjectsOf study:hasUniqueSubjectID </font> ;
@@ -232,10 +261,11 @@ study:isUniqueShape-USubjID a sh:PropertyShape ;
 
 </div>
 
-SHACL Shape Method 2: Identify AnimalSubjects that have the same USUBJID value.
+SHACL Shape for Method 2: Identify AnimalSubjects that have the same USUBJID value. Similar to [Rule Components 1,2](#rc12) it is once again possible to leverage an ontology to apply the constraint at the more general level of `study:Subject` targetClass. 
 <pre class='shacl'>
 study:isUniqueShape-USubjID a sh:PropertyShape ; 
-  <font class='nodeBold'>sh:targetClass   study:AnimalSubject </font>;   
+  <font class='nodeBold'>sh:targetClass study:Subject</font> ;  <font class='greyedOut'># Ontology</font>
+  <font class='greyedOut'># sh:targetClass study:AnimalSubject ; # No Ontology </font>
   sh:property [
     sh:name            "uniqueUSubjid" ;
     sh:description     "A USUBJID must only be assigned to one Subject." ;

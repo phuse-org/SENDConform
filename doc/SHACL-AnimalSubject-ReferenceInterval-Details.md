@@ -97,6 +97,8 @@ The shape tests the following conditions:
 * A Reference Start Date must be in `xsd:date` format.
 * A Reference End Date must be in `xsd:date` format.
 
+Additional dates can be assessed by adding additional predicates as `sh:targetObjectsOf` if the date follows through the path `time:inXSDDate`.
+
 <pre class='shacl'>
 study:hasTypeXsdDate-Date a sh:NodeShape ;
   sh:targetObjectsOf time:hasBeginning ;
@@ -162,15 +164,34 @@ cj16050:<font class='nodeBold'>Animal_6204e90c</font>
 </pre>
 <br/>
 
-The shape tests the following conditions:
+The study ontology defines`study:AnimalSubject` as a sub class of both `study:Subject` and `study:Animal`.  Study subjects, be they animal or person, are have a Reference Interval documenting their participation in a trial. Therefore, when the ontology is loaded into the database, the same constraint can be used for both pre-clinical (SEND) and clinical (SDTM) studies. This same ontological approach is taken for [USUBJID](SHACL-AnimalSubject-Details.md#rc12) and [SUBJID](SHACL-AnimalSubject-Details.md#ruleSD1001).
 
-* An Animal Subject must have one and only one Reference Interval.
- 
-<font class='futureSHACL'>FUTURE:</font>  This shape can be updated to `sh:targetClass study:Subject` to be applied to both Animal and Human Subjects when the proper ontology and reasoner is applied.
+<pre class='owl'>
+<font class='nodeBold'>study:Subject</font>
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:Party ;
+  skos:prefLabel "Subject" ;
+.
+study:Animal
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:BiologicEntity ;
+  skos:prefLabel "Animal" ;
+.
+<font class='nodeBold'>study:AnimalSubject</font>
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:Animal ;
+  <font class='nodeBold'>rdfs:subClassOf study:Subject ;</font>
+  skos:prefLabel "Animal subject" ;
+.
+</pre>
+<br/>
+
+The SHACL shape evaluates the path `study:hasReferenceInterval` from the targetClass to determine if one and only one Reference Interval IRI is present. When the ontology is loaded, the more general `study:Subject` can be leveraged as the targetClass, assuming other `study:Subject`s like `study:HumanStudySubject` use the same predicate. The commented-out alternative is also provided for when the ontology is not loaded, or for cases where the constraint should only apply to `study:AnimalSubject` and not other classes like `study:HumanSubject`.
 
 <pre class='shacl'>
 study:hasMin1Max1Shape-Interval a sh:NodeShape ;
-  sh:targetClass study:AnimalSubject ;
+  <font class='nodeBold'>sh:targetClass study:Subject</font> ;  <font class='greyedOut'># Ontology</font>
+  <font class='greyedOut'># sh:targetClass study:AnimalSubject ; # No Ontology </font>
   sh:path        study:hasReferenceInterval ;
   sh:name        "reference interval present";
   sh:description "Animal Subject must have one and only one reference interval IRI.";
@@ -241,20 +262,61 @@ cj16050:<font class='nodeBold'>Interval_db3c6403</font>
 </pre>
 <br/>
  
+The study ontology defines`study:ReferenceInterval` as a sub class of `study:EntityInterval`. 
+
+<pre class='owl'>
+<font class='nodeBold'>study:EntityInterval</font>
+  rdf:type owl:Class ;
+   rdfs:subClassOf time:Interval ;
+  skos:prefLabel "Entity interval" ;
+.
+<font class='nodeBold'>study:ReferenceInterval</font>
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:EntityInterval ;
+  skos:prefLabel "Reference interval" ;
+.
+<font class='goodData'>study:Lifespan</font>
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:EntityInterval ;
+  skos:prefLabel "Lifespan" ;
+.
+<font class='goodData'>study:MedicalConditionInterval</font>
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:EntityInterval ;
+  skos:prefLabel "Medical event interval" ;
+.
+<font class='goodData'>study:StudyParticipationInterval</font>
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:EntityInterval ;
+  skos:prefLabel "Study participation interval" ;
+.
+</pre>
+<br/>
+
+
+
+All sub classes of `study:EntityInterval` must have a `time:hasBeginning` and `time:hasEnd`,  allowing the use of a single shape to evaluate following types of intervals when the ontology is loaded into the database:
+
+* <font class='nodeBold'>`study:ReferenceInterval`</font>
+* <font class='goodData'>`study:LifeSpan`</font> 
+* <font class='goodData'>`study:MedicalConditionalInterval`</font>
+* <font class='goodData'>`study:StudyParticipationInterval`</font>
+
+The ontology facilitates the use of the shape in both pre-clinical (SEND) and clinical (SDTM) studies.  
+ 
 The shape tests the following conditions:
 
-* Reference Interval Start date for an Animal Subject has one and only one value.
-* Reference Interval End date for an Animal Subject has one and only one value.
-
-<font class='futureSHACL'>FUTURE:</font>  This shape can be updated to `sh:targetClass study:Interval` to be applied to multiple types of intervals when the proper ontology and reasoner is applied.
+* Interval Start date for an Animal Subject has one and only one value.
+* Interval End date for an Animal Subject has one and only one value.
 
 
 <pre class='shacl'>
 study:hasMin1Max1Shape-StartEndDates a sh:NodeShape ;
-  sh:targetClass study:ReferenceInterval ;
-  sh:name        "reference interval date count" ;
+  <font class='nodeBold'>sh:targetClass study:EntityInterval</font> ; <font class='greyedOut'># Ontology</font>
+  <font class='greyedOut'># sh:targetClass study:ReferenceInterval ; # No Ontology</font>
+  sh:name        "intervalDateCount" ;
   sh:description "Interval has one and only one start and end date." ;
-  sh:message     "Problem with Reference Interval date. [SD1002]" ;
+  sh:message     "Problem with Interval date. [SD1002]" ;
   sh:and (
     [ sh:path time:hasBeginning ;
       sh:minCount 1;
@@ -275,7 +337,7 @@ The report identifies the interval for Animal Subject 99T5 (`cj16050:Interval_db
   a sh:ValidationResult ;
     sh:sourceConstraintComponent sh:AndConstraintComponent ;
     sh:focusNode cj16050:Interval_db3c6403 ;
-    sh:resultMessage "<font class='msg'>Problem with Reference Interval date. [SD1002]</font>" ;
+    sh:resultMessage "<font class='msg'>Problem with Interval date. [SD1002]</font>" ;
     sh:value cj16050:<font class='error'>Interval_db3c6403 </font> ;
     sh:sourceShape :RefIntervalDateShape ;
     sh:resultSeverity sh:Violation ;
@@ -343,16 +405,17 @@ The shape tests the following condition:
 * Reference Interval Start Date must be on or before End Date
 * The shape will also pick up cases where a date is in `xsd:string` format.
 
-<font class='futureSHACL'>FUTURE:</font> This shape can be updated to `sh:targetClass study:Interval` to be applied to multiple types of intervals that contain `time:hasBeginning` and `time:hasEnd` predicates when the proper ontology and reasoner is applied.
+As described for [Rule Component 3](#rc3), this shape is applied at `sh:targetClass study:EntityInterval` for intervals that contain `time:hasBeginning` and `time:hasEnd` predicates. The alternative application to `study:ReferenceInterval` is shown for the alternative case when the ontology is not present.
 
 <pre class='shacl'>
 study:hasStartLEEndShape-Interval a sh:NodeShape ;
- sh:targetClass study:ReferenceInterval ;
+  <font class='nodeBold'>sh:targetClass study:EntityInterval</font> ; <font class='greyedOut'># Ontology</font>
+  <font class='greyedOut'># sh:targetClass study:ReferenceInterval ; # No Ontology</font>
  sh:sparql [
   a              sh:SPARQLConstraint ;
   sh:name        "sd1002" ;
-  sh:description "SEND-IG 3.0 Rule SD1002. Reference Interval start date on or before end date." ;
-  sh:message     "RFSTDTC is after RFENDTC. [SD1002]";
+  sh:description "Interval start date on or before end date." ;
+  sh:message     "Interval Start Date on or before End Date";
   sh:prefixes [
     sh:declare [ sh:prefix "time" ;
       sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
@@ -379,7 +442,7 @@ The report identifies the interval for Animal Subject 99T1 where End Date preced
   a sh:ValidationResult ;
   sh:sourceConstraint _:bnode_cacffc33_62e3_4c8b_bdba_e71e398a23dc_29 ;
   sh:sourceShape :SD1002RuleShape ;
-  sh:resultMessage "<font class='msg'>RFSTDTC is after RFENDTC. [SD1002]</font>" ;
+  sh:resultMessage "<font class='msg'>Interval Start Date on or before End Date. [SD1002]</font>" ;
   sh:value <font class='error'>cj16050:Interval_184f16eb</font>        ]
   sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
   sh:resultSeverity sh:Violation ;
@@ -388,7 +451,7 @@ The report identifies the interval for Animal Subject 99T1 where End Date preced
 
 <br/>
 
-<b>Next:</b>COMING SOON: Animal Subject age. 
+<b>Next:</b>  COMING SOON: Animal Subject age. 
 <br/>
 <br/>
 Back to [Top of page](#top) <br/>

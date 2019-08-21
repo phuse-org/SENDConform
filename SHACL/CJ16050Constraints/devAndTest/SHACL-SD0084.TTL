@@ -1,0 +1,25 @@
+# SHACL-SD00084.TTL
+# FDA Rule SD0084 for CJ16050
+# Rule Component 1
+#  Age cannot be less than 0 
+#  NOTE: 
+# Violations:
+#   99T1  , age -10
+# STATUS:  PASSED 2019-08-12
+
+@prefix study: <https://w3id.org/phuse/study#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#>  .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cj16050: <https://example.org/cj16050#> .
+
+:SD0084RuleShape a sh:NodeShape ;
+  sh:targetClass study:Age ;
+  sh:name        "ageGE0" ;
+  sh:description "Age cannot be less than 0." ;
+  sh:message "Age cannot be less than 0." ;
+  sh:path time:numericDuration ;
+  sh:minInclusive 0
+.
+
+:SD0084RuleShape  sh:deactivated false .  # Rule Component 

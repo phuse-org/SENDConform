@@ -45,9 +45,14 @@ body{
   font-size:1.1em;
 }
 
+.greyedOut{
+    color: #9c9c9c;     /* dark grey */
+    background-color: #e1e1e1; /* light grey */ 
+}  
+
 .infoOmitted{
   color: #4e4e4e;     /* dark grey */
-  background-color: #e1e1e1; /* Light grey */ 
+  background-color: #e1e1e1; /* light grey */ 
   font-weight: bold;
   font-style: italic;
   font-size:1.1em;

@@ -1,0 +1,75 @@
+@prefix study: <https://w3id.org/phuse/study#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#>  .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cj16050: <https://example.org/cj16050#> .
+
+# Animal Subject Shape
+study:AnimalSubjectShape
+  a              sh:NodeShape ;
+  sh:targetclass study:AnimalSubject ;
+  sh:property    study:hasMin1Max1Shape-USubjID ;
+  sh:property    study:hasMin1Max1Shape-SubjID .
+
+# Animal Subject has one Unique Subject ID (USUBJID)
+study:hasMin1Max1Shape-USubjID 
+  a              sh:NodeShape ;
+  sh:targetClass study:AnimalSubject ;   
+  sh:name        "minmaxUniqueSubjid" ;
+  sh:description "A single, exclusive USUBJID must be assigned to a Subject." ;
+  sh:message     "Animal Subject --> USUBJID violation" ;
+  sh:path study:hasUniqueSubjectID ;
+  sh:minCount  1 ;
+  sh:maxCount  1 .
+
+#--- Identify USUBJID values assigned to more than one Animal Subject.
+#  Method 1 : Identifies the SUBJID
+#study:isUniqueShape-USubjID a sh:PropertyShape ; 
+#  sh:targetObjectsOf study:hasUniqueSubjectID ;
+#  sh:name            "uniqueUSubjid" ;
+#  sh:description     "A USUBJID must only be assigned to one Subject." ;
+#  sh:message         "USUBJID assigned to more than one Subject." ;
+#  sh:property [
+#    sh:path [sh:inversePath study:hasUniqueSubjectID]  ;
+#    sh:maxCount 1
+#  ] .
+
+#  Method 2 : Identifies the Animal Subject
+study:isUniqueShape-USubjID a sh:PropertyShape ; 
+  sh:targetClass   study:AnimalSubject ;   
+  sh:property [
+    sh:name            "uniqueUSubjid" ;
+    sh:description     "A USUBJID must only be assigned to one Subject." ;
+    sh:message         "USUBJID assigned to more than one Subject." ;
+    sh:path (study:hasUniqueSubjectID [sh:inversePath study:hasUniqueSubjectID]) ;
+    sh:maxCount 1
+  ] .
+
+
+
+# Subject ID (SUBJID)
+study:hasMin1Max1Shape-SubjID 
+  a              sh:NodeShape ;
+  sh:targetClass study:AnimalSubject ;   
+  sh:name        "minMaxSubjid" ;
+  sh:description "A single, exclusive SUBJID must be assigned to a Subject." ;
+  sh:message     "Animal Subject --> USUBJID violation" ;
+  sh:path (study:hasSubjectID [sh:inversePath study:hasSubjectID]) ;
+  sh:minCount  1 ;
+  sh:maxCount  1 
+.
+study:isUniqueShape-SubjID a sh:PropertyShape ; 
+  sh:targetObjectsOf study:hasSubjectID ;
+  sh:name            "uniqueSubjid" ;
+  sh:description     "A SUBJID must only be assigned to one Subject." ;
+  sh:message         "SUBJID assigned to more than one Subject." ;
+  sh:property [
+    sh:path [sh:inversePath study:hasUniqueSubjectID] ;
+    sh:maxCount 1
+  ] .
+
+study:hasMin1Max1Shape-USubjID sh:deactivated true . 
+study:isUniqueShape-USubjID    sh:deactivated false .  
+
+study:hasMin1Max1Shape-SubjID  sh:deactivated true . 
+study:isUniqueShape-SubjID     sh:deactivated true .
