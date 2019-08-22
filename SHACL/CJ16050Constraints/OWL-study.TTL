@@ -1,0 +1,80 @@
+@prefix code: <https://w3id.org/phuse/code#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdtmterm: <https://w3id.org/phuse/sdtmterm#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix study: <https://w3id.org/phuse/study#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+study:Subject
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:Party ;
+  skos:note "same as BRIDG Subject, which can be a human, non-human animal, or inanimate object (e.g. drug substance or product or device, etc.)" ;
+  skos:prefLabel "Subject" ;
+.
+study:Animal
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:BiologicEntity ;
+  skos:definition "A non-human living organism that has membranous cell walls, requires oxygen and organic foods, and is capable of voluntary movement, as distinguished from a plant or mineral. [BRIDG 5.0]" ;
+  skos:note "maps to BRIDG Animal Class" ;
+  skos:prefLabel "Animal" ;
+.
+
+study:AnimalSubject
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:Animal ;
+  rdfs:subClassOf study:Subject ;
+  skos:prefLabel "Animal subject" ;
+.
+
+study:AnimalStudySubject
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:AnimalSubject ;
+  skos:prefLabel "Animal study subject" ;
+.
+
+study:SubjectIdentifier
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:Identifier ;
+  skos:prefLabel "Subject identifier" ;
+.
+
+study:ActivityInterval
+  rdf:type owl:Class ;
+  rdfs:subClassOf time:Interval ;
+  skos:prefLabel "Activity interval" ;
+.
+
+study:EntityInterval
+  rdf:type owl:Class ;
+   rdfs:subClassOf time:Interval ;
+  skos:prefLabel "Entity interval" ;
+.
+
+study:ReferenceInterval
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:EntityInterval ;
+  skos:prefLabel "Reference interval" ;
+.
+
+study:Lifespan
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:EntityInterval ;
+  skos:prefLabel "Lifespan" ;
+.
+
+study:MedicalConditionInterval
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:EntityInterval ;
+  skos:prefLabel "Medical event interval" ;
+.
+
+study:StudyParticipationInterval
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:EntityInterval ;
+  skos:prefLabel "Study participation interval" ;
+.
