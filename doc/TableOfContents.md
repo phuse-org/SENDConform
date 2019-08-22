@@ -20,7 +20,9 @@ FDA Validation Rules are translated to SHACL to create validation reports.
 
 ### 2.2 Shapes
 
-* [AnimalSubject - Demographics Domain](SHACL-AnimalSubject-Details.md)
+* AnimalSubject - Demographics Domain
+    * [Main Structure, Subject Identifiers](SHACL-AnimalSubject-Details.md)
+    * [Reference Interval](SHACL-AnimalSubject-ReferenceInterval-Details.md) (start, end dates) 
 
 ### [2.3 Running Validation Reports](SHACL-RunValReport.md)
 
