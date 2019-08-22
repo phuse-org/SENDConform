@@ -4,14 +4,14 @@
 Animal Subject Shape - Demographics Domain
 ==================================
 
-The Animal Subject IRI `:Animal_xxx` is a natural starting point for developing rules based on the Demographics domain because each row in the source DM data holds values for an Animal Subject. SHACL shapes are created with reuse in mind, as reflected in both the structure and naming conventions. Where practical, shapes are named using a description of their function, a dash, and then an abbreviated name of the class or entity they act upon. Examples:
+The Animal Subject IRI `:Animal_xxx` is a natural starting point for developing rules based on the Demographics domain because each row in the source DM data contains values for an individual Animal Subject. SHACL shapes are created with reuse in mind, as reflected in both the structure and naming conventions. Where practical, shapes are named using a description of their function, a dash, and then an abbreviated name of the class or entity they act upon. Examples:
 
 * `hasMin1Max1Shape-USubjID` - validates that each Animal Subject has a minimum of one and maximum of one USUBJID assigned.  
 * `isUniqueShape-USubjID`    - validates the *uniqueness* of USUBJID values. A SUBJID cannot be assigned to more than one Animal Subject.
 
 Shapes may include additional constraints such as data type, length, and other restrictions not explicitly stated in the original FDA rules.
 
-Shapes must include the `sh:message` property to provide meaningful messages about the violation. Where applicable, a reference to the related FDA Rule ID number must be provided in square brackets at the end of the message text. In cases where a shape may be applied to more than one Rule, all rules are provided.
+Shapes must include the `sh:message` property to provide meaningful messages about the violation. Where applicable, a reference to the related FDA Rule ID number must be provided in square brackets at the end of the message text. In cases where a shape may be applied to more than one Rule, all rules covered by that shape are listed.
 
 Example:  <code>sh:message "Subject --> USUBJID violation. <b>[SD0083]</b>" ;</code>
 
@@ -85,7 +85,7 @@ FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Busin
 ------|-------------------|-----|-------|--------------------------|-----------------------------
 **SD0083** |Duplicate USUBJID | CDISC| CG0151   |Identifier used to uniquely identify a subject across all studies| The value of Unique Subject Identifier (USUBJID) variable must be unique for each subject **across all trials in the submission.** *
 
-\* *Because the prototype is based on data from a single trial, Rule SD0083 is only evaluated within the context of one study. *
+\* *Because the prototype is based on data from a single trial, Rule SD0083 is only evaluated within the context of one study.*
 
 The Rule is deconstructed into the following components based on familiarity with instance data, RDF data model (schema), and SD0083 rule statement:
 
