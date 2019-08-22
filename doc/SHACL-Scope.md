@@ -16,7 +16,7 @@ Instructions on how to create validation reports in Stardog is available on the 
 
 A detailed description of SHACL syntax is beyond the scope of this document. Please refer to the [SHACL Introduction](SHACL-Intro.md) page for a list of resources. 
 
-The SHACL shapes described on this page are available in the file  [SHACL/CJ16050Constraints/SHACL-SD1002.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/SHACL-SD1002.TTL). 
+The SHACL shapes described on this page are available in the file  [SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL). 
 
 
 ## SHACL for SEND Rules 
