@@ -1,8 +1,8 @@
 ###############################################################################
 # FILE: Animal-Age-LT0.rq
-# DESC: Identify the animal with Age = 10 using:
+# DESC: Identify the animal with Age = 10 based on:
 #        a) IRI identified in the SHACL report. 
-#        b) without the report, find where age < 0
+#        b) Where age < 0 (without report information)
 # REQ : 
 # SRC : 
 # IN  : 
@@ -18,15 +18,15 @@ PREFIX study:   <https://w3id.org/phuse/study#>
 PREFIX time:    <http://www.w3.org/2006/time#>
 
 # a) IRI identified in the SHACL report. 
-#SELECT ?animalIRI ?animalLabel 
-#WHERE{
-#  ?ageDataCollIRI   code:outcome cj16050:Age_-10_WEEKS .
+SELECT ?animalIRI ?animalLabel 
+WHERE{
+  ?ageDataCollIRI   code:outcome cj16050:Age_-10_WEEKS .
 
-#  ?animalIRI study:participatesIn ?ageDataCollIRI ;
-#             skos:prefLabel       ?animalLabel .
-#}
+  ?animalIRI study:participatesIn ?ageDataCollIRI ;
+             skos:prefLabel       ?animalLabel .
+}
 
-# b) without the report, find where age < 0
+# b)  Where age < 0 (without report information)
 SELECT ?animalIRI ?animalLabel ?age
 WHERE{
   ?animalIRI       study:participatesIn ?ageDataCollIRI ;
