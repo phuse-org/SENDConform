@@ -261,6 +261,8 @@ The Rule Components and corresponding SHACL shapes for SD1001 are similar to tho
 <b>Next: </b>[Reference Interval (FDA Rule SD1002)](SHACL-AnimalSubject-ReferenceInterval-Details.md)
 <br/>
 <br/>
-Back to [Top of page](#top) <br/>
-Back to [Table of Contents](TableOfContents.md)
+Back to: 
+* [Top of page](#top) <br/>
+* [List of AnimalSubject Shapes](TableOfContents.md#animalSubjectShapes)
+* [Table of Contents](TableOfContents.md)
 
