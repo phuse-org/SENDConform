@@ -22,10 +22,11 @@ study:AnimalSubjectShape
   sh:property    study:isUniqueShape-USubjID ;           # Rule SD0083
   sh:property    study:hasMin1Max1Shape-SubjID ;         # Rule SD1001
   sh:property    study:isUniqueShape-SubjID ;            # Rule SD1001
-  sh:property    study:hasTypeXsdDate-Date ;             # Rule SD1002
+  sh:property    study:hasTypeXsdDateShape-Date ;        # Rule SD1002
   sh:property    study:hasMin1Max1Shape-Interval ;       # Rule SD1002
   sh:property    study:hasMin1Max1Shape-StartEndDates ;  # Rule SD1002
   sh:property    study:hasStartLEEndShape-Interval ;     # Rule SD1002
+  sh:property    study:hasMinInclusive0Shape-Age ;       # Rule SD0084
 .
 
 #--- USUBJID ------------------------------------------------------------------
@@ -131,7 +132,7 @@ study:isUniqueShape-SubjID a sh:PropertyShape ;
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-# SHAPE: study:hasTypeXsdDate-Date
+# SHAPE: study:hasTypeXsdDateShape-Date
 # DESCR: Targets of predicates that refer to dates must be in xsd:date format.
 # RULEC: Reference Interval Rule Component 1
 # NOTES: Dates are associated with :hasBeginning or :hasEnd, other predicates
@@ -244,22 +245,51 @@ study:hasStartLEEndShape-Interval a sh:NodeShape ;
     }""" ;
 ] .
 
+
+#------------------------------------------------------------------------------
+#--- Age 
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# SHAPE: study:hasminInclusive0Shape-Age
+# DESCR: Targets values that must be >= 0 (no negative numbers)
+# RULEC: Age SD0084 Rule Component 1
+# NOTES: 
+#        
+# VIOLATIONS:
+#   99T1  age = -10 
+#  
+# STATUS: 
+#------------------------------------------------------------------------------
+study:hasminInclusive0Shape-Age a sh:NodeShape ;
+  sh:targetClass study:Age ;
+  sh:name        "agGTE0" ;
+  sh:description "Age must be greater than or equal to 0." ;
+  sh:message "Negative value for AGE.  [SD0084]" ;
+  sh:property [
+    sh:path time:numericDuration ;
+            sh:minInclusive 0 ;
+  ] .
+
+
+
+
+
 #--------------------------------------------------------------------
 #--- Activate / Deactivate
 #--------------------------------------------------------------------
 
 #--- USUBJID
-study:hasMin1Max1Shape-USubjID sh:deactivated false . 
-study:isUniqueShape-USubjID    sh:deactivated false .  
+study:hasMin1Max1Shape-USubjID sh:deactivated true . 
+study:isUniqueShape-USubjID    sh:deactivated true .  
 
 #--- SUBJID
-study:hasMin1Max1Shape-SubjID  sh:deactivated false . 
-study:isUniqueShape-SubjID     sh:deactivated false .
+study:hasMin1Max1Shape-SubjID  sh:deactivated true . 
+study:isUniqueShape-SubjID     sh:deactivated true .
 
 #--- Reference Interval
-study:hasTypeXsdDate-Date            sh:deactivated false . # RefInterval RC 1
-study:hasMin1Max1Shape-Interval      sh:deactivated false . # RefInterval RC 2
-study:hasMin1Max1Shape-StartEndDates sh:deactivated false . # RefInterval RC 3
-study:hasStartLEEndShape-Interval    sh:deactivated false . # RefInterval RC 4
-
-
+study:hasTypeXsdDateShape-Date       sh:deactivated true . # RefInterval RC 1
+study:hasMin1Max1Shape-Interval      sh:deactivated true.  # RefInterval RC 2
+study:hasMin1Max1Shape-StartEndDates sh:deactivated true . # RefInterval RC 3
+study:hasStartLEEndShape-Interval    sh:deactivated true . # RefInterval RC 4
+study:hasminInclusive0Shape-Age      sh:deactivated true . # Age SD0084 RC 1
