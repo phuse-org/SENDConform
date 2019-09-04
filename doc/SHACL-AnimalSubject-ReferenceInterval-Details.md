@@ -454,5 +454,7 @@ The report identifies the interval for Animal Subject 99T1 where End Date preced
 <b>Next:</b> [Animal Subject Age](SHACL-AnimalSubject-Age-Details.md) 
 <br/>
 <br/>
-Back to [Top of page](#top) <br/>
-Back to [Table of Contents](TableOfContents.md)
+Back to: 
+* [Top of page](#top) <br/>
+* [List of AnimalSubject Shapes](TableOfContents.md#animalSubjectShapes)
+* [Table of Contents](TableOfContents.md)
