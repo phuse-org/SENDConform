@@ -1,0 +1,42 @@
+###############################################################################
+# FILE: Animal-Age-LT0.rq
+# DESC: Identify the animal with Age = 10 using:
+#        a) IRI identified in the SHACL report. 
+#        b) without the report, find where age < 0
+# REQ : 
+# SRC : 
+# IN  : 
+# OUT : 
+# NOTE: 
+# TODO: 
+###############################################################################
+
+PREFIX cj16050: <https://example.org/cj16050#>
+PREFIX code:    <https://w3id.org/phuse/code#> 
+PREFIX skos:    <http://www.w3.org/2004/02/skos/core#> 
+PREFIX study:   <https://w3id.org/phuse/study#> 
+PREFIX time:    <http://www.w3.org/2006/time#>
+
+# a) IRI identified in the SHACL report. 
+#SELECT ?animalIRI ?animalLabel 
+#WHERE{
+#  ?ageDataCollIRI   code:outcome cj16050:Age_-10_WEEKS .
+
+#  ?animalIRI study:participatesIn ?ageDataCollIRI ;
+#             skos:prefLabel       ?animalLabel .
+#}
+
+# b) without the report, find where age < 0
+SELECT ?animalIRI ?animalLabel ?age
+WHERE{
+  ?animalIRI       study:participatesIn ?ageDataCollIRI ;
+                   skos:prefLabel       ?animalLabel .
+  ?ageDataCollIRI  code:outcome         ?ageIRI .
+  ?ageIRI          time:numericDuration ?age .
+  FILTER (?age < 0)
+}
+
+  
+
+ 
+
