@@ -131,5 +131,7 @@ Another approach is to identify the Animal Subject using a SPARQL filter for  `a
 <b>Next:</b>  Next Section TBD. 
 <br/>
 <br/>
-Back to [Top of page](#top) <br/>
-Back to [Table of Contents](TableOfContents.md)
+Back to: 
+* [Top of page](#top) <br/>
+* [List of AnimalSubject Shapes](TableOfContents.md#animalSubjectShapes)
+* [Table of Contents](TableOfContents.md)
