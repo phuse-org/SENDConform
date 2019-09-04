@@ -15,11 +15,17 @@ Animal Subject Shape - Demographics Domain
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines numerous rules associated with Age in the DM domain. This project defines only a subset of these rules as SHACL Shapes. For example, the rule SD2019 "Invalid value for AGETXT" is not applicaple because the example study collects AGE (numeric) and not AGETXT (age range as a string). 
 
-## Age >= 0:  FDA Rule SD0084
+The following rules are defined on this page:
 
-FDA Validator Rule ID | FDA Validator Message | Publisher|  Publisher ID | Business or Conformance Rule Validated | FDA Validator Rule  
-------|-------------------|-----|-------|--------------------------|-----------------------------
-**SD0084** |Negative value for age | xxx| xxx4    |Values for age variables cannot be negative, | **The value of Age (AGE) cannot be less than 0.**
+* [SD0084 - Age >=0](#sd0084)  
+* ...more rules coming!
+
+<a name='sd0084'></a>
+## Age >= 0: FDA Rule SD0084
+
+FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
+------|-------------------|--------------------------|-----------------------------
+**SD0084** |Negative value for age | Values for age variables cannot be negative, | **The value of Age (AGE) cannot be less than 0.**
 
 
 ### Rule Component
@@ -127,6 +133,17 @@ Another approach is to identify the Animal Subject using a SPARQL filter for  `a
   }
 </pre>
 <br/>
+
+## Age XXX: FDA Rule SDxxxx
+
+The next rule will be defined here.
+
+FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
+------|-------------------|--------------------------|-----------------------------
+**SDxxxx** | |  | **xxxxxx**
+
+..more to follow.
+
 
 <b>Next:</b>  Next Section TBD. 
 <br/>
