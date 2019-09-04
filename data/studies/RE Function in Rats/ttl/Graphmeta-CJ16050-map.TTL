@@ -6,7 +6,7 @@
 # IN  : CSV updated from R s
 # OUT : 
 # NOTE: R generates timestamp value in .csv. 
-#        stardog-admin virtual import Graphmeta_CJ16050_map.TTL Graphmeta_CJ16050.CSV
+#        stardog-admin virtual import SENDConform Graphmeta_CJ16050_map.TTL Graphmeta_CJ16050.CSV
 # TODO: 
 ###############################################################################
 @prefix bibo:     <http://purl.org/ontology/bibo/> .
@@ -24,7 +24,7 @@
 @prefix time:     <http://www.w3.org/2006/time#> .
 @prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
 
-cj16050:stdm-graph 
+cj16050:send-graph 
   dcterms:description "{description_graph}"^^xsd:string ;
   dcterms:title       "{title_graph}"^^xsd:string ;
   bibo:status         "{status_graph}"^^xsd:string ; 

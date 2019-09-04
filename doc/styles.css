@@ -16,149 +16,112 @@ body{
   background-color: #ffffff;
 }
 
+/*---------------------------------------------------------------------------*/
+/* General Font formatting                                                   */
+/*---------------------------------------------------------------------------*/
+.available, .labelShape{
+  color: #759e27; /* dark green */
+  font-weight: bold;
+}  
+.codeCom{
+  color: #759e27;     /* dark green */
+}
+.development{
+  font-weight: bold;
+  font-style: italic;
+}
+.emph{
+  color: #00008b;     /* dark blue */
+  font-weight: bold;
+}
 .error{
   color: #8b0000;     /* dark red */
   font-weight: bold;
 }
-
-.futureSHACL{
+.error2{
+  color: #e67e00;     /* dark orange */
+  font-weight: bold;
+}
+.futureSHACL{  /* not in use as of 2019-08-22 */
   background-color: #9fd041;  /* solid background */
   color: #000000;
   font-family: Arial;
   font-weight: bold;
 }
-
-.msg{
-  font-style: italic;
+.goodData, .shapeName{
+  color: #486118;     /* very dark green */
   font-weight: bold;
 }
-
-.error2{
-  color: #e67e00;     /* dark orange */
-  font-weight: bold;
-}
-
+.greyedOut{
+    color: #9c9c9c;     /* dark grey */
+    background-color: #e1e1e1; /* light grey */ 
+}  
 .infoExtra{
   color: #9c9c9c;     /* dark grey */
   font-weight: bold;
   font-style: italic;
   font-size:1.1em;
 }
-
-.greyedOut{
-    color: #9c9c9c;     /* dark grey */
-    background-color: #e1e1e1; /* light grey */ 
-}  
-
 .infoOmitted{
   color: #4e4e4e;     /* dark grey */
   background-color: #e1e1e1; /* light grey */ 
   font-weight: bold;
   font-style: italic;
   font-size:1.1em;
-  
 }
-
+.labelData{
+  color: #9e9e27; /* dark olive */
+  font-weight: bold;
+}
+.msg{
+  font-style: italic;
+  font-weight: bold;
+}
 .parameter{
   color: #9c9c9c;     /* dark grey */
   font-weight: bold;
   font-style: italic;
   font-size:1.1em;
 }
-
-.codeCom{
-  color: #759e27;     /* dark green */
-}
-
-.shapeName, .goodData{
-  color: #486118;     /* very dark green */
-  font-weight: bold;
-}
-
-.emph{
-  color: #00008b;     /* dark blue */
-  font-weight: bold;
-}
-
-.labelData{
-  color: #9e9e27; /* dark olive */
-  font-weight: bold;
-}
-
-.available, .labelShape{
-  color: #759e27; /* dark green */
-  font-weight: bold;
-}  
-
-.development{
-  font-weight: bold;
-  font-style: italic;
-
-}  
-
-
 .labelReport{
   color: #c69331; /* dark br/orange */
   font-weight: bold;
-
-}  
-
-text-right{
-  text-align: right ;
 }
-.subject{
-  color: #486118;     /* dark green */
-  font-weight: bold;
-  
-}
-.predicate{
-  color:  #c69331;     /*  dk orange */
+.literal{
+  color: #9c9c9c;     /* dark grey */
   font-weight: bold;
 }
-
 .navNext, .nodeBold{
   color: #182461; /* dk blue */
   font-weight: bold;
   font-size:1.1em;
 }
-
-.navNext{
-  color: #273b9e; /* dk blue */
-  font-weight: bold;
-  font-size:1.2em;
-  font-style: italic;
-}
-
-
 .object{
   color: #182461; /* dk blue */
   font-weight: bold;
 }
-
-
 .objectIRI{
     color: #759e27; /* dark green */
    font-weight: bold;
 }
-
-.literal{
-  color: #9c9c9c;     /* dark grey */
+.predicate{
+  color:  #c69331;     /*  dk orange */
+  font-weight: bold;
+}
+.subject{
+  color: #486118;     /* dark green */
   font-weight: bold;
 }
 
-/* Formatting of boxes 
-   Shapes graph   #DDEEBB green
-   data           #EEEEBB olive
-   report        #EEDDBB brown
-   sparql/text     #DDEEFF blue
-   syntax rules   #F6F6F6 grey
- NB: Githubpages not recognizing background: for color.  
-*/
+/*---------------------------------------------------------------------------*/
+/* Content Descriptions: Box formats                                         */
+/*---------------------------------------------------------------------------*/
 
 .rule{
   background-color: #F7F7F7; 
 }   
 
+/* data */
 .data{
   background-color: #EEEEBB; /* 238,238,187 */
 }
@@ -177,20 +140,93 @@ pre.data:before {
     font-weight: bold;
 }
 
+/* sms */
+.sms{
+  background-color: #F2F2F2; /* ,, */
+}
+pre.sms {
+  background: #F2F2F2;
+}
+pre.sms,
+pre.sms:before {
+    border: 1px solid #808080;  /*,, */
+}
+pre.sms:before {
+    color: #808080;
+    content: "SMS";
+    width: 4em;
+    font-weight: bold;
+}
 
-
+/* owl */
 .owl{
-  background-color: #F8E4F7;
-}  
+  background-color: #F8E4F7;  
+} 
 
+pre.owl {
+    background: #E4ECF8;  /* #E4ECF8 = 228,236,248 */
+}
+
+pre.owl,
+pre.owl:before {
+    border: 1px solid #417CD0;
+}
+pre.owl:before {
+    color: #417CD0;
+    content: "OWL";
+    width: 5em;
+    font-weight: bold;
+}
+
+/* shacl */
 .shacl{
   background-color: #DDEEBB;
 }  
-/*
-.report{
- background-color: #EEDDBB; 
+pre.shacl {
+    background: #deb;
 }
-*/
+
+pre.shacl,
+pre.shacl:before {
+    border: 1px solid #779E27;
+}
+pre.shacl:before {
+    color: #779E27;
+    content: "SHACL";
+    width: 5em;
+    font-weight: bold;
+}
+
+/* report */
+pre.report {
+    background: #EEDDBB;
+}
+pre.report,
+pre.report:before {
+    border: 1px solid #D09F41;   /* border around the report box */
+}
+pre.report:before {
+    color: #D09F41;  /* text color */
+    content: "Report";
+    width: 5em;
+    font-weight: bold;
+}
+
+/* sparql */
+pre.sparql {
+    background: #FAEAEF; /* background of box */
+} 
+pre.sparql,
+pre.sparql:before {
+    border: 1px solid #DA7093; /* border around the box. Same as Content Text color*/
+}
+pre.sparql:before {
+    color: #DA7093;  /* text color */
+    content: "SPARQL";
+    width: 6em;  /* width of the box surrouding the content */
+    font-weight: bold;
+}
+
 
 .code{
   font-family: courier;
@@ -294,10 +330,12 @@ pre {
 /* and then from www.w3.org/TR/shacl */                                            
 pre.shapes,
 pre.data,
+pre.sms,
 pre.owl,
 pre.shacl,
-pre.example-rule, 
 pre.report,
+pre.sparql,
+pre.example-rule, 
 pre.example-other {
     margin-left: 0;                         
     padding: 0 2em;                         
@@ -305,11 +343,14 @@ pre.example-other {
     padding: 1em;                           
 }                                           
 
-pre.data:before,                                             
-pre.shacl:before,
+pre.data:before,
+pre.sms:before,
 pre.owl:before,
+pre.shacl:before,
+pre.shacl:before,
+pre.report:before,
+pre.sparql:before,
 pre.example-rule:before, 
-pre.report:before,                 
 pre.example-other:before {                  
     background: white;                      
     display: block;                         
@@ -318,55 +359,7 @@ pre.example-other:before {
     padding: 0.2em 1em;                     
 }                                           
 
-
-
-
-
-
-pre.owl {
-    background: #E4ECF8;  /* #E4ECF8 = 228,236,248 */
-}
-pre.shapes,                                 
-pre.owl,
-pre.owl:before {
-    border: 1px solid #417CD0;
-}
-pre.owl:before {
-    color: #417CD0;
-    content: "OWL";
-    width: 5em;
-    font-weight: bold;
-}
-                                            
-pre.shacl {
-    background: #deb;
-}
-pre.shapes,                                 
-pre.shacl,
-pre.shacl:before {
-    border: 1px solid #779E27;
-}
-pre.shacl:before {
-    color: #779E27;
-    content: "SHACL";
-    width: 5em;
-    font-weight: bold;
-}
-
-pre.report {
-    background: #EEDDBB;
-}
-pre.report,
-pre.report:before {
-    border: 1px solid #D09F41;   /* border around the report box */
-}
-pre.report:before {
-    color: #D09F41;  /* text color */
-    content: "Report";
-    width: 5em;
-    font-weight: bold;
-}
-
+                                           
 
 /*TW RULE */
 pre.example-rule {                          

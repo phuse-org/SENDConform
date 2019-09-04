@@ -38,19 +38,19 @@ was filtered to include exclusively the DM domain for SEND 3.0. This resulted in
 
 Domain |Rule   |Category | Status| Reason for Exclusion
 ---|-------|-------  | ------ | -------------------
-DM | SD1001 | id      | <font class='available'>available</font> |
-DM | SD0083 | id      | <font class='available'>available</font> |
+DM | SD0083 | usubjid | [available](SHACL-AnimalSubject-Details.md) |
+DM | SD1001 | subjid  | [available](SHACL-AnimalSubject-Details.md) |
+DM | SD1002 | interval| [available](SHACL-AnimalSubject-ReferenceInterval-Details.md) |
 DM | SD0088 | date    | <font class='development'>development</font> |
 DM | SD0087 | date    | <font class='development'>development</font> |
-DM | SD1002 | interval| <font class='available'>available</font>|
-DM | SD0084 | age     | planned |
-DM | SD1129 | age     | planned |
+DM | SD0084 | age     | [available](SHACL-AnimalSubject-Age-Details.md) |
 DM | SD1121 | age     | planned |
-DM | SD2019 | age     | planned |
-DM | SD2023 | age     | planned |
-DM | SD2020 | age     | planned |
+DM | SD1129 | age     | planned |
+DM | SD2019 | age     | <font class='error'>excluded</font> | AGETXT (age range) not in source data
+DM | SD2020 | age     | <font class='error'>excluded</font> |
 DM | SD2021 | age     | planned |
 DM | SD2022 | age     | planned |
+DM | SD2023 | age     | <font class='error'>excluded</font> | Birthdate (BRTHTDTC) not present in source data
 DM | SD1259 | Set code    | planned |
 DM | SD1020 | dataset     | ?      | Requires link to SEND Ontology. May be added.
 DM | SD0069 | disposition | <font class='error'>excluded</font> | requires DS dataset
@@ -86,6 +86,11 @@ The project defines a number of basic shapes that re-use core components for dat
    Omitted data is shown as <font class='infoOmitted'>...</font>
 </pre>
 
+<pre class="sms">
+   Stardog Mapping Syntax, used to import CSV files to the database. 
+</pre>
+
+
 <pre class="owl">
    Contains an excerpt from an ontology that applies to the rule being described.
    Optional. Not all rules rely on ontologies. 
@@ -99,6 +104,13 @@ The project defines a number of basic shapes that re-use core components for dat
 <pre class="report">
   Excerpts from the SHACL Validation Report (the output results graph.)
 </pre>
+
+<pre class="sparql">
+  SPARQL commands to retrieve additional information based on values identified in the report. Data QC, etc. 
+</pre>
+
+
+
 
 <b>Next: </b>[Animal Subject Shape](SHACL-AnimalSubject-Details.md)
 <br/>

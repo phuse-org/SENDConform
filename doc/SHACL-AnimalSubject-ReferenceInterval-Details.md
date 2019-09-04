@@ -100,7 +100,7 @@ The shape tests the following conditions:
 Additional dates can be assessed by adding additional predicates as `sh:targetObjectsOf` if the date follows through the path `time:inXSDDate`.
 
 <pre class='shacl'>
-study:hasTypeXsdDate-Date a sh:NodeShape ;
+study:hasTypeXsdDateShape-Date a sh:NodeShape ;
   sh:targetObjectsOf time:hasBeginning ;
   sh:targetObjectsOf time:hasEnd ;
   sh:or (
@@ -451,7 +451,7 @@ The report identifies the interval for Animal Subject 99T1 where End Date preced
 
 <br/>
 
-<b>Next:</b>  COMING SOON: Animal Subject age. 
+<b>Next:</b> [Animal Subject Age](SHACL-AnimalSubject-Age-Details.md) 
 <br/>
 <br/>
 Back to [Top of page](#top) <br/>

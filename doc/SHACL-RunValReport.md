@@ -46,3 +46,5 @@ You may redirect the report to a text file on your local machine:
 ## TopBraid
 
 ***Instructions to be added.***
+<br/>
+Back to [Table of Contents](TableOfContents.md)

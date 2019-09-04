@@ -6,7 +6,7 @@
 # IN  : CSV generated from R
 # OUT : 
 # NOTE: 
-#        stardog-admin virtual import DM-CJ16050-R-map.TTL DM-CJ16050-R.CSV
+#        stardog-admin virtual import SENDConform DM-CJ16050-R-map.TTL DM-CJ16050-R.CSV
 # TODO: 
 ###############################################################################
 @prefix bibo:     <http://purl.org/ontology/bibo/> .
@@ -23,14 +23,26 @@
 @prefix study:    <https://w3id.org/phuse/study#> .
 @prefix time:     <http://www.w3.org/2006/time#> .
 @prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+# Animal Subject
+cj16050:Animal_{DMROWSHORTHASH_IM} 
+  rdf:type                    study:AnimalSubject ;
+  skos:prefLabel              "Animal {subjid}"^^xsd:string ;
+  study:hasReferenceInterval  cj16050:Interval_{DMROWSHORTHASH_IM} ;
+  study:hasSubjectID          cj16050:SubjectIdentifier_{subjid} ;
+  study:hasUniqueSubjectID    cj16050:UniqueSubjectIdentifier_{usubjid} ;
+  study:memberOf              cjprot:Set_{setcd} ;
+  study:memberOf              code:Species_{SPECIESCD_IM} ;
+  study:participatesIn        cj16050:AgeDataCollection_{DMROWSHORTHASH_IM} ;
+  study:participatesIn        cj16050:SexDataCollection_{DMROWSHORTHASH_IM} ;
+.
 
 # Animal Subject
 cj16050:Animal_{DMROWSHORTHASH_IM} 
   rdf:type                    study:AnimalSubject ;
   skos:prefLabel              "Animal {subjid}"^^xsd:string ;
   study:hasReferenceInterval  cj16050:Interval_{DMROWSHORTHASH_IM} ;
-  study:hasSubjectID          cj16050:SubjectIdentifier_{DMROWSHORTHASH_IM} ;
-  study:hasUniqueSubjectID    cj16050:UniqueSubjectIdentifier_{DMROWSHORTHASH_IM} ;
+  study:hasSubjectID          cj16050:SubjectIdentifier_{subjid} ;
+  study:hasUniqueSubjectID    cj16050:UniqueSubjectIdentifier_{usubjid} ;
   study:memberOf              cjprot:Set_{setcd} ;
   study:memberOf              code:Species_{SPECIESCD_IM} ;
   study:participatesIn        cj16050:AgeDataCollection_{DMROWSHORTHASH_IM} ;
@@ -53,22 +65,22 @@ cj16050:Date_{rfstdtc}
   study:dateTimeInXSDString  "{rfstdtc}"^^xsd:string ;
 .
 
-## End Date
+# End Date
 cj16050:Date_{rfendtc}
-  rdf:type                   study:Ref<div></div>erenceEnd ;
+  rdf:type                   study:ReferenceEnd ;
   skos:prefLabel             "Date {rfendtc}"^^xsd:string ;
   time:inXSDDate             "{rfendtc}"^^xsd:date ;
   study:dateTimeInXSDString  "{rfendtc}"^^xsd:string ;
 .
 
 # Subject Identifier
-cj16050:SubjectIdentifier_{DMROWSHORTHASH_IM}
-  rdf:type       study:SubjectIdentifier; 
+cj16050:SubjectIdentifier_{subjid}
+  rdf:type       study:SubjectIdentifier;
   skos:prefLabel "{subjid}"^^xsd:string ;
 .
 
 # Unique Subject Identifier
-cj16050:UniqueSubjectIdentifier_{DMROWSHORTHASH_IM}}
+cj16050:UniqueSubjectIdentifier_{usubjid}
   rdf:type       study:UniqueSubjectIdentifier ;
   skos:prefLabel "{usubjid}"^^xsd:string ;
 .
@@ -77,8 +89,9 @@ cj16050:UniqueSubjectIdentifier_{DMROWSHORTHASH_IM}}
 cj16050:AgeDataCollection_{DMROWSHORTHASH_IM}
   rdf:type       code:AgeDataCollection ;
   skos:prefLabel "Age data collection {subjid}"^^xsd:string ;
-  code:outcome   cj16050:Age_{age}_{ageu} ; 
-. 
+  code:outcome   cj16050:Age_{age}_{ageu} ;
+.
+
 # Age 
 cj16050:Age_{age}_{ageu}
   rdf:type study:Age ;
@@ -86,17 +99,17 @@ cj16050:Age_{age}_{ageu}
   time:hasXSDDuration  "{DURATION_IM}"^^xsd:duration ;
   time:numericDuration "{age}"^^xsd:decimal ;
   time:unitType        time:unit{AGEUNIT_IM} ;
- . 
- 
+.
+
 # Sex Data Collection
- cj16050:SexDataCollection_{DMROWSHORTHASH_IM}
+cj16050:SexDataCollection_{DMROWSHORTHASH_IM}
    rdf:type       code:SexDataCollection ;
    skos:prefLabel "Sex data collection {subjid}"^^xsd:string ;
-   code:outcome   code:Sex_{sex} ; 
- .
- 
+   code:outcome   code:Sex_{sex} ;
+.
+
 # Study Participants
 cjprot:Study_{studyid}
-  study:hasStudyParticipant cj16050:Animal_{subjid} ;
+  study:hasStudyParticipant cj16050:Animal_{DMROWSHORTHASH_IM} ;
 .
   

@@ -8,7 +8,10 @@ Project Documentation
 
 SEND data is converted to Linked Data as Resource Description Format (RDF) using an ontology-based schema.
 
-* [1.1 SEND Data Conversion and Mapping](DataConversion.md)  SAS XPT to RDF.
+* [1.1 SEND Data Conversion and Mapping](DataConversion.md)  
+    * SAS XPT to RDF for import into a triplestore.
+* [1.2 Data Mapping with Stardog SMS](DataMapping-StardogSMS.md)  
+    * Optionally map .CSV files to the database.
 
 ## 2. SHACL for Project Data
 
@@ -16,13 +19,15 @@ FDA Validation Rules are translated to SHACL to create validation reports.
 
 ### [2.1 Project scope, conventions](SHACL-Scope.md)
 
-* Start here for an introduction, then progress through the descriptions of rules and shapes in this section.
+* Start here for an introduction, then progress through the descriptions of rules and shapes in section 2.2.  This page also contains a list of the FDA rules within links to the pages that describe their representation in SHACL.
 
 ### 2.2 Shapes
 
 * AnimalSubject - Demographics Domain
-    * [Main Structure, Subject Identifiers](SHACL-AnimalSubject-Details.md)
+    * [Animal Subject Shape](SHACL-AnimalSubject-Details.md)
+    * [Identifiers USUBJID,SUBJID](SHACL-AnimalSubject-ID-Details.md)
     * [Reference Interval](SHACL-AnimalSubject-ReferenceInterval-Details.md) (start, end dates) 
+    * [Age](SHACL-AnimalSubject-Age-Details.md)
 
 ### [2.3 Running Validation Reports](SHACL-RunValReport.md)
 
