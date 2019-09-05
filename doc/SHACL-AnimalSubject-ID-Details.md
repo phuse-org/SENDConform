@@ -4,7 +4,6 @@
 Animal Subject Shape - USUBJID, SUBJID
 ==================================
 
-
 <a name='ruleSD0083'></a>
 
 ##  **USUBJID** : FDA Rule SD0083
@@ -200,7 +199,7 @@ SPARQL independtly confirms the report identifying `Animal_22218ae1c` as having 
 
 Implicit in the definition of USUBJID and Rule SD003 is the fact that the identifier should be assigned to one and only one Animal Subject.
 
-Test data Animal Subjects Animal_252450f2 and Animal_2706cb1e with duplicate USUBJID values
+Test data Animal Subjects Animal_252450f2 and Animal_2706cb1e have the same USUBJID values. 
 <pre class='data'>
 cj16050:<font class='nodeBold'>Animal_252450f2</font>
     a study:AnimalSubject ;
@@ -243,7 +242,7 @@ study:isUniqueShape-USubjID a sh:PropertyShape ;
 </pre>
 <br/>
 
-A Report is not provided because Method 2 was chosen over Method 1 for the reasons described below. The corresponding SPARQL to identify the USUBJID IRIs assigned to multiple AnimalSubjects is:
+A Report is not provided because Method 2 was chosen over Method 1 for the reasons described below. The corresponding SPARQL to identify the USUBJID IRIs assigned to multiple AnimalSubjects is provided for reference. Source file: [/SPARQL/Animal-ID.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-ID.rq)
 <pre class='sparql'>
   SELECT ?usubjidIRI (COUNT(?animalSubjectIRI) AS ?total) 
   WHERE{
@@ -311,8 +310,23 @@ a sh:ValidationResult ;
   <font class='infoOmitted'>...</font>
 </pre>
 <br/>
-<br/>
+SPARQL indpendently verifies `Animal_252450f2` and `Animal_2706cb1e` share the same USUBJID (and consequently the same label for the AnimalSubject and USUBJID). Source file: [/SPARQL/Animal-ID.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-ID.rq)
+<pre class='sparql'>
+SELECT ?animalSubjectIRI ?animalSubjectIRI2 ?animalLabel ?usubjidLabel 
+WHERE{
+  ?animalSubjectIRI  study:hasUniqueSubjectID ?usubjidIRI ;
+                     study:hasUniqueSubjectID ?usubjidIRI ;
+                     skos:prefLabel           ?animalLabel .
+  ?usubjidIRI        skos:prefLabel           ?usubjidLabel .
 
+  ?animalSubjectIRI2 study:hasUniqueSubjectID ?usubjidIRI ;
+                     study:hasUniqueSubjectID ?usubjid2IRI ;
+  FILTER ( ?animalSubjectIRI != ?animalSubjectIRI2 )
+}
+</pre>
+
+<br/>
+<br/>
 
 <a name='ruleSD1001'></a>
 
