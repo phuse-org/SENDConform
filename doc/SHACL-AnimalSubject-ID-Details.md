@@ -121,7 +121,7 @@ In violation of Rule Component 1 as detected by the constraint:
   <font class='infoOmitted'>...</font> 
 </pre>
 
-The report correctly identifies Animal Subject Animal_6204e90c as having more than one USUBJID value, violating the MaxConstraintComponent of FDA Rule SD0083.
+The Report correctly identifies Animal Subject Animal_6204e90c as having more than one USUBJID value, violating the MaxConstraintComponent of FDA Rule SD0083.
 <pre class='report'>
   a sh:ValidationResult ;
     sh:resultSeverity            sh:Violation ;
@@ -131,10 +131,33 @@ The report correctly identifies Animal Subject Animal_6204e90c as having more th
     sh:resultPath                study:hasUniqueSubjectID ;
     sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>
 </pre>
+
+The Reports lists the Animal Subject IRI which can be used in a SPARQL query to determine the USUBJID values. Source file: [/SPARQL/Animal-ID.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-ID.rq)
+<pre class='sparql'>
+  SELECT ?animalLabel ?usubjidLabel
+  WHERE{
+    cj16050:Animal_6204e90c study:hasUniqueSubjectID ?usubjidIRI ;
+                            skos:prefLabel           ?animalLabel .
+   ?usubjidIRI              skos:prefLabel           ?usubjidLabel .
+  }
+</pre>
+
+The Report is independently verified using SPARQL to identify `Animal_6204e90c` as having more than one USUBJID. Source file: [/SPARQL/Animal-ID.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-ID.rq)
+<pre class='sparql'>
+  SELECT ?animalSubjectIRI (COUNT(?usubjidIRI) AS ?total) 
+  WHERE{
+    ?animalSubjectIRI a                        study:AnimalSubject ;
+                      study:hasUniqueSubjectID ?usubjidIRI ;
+                      skos:prefLabel           ?animalLabel .
+    ?usubjidIRI       skos:prefLabel           ?usubjidLabel .
+  } GROUP BY ?animalSubjectIRI
+  HAVING (?total > 1)
+</pre>
+
 <br/>
 
 #### Test Case 2 : Animal Subject has no USUBJID value
-The AnimalSubject IRI `Animal_22218ae1` has not USUBJID (and no SUBJID).
+The AnimalSubject IRI `Animal_22218ae1` has no USUBJID (and no SUBJID).
 <pre class='data'>
   cj16050:Animal_22218ae1
     a study:AnimalSubject ;
@@ -143,8 +166,29 @@ The AnimalSubject IRI `Animal_22218ae1` has not USUBJID (and no SUBJID).
     study:participatesIn cj16050:AgeDataCollection_22218ae1, cj16050:SexDataCollection_22218ae1 .
 </pre>
 
-CONTENT TO BE ADDED
+The SHACL is identical to Test Case 1. 
 
+The Report correctly identifies AnimalSubject IRI `Animal_6204e90c` as violating the constraint, in this case have not USUBJID. 
+<pre class='report'>
+  a sh:ValidationResult ;                                                     
+    sh:resultSeverity sh:Violation ;                                        
+    sh:sourceShape study:hasMin1Max1Shape-USubjID ;
+    sh:focusNode cj16050:<font class='error'>Animal_22218ae1c</font> ;
+    sh:resultMessage <font class='msg'>"Subject --> USUBJID violation [SD0083]"</font> ;
+    sh:resultPath study:hasUniqueSubjectID ;       
+    sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>            
+</pre>
+
+SPARQL independtly confirms the report identifying `Animal_22218ae1c` as having no USUBJID. Source file: [/SPARQL/Animal-ID.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-ID.rq)
+
+<pre class="sparql">
+  SELECT ?animalIRI
+  WHERE{
+    ?animalIRI a study:AnimalSubject . 
+    OPTIONAL{ ?animalIRI study:hasUniqueSubjectID ?usubjid . }
+    FILTER(NOT EXISTS { ?animalIRI study:hasUniqueSubjectID ?usubjid. })
+}
+</pre>
 
 <br/>
 
