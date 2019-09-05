@@ -133,7 +133,35 @@ The report correctly identifies the value '7-DEC-16' as a string, violating the 
         sh:focusNode <font class='nodeBold'>cj16050:Date_7-DEC-16 </font>;
     ]
 </pre>
-<br/><br/>
+<br/>
+The Report identifies the dates "7-DEC-16"  and "6-DEC-16" (not shown above). Execute the following SPARQL to find corresponding Animal SUBJECT IRIs and values (`Animal 99T4` for date "7-Dec-16" and `Animal 99T10` for date "6-Dec-16"). Source file: [/SPARQL/Animal-RefInterval.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-RefInterval.rq)
+
+<pre class='sparql'>
+  SELECT ?animalSubjectIRI ?animalLabel ?date 
+  WHERE{
+    ?animalSubjectIRI a                          study:AnimalSubject ;
+                      skos:prefLabel             ?animalLabel ;
+                      study:hasReferenceInterval ?intervalIRI .
+
+    ?intervalIRI ?beginOrEnd     ?dateIRI .
+    ?dateIRI     time:inXSDDate  ?date .
+    FILTER (?dateIRI IN (cj16050:Date_6-DEC-16, cj16050:Date_7-DEC-16))
+  }
+</pre>
+
+SPARQL independently verifies the test case by finding the two dates that are incorrectly typed as strings. Source file: [/SPARQL/Animal-RefInterval.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-RefInterval.rq)
+
+<pre class='sparql'>
+  SELECT ?refIntervalIRI ?dateIRI ?date ?dateDType
+  WHERE{
+    ?refIntervalIRI a              study:ReferenceInterval ;
+                    ?beginOrEnd    ?dateIRI .
+    ?dateIRI        time:inXSDDate ?date .                
+    FILTER (datatype(?date) <font class='nodeBold' != xsd:date</font>)
+}
+</pre>
+
+
 
 <!--- RULE COMPONENT 2 ------------------------------------------------------->
 <a name='rc2'></a>
