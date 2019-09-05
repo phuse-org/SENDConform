@@ -47,7 +47,7 @@ Translation of Rule Components into SHACL and evaluation of test data is describ
 
 <div class='def'>
   <div class='def-header'>Description</div>
-  An Animal Subject must be assigned one and only one USUBJID. Missing and multiple USUBJID values are not allowed for an AnimalSubjects.
+  An Animal Subject must be assigned one and only one USUBJID. Missing and multiple USUBJID values are not allowed for an AnimalSubject.
 </div>
 
 Animal Subject 00M01 illustrates compliant data with a single USUBJID value.
@@ -99,14 +99,14 @@ study:hasMin1Max1Shape-USubjID
 </pre>
 <br/>
 
-#### Example Test Case
+#### Test Case 1 : Animal Subject Assigned Two USUBJID values 
 
-Test data for Animal Subject 99T11 shows *two* USUBJID values: 
+Test data for Animal Subject 99T11 (subject URI Animal_6204e90c) shows *two* USUBJID values: 
 <pre class='data'>
-cj16050:Animal_6204e90c
-  a                        study:AnimalSubject ;
-  skos:prefLabel           "Animal 99T11"^^xsd:string ;
-  study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050-99T11B</font>,
+  cj16050:Animal_6204e90c
+    a                        study:AnimalSubject ;
+    skos:prefLabel           "Animal 99T11"^^xsd:string ;
+    study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050-99T11B</font>,
                            cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T11</font> ;
   <font class='infoOmitted'>...</font> 
 </pre>
@@ -132,6 +132,20 @@ The report correctly identifies Animal Subject Animal_6204e90c as having more th
     sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>
 </pre>
 <br/>
+
+#### Test Case 2 : Animal Subject has no USUBJID value
+The AnimalSubject IRI `Animal_22218ae1` has not USUBJID (and no SUBJID).
+<pre class='data'>
+  cj16050:Animal_22218ae1
+    a study:AnimalSubject ;
+    study:hasReferenceInterval cj16050:Interval_22218ae1 ;
+    study:memberOf cjprot:Set_00, code:Species_Rat ;
+    study:participatesIn cj16050:AgeDataCollection_22218ae1, cj16050:SexDataCollection_22218ae1 .
+</pre>
+
+CONTENT TO BE ADDED
+
+
 <br/>
 
 <!--- SD003 Rule Component 3 ------------------------------------------------->
