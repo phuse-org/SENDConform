@@ -34,6 +34,7 @@ The Rule is deconstructed into the following components based on familiarity wit
 
 Translation of Rule Components into SHACL and evaluation of test data is described below. The first two Rule Components are satisfied by a single SHACL Shape while a second shape is employed for the third component. Test cases in addition to those documented on these pages are available in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
 
+---
 <a name='rc12'></a>
 
 ### Rule Components 1,2 : A single,non-missing USUBJID per Animal Subject.
@@ -193,6 +194,8 @@ SPARQL independtly confirms the report identifying `Animal_22218ae1c` as having 
 
 <!--- SD003 Rule Component 3 ------------------------------------------------->
 
+---
+
 <a name='rc3'></a>
 
 ### Rule Component 3: A USUBJID cannot be assigned to more than one Animal Subject
@@ -326,8 +329,8 @@ WHERE{
 </pre>
 
 <br/>
-<br/>
 
+--- 
 <a name='ruleSD1001'></a>
 
 ##  **SUBJID** : FDA Rule SD1001
