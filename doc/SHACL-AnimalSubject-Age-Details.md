@@ -30,7 +30,7 @@ FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Val
 
 ### Rule Component
 
-**1. [Value of AGE must be greater than or equal to 0. ](#rc1)**
+**1. [AGE must be greater than or equal to 0. ](#rc1)**
 
 # Data Structure
 
@@ -42,7 +42,7 @@ Refer back to **Figure 1** to see how age is indirectly associated with an Anima
 <!--- RULE COMPONENT 1 ------------------------------------------------------->
 <a name='rc1'></a>
 
-## Rule Component 1. Value of AGE must be greater than or equal to 0.
+## Rule Component 1. AGE must be greater than or equal to 0.
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
@@ -107,8 +107,7 @@ The report correctly identifies the value '-10'.
     ] ;
     sh:conforms false
 </pre>
-<br/><br/>
-
+<br/>
 The report lists the Age value and Age outcome IRI, but not the AnimalSubject associated with the offending value. SPARQL can be used to identify the Animal Subject using the Age Outcome IRI identified in teh report.  Source file: [/SPARQL/Animal-Age-LT0.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-Age-LT0.rq)
 <pre class='sparql'>
   SELECT ?animalLabel 
@@ -120,7 +119,7 @@ The report lists the Age value and Age outcome IRI, but not the AnimalSubject as
   }
 </pre>
 
-Another approach is to identify the Animal Subject using a SPARQL filter for  `age < 0`.  Source file: [/SPARQL/Animal-Age-LT0.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-Age-LT0.rq)
+SPARQL independently verfies the Animal Subject with  `age < 0`.  Source file: [/SPARQL/Animal-Age-LT0.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-Age-LT0.rq)
 
 <pre class='sparql'>
   SELECT ?animalIRI ?animalLabel ?age
@@ -136,7 +135,7 @@ Another approach is to identify the Animal Subject using a SPARQL filter for  `a
 
 ## Age XXX: FDA Rule SDxxxx
 
-The next rule will be defined here.
+The next AGE rule will be defined here.
 
 FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
 ------|-------------------|--------------------------|-----------------------------
