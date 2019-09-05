@@ -142,7 +142,7 @@ The Reports lists the Animal Subject IRI which can be used in a SPARQL query to 
   }
 </pre>
 
-The Report is independently verified using SPARQL to identify `Animal_6204e90c` as having more than one USUBJID. Source file: [/SPARQL/Animal-ID.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-ID.rq)
+SPARQL independently verifies  `Animal_6204e90c` as having more than one USUBJID. Source file: [/SPARQL/Animal-ID.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-ID.rq)
 <pre class='sparql'>
   SELECT ?animalSubjectIRI (COUNT(?usubjidIRI) AS ?total) 
   WHERE{
@@ -243,8 +243,20 @@ study:isUniqueShape-USubjID a sh:PropertyShape ;
 </pre>
 <br/>
 
-#### Method 2: **Identify the AnimalSubjects** that have the same USUBJID
+A Report is not provided because Method 2 was chosen over Method 1 for the reasons described below. The corresponding SPARQL to identify the USUBJID IRIs assigned to multiple AnimalSubjects is:
+<pre class='sparql'>
+  SELECT ?usubjidIRI (COUNT(?animalSubjectIRI) AS ?total) 
+  WHERE{
+    ?animalSubjectIRI a                        study:AnimalSubject ;
+                      study:hasUniqueSubjectID ?usubjidIRI ;
+                      skos:prefLabel           ?animalLabel .
+    ?usubjidIRI       skos:prefLabel           ?usubjidLabel .
+  } GROUP BY ?usubjidIRI
+  HAVING (?total > 1)
+</pre>
 
+
+#### Method 2: **Identify the AnimalSubjects** that have the same USUBJID
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
   The target *Class* `study:AnimalSubject` of the `sh:inversePath` of the predicate `study:hasUniqueSubjectID` must have a `sh:maxCount` of 1 .
