@@ -179,7 +179,7 @@ The Report correctly identifies AnimalSubject IRI `Animal_6204e90c` as violating
     sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>            
 </pre>
 
-SPARQL independtly confirms the report identifying `Animal_22218ae1c` as having no USUBJID. Source file: [/SPARQL/Animal-ID.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-ID.rq)
+SPARQL independently confirms the report identifying `Animal_22218ae1c` as having no USUBJID. Source file: [/SPARQL/Animal-ID.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-ID.rq)
 
 <pre class="sparql">
   SELECT ?animalIRI
@@ -313,7 +313,7 @@ a sh:ValidationResult ;
   <font class='infoOmitted'>...</font>
 </pre>
 <br/>
-SPARQL indpendently verifies `Animal_252450f2` and `Animal_2706cb1e` share the same USUBJID (and consequently the same label for the AnimalSubject and USUBJID). Source file: [/SPARQL/Animal-ID.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-ID.rq)
+SPARQL independently verifies `Animal_252450f2` and `Animal_2706cb1e` share the same USUBJID (and consequently the same label for the AnimalSubject and USUBJID). Source file: [/SPARQL/Animal-ID.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-ID.rq)
 <pre class='sparql'>
 SELECT ?animalSubjectIRI ?animalSubjectIRI2 ?animalLabel ?usubjidLabel 
 WHERE{
