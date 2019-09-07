@@ -352,17 +352,17 @@ for(i in 1:nrow(dm))
     rdf_add(some_rdf, 
       subject     = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
       predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
-      object      = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050-99T11B")
+      object      = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050_99T11B")
     )
     rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050-99T11B"),
+      subject     = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050_99T11B"),
       predicate   = paste0(RDF,  "type"), 
       object      = paste0(STUDY, "UniqueSubjectIdentifier")
     )
     rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050-99T11B"),
+      subject     = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050_99T11B"),
       predicate    = paste0(SKOS, "prefLabel"),
-      object       = paste0("CJ16050-99T11B"),
+      object       = paste0("CJ16050_99T11B"),
       objectType   = "literal", 
       datatype_uri = paste0(XSD,"string")
     )

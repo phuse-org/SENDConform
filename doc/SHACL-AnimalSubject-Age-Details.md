@@ -13,7 +13,7 @@ Animal Subject Shape - Demographics Domain
   
   ***Figure 1: Animal Subject Data Structure for Age***
 
-The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines numerous rules associated with Age in the DM domain. This project defines only a subset of these rules as SHACL Shapes. For example, the rule SD2019 "Invalid value for AGETXT" is not applicaple because the example study collects AGE (numeric) and not AGETXT (age range as a string). 
+The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines numerous rules associated with Age in the DM domain. This project defines only a subset of these rules as SHACL Shapes. For example, the rule SD2019 "Invalid value for AGETXT" is not applicable because the example study collects AGE (numeric) and not AGETXT (age range as a string). 
 
 The following rules are defined on this page:
 
@@ -51,7 +51,7 @@ Refer back to **Figure 1** to see how age is indirectly associated with an Anima
 
 <div class='def'>
   <div class='def-header'>Description</div>
-  The Age value must be greater than or equal to 0. While this study has not age=0, the check is constructed to satisify the FDA rule. 
+  The Age value must be greater than or equal to 0. While this study has not age=0, the check is constructed to satisfy the FDA rule. 
 </div>
 
 
@@ -108,7 +108,7 @@ The report correctly identifies the value '-10'.
     sh:conforms false
 </pre>
 <br/>
-The report lists the Age value and Age outcome IRI, but not the AnimalSubject associated with the offending value. SPARQL can be used to identify the Animal Subject using the Age Outcome IRI identified in teh report.  Source file: [/SPARQL/Animal-Age-LT0.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-Age-LT0.rq)
+The report lists the Age value and Age outcome IRI, but not the AnimalSubject associated with the offending value. SPARQL can be used to identify the Animal Subject using the Age Outcome IRI identified in the report.  Source file: [/SPARQL/Animal-Age-LT0.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-Age-LT0.rq)
 <pre class='sparql'>
   SELECT ?animalLabel 
   WHERE{
@@ -119,7 +119,7 @@ The report lists the Age value and Age outcome IRI, but not the AnimalSubject as
   }
 </pre>
 
-SPARQL independently verfies the Animal Subject with  `age < 0`.  Source file: [/SPARQL/Animal-Age-LT0.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-Age-LT0.rq)
+SPARQL independently verifies the Animal Subject with  `age < 0`.  Source file: [/SPARQL/Animal-Age-LT0.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-Age-LT0.rq)
 
 <pre class='sparql'>
   SELECT ?animalIRI ?animalLabel ?age
