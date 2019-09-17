@@ -1,0 +1,83 @@
+###############################################################################
+# FILE: Animal-ID.rq
+# DESC: Identify Animal Subjects that violate ID constraints. 
+#        a)
+#        b)
+# REQ : 
+# SRC : 
+# IN  : 
+# OUT : 
+# NOTE: 
+# TODO: 
+###############################################################################
+
+PREFIX cj16050: <https://example.org/cj16050#>
+PREFIX code:    <https://w3id.org/phuse/code#> 
+PREFIX skos:    <http://www.w3.org/2004/02/skos/core#> 
+PREFIX study:   <https://w3id.org/phuse/study#> 
+PREFIX time:    <http://www.w3.org/2006/time#>
+
+# a) Identify values from the report
+SELECT ?animalLabel ?usubjidLabel
+WHERE{
+  cj16050:Animal_6204e90c study:hasUniqueSubjectID ?usubjidIRI ;
+                            skos:prefLabel           ?animalLabel .
+   ?usubjidIRI              skos:prefLabel           ?usubjidLabel .
+}
+
+# b) Verify SHACL report
+SELECT ?animalSubjectIRI (COUNT(?usubjidIRI) AS ?total) 
+WHERE{
+  ?animalSubjectIRI a                        study:AnimalSubject ;
+                    study:hasUniqueSubjectID ?usubjidIRI ;
+                    skos:prefLabel           ?animalLabel .
+  ?usubjidIRI       skos:prefLabel           ?usubjidLabel .
+} GROUP BY ?animalSubjectIRI
+HAVING (?total > 1)
+
+  
+# c) Missing SUBJID
+SELECT ?animalIRI
+WHERE{
+  ?animalIRI a study:AnimalSubject . 
+  OPTIONAL{ ?animalIRI study:hasUniqueSubjectID ?usubjid . }
+  FILTER(NOT EXISTS { ?animalIRI study:hasUniqueSubjectID ?usubjid. })
+}
+
+
+# d) AnimalSubjects with same USUBJID
+SELECT ?animalIRI
+WHERE { 
+  ?animalIRI a                        study:AnimalSubject ;
+             study:hasUniqueSubjectID ?usubjid1, ?usubjid2 .
+  FILTER ( ?usubjid1 = ?usubjid22 )
+}
+
+
+
+# Identify USUBJID assigned to mutliple AnimalSubjects
+#  "Method 1", described in the documentation but not used.
+SELECT ?usubjidIRI (COUNT(?animalSubjectIRI) AS ?total) 
+WHERE{
+  ?animalSubjectIRI a                        study:AnimalSubject ;
+                    study:hasUniqueSubjectID ?usubjidIRI ;
+                    skos:prefLabel           ?animalLabel .
+  ?usubjidIRI       skos:prefLabel           ?usubjidLabel .
+} GROUP BY ?usubjidIRI
+HAVING (?total > 1)
+
+
+# Identify USUBJID assigned to mutliple AnimalSubjects
+#  "Method 2" as used and described in the documentation 
+
+SELECT ?animalSubjectIRI ?animalSubjectIRI2 ?animalLabel ?usubjidLabel 
+WHERE{
+  ?animalSubjectIRI  study:hasUniqueSubjectID ?usubjidIRI ;
+                     study:hasUniqueSubjectID ?usubjidIRI ;
+                     skos:prefLabel           ?animalLabel .
+  ?usubjidIRI        skos:prefLabel           ?usubjidLabel .
+
+  ?animalSubjectIRI2 study:hasUniqueSubjectID ?usubjidIRI ;
+                     study:hasUniqueSubjectID ?usubjid2IRI ;
+  FILTER ( ?animalSubjectIRI != ?animalSubjectIRI2 )
+}

@@ -26,11 +26,11 @@ body{
 .codeCom{
   color: #759e27;     /* dark green */
 }
-.development{
+.development, .omitted{
   font-weight: bold;
   font-style: italic;
 }
-.emph{
+.emph, {
   color: #00008b;     /* dark blue */
   font-weight: bold;
 }
@@ -227,6 +227,22 @@ pre.sparql:before {
     font-weight: bold;
 }
 
+/* queryResult */
+pre.queryResult {
+    background: #F9F9F9; /* background of box */
+} 
+pre.queryResult,
+pre.queryResult:before {
+    border: 1px solid #DA7093; /* border around the box. Same as Content Text color*/
+}
+pre.queryResult:before {
+    color: #DA7093;  /* text color */
+    content: "Query Result";
+    width: 8em;  /* width of the box surrouding the content */
+    font-weight: bold;
+}
+
+
 
 .code{
   font-family: courier;
@@ -335,6 +351,7 @@ pre.owl,
 pre.shacl,
 pre.report,
 pre.sparql,
+pre.queryResult,
 pre.example-rule, 
 pre.example-other {
     margin-left: 0;                         
@@ -350,6 +367,7 @@ pre.shacl:before,
 pre.shacl:before,
 pre.report:before,
 pre.sparql:before,
+pre.queryResult:before,
 pre.example-rule:before, 
 pre.example-other:before {                  
     background: white;                      

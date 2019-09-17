@@ -1,0 +1,25 @@
+###############################################################################
+# FILE: USUBJID-RC1RC2-TC2-Verify.rq
+# DESC: USUBJID Rule Component 1,2 , Test Case 2 Verification
+#
+#
+# REQ : 
+# SRC : 
+# IN  : 
+# OUT : 
+# NOTE: 
+# TODO: 
+###############################################################################
+
+PREFIX cj16050: <https://example.org/cj16050#>
+PREFIX code:    <https://w3id.org/phuse/code#> 
+PREFIX skos:    <http://www.w3.org/2004/02/skos/core#> 
+PREFIX study:   <https://w3id.org/phuse/study#> 
+PREFIX time:    <http://www.w3.org/2006/time#>
+
+SELECT ?animalIRI
+WHERE{
+  ?animalIRI a study:AnimalSubject ;
+  OPTIONAL{ ?animalIRI study:hasUniqueSubjectID ?usubjid . }
+  FILTER(NOT EXISTS { ?animalIRI study:hasUniqueSubjectID ?usubjid. })
+}

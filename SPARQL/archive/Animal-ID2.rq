@@ -1,0 +1,54 @@
+###############################################################################
+# FILE: Animal-ID.rq
+# DESC: Identify Animal Subjects that violate ID constraints. 
+#        a)
+#        b)
+# REQ : 
+# SRC : 
+# IN  : 
+# OUT : 
+# NOTE: 
+# TODO: 
+###############################################################################
+
+PREFIX cj16050: <https://example.org/cj16050#>
+PREFIX code:    <https://w3id.org/phuse/code#> 
+PREFIX skos:    <http://www.w3.org/2004/02/skos/core#> 
+PREFIX study:   <https://w3id.org/phuse/study#> 
+PREFIX time:    <http://www.w3.org/2006/time#>
+
+# a) Identify values from the report
+SELECT (COUNT(?usubjidIRI) AS ?total) ?animalLabel ?usubjidLabel
+WHERE{
+  ?animalSubjectIRI a                        study:AnimalSubject ;
+                    study:hasUniqueSubjectID ?usubjidIRI ;
+                    skos:prefLabel           ?animalLabel .
+  ?usubjidIRI       skos:prefLabel           ?usubjidLabel .
+} GROUP BY ?animalSubjectIRI
+HAVING (?total > 1)
+                        
+# b) Confirm report using SPARQL
+SELECT ?animalLabel ?usubjidLabel
+
+# c) Missing SUBJID
+#SELECT ?animalIRI
+#WHERE{
+#  ?animalIRI a study:AnimalSubject . 
+#  OPTIONAL{ ?animalIRI study:hasUniqueSubjectID ?usubjid . }
+#  FILTER(NOT EXISTS { ?animalIRI study:hasUniqueSubjectID ?usubjid. })
+#}
+
+# b)  Where age < 0 (without report information)
+#SELECT ?animalIRI ?animalLabel ?age
+#WHERE{
+#  ?animalIRI       study:participatesIn ?ageDataCollIRI ;
+##                   skos:prefLabel       ?animalLabel .
+#  ?ageDataCollIRI  code:outcome         ?ageIRI .
+#  ?ageIRI          time:numericDuration ?age .
+#  FILTER (?age < 0)
+#}
+
+  
+
+ 
+

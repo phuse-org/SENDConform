@@ -106,7 +106,13 @@ The project defines a number of basic shapes that re-use core components for dat
 </pre>
 
 <pre class="sparql">
-  SPARQL commands to retrieve additional information based on values identified in the report. Data QC, etc. 
+  SPARQL commands to retrieve additional information based on values identified in the report. 
+  Data QC, etc. 
+</pre>
+
+<pre class="queryResult">
+  Results of a SPARQL for tracing information from the Report back to additional information and to verify 
+  the SHACL constraint is catching all test cases. 
 </pre>
 
 

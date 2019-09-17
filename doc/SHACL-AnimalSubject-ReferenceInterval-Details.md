@@ -137,6 +137,7 @@ The report correctly identifies the value '7-DEC-16' as a string, violating the 
 The Report identifies the dates "7-DEC-16"  and "6-DEC-16" (not shown above). Execute the following SPARQL to find corresponding Animal SUBJECT IRIs and values (`Animal 99T4` for date "7-Dec-16" and `Animal 99T10` for date "6-Dec-16"). Source file: [/SPARQL/Animal-RefInterval.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-RefInterval.rq)
 
 <pre class='sparql'>
+  # RC1 : Find Subject with incorrect date format
   SELECT ?animalSubjectIRI ?animalLabel ?date 
   WHERE{
     ?animalSubjectIRI a                          study:AnimalSubject ;
@@ -149,19 +150,23 @@ The Report identifies the dates "7-DEC-16"  and "6-DEC-16" (not shown above). Ex
   }
 </pre>
 
+#### Verify
+
 SPARQL independently verifies the test case by finding the two dates that are incorrectly typed as strings. Source file: [/SPARQL/Animal-RefInterval.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/Animal-RefInterval.rq)
 
 <pre class='sparql'>
+  # RC1 : Independently verify with SPARQL
   SELECT ?refIntervalIRI ?dateIRI ?date ?dateDType
   WHERE{
     ?refIntervalIRI a              study:ReferenceInterval ;
                     ?beginOrEnd    ?dateIRI .
     ?dateIRI        time:inXSDDate ?date .                
-    FILTER (datatype(?date) <font class='nodeBold' != xsd:date</font>)
+    FILTER (datatype(?date) <font class='nodeBold'> != xsd:date</font>)
 }
 </pre>
+<br/><br/>
 
-
+---
 
 <!--- RULE COMPONENT 2 ------------------------------------------------------->
 <a name='rc2'></a>
@@ -169,6 +174,7 @@ SPARQL independently verifies the test case by finding the two dates that are in
 ### Rule Component 2: Subject has one Reference Interval
 
 <div class='ruleState'>
+
   <div class='ruleState-header'>Rule Statement</div>
   <code>:AnimalSubject</code>  <code>:hasReferenceInterval</code>  with <code>sh:minCount</code> and <code>sh:maxCount</code> of 1
 </div>
@@ -181,6 +187,9 @@ SPARQL independently verifies the test case by finding the two dates that are in
 This check determines if the Animal Subject has one and only one Reference Interval IRI. While it is possible to have an Interval IRI with no start date and no end date (see [Data Conversion](DataConversion.md)), this rule component only evaluates the case of missing Reference Interval IRIs. Multiple start/end dates for a single subject are evaluated in [Rule Component 3](#rc3). 
 
 Test data for Animal Subject 99T11 has no `study:hasReferenceInterval` .
+
+<font class='omitted'>Not tested:</font> AnimalSubject with <i>more than one</i> Reference Interval.
+
 <pre class='data'>
 cj16050:<font class='nodeBold'>Animal_6204e90c</font>
     a                        study:AnimalSubject ;
@@ -192,7 +201,7 @@ cj16050:<font class='nodeBold'>Animal_6204e90c</font>
 </pre>
 <br/>
 
-The study ontology defines`study:AnimalSubject` as a sub class of both `study:Subject` and `study:Animal`.  Study subjects, be they animal or person, are have a Reference Interval documenting their participation in a trial. Therefore, when the ontology is loaded into the database, the same constraint can be used for both pre-clinical (SEND) and clinical (SDTM) studies. This same ontological approach is taken for [USUBJID](SHACL-AnimalSubject-Details.md#rc12) and [SUBJID](SHACL-AnimalSubject-Details.md#ruleSD1001).
+The study ontology defines`study:AnimalSubject` as a sub class of both `study:Subject` and `study:Animal`.  Study subjects, be they animal or person, have a Reference Interval documenting their participation in a trial. Therefore, when the ontology is loaded into the database, the same constraint can be used for both pre-clinical (SEND) and clinical (SDTM) studies. This same ontological approach is taken for [USUBJID](SHACL-AnimalSubject-Details.md#rc12) and [SUBJID](SHACL-AnimalSubject-Details.md#ruleSD1001).
 
 <pre class='owl'>
 <font class='nodeBold'>study:Subject</font>
@@ -244,8 +253,40 @@ a sh:ValidationReport ;
       sh:sourceConstraintComponent sh:MinCountConstraintComponent                  
   ]                                                                                    
 </pre>
+
+SPARQL identifies the reported IRI as belonging to AnimalSubject 99T11, also confirming there is no `study:hasReferenceInterval` predicate.
+
+<pre class='sparql'>
+  # RC 2 : Information : predicates and objects for the IRI in the report
+  SELECT ?s ?p ?o
+  WHERE {
+    cj16050:Animal_6204e90c ?p ?o ;
+    BIND( IRI(cj16050:Animal_6204e90c) as ?s)  
+  }  ORDER BY ?p
+</pre>
+
+#### Verify
+
+Verification identifies Animal Subject 99T11 with no Reference Interval. 
+
+<pre class='sparql'>
+# RC 2 : Verify: Number of reference intervals per subject
+SELECT ?animalSubjectIRI ?animalLabel (COUNT(?intervalIRI) AS ?numIntervals )
+  WHERE{
+    ?animalSubjectIRI a study:AnimalSubject ;
+                      skos:prefLabel             ?animalLabel ;
+    OPTIONAL{
+        ?animalSubjectIRI study:hasReferenceInterval ?intervalIRI .
+    }    
+} # ORDER BY ?animalLabel
+ GROUP BY ?animalSubjectIRI ?animalLabel
+ HAVING (?numIntervals != 1 )
+</pre>
+
+
 <br/><br/>
 
+---
 
 <!--- RULE COMPONENT 3 ------------------------------------------------------->
 <a name='rc3'></a>
@@ -370,8 +411,57 @@ The report identifies the interval for Animal Subject 99T5 (`cj16050:Interval_db
     sh:sourceShape :RefIntervalDateShape ;
     sh:resultSeverity sh:Violation ;
 </pre>
-<br/>
 
+
+SPARQL can trace the  reference interval from the report back to AnimalSubject 99T5, showing this individual is missing `rfendtc`.
+<pre class='sparql'>
+SELECT ?animalLabel  ?beginDate ?endDate
+WHERE{ 
+  ?animalSubjectIRI study:hasReferenceInterval cj16050:Interval_db3c6403 ;
+                    skos:prefLabel    ?animalLabel .
+
+   OPTIONAL{
+     cj16050:Interval_db3c6403 time:hasBeginning ?beginIRI .
+     ?beginIRI time:inXSDDate  ?beginDate .
+   }
+   OPTIONAL{ 
+     cj16050:Interval_db3c6403 time:hasEnd ?endIRI .
+     ?beginIRI time:inXSDDate  ?beginDate .
+  }
+}
+</pre>
+
+#### Verify
+ The query below correctly lists the AnimalSubjects with start and end date data issues as 99T2, 99T5, 99T8, 99T9.
+ 
+ 
+<pre class='sparql'>
+# RC 3: Verify : Pull all subject IDs that od not have one start and one End date
+SELECT ?animalLabel ?beginDate ?endDate (COUNT(?beginDate) AS ?numBeginDate)
+       (COUNT(?endDate) AS ?numEndDate)
+WHERE{ 
+  ?animalSubjectIRI study:hasReferenceInterval ?intervalIRI ;
+                    skos:prefLabel             ?animalLabel .
+   OPTIONAL{
+     ?intervalIRI time:hasBeginning ?beginIRI .
+     ?beginIRI    time:inXSDDate    ?beginDate .
+   }
+    
+   OPTIONAL{ 
+     ?intervalIRI time:hasEnd     ?endIRI .
+     ?beginIRI    time:inXSDDate  ?endDate .
+  }
+} GROUP BY ?animalSubjectIRI ?animalLabel ?beginDate ?endDate
+  HAVING ((?numBeginDate != 1) || (?numEndDate != 1) )
+
+</pre>
+
+
+#### Verify
+
+<br/><br/>
+
+---
 
 <!--- RULE COMPONENT 4 ------------------------------------------------------->
 <a name='rc4'></a>
@@ -477,7 +567,55 @@ The report identifies the interval for Animal Subject 99T1 where End Date preced
   sh:focusNode cj16050:Interval_184f16eb 
 </pre>
 
-<br/>
+
+
+SPARQL traces the interval back to the AnimalSubject and date values.
+
+<pre class='sparql'>
+SELECT ?animalLabel (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
+WHERE {
+  ?animalSubjectIRI study:hasReferenceInterval ?intervalIRI ;
+                    skos:prefLabel             ?animalLabel .
+
+  ?intervalIRI time:hasBeginning  ?beginIRI .
+  ?beginIRI    time:inXSDDate     ?beginDate .
+      
+  ?intervalIRI time:hasEnd        ?endIRI .
+  ?endIRI    time:inXSDDate       ?endDate .
+  FILTER  (! (?endDate >= ?beginDate ))
+}
+</pre>
+
+
+#### Verify
+
+Verifcation confirms Animal Subject 99T1 and 99T2 with End Data preceding Start Date. Note how when the start date is a string it also flags AnimalSubject 99T10 as a violator. The SPARQL statement is very similar to the query used in the SHACL-SPARQL constraint. 
+
+<pre class='sparql'>
+  # RC4 : Verify : 
+  SELECT ?animalLabel (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
+  WHERE {
+    ?animalSubjectIRI study:hasReferenceInterval ?intervalIRI ;
+                      skos:prefLabel             ?animalLabel .
+  
+    ?intervalIRI time:hasBeginning  ?beginIRI .
+    ?beginIRI    time:inXSDDate     ?beginDate .
+        
+    ?intervalIRI time:hasEnd        ?endIRI .
+    ?endIRI    time:inXSDDate       ?endDate .
+    FILTER  (! (?endDate >= ?beginDate ))
+  }
+</pre>
+
+
+<pre class='queryResult'>
+  <b>animalLabel    intervaIRI                  intervalStart   intervalEnd</b>
+  "Animal 99T1"  cj16050:Interval_184f16eb   2016-12-07      2016-12-06
+  "Animal 99T10" cj16050:Interval_56cbc8c2   "6-DEC-16"      2016-12-07
+  "Animal 99T2"  cj16050:Interval_21316392   2016-12-08      2016-12-07
+</pre>
+
+
 
 <b>Next:</b> [Animal Subject Age](SHACL-AnimalSubject-Age-Details.md) 
 <br/>
