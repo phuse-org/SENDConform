@@ -589,7 +589,7 @@ WHERE {
 
 #### Verify
 
-Verifcation confirms Animal Subject 99T1 and 99T2 with End Data preceding Start Date. Note how when the start date is a string it also flags AnimalSubject 99T10 as a violator. The SPARQL statement is very similar to the query used in the SHACL-SPARQL constraint. 
+Verification confirms Animal Subject 99T1 and 99T2 with End Data preceding Start Date. Note how when the start date is a string it also flags AnimalSubject 99T10 as a violator. The SPARQL statement is very similar to the query used in the SHACL-SPARQL constraint. 
 
 <pre class='sparql'>
   # RC4 : Verify : 

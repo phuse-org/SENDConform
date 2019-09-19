@@ -17,3 +17,19 @@ PREFIX skos:    <http://www.w3.org/2004/02/skos/core#>
 PREFIX study:   <https://w3id.org/phuse/study#> 
 PREFIX time:    <http://www.w3.org/2006/time#>
 
+SELECT ?animalIRI ?animalLabel ?usubjid
+WHERE{
+  {
+    cj16050:Animal_252450f2 study:hasUniqueSubjectID ?usubjidIRI ;
+                            skos:prefLabel           ?animalLabel .
+    ?usubjidIRI             skos:prefLabel           ?usubjid .
+    BIND(IRI(cj16050:Animal_6204e90c) AS ?animalIRI )
+  }
+  UNION
+  {
+    cj16050:Animal_2706cb1e study:hasUniqueSubjectID ?usubjidIRI ;
+                            skos:prefLabel           ?animalLabel .
+    ?usubjidIRI             skos:prefLabel           ?usubjid .
+    BIND(IRI(cj16050:Animal_2706cb1e) AS ?animalIRI )
+  }
+}

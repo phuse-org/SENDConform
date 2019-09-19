@@ -1,20 +1,20 @@
 <link href="styles.css?v=1" rel="stylesheet"/>
 <a name='top'></a>
 
-Animal Subject Shape - USUBJID, SUBJID
+Identifiers USUBJID, SUBJID
 ==================================
-<font class='error'>PAGE UNDER CONSTRUCTION 2019-09-17 TO PRESENT</font>
 
 <a name='ruleSD0083'></a>
 
-##  **USUBJID** : FDA Rule SD0083
-
-***Figure 1*** shows the connection from the Animal Subject IRI to the USUBJID and SUBJID IRI's along with the associated  SHACL Shapes and SEND Rules.
+***Figure 1*** shows the connections from the Animal Subject IRI to the USUBJID and SUBJID IRI values. 
 
 <a name='figure1'/>
   <img src="images/AnimalSubjectStructure.PNG"/>
   
-  ***Figure 1: Animal Subject to ID Values, SHACL Shapes, FDA Rules***
+  ***Figure 1: Animal Subject Node to ID Values***
+
+##  **USUBJID** : FDA Rule SD0083
+
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for USUBJID in the DM Domain as:
 
@@ -54,50 +54,34 @@ Translation of Rule Components into SHACL and evaluation of test data is describ
 
 Animal Subject 00M01 illustrates compliant data with a single USUBJID value.
 <pre class='data'>
-cj16050:Animal_037c2fdc
-  a study:AnimalSubject ;
-  skos:prefLabel "Animal 00M01"^^xsd:string ;
-  <font class='goodData'>study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_CJ16050_00M01 </font> ;
+  cj16050:Animal_037c2fdc
+    a                        study:AnimalSubject ;
+    skos:prefLabel           "Animal 00M01"^^xsd:string ;
+    <font class='goodData'>study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_CJ16050_00M01 </font> ;
   <font class='infoOmitted'>...</font> 
 </pre>
 <br/>
 
-The study ontology defines`study:AnimalSubject` as a sub class of both `study:Subject` and `study:Animal`.  Study subjects, be they animal or person, are assigned the identifiers USUBJID and SUBJID. Therefore, when the ontology is loaded into the database, the same constraint can be used for both pre-clinical (SEND) and clinical (SDTM) studies.  
-
-<pre class='owl'>
-<font class='nodeBold'>study:Subject</font>
-  rdf:type owl:Class ;
-  rdfs:subClassOf study:Party ;
-  skos:prefLabel "Subject" ;
-.
-study:Animal
-  rdf:type owl:Class ;
-  rdfs:subClassOf study:BiologicEntity ;
-  skos:prefLabel "Animal" ;
-.
-<font class='nodeBold'>study:AnimalSubject</font>
-  rdf:type owl:Class ;
-  rdfs:subClassOf study:Animal ;
-  <font class='nodeBold'>rdfs:subClassOf study:Subject ;</font>
-  skos:prefLabel "Animal subject" ;
-.
-</pre>
-<br/>
-
-The SHACL shape `study:hasMin1Max1Shape-USubjID` evaluates the path `study:hasUniqueSubjectID` from the targetClass to determine if one and only one value of USSUBJID IRI is present. When the ontology is loaded, the more general `study:Subject` can be leveraged as the targetClass. The commented-out alternative is also provided for when the ontology is not loaded, or for cases where the constraint should only apply to `study:AnimalSubject` and not other classes like `study:HumanSubject`.
+The SHACL shape `study:hasMin1Max1Shape-USubjID` evaluates AnimalSubject via its attachment to the parent `study:AnimalSubjectShape`. It evaluates the path `study:hasUniqueSubjectID` from the targetClass to determine if one and only one value of USUBJID IRI is present. 
 
 <pre class='shacl'>
-# Unique Subject ID (USUBJID)
-study:hasMin1Max1Shape-USubjID 
+# Animal Subject Shape
+study:AnimalSubjectShape
   a              sh:NodeShape ;
-  <font class='nodeBold'>sh:targetClass study:Subject</font> ;  <font class='greyedOut'># Ontology</font>
-  <font class='greyedOut'># sh:targetClass study:AnimalSubject ; # No Ontology </font>
+  sh:targetClass study:AnimalSubject
+  <font class='nodeBold'>sh:property    study:hasMin1Max1Shape-USubjID </font> ;       
+ 
+ <font class='infoOmitted'>...</font> 
+
+# Unique Subject ID (USUBJID)
+study:<font class='nodeBold'>hasMin1Max1Shape-USubjID </font>
+  a              sh:PropertyShape ;
   sh:name        "minmaxUniqueSubjid" ;
   sh:description "A single, exclusive USUBJID must be assigned to a Subject." ;
   sh:message     "Subject --> USUBJID violation. [SD0083]" ;
-  sh:path study:hasUniqueSubjectID ;
-  sh:minCount  1 ;
-  sh:maxCount  1 .
+  <font class='nodeBold'>sh:path        study:hasUniqueSubjectID </font>;
+  sh:minCount    1 ;
+  sh:maxCount    1 .
 </pre>
 <br/>
 
@@ -109,11 +93,11 @@ Test data for Animal Subject 99T11 (subject URI Animal_6204e90c) shows *two* USU
     a                        study:AnimalSubject ;
     skos:prefLabel           "Animal 99T11"^^xsd:string ;
     study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050-99T11B</font>,
-                           cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T11</font> ;
+                             cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T11</font> ;
   <font class='infoOmitted'>...</font> 
 </pre>
 
-In violation of Rule Component 1 as detected by the constraint:
+Violation of Rule Component 1 as detected by the `sh:maxCount` constraint:
 
 <pre class='shacl'>
   <font class='infoOmitted'>...</font> 
@@ -139,7 +123,7 @@ The AnimalSubject IRI in the Report can be use to identify the USUBJID value tha
 <pre class='sparql'>
  SELECT ?animalIRI ?animalLabel ?usubjidLabel
   WHERE{
-    cj16050:Animal_6204e90c study:hasUniqueSubjectID ?usubjidIRI ;
+    cj16050:<font class="nodeBold">Animal_6204e90c</font>   study:hasUniqueSubjectID ?usubjidIRI ;
                               skos:prefLabel           ?animalLabel .
      ?usubjidIRI              skos:prefLabel           ?usubjidLabel .
      BIND(IRI(cj16050:Animal_6204e90c) AS ?animalIRI )
@@ -149,14 +133,14 @@ The query result shows Animal 99T11 is assigned two `usubjid`, in violation of t
 
 <pre class='queryResult'>
   animalIRI                  <b>animalLabel       usubjidLabel</b>
-  cj16050:Animal_6204e90c    "Animal 99T11"    "CJ16050-99T11B"
-  cj16050:Animal_6204e90c    "Animal 99T11"    "CJ16050_99T11"
+  cj16050:<font class='nodeBold'>Animal_6204e90c</font>    "Animal 99T11"    <font class='error'>"CJ16050-99T11B"</font>
+  cj16050:<font class='nodeBold'>Animal_6204e90c</font>    "Animal 99T11"    <font class='error'>"CJ16050_99T11"</font>
 </pre>
 
 
 #### Verify
 
-SPARQL independently verifies `Animal_6204e90c` as having more than one USUBJID. File: [/SPARQL/USUBJID-RC1RC2-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/USUBJID-RC1RC2-TC1-Verify.rq)
+SPARQL independently verifies `Animal_6204e90c` as having two USUBJID values. File: [/SPARQL/USUBJID-RC1RC2-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/USUBJID-RC1RC2-TC1-Verify.rq)
 <pre class='sparql'>
  SELECT ?animalSubjectIRI ?animalLabel (COUNT(?usubjidIRI) AS ?total) 
   WHERE{
@@ -171,7 +155,7 @@ SPARQL independently verifies `Animal_6204e90c` as having more than one USUBJID.
 
 <pre class='queryResult'>
   <b>animalSubjectIRI           animalLabel      total</b>
-  cj16050:Animal_6204e90c    "Animal 99T11"    2
+  cj16050:Animal_6204e90c    "Animal 99T11"   <font class='error'>2</font>
 </pre>
 
 <br/>
@@ -201,12 +185,12 @@ The Report correctly identifies AnimalSubject IRI `Animal_6204e90c` as violating
     sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>            
 </pre>
 
-The AnimalSubject IRI in the Report can be use to identify the Predicates and Objects to assist in identifying the problematic record where there is no `skos:prefLabel` available. File: [/SPARQL/USUBJID-RC1RC2-TC2-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/USUBJID-RC1RC2-TC2-Info.rq)
+The AnimalSubject IRI in the Report can be use to identify the value of Predicates and Objects attached to the AnimalSubject IRI in facilitate identification of the problematic record, since a missing USUBJID means no `skos:prefLabel` is available. File: [/SPARQL/USUBJID-RC1RC2-TC2-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/USUBJID-RC1RC2-TC2-Info.rq)
 
 <pre class="sparql">
   SELECT ?animalIRI ?p ?o
   WHERE{
-    cj16050:Animal_22218ae1 ?p ?o .
+    cj16050:<font class='nodeBold'>Animal_22218ae1</font> ?p ?o .
     BIND(IRI(cj16050:Animal_6204e90c) AS ?animalIRI )
   }
 </pre>
@@ -236,7 +220,7 @@ SPARQL independently confirms the report identifying `Animal_22218ae1c` as havin
 
 <pre class='queryResult'>
 animalIRI
-cj16050:Animal_22218ae1
+cj16050:<font class='error'>Animal_22218ae1</font>
 </pre>
 
 
@@ -252,7 +236,7 @@ cj16050:Animal_22218ae1
 
 Implicit in the definition of USUBJID and Rule SD003 is the fact that the identifier should be assigned to one and only one Animal Subject.
 
-Test data Animal Subjects Animal_252450f2 and Animal_2706cb1e have the same USUBJID values. 
+In the test data, Animal Subjects Animal_252450f2 and Animal_2706cb1e have the same USUBJID values. 
 <pre class='data'>
 cj16050:<font class='nodeBold'>Animal_252450f2</font>
     a study:AnimalSubject ;
@@ -281,7 +265,7 @@ There are multiple ways to assess the USUBJID requirement in SHACL-Core and SHAC
   Targeting the Object of (`sh:targetObjectsOf `) the inverse of (`sh:inversePath`) the predicate `study:hasUniqueSubjectID` identifies USBUJID values that are assigned to more than one AnimalSubject. This test is the most informative when trying to quickly identify <i>duplicate USUBJID values</i>. 
 </div>
 
-SHACL Shape for Method 1: Identify duplicate USUBJID values. This shape is applied to all uses of the predicate `study:hasUniqueSubjectID`, allowing its use for both SEND and SDTM data sets when this predicates is present.  
+SHACL Shape for Method 1: Identify duplicate USUBJID values. This shape is applied to all uses of the predicate `study:hasUniqueSubjectID`, allowing its use for both SEND and SDTM data sets when this predicate is present.  
 <pre class='shacl'>
 study:isUniqueShape-USubjID a sh:PropertyShape ; 
   <font class='nodeBold'>sh:targetObjectsOf study:hasUniqueSubjectID </font> ;
@@ -294,21 +278,12 @@ study:isUniqueShape-USubjID a sh:PropertyShape ;
   ] .
 </pre>
 <br/>
+A Report is not provided because Method 2 was chosen over Method 1 for the reasons described below. 
 
-A Report is not provided because Method 2 was chosen over Method 1 for the reasons described below. The corresponding SPARQL to identify the USUBJID IRIs assigned to multiple AnimalSubjects is provided for reference. File: [/SPARQL/USUBJID-RC3-M1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/USUBJID-RC3-M1-Verify.rq)
-<pre class='sparql'>
-  SELECT ?usubjidIRI (COUNT(?animalSubjectIRI) AS ?total) 
-  WHERE{
-    ?animalSubjectIRI a                        study:AnimalSubject ;
-                      study:hasUniqueSubjectID ?usubjidIRI ;
-                      skos:prefLabel           ?animalLabel .
-    ?usubjidIRI       skos:prefLabel           ?usubjidLabel .
-  } GROUP BY ?usubjidIRI
-  HAVING (?total > 1)
-</pre>
-
+<br/>
 
 #### Method 2: **Identify the AnimalSubjects** that have the same USUBJID
+
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
   The target *Class* `study:AnimalSubject` of the `sh:inversePath` of the predicate `study:hasUniqueSubjectID` must have a `sh:maxCount` of 1 .
@@ -320,18 +295,24 @@ A Report is not provided because Method 2 was chosen over Method 1 for the reaso
 
 </div>
 
-SHACL Shape for Method 2: Identify AnimalSubjects that have the same USUBJID value. Similar to [Rule Components 1,2](#rc12) it is once again possible to leverage an ontology to apply the constraint at the more general level of `study:Subject` targetClass. 
+Method 2 uses a property shape assigned to the `AnimalSubjectShape` and some magic around the path `study:hasUniqueSubjectID`.
 <pre class='shacl'>
-study:isUniqueShape-USubjID a sh:PropertyShape ; 
-  <font class='nodeBold'>sh:targetClass study:Subject</font> ;  <font class='greyedOut'># Ontology</font>
-  <font class='greyedOut'># sh:targetClass study:AnimalSubject ; # No Ontology </font>
-  sh:property [
+  # Animal Subject Shape
+  study:AnimalSubjectShape
+    a              sh:NodeShape ;
+    sh:targetClass study:AnimalSubject
+    sh:property    study:hasMin1Max1Shape-USubjID  ;       
+    <font class='nodeBold'>sh:property    study:isUniqueShape-USubjID</font>
+    <font class='infoOmitted'>...</font> 
+   
+<font class='nodeBold'>study:isUniqueShape-USubjID </font>
+  a  sh:PropertyShape ; 
     sh:name            "uniqueUSubjid" ;
     sh:description     "A USUBJID must only be assigned to one Subject." ;
     sh:message         "USUBJID assigned to more than one Subject. [SD0083]" ;
-    <font class='nodeBold'>sh:path (study:hasUniqueSubjectID [sh:inversePath study:hasUniqueSubjectID]) </font>;
-    sh:maxCount 1
-  ] .
+    <font class='nodeBold'>sh:path (study:hasUniqueSubjectID [sh:inversePath study:hasUniqueSubjectID]) ;
+    sh:maxCount 1 </font>;
+   .
 </pre>
 
 ***Method 2 was chosen for consistency with the other checks in this section that focus on the identification of AnimalSubjects that fail constraints.***
@@ -364,37 +345,51 @@ a sh:ValidationResult ;
 </pre>
 <br/>
 
-
-File: [/SPARQL/USUBJID-RC3-M2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/USUBJID-RC3-M2-Verify.rq)
+Use the AnimalSubject IRI values to identify the `usubjid`. File: [/SPARQL/USUBJID-RC3-M2-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/USUBJID-RC3-M2-Info.rq)
 <pre class='sparql'>
-ADD
+  SELECT ?animalIRI ?animalLabel ?usubjid
+  WHERE{
+    {
+      cj16050:<font class='nodeBold'>Animal_252450f2</font> study:hasUniqueSubjectID ?usubjidIRI ;
+                            skos:prefLabel           ?animalLabel .
+      ?usubjidIRI             skos:prefLabel           ?usubjid .
+      BIND(IRI(cj16050:Animal_6204e90c) AS ?animalIRI )
+    }
+    UNION
+    {
+      cj16050:<font class='nodeBold'>Animal_2706cb1e</font> study:hasUniqueSubjectID ?usubjidIRI ;
+                              skos:prefLabel           ?animalLabel .
+      ?usubjidIRI             skos:prefLabel           ?usubjid .
+      BIND(IRI(cj16050:Animal_2706cb1e) AS ?animalIRI )
+    }
+  }
 </pre>
 
 <pre class='queryResult'>
-ADD
+  <b>animalIRI                   animalLabel       usubjid</b>
+  cj16050:Animal_6204e90c	  "Animal 99DUP1"	  <font class='error'>"CJ16050_99DUP1"</font>
+  cj16050:Animal_2706cb1e	  "Animal 99DUP1"	  <font class='error'>"CJ16050_99DUP1"</font>
 </pre>
-
 
 
 
 #### Verify
-SPARQL independently verifies `Animal_252450f2` and `Animal_2706cb1e` share the same USUBJID (and consequently the same label for the AnimalSubject and USUBJID). File: [/SPARQL/USUBJID-RC3-M2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/USUBJID-RC3-M2-Verify.rq)
+Independently verify `Animal_252450f2` and `Animal_2706cb1e` share the same USUBJID (and consequently the same label for the AnimalSubject and USUBJID). File: [/SPARQL/USUBJID-RC3-M2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/USUBJID-RC3-M2-Verify.rq)
 <pre class='sparql'>
-SELECT ?animalSubjectIRI ?animalSubjectIRI2 ?animalLabel ?usubjidLabel 
-WHERE{
-  ?animalSubjectIRI  study:hasUniqueSubjectID ?usubjidIRI ;
-                     study:hasUniqueSubjectID ?usubjidIRI ;
-                     skos:prefLabel           ?animalLabel .
-  ?usubjidIRI        skos:prefLabel           ?usubjidLabel .
-
-  ?animalSubjectIRI2 study:hasUniqueSubjectID ?usubjidIRI ;
-                     study:hasUniqueSubjectID ?usubjid2IRI ;
-  FILTER ( ?animalSubjectIRI != ?animalSubjectIRI2 )
-}
+  SELECT ?animalIRI ?usubjid 
+  WHERE{
+    
+    ?animalIRI  study:hasUniqueSubjectID ?usubjidIRI ;
+                skos:prefLabel           ?usubjid .
+    ?animalIRI2  study:hasUniqueSubjectID ?usubjidIRI .
+    FILTER(?animalIRI != ?animalIRI2)
+  }
 </pre>
 
 <pre class='queryResult'>
-ADD
+  <b>animalIRI                 usubjid</b>
+  cj16050:Animal_2706cb1e   "Animal 99DUP1"
+  cj16050:Animal_252450f2   "Animal 99DUP1"
 </pre>
 
 

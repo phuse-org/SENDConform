@@ -46,13 +46,13 @@ cj16050:Animal_037c2fdc
 </pre>
 <br/>
 
-<font class='shapeName'>AnimalSubjectShape</font> references numerous shapes using `sh:property`. Click on the hyperlinks in the SHACL statements below to navigate to details of each rule and its related SHACL shape. 
+The Node Shape `study:AnimalSubjectShape` describes nodes of the class `study:AnimalSubject` . 
 
 <pre class='shacl'>
 # Animal Subject Shape
 study:AnimalSubjectShape
-  a              sh:NodeShape ;
-  sh:targetClass study:AnimalSubject ;
+  a              <font class='nodeBold'>sh:NodeShape </font>;
+  <font class='nodeBold'>sh:targetClass study:AnimalSubject </font>;
   sh:property    study:hasMin1Max1Shape-USubjID ;        # Rule SD0083
   sh:property    study:isUniqueShape-USubjID ;           # Rule SD0083
   sh:property    study:hasMin1Max1Shape-SubjID ;         # Rule SD1001
@@ -65,8 +65,28 @@ study:AnimalSubjectShape
   
   <font class='infoOmitted'>... more property shapes will be added as they are developed</font>
 </pre>
-<br/>
 
+If an ontology defines `study:AnimalSubject` as a subclass of `study:Subject`, then shapes could use the `sh:targetClass` `study:Subject` (assuming common constraints for both classes.) This will work will use the target class `study:AnimalSubject` for simplicity and not leverage the ontology.
+
+<pre class='owl'>
+<font class='nodeBold'>study:Subject</font>
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:Party ;
+  skos:prefLabel "Subject" ;
+.
+study:Animal
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:BiologicEntity ;
+  skos:prefLabel "Animal" ;
+.
+<font class='nodeBold'>study:AnimalSubject</font>
+  rdf:type owl:Class ;
+  rdfs:subClassOf study:Animal ;
+  <font class='nodeBold'>rdfs:subClassOf study:Subject ;</font>
+  skos:prefLabel "Animal subject" ;
+.
+</pre>
+<br/>
 
 <b>Next: </b>[Identifiers USUBJID, SUBJID](SHACL-AnimalSubject-ID-Details.md)
 <br/>

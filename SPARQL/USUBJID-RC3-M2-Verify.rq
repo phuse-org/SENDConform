@@ -1,8 +1,6 @@
 ###############################################################################
 # FILE: USUBJID-RC3-M2-Verify.rq
 # DESC: USUBJID Rule Component 3, Method 2 Verify
-#
-#
 # REQ : 
 # SRC : 
 # IN  : 
@@ -17,11 +15,12 @@ PREFIX skos:    <http://www.w3.org/2004/02/skos/core#>
 PREFIX study:   <https://w3id.org/phuse/study#> 
 PREFIX time:    <http://www.w3.org/2006/time#>
 
-SELECT ?usubjidIRI (COUNT(?animalSubjectIRI) AS ?total) 
-  WHERE{
-    ?animalSubjectIRI a                        study:AnimalSubject ;
-                      study:hasUniqueSubjectID ?usubjidIRI ;
-                      skos:prefLabel           ?animalLabel .
-    ?usubjidIRI       skos:prefLabel           ?usubjidLabel .
-  } GROUP BY ?usubjidIRI
-  HAVING (?total > 1)
+SELECT ?animalIRI ?usubjid 
+WHERE{
+    
+  ?animalIRI  study:hasUniqueSubjectID ?usubjidIRI ;
+               skos:prefLabel           ?usubjid .
+  ?animalIRI2  study:hasUniqueSubjectID ?usubjidIRI .
+  FILTER(?animalIRI != ?animalIRI2)
+}
+    
