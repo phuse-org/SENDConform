@@ -21,7 +21,7 @@ The Pharmaceutical Industry has long-relied on relational database systems and r
 # Graph Data
 Our work represents data using Resource Description Framework (RDF), where a Subject Node is linked to an Object Node by a Predicate that supplies a meaningful relation between the two nodes.
 
-<img src="doc/images/SubjectPredicateObject.PNG" width=500/>
+<img src="doc/images/SubjectPredicateObject.PNG" width="500">
 
 **Figure 1: Building Blocks of RDF: Subject, Predicate, Object**
 
