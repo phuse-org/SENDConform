@@ -21,7 +21,8 @@ The Pharmaceutical Industry has long-relied on relational database systems and r
 # Graph Data
 Our work represents data using Resource Description Framework (RDF), where a Subject Node is linked to an Object Node by a Predicate that supplies a meaningful relation between the two nodes.
 
-<img src="images/SubjectPredicateObject.PNG"/>
+<img src="doc/images/SubjectPredicateObject.PNG" width=500/>
+
 **Figure 1: Building Blocks of RDF: Subject, Predicate, Object**
 
 
@@ -31,7 +32,7 @@ When data has shape, it makes sense to define validation rules in terms of shape
 
 
 
-<img src="images/SHACLShapeConcept.PNG"/>
+<img src="doc/images/SHACLShapeConcept.PNG"/>
 
 **Figure 2: SHACL Shapes Concept for Data Validation**
 
