@@ -19,7 +19,7 @@ FDA Validation Rules are translated to SHACL to create validation reports.
 
 ### [2.1 Project scope, conventions](SHACL-Scope.md)
 
-* Start here for an introduction, then progress through the descriptions of rules and shapes in section 2.2.  This page also contains a list of the FDA rules within links to the pages that describe their representation in SHACL.
+Start here for an introduction, then progress through the descriptions of rules and shapes in section 2.2.  This page also contains a list of the FDA rules within links to the pages that describe their representation in SHACL.
 
 ### 2.2 Shapes
 
@@ -49,7 +49,7 @@ FDA Validation Rules are translated to SHACL to create validation reports.
 
 * Resources for learning SHACL and other references.
 
-### [3.5 Ontology](Ontology-Ref.md)
+### [3.5 Ontology Development and Documentation](Ontology-Ref.md)
 
 * Ontology details.  *To be added*
 

@@ -22,7 +22,7 @@ SAS transport XPT data files for conversion and testing are located in the folde
 
 These files are read in by the conversion scripts. Converted data is exported to the /ttl folder:
 <pre>
-    SENDConform/data/studies/<font class="parameter">Study Name</font>/**ttl**
+    SENDConform/data/studies/<font class="parameter">Study Name</font>/<b>ttl<b>
 </pre>
 
 The /csv folder contains data in comma-delimited format for ease of viewing the data in  Excel. These files are raw, source data and are not used for mapping into the triplestore.
@@ -33,7 +33,7 @@ The /csv folder contains data in comma-delimited format for ease of viewing the 
 
 ## Test Case Data
 
-The data conversion process adds observations to test the various SHACL shapes that represent the rule components. Test observations are identified by `subjid` and `usubjid` values containing the pattern 99T<font class='parameter'>n</font>, in contrast to the original study data values of 00M0<font class='parameter'>n</font>. The [Data Conversion](DataConversion.md) page provides additional details. Test cases are documented in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
+The data conversion process adds observations as violations to the various SHACL shapes that represent the rule components. Test observations are identified by `subjid` and `usubjid` values containing the pattern 99T<font class='parameter'>n</font>, in contrast to the original study data values of 00M0<font class='parameter'>n</font>. Test cases are documented in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
 
 
 
@@ -54,9 +54,9 @@ However, the use of SUBJID is fraught with problems. Consider cases where:
 
 A solution is to create IRIs for critical components like **Animal Subject** and **Reference Interval** that are independent from values in the source data. For the purpose of this prototype, a truncated SHA-1 hash of a randomly generated value (with a known seed value) is used to create select IRIs where missing, duplicate, or partial data would be problematic.
 
-Following this method:
+When this method of IRI generation is followed:
 
-* IRIs remain constant during multiple runs during project development. 
+* IRIs remain constant throughout multiple project development runs over time.
 * IRIs for subjects, intervals, and other critical components become independent of the source data.
 * Testing for duplicate, missing, and incorrect instance data becomes possible thanks to IRIs that are independent from instance data.
 
@@ -67,13 +67,15 @@ Methods to generate UIDs for subjects in real-world settings is beyond the manda
 
 ### Reference Interval IRIs
 
-Date values for reference start date (rfstdtc) and reference end date (rfendtc) are not directly attached to the Animal Subject IRI. Rather, the <code>cj16050:Animal_<font class="parameter">hashvalue</font></code> has a Reference Interval IRI <code>cj16050:Interval_<font class="parameter">hashvalue</font></code> which in turn has two date IRIs attached via the `time:hasBeginning` and `time:hasEnd` predicates (**Figure 1**).  
+The modeling of Reference Intervals for Animal Subjects require some explanation as they may not be constructed in a way that you expect.
+
+Date values for reference start date (rfstdtc) and reference end date (rfendtc) are not directly attached to the Animal Subject IRI. Rather, the Animal Subject IRI <code>cj16050:Animal_<font class="parameter">hashvalue</font></code> is attached to a Reference Interval IRI <code>cj16050:Interval_<font class="parameter">hashvalue</font></code> which in turn has two date IRIs attached via the `time:hasBeginning` and `time:hasEnd` predicates (**Figure 1**).  
 
 <img src="images/RefIntervalStructureDateFail.PNG"/>
 
 **Figure 1: Animal_99T1 (incomplete data)**
 
-Reference Interval IRIs are still created when either start or end date is missing (**Figure 2**), because the data for the non-missing date  must be captured in the graph. A Reference Interval may also be created when ***both*** start and end dates are missing. 
+Reference Interval IRIs are created even when either start date or end date is missing (**Figure 2**), because the data for the corresponding non-missing date must still be represented in the graph. A Reference Interval is  also be created when ***both*** start and end dates are missing, showing that the concept of the interval is still present but the data supporting it is not available. 
 
 <img src="images/RefIntervalStructureMissEndDate.PNG"/>
 
@@ -91,15 +93,19 @@ See the [Animal Subject Reference Interval](SHACL-AnimalSubject-ReferenceInterva
 
 ## R Programs
 
+R scripts for data conversion are located in the `/r` folder.
+
 | Order  | File                 | Description                                  |
 | ------ | -------------------- | ---------------------------------------------|
 | 1.     | driver.R             | Main driver program for data conversion. Graph metadata creation.|
-| 2.     | DM_convert.R         | DM instance data conversion to TTL, addition of observations to test constraints. (Under construction)|
-| 3.     | TS_convert.R         | TS instance data conversion to TTL, addition of observations to test constraints. (Not yet written)|
+| 2.     | DM-convert.R         | DM instance data conversion to TTL, addition of observations to test constraints. (Under construction)|
+| 3.     | TS-convert.R         | TS instance data conversion to TTL, addition of observations to test constraints. (Not yet written)|
 
 
 ## Graph Metadata 
-Graph metadata, including data conversion date and graph version, is created within the **driver.R** script and exported to a TTL file for upload into the triplestore and a corresponding .csv file for SMS mapping purposes.
+Graph metadata, including data conversion date and graph version, is created within the **driver.R** script and exported to a TTL file for upload into the triplestore. A corresponding .csv file is created for SMS mapping purposes.
+
+The .csv and .ttl files are located in the folder:  `\data\studies\<font class="parameter">Study Name</font>\ttl`
 
 | File      | Role                     | Description                                  |
 | --------- | ------------------------ | ---------------------------------------------|
@@ -110,16 +116,19 @@ Graph metadata, including data conversion date and graph version, is created wit
 
 ## DM 
 
+
+The .csv and .ttl files are located in the folder:  `\data\studies\<font class="parameter">Study Name</font>\ttl`
+
 | File      | Role                     | Description                                  |
 | --------- | ------------------------ | ---------------------------------------------|
 | DM-CJ16050.CSV | Demographics        | May be a subset during development. 
 | DM-CJ16050-R-map.TTL | SMS Map       | Map CSV to Stardog graph. 
 | DM-CJ16050-R.TTL | RDF Triples       | TTL file for loading directly into triplestore. 
 
-### CJ16050
+### Considerations for Study: CJ16050
 #### Data Imputation
 
-Creation of values not in the original study data, or located in domains that are not part of the pilot.
+Creation of values not in the original study data, or located in domains that are not part of the pilot include:.
 
 | Variable     | Value(s)            | Description                                  |
 | ------------ | ------------------- | ---------------------------------------------|

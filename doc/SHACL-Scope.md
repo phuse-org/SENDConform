@@ -8,7 +8,7 @@ Project Scope, Conventions
 The prototype uses data from the study "RE Function in Rats", located in the repository 
 at [/data/studies/RE Function in Rats](https://github.com/phuse-org/SENDConform/tree/master/data/studies/RE%20Function%20in%20Rats) and is limited to the Demographics (DM) and Trial Summary (TS) domains. Original source data is converted to .TTL using the driver script [r/driver.R](https://github.com/phuse-org/SENDConform/blob/master/r/driver.R) as described on the [Data Conversion](DataConversion.md) page. 
 
-The converted data file used for developing SHACL is available here: [SHACL/CJ16050Constraints/DM-CJ16050-R.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/DM-CJ16050-R.TTL) 
+The converted RDF data used for developing SHACL is available here: [SHACL/CJ16050Constraints/DM-CJ16050-R.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/DM-CJ16050-R.TTL) 
 
 Instructions on how to create validation reports in Stardog is available on the [Running Validation Reports](SHACL-RunValReport.md) page.
 
@@ -31,12 +31,14 @@ The project team considered two alternative approaches to modeling the SEND Rule
 
 The second approach was chosen for the project.
 
-Because the prototype is limited to the TS and DM domains to RDF, only a subset of the rules for each domain will be developed. Rules that cross multiple studies (example: identifiers that must be unique across multiple trials) are only evaluated within the context of the single-study in the prototype. To obtain the list of rules, the [FDA Validator Rules Workbook](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx)
-was filtered to include exclusively the DM domain for SEND 3.0. This resulted in a list of 19 rules that are specific to that DM domain. Of these, only 14 are independent of other domains. Rule SD1020 is dependent on the SEND ontology and may be added at a later time.
+Not all the rules for the selected DM and TS domains are modeled. Some rules cross multiple studies (example: identifiers that must be unique across multiple trials) and can only be evaluated within the context of the single-study in the prototype. Other rules cross mutliple domains that are not included in initial development and may be reconsidered as project scope expands to include additional domains.
+
+DM was chosen for initial development and the list of relevant rules was seledcted from the [FDA Validator Rules Workbook](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx)
+by filtering exclusively on the DM domain for SEND 3.0. This resulted in a list of *19 rules* specific to the DM domain. Of these, only 14 are independent of other domains. Additionnally, Rule SD1020 is dependent on the SEND ontology and may be added at a later time.
 
 **Table 1. Rules Exclusive to DM Domain**
 
-Domain |Rule   |Category | Status| Reason for Exclusion
+Domain |Rule   |Category | SHACL Dev Status| Reason for Exclusion
 ---|-------|-------  | ------ | -------------------
 DM | SD0083 | usubjid | [available](SHACL-AnimalSubject-Details.md) |
 DM | SD1001 | subjid  | [available](SHACL-AnimalSubject-Details.md) |
@@ -68,7 +70,7 @@ The project defines a number of basic shapes that re-use core components for dat
 
 # Content Conventions
 
- Color coding provides a content guide. 
+ Color coding provides a guide to the content describing the shapes.
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
@@ -83,7 +85,7 @@ The project defines a number of basic shapes that re-use core components for dat
 <pre class="data">
    This box contains a subset of data that serves as input to test the shapes graph. 
    Intentional error values are <font class='error'>highlighted in red.</font>
-   Omitted data is shown as <font class='infoOmitted'>...</font>
+   Data not relevant to the discussion is and omitted is shown as <font class='infoOmitted'>...</font>
 </pre>
 
 <pre class="sms">
@@ -93,12 +95,12 @@ The project defines a number of basic shapes that re-use core components for dat
 
 <pre class="owl">
    Contains an excerpt from an ontology that applies to the rule being described.
-   Optional. Not all rules rely on ontologies. 
+   Optional. Not all rules rely on the project ontologies. 
 </pre>
 
 
 <pre class="shacl">
-  This box contains a representation of the shapes graph (in full or in part). 
+  Contains a representation of the shapes graph (in full or in part). 
 </pre> 
 
 <pre class="report">
@@ -106,12 +108,11 @@ The project defines a number of basic shapes that re-use core components for dat
 </pre>
 
 <pre class="sparql">
-  SPARQL commands to retrieve additional information based on values identified in the report. 
-  Data QC, etc. 
+  SPARQL commands to retrieve additional information based on values identified in the report or to validate the validation report.
 </pre>
 
 <pre class="queryResult">
-  Results of a SPARQL for tracing information from the Report back to additional information and to verify 
+  Results of a SPARQL query for tracing information from the Report back to additional information or to verify 
   the SHACL constraint is catching all test cases. 
 </pre>
 

@@ -6,7 +6,7 @@
 Stardog Mapping Syntax (SMS) [(stardog.com)](https://www.stardog.com/docs/#_stardog_mapping_syntax) is provided as an alternative data mapping and upload process. The same data conversion scripts that produce TTL files for upload into a triplestore also create a .CSV file that can be mapped to the database. ***The .CSV files do not contain the full set of data for evaluating the test cases.***
 
 
-Why create this redundancy when the data does not contain the full set of test cases? The team benefits from having an RShiny app that reads in the SMS file and produces a network visualization of the data schema. This schema is used during the development to help ensure the nodes and relations are being constructed correctly. The visualization also aids in SHACL Shape and SPARQL query development. 
+Why create this redundancy when the data does not contain the full set of test cases? The team benefits from having an RShiny app that reads in the SMS file and produces a visualization of the data schema. This schema is used during development to help ensure the nodes and relations are being constructed correctly. The visualization also aids in SHACL Shape and SPARQL query development. 
 
 
 ## Conversion and Mapping Details 
@@ -22,21 +22,22 @@ Each CSV file has a corresponding map file in TTL format with "-map" appended to
 |Graphmeta-<font class='parameter'>StudyName</font>-map.TTL|SMS Map | Map CSV to Stardog graph. |
 
 ### DM
-| File      | Role                     | Description                                  |
-| --------- | ------------------------ | ---------------------------------------------|
+
+| File      | Role                     | Description                                |
+| --------- | ------------------------ ---------------------------------------------|
 | DM-CJ16050.CSV | Demographics        | May be a subset during development. 
 | DM-CJ16050-R-map.TTL | SMS Map       | Map CSV to Stardog graph. 
 
 ## SMS Format
 The SMS files follow very strict formatting rules that go beyond the Stardog specification, primarily due to weak parsing expressions in the RShiny visualization code (this can easily be improved!). These rules include:
 * `subject` is <i>hard left</i> on line by itself.
-* p`redicate`, `object` line:
+* `predicate`, `object` line:
     * indented at least one space.
     * end with a `;` on same line, no trailing spaces
 * No short hand for `predicate`s. Use 'rdf:type', not 'a' .
 * File must end with carriage return on a line by itself.
 
-The excerpt from the mapping file for the DM domain shows the AnimalSubject triples.  Values within `{ }` are substituted from the named columns in the .CSV file as the file is processed line-by-line.
+This excerpt from the DM domain mapping file shows the AnimalSubject triples.  Values within `{ }` are substituted from the named columns in the .CSV file as the file is processed line-by-line.
 
 <pre class="sms">
 # Animal Subject
@@ -58,7 +59,7 @@ Mapping and upload is accomplished by issuing a series of import commands simila
 
 `stardog-admin virtual import SENDConform DM-CJ16050-R-map.TTL DM-CJ16050-R.CSV`
 
-Typically, a series of these commands are chained together in a batch file to upload all graphs at the same time, including additional files like ontology files.
+A series of these commands is chained together in a batch file to upload all graphs at the same time, including additional files like the supporting ontology.
 
 
 ## Visualization 
@@ -66,7 +67,7 @@ An RShiny app for visualization the SMS files is available at [/r/vis/SMSMapVis-
 
 <img src="images/SMS-Map-RShinyVis.PNG"/>
 
-**Figure 1: Screen shot from RShiny SMS visualization. **
+**Figure 1: Screen shot from RShiny SMS visualization.**
 
 
 [Back to TOC](TableOfContents.md)

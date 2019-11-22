@@ -1,8 +1,11 @@
 Placeholder for Ontology documentation.
 ***TO BE UPDATED***
 
+# Future Plans
+Ontology development is taking place in TopBraid as of the end of 2019. The team plans to move to Web Protege in 2020. This page will be updated when the move occurs.  
 
-## Notes from AO 
+
+## Ontology Notes from AO 
 ...On ontology files and related components created using TopBraid.
 
 The protocol file imports the study ontology. The instance file imports the protocol file. When ready to "publish" to SEND format it also imports the SEND ontology into a new file called:  cj160500send.shapes.ttl
