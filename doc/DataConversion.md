@@ -4,12 +4,12 @@
 # SEND Data Conversion and Mapping
 
 ## Introduction
-The proof of concept is limited to the <b>DM</b> and <b>TS</b> domains. Data was obtained from PHUSE Scripts repository [SEND subfolder](https://github.com/phuse-org/phuse-scripts/tree/master/data/send) and copied over to this project under folders for each example study: /SENDConform/data/studies/<font class="parameter">Study Name</font>  .
+The proof of concept starts with the Demographics (<b>DM</b>) and Trial Summary (<b>TS</b>) domains. Additional domains will be added as the project progresses. Data was copied from the PHUSE Scripts repository [SEND subfolder](https://github.com/phuse-org/phuse-scripts/tree/master/data/send) and to our repository at: /SENDConform/data/studies/<font class="parameter">Study Name</font>  .
 
-The easiest data conversion method would be to read in the row-by-column source data and convert it to RDF, using column names to represent the types of entities represented by the values in each cell, and the rows as individuals. This is not the approach taken in this project. Data is re-formed to match an ontology that represents the types of entities and their relationships in the trial based on knowledge of the data and clinical trial process.
+The easiest way to convert this source data to RDF would be to read in the row-by-column source data and convert it directly to RDF, using column names to identity the types of entities represented by the values in each cell, with the rows representing individuals. This is not the approach taken in this project. Data is re-formed to match an ontology that contains the types of entities and their relationships in the trial, based on knowledge of both the data and the clinical trial process.
 
 
-Two alternate methods are provided for the data conversion process. In method one, R scripts read the source SAS XPT file and convert it to TTL for import into a triplestore. The same data conversion R scripts simultaneously create .CSV files to support a second method of importing data into a Stardog triplestore [using Stardog Mapping Syntax (SMS)](DataMapping-StardogSMS.md). ***The .CSV files do not contain the full set of data for evaluating the test cases.***
+Two alternate methods are provided for the data conversion process. In method one, R scripts read the source SAS XPT file and convert it to TTL for import into a triplestore. The same data conversion R scripts simultaneously create .CSV files to support a second method of importing data into a Stardog triplestore [using Stardog Mapping Syntax (SMS)](DataMapping-StardogSMS.md). ***CAUTION: The .CSV files do not contain the full set of data for evaluating the test cases.***
 
 Additional data conversion methods using SAS or Python may be developed, time and expertise permitting. 
 
@@ -20,9 +20,9 @@ SAS transport XPT data files for conversion and testing are located in the folde
   SENDConform/data/studies/<font class="parameter">Study Name</font> 
 </pre>
 
-These files are read in by the conversion scripts with data exported to the /ttl folder:
+These files are read in by the conversion scripts. Converted data is exported to the /ttl folder:
 <pre>
-    SENDConform/data/studies/<font class="parameter">Study Name</font>/ttl
+    SENDConform/data/studies/<font class="parameter">Study Name</font>/**ttl**
 </pre>
 
 The /csv folder contains data in comma-delimited format for ease of viewing the data in  Excel. These files are raw, source data and are not used for mapping into the triplestore.

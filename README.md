@@ -37,7 +37,7 @@ When data has shape, it makes sense to define validation rules in terms of shape
 **Figure 2: SHACL Shapes Concept for Data Validation**
 
 
-Our project takes the approach of breaking down individual FDA SEND rules into their constituent components, modeling those components in  SHACL and then validating example data. Each rule is described in detail along with its SHACL shape, example data, validation report, followed by independent confirmation using SPARQL.
+Our project takes the approach of breaking down individual FDA SEND rules into their constituent components, modeling those components in  SHACL and then validating example data. Each rule is interpreted, transformed to its corresponding SHACL shape, applied to example data to generate a validation report, then confirmed independently using SPARQL.
 
 
 <b>NEXT:</b> [Table of Contents](doc/TableOfContents.md).
