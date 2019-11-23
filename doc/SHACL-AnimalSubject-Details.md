@@ -1,23 +1,23 @@
 <link href="styles.css?v=1" rel="stylesheet"/>
 <a name='top'></a>
 
-Animal Subject Shape - Demographics Domain
+Animal Subject Shape - Demographics (DM) Domain
 ==================================
 
 The Animal Subject IRI `:Animal_xxx` is a natural starting point for developing rules based on the Demographics domain because each row in the source DM data contains values for an individual Animal Subject. SHACL shapes are created with reuse in mind, as reflected in both the structure and naming conventions. Where practical, shapes are named using a description of their function, a dash, and then an abbreviated name of the class or entity they act upon. Examples:
 
-* `hasMin1Max1Shape-USubjID` - validates that each Animal Subject has a minimum of one and maximum of one USUBJID assigned.  
-* `isUniqueShape-USubjID`    - validates the *uniqueness* of USUBJID values. A SUBJID cannot be assigned to more than one Animal Subject.
+* `hasMin1Max1Shape-USubjID` - validates that each Animal Subject has a minimum of one and maximum of one USUBJID value.  
+* `isUniqueShape-USubjID`    - validates the *uniqueness* of USUBJID values. A USUBJID cannot be assigned to more than one Animal Subject.
 
 Shapes may include additional constraints such as data type, length, and other restrictions not explicitly stated in the original FDA rules.
 
-Shapes must include the `sh:message` property to provide meaningful messages about the violation. Where applicable, a reference to the related FDA Rule ID number must be provided in square brackets at the end of the message text. In cases where a shape may be applied to more than one Rule, all rules covered by that shape are listed.
+The `sh:message` property provides meaningful messages about violations when they are detected. Where applicable, a reference to the related FDA Rule ID number is provided in square brackets at the end of the message text. In cases where a shape may be applied to more than one Rule, all rules covered by that shape are listed.
 
 Example:  <code>sh:message "Subject --> USUBJID violation. <b>[SD0083]</b>" ;</code>
 
 
 # Animal Subject Shape
-
+A shape is created to define the constraints attached to the Animal Subject IRI. Each individual constraint is described in the sections that follow.
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
    One <code>sh:property</code> for each type of <code>predicate</code>---> <code>object</code> relation attached directly to the AnimalSubject IRI.
@@ -46,7 +46,7 @@ cj16050:Animal_037c2fdc
 </pre>
 <br/>
 
-The Node Shape `study:AnimalSubjectShape` describes nodes of the class `study:AnimalSubject` . 
+The Node Shape `study:AnimalSubjectShape` describes nodes of the class `study:AnimalSubject` . FDA Rule numbers are added as comments to facilitate referencing back to the original FDA requirements.
 
 <pre class='shacl'>
 # Animal Subject Shape
@@ -61,12 +61,13 @@ study:AnimalSubjectShape
   sh:property    study:hasMin1Max1Shape-Interval ;       # Rule SD1002
   sh:property    study:hasMin1Max1Shape-StartEndDates ;  # Rule SD1002
   sh:property    study:hasStartLEEndShape-Interval ;     # Rule SD1002
+  sh:property    study:hasMinInclusive0Shape-Age ;       # Rule SD0084
 
   
   <font class='infoOmitted'>... more property shapes will be added as they are developed</font>
 </pre>
 
-If an ontology defines `study:AnimalSubject` as a subclass of `study:Subject`, then shapes could use the `sh:targetClass` `study:Subject` (assuming common constraints for both classes.) This will work will use the target class `study:AnimalSubject` for simplicity and not leverage the ontology.
+If an ontology defines `study:AnimalSubject` as a subclass of `study:Subject`, then shapes could use the `sh:targetClass` `study:Subject` (assuming common constraints for both classes.) If a  clinical trial were to define a `study:HumanStudySubject` as a subclass of `study:Subject`, the same constraints could be used for both pre-clinical and clinical data validation. This work focusses on SEND, so the target class `study:AnimalSubject` is specified for simplicity.
 
 <pre class='owl'>
 <font class='nodeBold'>study:Subject</font>
