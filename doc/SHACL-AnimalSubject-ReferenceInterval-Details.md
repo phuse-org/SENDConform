@@ -366,10 +366,10 @@ The study ontology defines`study:ReferenceInterval` as a sub class of `study:Ent
 
 All sub classes of `study:EntityInterval` must have a `time:hasBeginning` and `time:hasEnd`,  allowing the use of a single shape to evaluate following types of intervals when the ontology is loaded into the database:
 
-* <font class='nodeBold'>`study:ReferenceInterval`</font>
-* <font class='goodData'>`study:LifeSpan`</font> 
-* <font class='goodData'>`study:MedicalConditionalInterval`</font>
-* <font class='goodData'>`study:StudyParticipationInterval`</font>
+* <font class='nodeBold'>study:ReferenceInterval</font>
+* <font class='goodData'>study:LifeSpan</font> 
+* <font class='goodData'>study:MedicalConditionalInterval</font>
+* <font class='goodData'>study:StudyParticipationInterval</font>
 
 The ontology facilitates the use of the shape in both pre-clinical (SEND) and clinical (SDTM) studies.  
  
