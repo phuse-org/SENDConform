@@ -20,11 +20,11 @@ The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConf
 
 FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
 ------|-------------------|--------------------------|-----------------------------
-**SD0083** |Duplicate USUBJID | Identifier used to uniquely identify a subject across all studies| The value of Unique Subject Identifier (USUBJID) variable must be unique for each subject **across all trials in the submission.** *
+**SD0083** |Duplicate USUBJID | Identifier used to uniquely identify a subject across all studies| The value of Unique Subject Identifier (USUBJID) variable must be unique for each subject **across all trials* in the submission.** 
 
-\* *Because the prototype is based on data from a single trial, Rule SD0083 is only evaluated within the context of one study.*
+\* *Because the prototype is based on data from a single trial, Rule SD0083 is only evaluated within the context of a single study.*
 
-The Rule is deconstructed into the following components based on familiarity with instance data, RDF data model (schema), and SD0083 rule statement:
+The Rule is deconstructed into the following components based on knowledge of the study data requirements, RDF data model (schema), and SD0083 rule statement:
 
 **1. [An Animal Subject cannot have more than one USUBJID.](#rc12)**
 
@@ -39,11 +39,11 @@ Translation of Rule Components into SHACL and evaluation of test data is describ
 
 <a name='rc12'></a>
 
-### Rule Components 1,2 : A single,non-missing USUBJID per Animal Subject.
+### Rule Components 1,2 : A single, non-missing USUBJID per Animal Subject.
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-  `:AnimalSubject` has a `sh:minCount` and `sh:maxCount` of 1 USUBJID.
+  <font class='code'>:AnimalSubject</font> has a <font class='code'>sh:minCount</font> and <font class='code'>sh:maxCount</font> of 1 USUBJID.
 </div>
 
 
@@ -257,12 +257,12 @@ There are multiple ways to assess the USUBJID requirement in SHACL-Core and SHAC
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-  The target Object of the `sh:inversePath` for the predicate `study:hasUniqueSubjectID` must have a `sh:maxCount` of 1 .
+  The target Object of the <font class='code'>sh:inversePath</font> for the predicate <font class='code'>study:hasUniqueSubjectID</font> must have a <font class='code'>sh:maxCount</font> of 1 .
 </div>
 
 <div class='def'>
   <div class='def-header'>Description</div>
-  Targeting the Object of (`sh:targetObjectsOf `) the inverse of (`sh:inversePath`) the predicate `study:hasUniqueSubjectID` identifies USBUJID values that are assigned to more than one AnimalSubject. This test is the most informative when trying to quickly identify <i>duplicate USUBJID values</i>. 
+  Targeting the Object of (<font class='code'>sh:targetObjectsOf</font>) the inverse of (<font class='code'>sh:inversePath</font>) the predicate <font class='code'>study:hasUniqueSubjectID</font> identifies USBUJID values that are assigned to more than one AnimalSubject. This test is the most informative when trying to quickly identify <i>duplicate USUBJID values</i>. 
 </div>
 
 SHACL Shape for Method 1: Identify duplicate USUBJID values. This shape is applied to all uses of the predicate `study:hasUniqueSubjectID`, allowing its use for both SEND and SDTM data sets when this predicate is present.  
@@ -286,7 +286,7 @@ A Report is not provided because Method 2 was chosen over Method 1 for the reaso
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-  The target *Class* `study:AnimalSubject` of the `sh:inversePath` of the predicate `study:hasUniqueSubjectID` must have a `sh:maxCount` of 1 .
+  The target *Class* <font class='code'>study:AnimalSubject</font> of the <font class='code'>sh:inversePath</font> of the predicate <font class='code'>study:hasUniqueSubjectID</font> must have a <font class='code'>sh:maxCount</font> of 1 .
 </div>
 
 <div class='def'>

@@ -245,7 +245,15 @@ pre.queryResult:before {
 
 
 .code{
-  font-family: courier;
+  font-family: monospace;
+} 
+/* for nodes in the Rules (grey) boxes to make it look like "code" within
+   pre tags in the rest of the document */
+.codePre{
+  font-family: monospace;
+  background: #E7E7E7;
+  font-size:95%;
+  /* font-weight: bold; */
 } 
 
 /*---  from Github styles ---------------------------------------------------*/

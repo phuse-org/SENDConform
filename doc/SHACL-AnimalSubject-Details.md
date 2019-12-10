@@ -4,14 +4,14 @@
 Animal Subject Shape - Demographics (DM) Domain
 ==================================
 
-The Animal Subject IRI `:Animal_xxx` is a natural starting point for developing rules based on the Demographics domain because each row in the source DM data contains values for an individual Animal Subject. SHACL shapes are created with reuse in mind, as reflected in both the structure and naming conventions. Where practical, shapes are named using a description of their function, a dash, and then an abbreviated name of the class or entity they act upon. Examples:
+The Animal Subject IRI `:Animal_xxx` is a natural starting point for developing rules based on the Demographics domain because each row in the source DM data contains values for an individual Animal Subject. SHACL shapes are created with reuse in mind, as reflected in both the structure and naming conventions. Where practical, shapes are named using a description of their function plus the word `Shape` followed by a dash and then an abbreviated name of the class or entity they act upon. Examples:
 
 * `hasMin1Max1Shape-USubjID` - validates that each Animal Subject has a minimum of one and maximum of one USUBJID value.  
 * `isUniqueShape-USubjID`    - validates the *uniqueness* of USUBJID values. A USUBJID cannot be assigned to more than one Animal Subject.
 
 Shapes may include additional constraints such as data type, length, and other restrictions not explicitly stated in the original FDA rules.
 
-The `sh:message` property provides meaningful messages about violations when they are detected. Where applicable, a reference to the related FDA Rule ID number is provided in square brackets at the end of the message text. In cases where a shape may be applied to more than one Rule, all rules covered by that shape are listed.
+The `sh:message` property provides meaningful messages about violations when they are detected. Where applicable, the related FDA Rule ID number is provided in square brackets at the end of the message text. In cases where a shape may be applied to more than one Rule, all rules covered by that shape are listed.
 
 Example:  <code>sh:message "Subject --> USUBJID violation. <b>[SD0083]</b>" ;</code>
 
