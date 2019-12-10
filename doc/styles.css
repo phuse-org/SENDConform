@@ -51,6 +51,7 @@ body{
 .goodData, .shapeName{
   color: #486118;     /* very dark green */
   font-weight: bold;
+  font-family: monospace;
 }
 .greyedOut{
     color: #9c9c9c;     /* dark grey */
@@ -91,11 +92,19 @@ body{
   color: #9c9c9c;     /* dark grey */
   font-weight: bold;
 }
-.navNext, .nodeBold{
+.navNext{
   color: #182461; /* dk blue */
   font-weight: bold;
   font-size:1.1em;
 }
+
+.nodeBold{
+  color: #182461; /* dk blue */
+  font-weight: bold;
+  font-size:1.1em;
+  font-family: monospace;
+}
+
 .object{
   color: #182461; /* dk blue */
   font-weight: bold;
@@ -249,12 +258,13 @@ pre.queryResult:before {
 } 
 /* for nodes in the Rules (grey) boxes to make it look like "code" within
    pre tags in the rest of the document */
+/* DEL ME
 .codePre{
   font-family: monospace;
   background: #E7E7E7;
   font-size:95%;
-  /* font-weight: bold; */
 } 
+*/
 
 /*---  from Github styles ---------------------------------------------------*/
 /* https://gist.github.com/andyferra/2554919  */

@@ -58,8 +58,8 @@ Familiarity with the data structure is necessary to explain the constraints and 
   <div class='def-header'>Description</div>
   Reference Start Date (RFSTDTC) and End Date (RFENDTC) must be in 
   <font class='emph'>date format</font>. The study in this example requires
-  `xsd:date`. Other studies may use `xsd:dateTime` or a combination of `xsd:date` 
-  and `xsd:dateTime`.
+  <code>xsd:date</code>. Other studies may use <code>xsd:dateTime</code> or a combination of <code>xsd:date</code> 
+  and <code>xsd:dateTime</code>.
 </div>
 
 
