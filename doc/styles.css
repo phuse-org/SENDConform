@@ -30,11 +30,11 @@ body{
   font-weight: bold;
   font-style: italic;
 }
-.emph, {
+.emph {
   color: #00008b;     /* dark blue */
   font-weight: bold;
 }
-.error{
+.error, .restrict{
   color: #8b0000;     /* dark red */
   font-weight: bold;
 }

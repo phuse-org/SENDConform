@@ -34,7 +34,7 @@ The second approach was chosen for the project.
 Not all the rules for the selected DM and TS domains are modeled. Some rules cross multiple studies (example: identifiers that must be unique across multiple trials) and can only be evaluated within the context of the single-study in the prototype. Other rules cross mutliple domains that are not included in initial development and may be reconsidered as project scope expands to include additional domains.
 
 DM was chosen for initial development and the list of relevant rules was seledcted from the [FDA Validator Rules Workbook](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx)
-by filtering exclusively on the DM domain for SEND 3.0. This resulted in a list of *19 rules* specific to the DM domain. Of these, only 14 are independent of other domains. Additionnally, Rule SD1020 is dependent on the SEND ontology and may be added at a later time.
+by filtering exclusively on the <font class="emph">DM domain for SEND 3.0</font>. This resulted in a list of *19 rules* specific to the DM domain. Of these, only 14 are independent of other domains. Additionnally, Rule SD1020 is dependent on the SEND ontology and may be added at a later time.
 
 **Table 1. Rules Exclusive to DM Domain**
 
@@ -48,17 +48,17 @@ DM | SD0087 | date    | <font class='development'>development</font> |
 DM | SD0084 | age     | [available](SHACL-AnimalSubject-Age-Details.md) |
 DM | SD1121 | age     | planned |
 DM | SD1129 | age     | planned |
-DM | SD2019 | age     | <font class='error'>excluded</font> | AGETXT (age range) not in source data
-DM | SD2020 | age     | <font class='error'>excluded</font> |
+DM | SD2019 | age     | <font class='restrict'>excluded</font> | AGETXT (age range) not in source data
+DM | SD2020 | age     | <font class='restrict'>excluded</font> |
 DM | SD2021 | age     | planned |
 DM | SD2022 | age     | planned |
-DM | SD2023 | age     | <font class='error'>excluded</font> | Birthdate (BRTHTDTC) not present in source data
+DM | SD2023 | age     | <font class='restrict'>excluded</font> | Birthdate (BRTHTDTC) not present in source data
 DM | SD1259 | Set code    | planned |
 DM | SD1020 | dataset     | ?      | Requires link to SEND Ontology. May be added.
-DM | SD0069 | disposition | <font class='error'>excluded</font> | requires DS dataset
-DM | SE2311 | Set code    | <font class='error'>excluded</font> | Requires TX dataset
-DM | SD0071 | screen fail | <font class='error'>excluded</font> | requires TA dataset
-DM | SD0066 | arm         | <font class='error'>excluded</font> | requires TA dataset
+DM | SD0069 | disposition | <font class='restrict'>excluded</font> | requires DS dataset
+DM | SE2311 | Set code    | <font class='restrict'>excluded</font> | Requires TX dataset
+DM | SD0071 | screen fail | <font class='restrict'>excluded</font> | requires TA dataset
+DM | SD0066 | arm         | <font class='restrict'>excluded</font> | requires TA dataset
 
 
 ## Resuable Shapes
