@@ -1,6 +1,10 @@
 # Study Data Conformance and Validation
 
-**SENDConform** is a Proof of Concept for representing SEND conformance checks using Shapes Constraint Language (SHACL). The goal is to increase efficiency by decreasing labor-intensive checks performed by both study sponsors and regulatory agencies. It is a subproject of "Going Translational With Linked Data ( [GoTWLD](<https://github.com/phuse-org/CTDasRDF>) )"
+**SENDConform** is a proof of concept project investigating submission and validation of data generated from nonclinical (animal) studies. The work is divided into two sub-projects:
+1) FDA Submission Criteria
+2) Modeling and validating nonclinical (SEND) data
+
+Constraints are represented using Shapes Constraint Language (SHACL). The goal is to increase efficiency by decreasing labor-intensive checks performed by both study sponsors and regulatory agencies. The project is built upon previous work in the PhUSE project "Going Translational With Linked Data ( [GoTWLD](<https://github.com/phuse-org/CTDasRDF>) ) which focussed on SDTM data from clinical studies."
 
 To View on Github Pages:  https://phuse-org.github.io/SENDConform
 
@@ -12,7 +16,6 @@ Jump to [Table of Contents](doc/TableOfContents.md)
 
 * Armando Oliva (Semantica LLC) <https://github.com/aolivamd>
 
-* Rashed Hasan (FDA)
 
 # Introduction
 
