@@ -1,4 +1,4 @@
-# SENDConform
+# Study Data Conformance and Validation
 
 **SENDConform** is a Proof of Concept for representing SEND conformance checks using Shapes Constraint Language (SHACL). The goal is to increase efficiency by decreasing labor-intensive checks performed by both study sponsors and regulatory agencies. It is a subproject of "Going Translational With Linked Data ( [GoTWLD](<https://github.com/phuse-org/CTDasRDF>) )"
 
