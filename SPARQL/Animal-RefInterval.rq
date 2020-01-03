@@ -1,0 +1,111 @@
+###############################################################################
+# FILE: Animal-ID.rq
+# DESC: Identify Animal Subjects that violate ID constraints. 
+#        a)
+#        b)
+# REQ : 
+# SRC : 
+# IN  : 
+# OUT : 
+# NOTE: 
+# TODO: 
+###############################################################################
+
+PREFIX cj16050: <https://example.org/cj16050#>
+PREFIX code:    <https://w3id.org/phuse/code#> 
+PREFIX skos:    <http://www.w3.org/2004/02/skos/core#> 
+PREFIX study:   <https://w3id.org/phuse/study#> 
+PREFIX time:    <http://www.w3.org/2006/time#>
+
+# -----------------------------------------------------------------------
+# RC1 : Information : Subject with incorrect date format
+SELECT ?animalSubjectIRI ?animalLabel ?date 
+  WHERE{
+    ?animalSubjectIRI a                          study:AnimalSubject ;
+                      skos:prefLabel             ?animalLabel ;
+                      study:hasReferenceInterval ?intervalIRI .
+
+    ?intervalIRI ?beginOrEnd     ?dateIRI .
+    ?dateIRI     time:inXSDDate  ?date .
+    FILTER (?dateIRI IN (cj16050:Date_6-DEC-16, cj16050:Date_7-DEC-16))
+  }
+
+
+  # RC1 : Verify : Date formats
+  SELECT ?refIntervalIRI ?dateIRI ?date ?dateDType
+  WHERE{
+    ?refIntervalIRI a              study:ReferenceInterval ;
+                    ?beginOrEnd    ?dateIRI .
+    ?dateIRI        time:inXSDDate ?date .                
+    FILTER (datatype(?date) != xsd:date)
+  }
+
+# ---------------------------------------------------------- 
+# RC 2 : Information : predicates and objects for the IRI in the report
+SELECT ?s ?p ?o
+WHERE {
+  cj16050:Animal_6204e90c ?p ?o ;
+  BIND( IRI(cj16050:Animal_6204e90c) as ?s)  
+}  ORDER BY ?p
+
+# RC 2 : Verify: Subjects that do not have 1 reference interval
+SELECT ?animalSubjectIRI ?animalLabel (COUNT(?intervalIRI) AS ?numIntervals )
+  WHERE{
+    ?animalSubjectIRI a study:AnimalSubject ;
+                      skos:prefLabel             ?animalLabel ;
+    OPTIONAL{
+        ?animalSubjectIRI study:hasReferenceInterval ?intervalIRI .
+    }    
+}GROUP BY ?animalLabel 
+ HAVING (?numIntervals != 1 )
+
+# ---------------------------------------------------------- 
+# RC 3 : Information : 
+SELECT ?animalLabel ?beginDate ?endDate
+WHERE{ 
+  ?animalSubjectIRI study:hasReferenceInterval cj16050:Interval_db3c6403 ;
+                    skos:prefLabel             ?animalLabel .
+
+   OPTIONAL{
+     cj16050:Interval_db3c6403 time:hasBeginning ?beginIRI ;
+     ?beginIRI time:inXSDDate  ?beginDate .
+   }
+   OPTIONAL{ 
+     cj16050:Interval_db3c6403 time:hasEnd ?endIRI ;
+     ?beginIRI time:inXSDDate  ?beginDate .
+  }
+}
+
+# RC 3: Verify : Pull all subject IDs that od not have one start and one End date
+SELECT ?animalLabel ?beginDate ?endDate (COUNT(?beginDate) AS ?numBeginDate)
+       (COUNT(?endDate) AS ?numEndDate)
+WHERE{ 
+  ?animalSubjectIRI study:hasReferenceInterval ?intervalIRI ;
+                    skos:prefLabel             ?animalLabel .
+   OPTIONAL{
+     ?intervalIRI time:hasBeginning ?beginIRI .
+     ?beginIRI    time:inXSDDate    ?beginDate .
+   }
+    
+   OPTIONAL{ 
+     ?intervalIRI time:hasEnd     ?endIRI .
+     ?beginIRI    time:inXSDDate  ?endDate .
+  }
+} GROUP BY ?animalSubjectIRI ?animalLabel ?beginDate ?endDate
+  HAVING ((?numBeginDate != 1) || (?numEndDate != 1) )
+
+
+
+# RC4 : Verify : 
+SELECT ?animalLabel (?beginDate AS ?intervalStart) (?endDate AS ?intervalEnd)
+WHERE {
+  ?animalSubjectIRI study:hasReferenceInterval ?intervalIRI ;
+                    skos:prefLabel             ?animalLabel .
+
+  ?intervalIRI time:hasBeginning  ?beginIRI .
+  ?beginIRI    time:inXSDDate     ?beginDate .
+      
+  ?intervalIRI time:hasEnd        ?endIRI .
+  ?endIRI    time:inXSDDate       ?endDate .
+  FILTER  (! (?endDate >= ?beginDate ))
+}

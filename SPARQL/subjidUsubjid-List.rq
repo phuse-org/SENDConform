@@ -1,0 +1,19 @@
+# subjidUsubjid-List.rq
+#  List subjid, usubjid , including Animal IRIs where
+#    the values for either are missing.
+
+PREFIX study: <https://w3id.org/phuse/study#> 
+PREFIX sh:   <http://www.w3.org/ns/shacl#> 
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT  ?animalIRI ?subjid ?usubjid 
+WHERE {
+      ?animalIRI  a study:AnimalSubject ; 
+      OPTIONAL {
+        ?animalIRI study:hasSubjectID       ?subjidIRI ;
+                   study:hasUniqueSubjectID ?usubjidIRI .
+       ?subjidIRI  skos:prefLabel           ?subjid .
+       ?usubjidIRI skos:prefLabel           ?usubjid .
+      } 
+}ORDER BY ?subjid

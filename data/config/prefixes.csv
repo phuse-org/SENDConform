@@ -1,0 +1,13 @@
+prefix, namespace
+rdf, http://www.w3.org/1999/02/22-rdf-syntax-ns#
+bibio, http://purl.org/ontology/bibo/
+code, https://w3id.org/phuse/code#
+dcterms, http://purl.org/dc/terms/
+cj16050, https://w3id.org/phuse/cj16050#
+study, https://w3id.org/phuse/study#
+meddra, https://w3id.org/phuse/meddra#
+pav, http://purl.org/pav
+rdfs, http://www.w3.org/2000/01/rdf-schema#
+skos, http://www.w3.org/2004/02/skos/core#
+time, http://www.w3.org/2006/time#
+xsd, http://www.w3.org/2001/XMLSchema#

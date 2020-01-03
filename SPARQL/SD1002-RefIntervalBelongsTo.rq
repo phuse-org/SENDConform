@@ -1,0 +1,15 @@
+# SD1002-RefIntervalBelongsTo.rq
+#  Given a reference interval, find the Animal Subject label
+#  Used for debugging SHACL checks
+
+PREFIX study:   <https://w3id.org/phuse/study#> 
+PREFIX sh:      <http://www.w3.org/ns/shacl#> 
+PREFIX skos:    <http://www.w3.org/2004/02/skos/core#> 
+PREFIX cj16050: <https://example.org/cj16050#> 
+SELECT ?animal
+WHERE {
+   ?animalIRI study:hasReferenceInterval ?refIntervalIRI ;
+              skos:prefLabel ?animal .
+  FILTER  (?refIntervalIRI IN (cj16050:Interval_6f395f06, cj16050:Interval_db3c6403
+                               ))  .
+} ORDER BY ?animal

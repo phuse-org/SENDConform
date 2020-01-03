@@ -1,0 +1,9 @@
+prefix study: <https://w3id.org/phuse/study#>
+
+SELECT $this (COUNT($this) AS ?count) 
+WHERE{
+    ?animalSubjectIRI a study:AnimalSubject ;
+          study:hasSubjectID $this .
+  }  GROUP BY $this
+     HAVING (?count >1)
+    

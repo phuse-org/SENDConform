@@ -1,0 +1,20 @@
+# SD1002-IntervalCountNotOne.rq
+#  Find Animal Subjects that have either:
+#    - 0 Intervals (both rfstdtc and rfendtc missing)
+#    - More than one interval (duplicate data)
+#  For use in SHACL-SPARQL constraint for rule SD1002
+
+PREFIX study: <https://w3id.org/phuse/study#> 
+PREFIX sh:   <http://www.w3.org/ns/shacl#> 
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+PREFIX time: <http://www.w3.org/2006/time#>
+
+SELECT ?animalLabel (COUNT(?interval) as ?intervalTotal)
+WHERE {
+      ?animalIRI a study:AnimalSubject ;
+              skos:prefLabel ?animalLabel .
+    # Interval missing when both start and end date missing          
+    OPTIONAL { ?animalIRI  study:hasReferenceInterval ?interval . }
+    }  GROUP BY ?animalLabel
+       HAVING (! (?intervalTotal = 1))
+       

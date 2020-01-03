@@ -1,0 +1,9 @@
+prefix : <https://foo.bar/test#>
+
+SELECT $this (COUNT($this) AS ?count) 
+WHERE{
+    ?personIRI a :Person ;
+          :hasUniqueID $this .
+  }  GROUP BY $this
+     HAVING (?count >1)
+    
