@@ -1,19 +1,17 @@
 ---
 title: SHACL Shapes for Submissions
-last_updated: July 3, 2016
+last_updated: 2020-01-03
 sidebar: mydoc_sidebar
 permalink: mydoc_submission_shacl_shapes.html
 folder: mydoc
 ---
 
-## Introduction 
+## Introduction
 
-...Placeholder...
+<font class='toBeAdded'>Add</font>
 
-## Shape Construction 
+## Shape Construction
 
-
-
-
+<font class='toBeAdded'>Add</font>
 
 {% include links.html %}
