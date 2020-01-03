@@ -14,4 +14,4 @@ The protocol file imports the study ontology. The instance file imports the prot
  
 send.ttl file is a bare bones ontology written by AO from scratch to support the pilot. It in essence documents the requirements for what a robust SEND ontology should be able to support at a minimum to allow round-tripping and now, SHACL rules validation.  It would be useful if other team members could look at this work and try replacing this rudimentary ontology with something more robust, capable of supporting all the domains not just DM/TS.
 
-[Back to TOC](TableOfContents.md)
+{% include links.html %}
