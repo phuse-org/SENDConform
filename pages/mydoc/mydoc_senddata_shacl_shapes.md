@@ -487,10 +487,9 @@ Independently verify `Animal_252450f2` and `Animal_2706cb1e` share the same USUB
 <br/>
 
 ---
-<a name='ruleSD1001'></a>
-
 ###  SUBJID
 
+<a name='ruleSD1001'></a>
 <font class='rule'>FDA Rule SD1001</font>
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for SUBJID in the DM Domain as:
@@ -503,6 +502,7 @@ The Rule Components and corresponding SHACL shapes for SD1001 are similar to tho
 
 
 ## Reference Interval
+<a name='ruleSD1002'></a>
 <font class='FDARule'>FDA Rule SD1002</font>
 
 ***Figure 1*** shows the connection from the Animal Subject IRI to its Reference Interval and the associated  SHACL Shapes and SEND Rules.
@@ -1116,10 +1116,10 @@ The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConf
 
 The following rules are defined on this page:
 
-* [SD0084 - Age >=0](#sd0084)  
+* [SD0084 - Age >=0](#ruleSD0084)  
 * ...more rules coming!
 
-<a name='sd0084'></a>
+<a name='ruleSD0084'></a>
 <font class='FDARule'>Age >= 0: FDA Rule SD0084</font>
 
 FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
