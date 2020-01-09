@@ -289,7 +289,7 @@ study:isUniqueShape-SubjID     sh:deactivated true .
 
 #--- Reference Interval
 study:hasTypeXsdDateShape-Date       sh:deactivated true . # RefInterval RC 1
-study:hasMin1Max1Shape-Interval      sh:deactivated false .  # RefInterval RC 2
+study:hasMin1Max1Shape-Interval      sh:deactivated true .  # RefInterval RC 2
 study:hasMin1Max1Shape-StartEndDates sh:deactivated true . # RefInterval RC 3
 study:hasStartLEEndShape-Interval    sh:deactivated true . # RefInterval RC 4
-study:hasminInclusive0Shape-Age      sh:deactivated true . # Age SD0084 RC 1
+study:hasminInclusive0Shape-Age      sh:deactivated false . # Age SD0084 RC 1

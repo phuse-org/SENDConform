@@ -7,12 +7,12 @@ folder: mydoc
 ---
 
 ## Source Data
-Data from preclinical studies was copied from the PhUSE [TestDataFactory](https://github.com/phuse-org/TestDataFactory) GitHub repository. The SAS transport XPT data files are available at:
+Publicly available preclinical study data was copied from the PhUSE [TestDataFactory](https://github.com/phuse-org/TestDataFactory) GitHub repository to the [SENDConform](https://github.com/phuse-org/SENDConform) repository for use in this project. The SAS transport XPT data files are available within the folder structure at:
 <pre>
   SENDConform/data/studies/<font class="parameter">Study Name</font>
 </pre>
 
-These files are read in by the conversion scripts. Converted data is exported to the /ttl folder:
+Source SAS transport files are read in by the conversion scripts and converted to Terse Triple Language format, located in the /ttl folder:
 <pre>
     SENDConform/data/studies/<font class="parameter">Study Name</font>/<b>ttl</b>
 </pre>
