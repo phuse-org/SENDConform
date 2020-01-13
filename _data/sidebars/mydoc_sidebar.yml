@@ -17,16 +17,16 @@ entries:
       type: homepage
 
     - title: Conventions
-      url: /mydoc_intro_conventions.html
+      url: /conform_intro_conventions.html
       output: web, pdf
       type: homepage
 
     - title: Graph Data and Validation
-      url: /mydoc_intro_graph_data_and_validation.html
+      url: /conform_intro_graph_data_and_validation.html
       output: web, pdf
 
     - title: Systems and Applications
-      url: /mydoc_intro_systems_and_applications.html
+      url: /conform_intro_systems_and_applications.html
       output: web, pdf
 
 
@@ -35,23 +35,23 @@ entries:
     folderitems:
 
     - title: Data Conversion
-      url: /mydoc_senddata_data_conversion.html
+      url: /conform_data_conversion.html
       output: web
 
     - title: Ontology
-      url: /mydoc_senddata_ontology.html
+      url: /conform_ontology.html
       output: web
 
     - title: SEND Rules
-      url: /mydoc_senddata_send_rules.html
+      url: /conform_send_rules.html
       output: web
 
     - title: SHACL Shapes
-      url: /mydoc_senddata_shacl_shapes.html
+      url: /conform_shacl_shapes.html
       output: web, pdf
 
     - title: Validation
-      url: /mydoc_senddata_validation.html
+      url: /conform_validation.html
       output: web, pdf
 
 
@@ -60,27 +60,27 @@ entries:
     folderitems:
 
     - title: Structure and Components
-      url: /mydoc_submission_structure_and_components.html
+      url: /submit_structure_and_components.html
       output: web, pdf
 
     - title: Technical Rejection Criteria
-      url: /mydoc_submission_technical_rejection_criteria.html
+      url: /submit_technical_rejection_criteria.html
       output: web, pdf
 
     - title: Ontology
-      url: /mydoc_submission_ontology.html
+      url: /submit_ontology.html
       output: web, pdf
 
     - title: Data Conversion
-      url: /mydoc_submission_data_conversion.html
+      url: /submit_data_conversion.html
       output: web, pdf
 
     - title: SHACL Shapes
-      url: /mydoc_submission_shacl_shapes.html
+      url: /submit_shacl_shapes.html
       output: web, pdf
 
     - title: Validation
-      url: /mydoc_submission_validation.html
+      url: /submit_validation.html
       output: web, pdf
 
 
@@ -89,17 +89,17 @@ entries:
     folderitems:
 
     - title: References and Resources
-      url: /mydoc_references_and_resources.html
+      url: /conform_references_and_resources.html
       output: web
 
     - title: Project Repository Structure
-      url: /mydoc_intro_site_structure.html
+      url: /conform_intro_site_structure.html
       output: web, pdf
 
     - title: About This Site
-      url: /mydoc_references_about_this_site.html
+      url: /conform_references_about_this_site.html
       output: web
 
     - title: Contact Us
-      url: /mydoc_references_contact_us.html
+      url: /conform_references_contact_us.html
       output: web, pdf
