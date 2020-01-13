@@ -1,0 +1,105 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+entries:
+- title: sidebar
+  product: Site Navigation
+  version:
+  folders:
+
+
+  - title: Introduction
+    output: web, pdf
+    folderitems:
+
+    - title: Overview
+      url: /index.html
+      output: web, pdf
+      type: homepage
+
+    - title: Conventions
+      url: /conform_intro_conventions.html
+      output: web, pdf
+      type: homepage
+
+    - title: Graph Data and Validation
+      url: /conform_intro_graph_data_and_validation.html
+      output: web, pdf
+
+    - title: Systems and Applications
+      url: /conform_intro_systems_and_applications.html
+      output: web, pdf
+
+
+  - title: SEND Data Validation
+    output: web
+    folderitems:
+
+    - title: Data Conversion
+      url: /conform_data_conversion.html
+      output: web
+
+    - title: Ontology
+      url: /conform_ontology.html
+      output: web
+
+    - title: SEND Rules
+      url: /conform_send_rules.html
+      output: web
+
+    - title: SHACL Shapes
+      url: /conform_shacl_shapes.html
+      output: web, pdf
+
+    - title: Validation
+      url: /conform_validation.html
+      output: web, pdf
+
+
+  - title: Submission Conformance
+    output: web, pdf
+    folderitems:
+
+    - title: Structure and Components
+      url: /submit_structure_and_components.html
+      output: web, pdf
+
+    - title: Technical Rejection Criteria
+      url: /submit_technical_rejection_criteria.html
+      output: web, pdf
+
+    - title: Ontology
+      url: /submit_ontology.html
+      output: web, pdf
+
+    - title: Data Conversion
+      url: /submit_data_conversion.html
+      output: web, pdf
+
+    - title: SHACL Shapes
+      url: /submit_shacl_shapes.html
+      output: web, pdf
+
+    - title: Validation
+      url: /submit_validation.html
+      output: web, pdf
+
+
+  - title: References and Resources
+    output: web
+    folderitems:
+
+    - title: References and Resources
+      url: /conform_references_and_resources.html
+      output: web
+
+    - title: Project Repository Structure
+      url: /conform_intro_site_structure.html
+      output: web, pdf
+
+    - title: About This Site
+      url: /conform_references_about_this_site.html
+      output: web
+
+    - title: Contact Us
+      url: /conform_references_contact_us.html
+      output: web, pdf
