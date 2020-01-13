@@ -6,6 +6,9 @@
   color: #759e27; /* dark green */
   font-weight: bold;
 }
+.code{
+  font-family: monospace;
+}
 .codeCom{
   color: #759e27;     /* dark green */
 }
@@ -56,6 +59,13 @@
 .labelData{
   color: #9e9e27; /* dark olive */
   font-weight: bold;
+}
+.missing{
+  color: #8b0000;     /* dark red */
+  background-color: #e1e1e1; /* light grey */
+  font-weight: bold;
+  font-style: italic;
+  font-size:1.1em;
 }
 .msg{
   font-style: italic;
@@ -267,9 +277,6 @@ pre.queryResult:before {
 
 
 
-.code{
-  font-family: monospace;
-}
 /* for nodes in the Rules (grey) boxes to make it look like "code" within
    pre tags in the rest of the document */
 /* DEL ME
@@ -1335,11 +1342,6 @@ a code {
 code + a > code {
     margin-left: -7px;
 }
-/*TW
-table th code {
-    color: white;
-}
-*/
 
 ol li ul li ol li {
     list-style: decimal;

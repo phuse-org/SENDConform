@@ -29,8 +29,8 @@ DM|SD0069|disposition|<font class='restrict'>excluded</font>|requires DS dataset
 DM|SD0071|screen fail|<font class='restrict'>excluded</font>|requires TA dataset
 DM|SD0083|usubjid|[available](mydoc_senddata_shacl_shapes.html#ruleSD0083)|
 DM|SD0084|age|[available](mydoc_senddata_shacl_shapes.html#ruleSD0084)|
-DM|SD0087|date|<font class='development'>development</font>|
-DM|SD0088|date|<font class='development'>development</font>|
+DM|SD0087|date|planned|
+DM|SD0088|date|planned|
 DM|SD1001|subjid|[available](mydoc_senddata_shacl_shapes.html#ruleSD1001)|
 DM|SD1002|interval|[available](mydoc_senddata_shacl_shapes.html#ruleSD1002)|
 DM|SD1020|dataset|?|Requires link to SEND Ontology. May be added.
@@ -38,7 +38,7 @@ DM|SD1121|age|planned|
 DM|SD1129|age|planned|
 DM|SD1259|Set code|planned|
 DM|SD2019|age|<font class='restrict'>excluded</font>|AGETXT (age range) not in source data|
-DM|SD2020|age|<font class='restrict'>excluded</font>|
+DM|SD2020|age|<font class='restrict'>excluded</font>|AGETXT (age range) not in source data|
 DM|SD2021|age|planned|
 DM|SD2022|age|planned|
 DM|SD2023|age|<font class='restrict'>excluded</font>|Birthdate (BRTHTDTC) not present in source data|

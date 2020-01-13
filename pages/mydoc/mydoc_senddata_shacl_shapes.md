@@ -104,8 +104,8 @@ study:Animal
 
   ***Figure 1: Animal Subject Node to ID Values***
 
-### USUBJID <a name='ruleSD0083'></a>
-
+### USUBJID
+<a name='ruleSD0083'></a>
 <font class='FDARule'>FDA Rule SD0083</font>
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for USUBJID in the DM Domain as:
@@ -483,14 +483,12 @@ Independently verify `Animal_252450f2` and `Animal_2706cb1e` share the same USUB
   cj16050:Animal_252450f2   "Animal 99DUP1"
 </pre>
 
-
 <br/>
-
 ---
 ###  SUBJID
-
 <a name='ruleSD1001'></a>
-<font class='rule'>FDA Rule SD1001</font>
+<font class='FDARule'>FDA Rule SD1001</font>
+
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for SUBJID in the DM Domain as:
 
@@ -1114,18 +1112,15 @@ Animal Subject Shape - Demographics Domain
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines numerous rules associated with Age in the DM domain. This project defines only a subset of these rules as SHACL Shapes. For example, the rule SD2019 "Invalid value for AGETXT" is not applicable because the example study collects AGE (numeric) and not AGETXT (age range as a string).
 
-The following rules are defined on this page:
 
-* [SD0084 - Age >=0](#ruleSD0084)  
-* ...more rules coming!
 
 <a name='ruleSD0084'></a>
-<font class='FDARule'>Age >= 0: FDA Rule SD0084</font>
+<font class='FDARule'>FDA Rule SD0084</font>
 
 FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
 ------|-------------------|--------------------------|-----------------------------
 **SD0084** |Negative value for age | Values for age variables cannot be negative, | **The value of Age (AGE) cannot be less than 0.**
-
+<br/>
 
 <font class='ruleComponent'>Rule Component</font>
 
@@ -1232,15 +1227,128 @@ SPARQL independently verifies the Animal Subject with  `age < 0`.  Source file: 
 </pre>
 <br/>
 
-<font class='FDARule'>Age XXX: FDA Rule SDxxxx</font>
-
-<font class='toBeAdded'>The next AGE rule will be defined here.</font>
+<!---------------------------------------------------------------------------->
+<!--- AGE RULE SD1121 -------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<font class='FDARule'>FDA Rule SD1121</font>
 
 FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
 ------|-------------------|--------------------------|-----------------------------
-**SDxxxx** | |  | **xxxxxx**
+**SD1121**|Age or age range must be provided for all subjects, except for Screen Failures.|Age or age range must be provided for all subjects, except for Screen Failures.|**Value for Age (AGE)** or Age Range (AGETXT) variables **should be populated for all subjects with only exception for Screen Failures (ARMCD=SCRNFAIL) and Not Assigned (ARMCD=NOTASSGN) subjects.**
 
-<br><br><br>
-<font class='toBeAdded'>Add: Additional DM Rules...</font>
+<br/>
+
+<font class='ruleComponent'>Rule Component</font>
+
+**1.AGE value must be present for all subjects that are not screen failures.**
+
+
+<font class='h3NoTOC'>Data Structure</font>
+
+The rule states the age can be missing in cases where the subject is either:
+1. A screen failure ( `armcd=SCRNFL`)
+2. Not assigned to a treatment arm ( `armcd=NOTASSGN`)
+
+Here we encounter another problem in the SDTM data model.  Screen Failures and Subjects not assigned to a treatment arm are indicated as values `SCRNFL` and `NOTASSGN` in the SDTM column `armcd` that indicates the treatment arm.  But subjects are never randomized to SCRNFL or NOTASSGN arms. A solution to this modeling error is to model the rule that describes when SCRNFL and NOTASSGN are assigned.  
+
+<font class='.h3NoTOC'>NOTASSGN</font>
+
+`armcd` has the value `NOTASSGN` when there is no randomization outcome. The data conversion process attempts to create the randomization triple as:
+
+<font class='code'>Randomization_########  code:outcome <font class='missing'>NO OBJECT</font></font>
+
+The triple is not created due to the missing data for the Object.
+
+The triples for a NOTASSGN subject appear as:
+
+<font class='toBeAdded'> ADD TRIPLES </font>
+
+<font class='.h3NoTOC'>SCRNFL</font>
+
+Screen Failures are different from NOTASSGN in that they had an eligibility determine outcome deeming them ineligible for the study (eligibility = FALSE).
+Triples would appear similar to:
+
+
+<font class='toBeAdded'> UPDATE WILL VALID EXAMPLE</font>
+<pre class='data'>
+cj16050:EligibilityDetermination_2
+  rdf:type study:EligibilityDetermination ;
+  skos:prefLabel "Eligibility Determination 2" ;
+  code:outcome false .
+
+cj16050:Randomization_2
+  rdf:type study:Randomization ;
+  skos:prefLabel "Randomization 2" ;
+  code:outcome <null>.              
+
+</font>
+
+Missing Age values are represented in the data has having no object associated with the `time:numericduration` predicate.
+
+Non missing value of '8':
+
+cj16050:Age_8_WEEKS
+    a study:Age ;
+    skos:prefLabel "Age 8 WEEKS"^^xsd:string ;
+    time:hasXSDDuration "P56D"^^xsd:duration ;
+    time:numericDuration 8 ;
+    time:unitType time:unitWeek .
+
+Missing age value:
+cj16050:Age_
+    skos:prefLabel "Age  WEEKS"^^xsd:string ;
+    time:hasXSDDuration "P56D"^^xsd:duration ;
+    time:unitType time:unitWeek .
+
+<font class='h3NoTOC'>Translation into SHACL</font>
+
+<div class='ruleState'>
+  <div class='ruleState-header'>Rule Statement</div>
+  <code>age</code> <code>ADD HERE</code> 0.  
+</div>
+
+<div class='def'>
+  <div class='def-header'>Description</div>
+  ADD
+</div>
+
+
+The age for Animal Subjects 99TXX, 99TXX, 99TXX was set to missing.
+<pre class='data'>
+
+   ADD data for one test case here.
+
+</pre>
+<br/>
+
+The shape tests the following condition:
+
+* ADD CONDITION
+
+<pre class='shacl'>
+   ADD SHACL
+</pre>
+<br/>
+
+
+The report correctly identifies XXXX.
+<pre class='report'>
+  ADD REPORT EXCERPT
+</pre>
+<br/>
+
+The report <font class='tobeAdded'>ADD DETAILS ABOUT REPORT VALIDATION USING SPARQL</font>.  SPARQL can be used to identify  <font class='tobeAdded'>Add</font> Source file: <font class='tobeAdded'>Add</font>[/SPARQL/foo](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/foo.rq)</font>
+
+<pre class='sparql'>
+  ADD
+</pre>
+
+<br/>
+
+
+
+
+<br><br>
+<font class='toBeAdded'>Add: Additional Rules...</font>
 
 {% include links.html %}

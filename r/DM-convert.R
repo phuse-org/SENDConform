@@ -19,6 +19,7 @@
 #       IF statement in the RDF creation for dates with -DEC- for error testing
 # TODO:  
 #  Move the SHA1 creation to after merge of the error data back to the main data.
+#   Fix so will create AgeDataCollection values of Missing. See line 449.
 #______________________________________________________________________________
 
 # Seed values for random number generation to create data-independent IRIs 
@@ -28,7 +29,7 @@ ranSeed1 <-  16050
 dm$SPECIESCD_IM   <- "Rat"
 dm$AGEUNIT_IM     <- "Week" # to link to time namespace
 dm$DURATION_IM    <- "P56D" 
-numDMTestSubjects <- 12  # Number of DM Test subjects for test cases
+numDMTestSubjects <- 13  # Number of DM Test subjects for test cases
 dm$ROWID_IM <-  (1:nrow(dm)) # To match with ERR dataset. Will later be deleted.
 # Necessary for later manipulation
 dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
@@ -107,6 +108,7 @@ dmErr <- dm[1,]
   dmErr[dmErr$usubjid == 'CJ16050_99T7', "usubjid"] <- "CJ16050_99DUP1"
     
   
+  #--- AGE --------------------------------------------------------------------
   # --- SD0084
   #     Age cannot be less than 0
   dmErr[dmErr$subjid == '99T1', "age"] <- -10
@@ -119,9 +121,9 @@ dmErr <- dm[1,]
   dmErr[dmErr$subjid == '99T4', "age"] <- NA
   dmErr[dmErr$subjid == '99T4', "armcd"] <- "NOTASSGN"
   
+  dmErr[dmErr$subjid == '99T13', "age"] <- NA
+  dmErr[dmErr$subjid == '99T13', "armcd"] <- "SCRNFAIL"
   
-  
-
   #--- END test data creation -------
   # Error data appended to real data.
   dm <-rbind (dm, dmErr)
@@ -421,15 +423,17 @@ for(i in 1:nrow(dm))
     predicate    = paste0(STUDY,  "memberOf"), 
     object       = paste0(CODE, paste0("Species_", dm[i,"SPECIESCD_IM"]))
   )
-  # AgeDataCollection only when age value is present
-  if( ! is.na (dm[i,"age"]))
-  {
+  #AgeDataCollection only when age value is present
+  #  NO! For SHACL testing, need AgeDataCollection to be created even when AGE is missing
+  #      to allow testing of rules for missing ages.
+  # if( ! is.na (dm[i,"age"]))
+  #{
     rdf_add(some_rdf, 
       subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
       predicate    = paste0(STUDY,  "participatesIn"), 
       object       = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"]))
     )
-  }  
+  #}  
   rdf_add(some_rdf, 
     subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
     predicate    = paste0(STUDY,  "participatesIn"), 
@@ -441,7 +445,8 @@ for(i in 1:nrow(dm))
   ## Member of Set
   # Question to AO. Not set here.
     # AgeDataCollection only when age value is present
-    if( ! is.na (dm[i,"age"])){
+     # commented out to allow testing of missing age values
+     #if( ! is.na (dm[i,"age"])){
       ## Age Data Collection
       rdf_add(some_rdf, 
         subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"])),
@@ -456,12 +461,13 @@ for(i in 1:nrow(dm))
           objectType   = "literal", 
           datatype_uri = paste0(XSD,"string")
         )
-      }  
-      rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"])),
-        predicate    = paste0(CODE,  "outcome"), 
-        object       = paste0(CJ16050, paste0("Age_", dm[i,"age"], "_", dm[i,"ageu"]))
-      )    
+      #}  
+      if( ! is.na (dm[i,"age"])){  
+        rdf_add(some_rdf, 
+          subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"])),
+          predicate    = paste0(CODE,  "outcome"), 
+          object       = paste0(CJ16050, paste0("Age_", dm[i,"age"], "_", dm[i,"ageu"]))
+        )
        # Age   
        rdf_add(some_rdf, 
          subject      = paste0(CJ16050, paste0("Age_", dm[i,"age"], "_", dm[i,"ageu"])),
@@ -494,6 +500,43 @@ for(i in 1:nrow(dm))
          predicate    = paste0(TIME, "unitType"),
          object       = paste0(TIME, "unit", dm[i,"AGEUNIT_IM"])
        )    
+        
+      } else {
+        # Age value  MISSING: Create IRIs for it without the age value.
+        rdf_add(some_rdf, 
+          subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"])),
+          predicate    = paste0(CODE,  "outcome"), 
+          object       = paste0(CJ16050, paste0("Age_"))
+        )
+       rdf_add(some_rdf, 
+         subject      = paste0(CJ16050, paste0("Age_")),
+         predicate    = paste0(SKOS, "prefLabel"),
+         object       = paste0("Age ", " ", dm[i,"ageu"]),
+         objectType   = "literal", 
+         datatype_uri = paste0(XSD,"string")
+       )    
+       rdf_add(some_rdf, 
+         subject      = paste0(CJ16050, paste0("Age_")),
+         predicate    = paste0(TIME, "hasXSDDuration"),
+         object       = paste0(dm[i,"DURATION_IM"]),
+         objectType   = "literal", 
+         datatype_uri = paste0(XSD,"duration")
+       )  
+       #rdf_add(some_rdf, 
+       #   subject      = paste0(CJ16050, paste0("Age_")),
+       #  predicate    = paste0(TIME, "numericDuration"),
+       #   object       = paste0(dm[i,"age"]),
+       #   objectType   = "literal", 
+       #   datatype_uri = paste0(XSD,"decimal")
+       #)    
+       rdf_add(some_rdf, 
+         subject      = paste0(CJ16050, paste0("Age_")),
+         predicate    = paste0(TIME, "unitType"),
+         object       = paste0(TIME, "unit", dm[i,"AGEUNIT_IM"])
+       )    
+        
+        
+      } 
     }
     ## Sex Data Collection
     rdf_add(some_rdf, 
