@@ -59,6 +59,11 @@ entries:
     output: web, pdf
     folderitems:
 
+    - title: Background and Rationale
+      url: /submit_background_and_rationale.html
+      output: web, pdf
+
+
     - title: Structure and Components
       url: /submit_structure_and_components.html
       output: web, pdf
