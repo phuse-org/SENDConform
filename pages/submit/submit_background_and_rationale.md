@@ -21,16 +21,15 @@ The submission rules are not complex, but there can be confusion surrounding the
 The submission process can be greatly streamlined by automating the technical submission requirements when the process and data are based on Linked Data principles. Data quality will be increased. Rejection of submissions due to technical issues can be avoided when both sponsors and regulatory agencies employ the same, automated, evaluation processes.
 
 ## Background
+<a name='background'></a>
+Both nonclinical and clinical studies starting after 2016-12-17 for <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.NDA}}">NDA</a>s, <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.BLA}}">BLA</a>s and <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.ANDA}}">ANDA</a>s , and 2017-12-17 for <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.IND}}">IND</a>s require sponsors to use the data standards listed in the FDA Data Standards Catalog <font class='toBeAdded'>Add Ref</font>.  Both <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.CDER}}">CDER</a> and <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.CBER}}">CBER</a> centers are automating the review of inbound data based on these specifications. Both regulatory agencies and sponsors would benefit from basing the validation process on Linked Data.
 
-Both nonclinical and clinical studies starting after 2016-12-17 for <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.NDA}}">NDA</a>s, <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.BLA}}">BLA</a>s and <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.ANDA}}">ANDA</a>s , and 2017-12-17 for <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.IND}}">IND</a>s require sponsors to use the data standards listed in the FDA Data Standards Catalog <font class='toBeAdded'>Add Ref</font>.  Both <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.CDER}}">CDER</a> and <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.CBER}}">CBER></a> centers are automating the review of inbound data based on these specifications. Both regulatory agencies and sponsors would benefit from basing the validation process on Linked Data.
 
+## Criteria for Automated Validation
 
-
+The rules applied to the data depend on Study Start Date (SSD) <a href=''#background'>as detailed above</a>, so an accurate determine of that date is required. The automated process at the FDA relies on the <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.SSD}}">SSD</a> value provided in the Trial Summary domain (TS) in the dataset file TS.XPT.  The TS dataset is referenced in the Study Tagging File (STF). Therefore, both the TS file(s) and STF must be present and cross referenced to facilitate this automated process.  TS domain content varies based on type of study and if it is submitted in compliance with <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.SSD}}">CDISC</a> Standards. For the purpose of this prototype we assume the following: <font class='toBeAdded'> Add type and date of data submission (or multiple), with resulting validation assumptions.</font>
 
 <font class='toBeAdded'>Content to be added</font>
-
-## Classes
-
 
 
 {% include links.html %}

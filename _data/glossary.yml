@@ -2,10 +2,16 @@ ANDA: "Abbreviated New Drug Application"
 
 BLA: "Biologic License Application"
 
+CBER: "Center for Biologics Evaluation and Research" 
+
 CDER: "Center for Drug Evaluation and Research"
 
-CBER: "Center for Biologics Evaluation and Research" 
+CDISC: "Clinical Data Interchange Standards Consortium"
 
 IND: "Investigational New Drug"
 
 NDA: "New Drug Application"
+
+SSD: "Study Start Date"
+
+STF: "Study Tagging File"
