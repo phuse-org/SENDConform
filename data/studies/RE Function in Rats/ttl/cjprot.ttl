@@ -11,33 +11,41 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://example.org/cjprot>
-  rdf:type owl:Ontology ;
+  a owl:Ontology ;
   owl:imports <https://w3id.org/phuse/study> ;
   owl:versionInfo "Created with TopBraid Composer" ;
 .
 cjprot:ControlArm_00
-  rdf:type study:ControlArm ;
+  a study:ControlArm ;
   skos:altLabel "00" ;
   skos:prefLabel "Control" ;
 .
+cjprot:FalseArm_NotAssigned
+  a study:FalseArm ;
+  skos:prefLabel "NOTASSGN" ;
+.
+cjprot:FalseArm_ScreenFailure
+  a study:FalseArm ;
+  skos:prefLabel "SCRNFL" ;
+.
 cjprot:InvestigationalArm_CompoundA
-  rdf:type study:InvestigationalArm ;
+  a study:InvestigationalArm ;
   skos:altLabel "1" ;
   skos:prefLabel "Compound A" ;
 .
 cjprot:Set_00
-  rdf:type study:Set ;
+  a study:Set ;
   skos:altLabel "00" ;
   skos:prefLabel "00" ;
 .
 cjprot:StudyIdentifier_1
-  rdf:type study:StudyIdentifier ;
+  a study:StudyIdentifier ;
   skos:prefLabel "CJ16050" ;
 .
 cjprot:Study_CJ16050
-  rdf:type study:Study ;
+  a study:Study ;
   skos:prefLabel "Study CJ16050" ;
 .
 <https://w3id.org/phuse/code#Species_Rat>
-  rdf:type study:Species ;
+  a study:Species ;
 .

@@ -15,25 +15,73 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://example.org/cj16050>
-  rdf:type owl:Ontology ;
+  a owl:Ontology ;
   spin:imports <http://topbraid.org/spin/owlrl-all> ;
   owl:imports <https://example.org/cjprot> ;
   owl:versionInfo "Created with TopBraid Composer" ;
 .
 cj16050:AgeDataCollection_1
-  rdf:type code:AgeDataCollection ;
+  a code:AgeDataCollection ;
   skos:prefLabel "Age data collection 1" ;
   code:outcome cj16050:Age_8_WEEKS ;
 .
+cj16050:AgeDataCollection_2
+  a code:AgeDataCollection ;
+  skos:prefLabel "Age data collection 2" ;
+  code:outcome cj16050:Age_9_WEEKS ;
+.
+cj16050:AgeDataCollection_3
+  a code:AgeDataCollection ;
+  skos:prefLabel "Age data collection 3" ;
+  code:outcome cj16050:Age_10_WEEKS ;
+.
+cj16050:AgeDataCollection_4
+  a code:AgeDataCollection ;
+  skos:prefLabel "Age data collection 1" ;
+  code:outcome cj16050:Age_11_WEEKS ;
+.
+cj16050:AgeDataCollection_5
+  a code:AgeDataCollection ;
+  skos:prefLabel "Age data collection 1" ;
+  code:outcome cj16050:Age_12_WEEKS ;
+.
+cj16050:Age_10_WEEKS
+  a study:Age ;
+  skos:prefLabel "Age 10 WEEKS" ;
+  time:hasXSDDuration "P70D"^^xsd:duration ;
+  time:numericDuration "10"^^xsd:decimal ;
+  time:unitType time:unitWeek ;
+.
+cj16050:Age_11_WEEKS
+  a study:Age ;
+  skos:prefLabel "Age 11 WEEKS" ;
+  time:hasXSDDuration "P77D"^^xsd:duration ;
+  time:numericDuration "11"^^xsd:decimal ;
+  time:unitType time:unitWeek ;
+.
+cj16050:Age_12_WEEKS
+  a study:Age ;
+  skos:prefLabel "Age 12 WEEKS" ;
+  time:hasXSDDuration "P84D"^^xsd:duration ;
+  time:numericDuration "12"^^xsd:decimal ;
+  time:unitType time:unitWeek ;
+.
 cj16050:Age_8_WEEKS
-  rdf:type study:Age ;
+  a study:Age ;
   skos:prefLabel "Age 8 WEEKS" ;
   time:hasXSDDuration "P56D"^^xsd:duration ;
   time:numericDuration "8"^^xsd:decimal ;
   time:unitType time:unitWeek ;
 .
+cj16050:Age_9_WEEKS
+  a study:Age ;
+  skos:prefLabel "Age 9 WEEKS" ;
+  time:hasXSDDuration "P63D"^^xsd:duration ;
+  time:numericDuration "9"^^xsd:decimal ;
+  time:unitType time:unitWeek ;
+.
 cj16050:Animal_00M01
-  rdf:type study:AnimalSubject ;
+  a study:AnimalStudySubject ;
   skos:prefLabel "Animal 00M01" ;
   study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-07 ;
   study:hasSubjectID cj16050:SubjectIdentifier_1 ;
@@ -41,46 +89,259 @@ cj16050:Animal_00M01
   study:memberOf cjprot:Set_00 ;
   study:memberOf code:Species_Rat ;
   study:participatesIn cj16050:AgeDataCollection_1 ;
+  study:participatesIn cj16050:EligibilityDetermination_1 ;
   study:participatesIn cj16050:Randomization_1 ;
   study:participatesIn cj16050:SexDataCollection_1 ;
 .
+cj16050:Animal_00M02
+  a study:AnimalStudySubject ;
+  skos:prefLabel "Animal 00M02" ;
+  study:hasReferenceInterval cj16050:Interval_2016-02-07_2016-02-07 ;
+  study:hasSubjectID cj16050:SubjectIdentifier_2 ;
+  study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_2 ;
+  study:memberOf cjprot:Set_00 ;
+  study:memberOf code:Species_Rat ;
+  study:participatesIn cj16050:AgeDataCollection_2 ;
+  study:participatesIn cj16050:EligibilityDetermination_2 ;
+  study:participatesIn cj16050:Randomization_2 ;
+  study:participatesIn cj16050:SexDataCollection_2 ;
+.
+cj16050:Animal_00M03
+  a study:AnimalStudySubject ;
+  skos:prefLabel "Animal 00M03" ;
+  study:hasReferenceInterval cj16050:Interval_2016-03-07_2016-03-07 ;
+  study:hasSubjectID cj16050:SubjectIdentifier_3 ;
+  study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_3 ;
+  study:memberOf cjprot:Set_00 ;
+  study:memberOf code:Species_Rat ;
+  study:participatesIn cj16050:AgeDataCollection_3 ;
+  study:participatesIn cj16050:EligibilityDetermination_3 ;
+  study:participatesIn cj16050:Randomization_3 ;
+  study:participatesIn cj16050:SexDataCollection_3 ;
+.
+cj16050:Animal_00M04
+  a study:AnimalStudySubject ;
+  skos:prefLabel "Animal 00M04" ;
+  study:hasReferenceInterval cj16050:Interval_2016-04-07_2016-04-07 ;
+  study:hasSubjectID cj16050:SubjectIdentifier_4 ;
+  study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_4 ;
+  study:memberOf cjprot:Set_00 ;
+  study:memberOf code:Species_Rat ;
+  study:participatesIn cj16050:AgeDataCollection_4 ;
+  study:participatesIn cj16050:EligibilityDetermination_4 ;
+  study:participatesIn cj16050:Randomization_4 ;
+  study:participatesIn cj16050:SexDataCollection_4 ;
+.
+cj16050:Animal_00M05
+  a study:AnimalStudySubject ;
+  skos:prefLabel "Animal 00M05" ;
+  study:hasReferenceInterval cj16050:Interval_2016-05-07_2016-05-07 ;
+  study:hasSubjectID cj16050:SubjectIdentifier_5 ;
+  study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_5 ;
+  study:memberOf cjprot:Set_00 ;
+  study:memberOf code:Species_Rat ;
+  study:participatesIn cj16050:AgeDataCollection_5 ;
+  study:participatesIn cj16050:EligibilityDetermination_5 ;
+  study:participatesIn cj16050:Randomization_5 ;
+  study:participatesIn cj16050:SexDataCollection_5 ;
+.
+cj16050:Date_2016-02-07
+  a study:ReferenceBegin ;
+  a study:ReferenceEnd ;
+  skos:prefLabel "Date 2016-02-07" ;
+  time:inXSDDate "2016-02-07"^^xsd:date ;
+  study:dateTimeInXSDString "2016-02-07" ;
+.
+cj16050:Date_2016-03-07
+  a study:ReferenceBegin ;
+  a study:ReferenceEnd ;
+  skos:prefLabel "Date 2016-03-07" ;
+  time:inXSDDate "2016-03-07"^^xsd:date ;
+  study:dateTimeInXSDString "2016-003-07" ;
+.
+cj16050:Date_2016-04-07
+  a study:ReferenceBegin ;
+  a study:ReferenceEnd ;
+  skos:prefLabel "Date 2016-12-07" ;
+  time:inXSDDate "2016-04-07"^^xsd:date ;
+  study:dateTimeInXSDString "2016-04-07" ;
+.
+cj16050:Date_2016-05-07
+  a study:ReferenceBegin ;
+  a study:ReferenceEnd ;
+  skos:prefLabel "Date 2016-12-07" ;
+  time:inXSDDate "2016-04-07"^^xsd:date ;
+  study:dateTimeInXSDString "2016-04-07" ;
+.
 cj16050:Date_2016-12-06
-  rdf:type study:ReferenceEnd ;
+  a study:ReferenceEnd ;
   rdfs:comment "Dummy Data created to illustrate SPARQL SHACL constraint." ;
   skos:prefLabel "Date 2016-12-07" ;
   time:inXSDDate "2016-12-06"^^xsd:date ;
   study:dateTimeInXSDString "2016-12-07" ;
 .
 cj16050:Date_2016-12-07
-  rdf:type study:ReferenceBegin ;
-  rdf:type study:ReferenceEnd ;
+  a study:ReferenceBegin ;
+  a study:ReferenceEnd ;
   skos:prefLabel "Date 2016-12-07" ;
   time:inXSDDate "2016-12-07"^^xsd:date ;
   study:dateTimeInXSDString "2016-12-07" ;
 .
-cj16050:Interval_2016-12-07_2016-12-07
-  rdf:type study:ReferenceInterval ;
+cj16050:EligibilityDetermination_1
+  a study:EligibilityDetermination ;
+  skos:prefLabel "Eligibility determination 1" ;
+  code:outcome code:RuleOutcome_TRUE ;
+.
+cj16050:EligibilityDetermination_2
+  a study:EligibilityDetermination ;
+  skos:prefLabel "Eligibility determination 2" ;
+  code:outcome code:RuleOutcome_TRUE ;
+.
+cj16050:EligibilityDetermination_3
+  a study:EligibilityDetermination ;
+  skos:prefLabel "Eligibility determination 3" ;
+  code:outcome code:RuleOutcome_TRUE ;
+.
+cj16050:EligibilityDetermination_4
+  a study:EligibilityDetermination ;
+  skos:prefLabel "Eligibility determination 4" ;
+  code:outcome code:RuleOutcome_FALSE ;
+.
+cj16050:EligibilityDetermination_5
+  a study:EligibilityDetermination ;
+  skos:prefLabel "Eligibility determination 5" ;
+.
+cj16050:FalseArm_NotAssigned
+  a study:FalseArm ;
+  skos:prefLabel "False arm Not assigned" ;
+.
+cj16050:FalseArm_ScreenFailure
+  a study:FalseArm ;
+  skos:prefLabel "False arm Screen failure" ;
+.
+cj16050:Interval_2016-02-07_2016-02-07
+  a study:ReferenceInterval ;
+  skos:prefLabel "Interval 2016-02-07 2016-02-07" ;
+  time:hasEnd cj16050:Date_2016-02-07 ;
+.
+cj16050:Interval_2016-03-07_2016-03-07
+  a study:ReferenceInterval ;
+  skos:prefLabel "Interval 2016-03-07 2016-03-07" ;
+  time:hasBeginning cj16050:Date_2016-03-07 ;
+  time:hasEnd cj16050:Date_2016-03-07 ;
+.
+cj16050:Interval_2016-04-07_2016-04-07
+  a study:ReferenceInterval ;
   skos:prefLabel "Interval 2016-12-07 2016-12-07" ;
-  time:hasBeginning cj16050:Date_2016-12-07 ;
+  time:hasBeginning cj16050:Date_2016-04-07 ;
+  time:hasEnd cj16050:Date_2016-04-07 ;
+.
+cj16050:Interval_2016-05-07_2016-05-07
+  a study:ReferenceInterval ;
+  skos:prefLabel "Interval 2016-05-07 2016-05-07" ;
+  time:hasBeginning cj16050:Date_2016-05-07 ;
+  time:hasEnd cj16050:Date_2016-05-07 ;
+.
+cj16050:Interval_2016-12-07_2016-12-07
+  a study:ReferenceInterval ;
+  skos:prefLabel "Interval 2016-12-07 2016-12-07" ;
   time:hasEnd cj16050:Date_2016-12-06 ;
 .
 cj16050:Randomization_1
-  rdf:type study:Randomization ;
+  a study:Randomization ;
+  skos:prefLabel "Randomization 1" ;
+  code:outcome cjprot:ControlArm_00 ;
+.
+cj16050:Randomization_2
+  a study:Randomization ;
+  skos:prefLabel "Randomization 1" ;
+  code:outcome cjprot:ControlArm_00 ;
+.
+cj16050:Randomization_3
+  a study:Randomization ;
+  skos:prefLabel "Randomization 1" ;
+  code:outcome cjprot:InvestigationalArm_CompoundA ;
+.
+cj16050:Randomization_4
+  a study:Randomization ;
+  skos:prefLabel "Randomization 1" ;
+  code:outcome cjprot:ControlArm_00 ;
+.
+cj16050:Randomization_5
+  a study:Randomization ;
   skos:prefLabel "Randomization 1" ;
   code:outcome cjprot:ControlArm_00 ;
 .
 cj16050:SexDataCollection_1
-  rdf:type code:SexDataCollection ;
+  a code:SexDataCollection ;
   skos:prefLabel "Sex data collection 1" ;
   code:outcome code:Sex_M ;
 .
+cj16050:SexDataCollection_2
+  a code:SexDataCollection ;
+  skos:prefLabel "Sex data collection 2" ;
+  code:outcome code:Sex_M ;
+.
+cj16050:SexDataCollection_3
+  a code:SexDataCollection ;
+  skos:prefLabel "Sex data collection 3" ;
+  code:outcome code:Sex_M ;
+.
+cj16050:SexDataCollection_4
+  a code:SexDataCollection ;
+  skos:prefLabel "Sex data collection 4" ;
+  code:outcome code:Sex_M ;
+.
+cj16050:SexDataCollection_5
+  a code:SexDataCollection ;
+  skos:prefLabel "Sex data collection 5" ;
+  code:outcome code:Sex_M ;
+.
 cj16050:SubjectIdentifier_1
-  rdf:type study:SubjectIdentifier ;
+  a study:SubjectIdentifier ;
+  skos:prefLabel "00M01" ;
+.
+cj16050:SubjectIdentifier_2
+  a study:SubjectIdentifier ;
+  skos:prefLabel "00M01" ;
+.
+cj16050:SubjectIdentifier_3
+  a study:SubjectIdentifier ;
+  skos:prefLabel "00M01" ;
+.
+cj16050:SubjectIdentifier_4
+  a study:SubjectIdentifier ;
+  skos:prefLabel "00M01" ;
+.
+cj16050:SubjectIdentifier_5
+  a study:SubjectIdentifier ;
   skos:prefLabel "00M01" ;
 .
 cj16050:UniqueSubjectIdentifier_1
-  rdf:type study:UniqueSubjectIdentifier ;
+  a study:UniqueSubjectIdentifier ;
   skos:prefLabel "CJ16050_00M01" ;
+.
+cj16050:UniqueSubjectIdentifier_2
+  a study:UniqueSubjectIdentifier ;
+  skos:prefLabel "CJ16050_00M02" ;
+.
+cj16050:UniqueSubjectIdentifier_3
+  a study:UniqueSubjectIdentifier ;
+  skos:prefLabel "CJ16050_00M03" ;
+.
+cj16050:UniqueSubjectIdentifier_4
+  a study:UniqueSubjectIdentifier ;
+  skos:prefLabel "CJ16050_00M04" ;
+.
+cj16050:UniqueSubjectIdentifier_5
+  a study:UniqueSubjectIdentifier ;
+  skos:prefLabel "CJ16050_00M05" ;
+.
+cjprot:ControlArm_00
+  a study:RandomizationOutcome ;
+.
+cjprot:InvestigationalArm_CompoundA
+  a study:RandomizationOutcome ;
 .
 cjprot:Study_CJ16050
   study:hasStudyParticipant cj16050:Animal_00M01 ;
