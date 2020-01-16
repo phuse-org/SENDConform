@@ -81,7 +81,7 @@ cj16050:Age_9_WEEKS
   time:unitType time:unitWeek ;
 .
 cj16050:Animal_00M01
-  a study:AnimalStudySubject ;
+  a study:Animal ;
   skos:prefLabel "Animal 00M01" ;
   study:hasReferenceInterval cj16050:Interval_2016-12-07_2016-12-07 ;
   study:hasSubjectID cj16050:SubjectIdentifier_1 ;
@@ -94,7 +94,7 @@ cj16050:Animal_00M01
   study:participatesIn cj16050:SexDataCollection_1 ;
 .
 cj16050:Animal_00M02
-  a study:AnimalStudySubject ;
+  a study:Animal ;
   skos:prefLabel "Animal 00M02" ;
   study:hasReferenceInterval cj16050:Interval_2016-02-07_2016-02-07 ;
   study:hasSubjectID cj16050:SubjectIdentifier_2 ;
@@ -107,7 +107,7 @@ cj16050:Animal_00M02
   study:participatesIn cj16050:SexDataCollection_2 ;
 .
 cj16050:Animal_00M03
-  a study:AnimalStudySubject ;
+  a study:Animal ;
   skos:prefLabel "Animal 00M03" ;
   study:hasReferenceInterval cj16050:Interval_2016-03-07_2016-03-07 ;
   study:hasSubjectID cj16050:SubjectIdentifier_3 ;
@@ -120,7 +120,7 @@ cj16050:Animal_00M03
   study:participatesIn cj16050:SexDataCollection_3 ;
 .
 cj16050:Animal_00M04
-  a study:AnimalStudySubject ;
+  a study:Animal ;
   skos:prefLabel "Animal 00M04" ;
   study:hasReferenceInterval cj16050:Interval_2016-04-07_2016-04-07 ;
   study:hasSubjectID cj16050:SubjectIdentifier_4 ;
@@ -133,7 +133,7 @@ cj16050:Animal_00M04
   study:participatesIn cj16050:SexDataCollection_4 ;
 .
 cj16050:Animal_00M05
-  a study:AnimalStudySubject ;
+  a study:Animal ;
   skos:prefLabel "Animal 00M05" ;
   study:hasReferenceInterval cj16050:Interval_2016-05-07_2016-05-07 ;
   study:hasSubjectID cj16050:SubjectIdentifier_5 ;
