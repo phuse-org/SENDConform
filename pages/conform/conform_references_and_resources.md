@@ -28,7 +28,10 @@ Information can be found on the FDA Website: https://www.fda.gov/industry/fda-re
 ## SHACL
 An introduction to SHACL is beyond the scope of this project. The following resources may be helpful:
 
-* [Validating RDF Data](https://book.validatingrdf.com/) . Website version of an excellent book.
+* [Validating RDF Data](https://book.validatingrdf.com/). Website version of the excellent book.
+
+* [What is SHACL?](https://www.topquadrant.com/technology/shacl/). Articles and Webinars at TopQuadrant.
+
 * [Data Validation and SHACL](https://fetch.stardog.com/training-data-validation/). Webinar by [Stardog Union](https://www.stardog.com/) illustrating their implementation of SHACL and their Stardog Studio environment.
 * [W3C SHACL Spec](https://www.w3.org/TR/shacl/)
 
