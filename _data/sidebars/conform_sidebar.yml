@@ -109,8 +109,7 @@ entries:
       url: /conform_references_contact_us.html
       output: web, pdf
 
-
-- title: Dev Team Notes
+  - title: Dev Team Notes
     output: web
     folderitems:
 
