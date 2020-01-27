@@ -89,7 +89,7 @@ entries:
       output: web, pdf
 
 
-  - title: References and Resources
+ - title: References and Resources
     output: web
     folderitems:
 
@@ -110,14 +110,14 @@ entries:
       output: web, pdf
 
 
-- title: Dev Team Notes
-  output: web
-  folderitems:
-
-  - title: Introduction
-    url: /devteam_intro.html
+ - title: Dev Team Notes
     output: web
+    folderitems:
 
-  - title: Randomization and Eligbility
-    url: /devteam_modelNotes.html
-    output: web
+    - title: Introduction
+      url: /devteam_intro.html
+      output: web
+
+    - title: Randomization and Eligbility
+      url: /devteam_modelNotes.html
+      output: web
