@@ -118,5 +118,5 @@ entries:
       output: web
 
     - title: Team Notes
-      url: /devteam_modelnotes.html
+      url: /devteam_teamnotes.html
       output: web, pdf
