@@ -1,8 +1,8 @@
 ---
 title: Development Team Pages
-last_updated: 2020-01-26
+last_updated: 2020-01-27
 sidebar: conform_sidebar
-permalink: devteam_info.html
+permalink: devteam_intro.html
 folder: devteam
 ---
 

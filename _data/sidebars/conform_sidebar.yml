@@ -118,5 +118,5 @@ entries:
       output: web
 
     - title: Randomization and Eligbility
-      url: /devteam_modelNotes.html
+      url: /devteam_modelnotes.html
       output: web, pdf
