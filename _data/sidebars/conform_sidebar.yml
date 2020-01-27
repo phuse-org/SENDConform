@@ -108,3 +108,16 @@ entries:
     - title: Contact Us
       url: /conform_references_contact_us.html
       output: web, pdf
+
+
+- title: Dev Team Notes
+  output: web
+  folderitems:
+
+  - title: Introduction
+    url: /devteam_intro.html
+    output: web
+
+  - title: Randomization and Eligbility
+    url: /devteam_modelNotes.html
+    output: web

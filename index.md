@@ -1,5 +1,5 @@
 ---
-title: "Nonclinical Study Data (SEND) Validation & Submission Conformance"
+title: "Study Data Validation & Submission Conformance"
 keywords: homepage
 toc: false
 tags:
@@ -14,7 +14,7 @@ This project is a proof of concept investigating the use of Linked Data for vali
 1. FDA Submission Criteria
 
 When both study sponsors and regulatory agencies use common data models and rules across the entire data lifecycle, data quality is greatly improved and the
-submission and approval process is more efficient.
+submission and approval process is more efficient. Linked Data approaches provide high precision, leading to better data, better analysis, and better medicines for patients.
 
 <hr class='sectionBreak' />
 

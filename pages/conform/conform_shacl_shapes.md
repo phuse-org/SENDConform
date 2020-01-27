@@ -1249,32 +1249,18 @@ The rule states the age can be missing in cases where the subject is either:
 1. A screen failure ( `armcd=SCRNFL`)
 2. Not assigned to a treatment arm ( `armcd=NOTASSGN`)
 
-Here we encounter another problem in the SDTM data model.  Screen Failures and Subjects not assigned to a treatment arm are indicated as values `SCRNFL` and `NOTASSGN` in the SDTM column `armcd` that indicates the treatment arm.  But subjects are never randomized to SCRNFL or NOTASSGN arms. A solution to this modeling error is to model the rule that describes when SCRNFL and NOTASSGN are assigned.  
-
-<font class='.h3NoTOC'>NOTASSGN</font>
-
-`armcd` has the value `NOTASSGN` when there is no randomization outcome. The data conversion process attempts to create the randomization triple as:
-
-<font class='code'>Randomization_########  code:outcome <font class='missing'>NO OBJECT</font></font>
-
-The triple is not created due to the missing data for the Object.
-
-The triples for a NOTASSGN subject appear as:
-
-<font class='toBeAdded'> ADD TRIPLES </font>
+Here we encounter another problem in the SDTM data model. SEND data identifies screen failures as `armcd='SCRNFL'` and subjects not assigned to a treatment arm as `armcd='NOTASSGN'`. `armcd` implies it contains values indicating the treatment arm, yet values `SCRNFL` and `NOTASSGN` identify subjects who were  never assigned to a treatment arm! The data model must change to model these cases without ambiguity.
 
 <font class='.h3NoTOC'>SCRNFL</font>
 
-Screen Failures are different from NOTASSGN in that they had an eligibility determine outcome deeming them ineligible for the study (eligibility = FALSE).
+Screen Failures had an eligibility assessment with an outcome that deemed the subject ineligible for the study (eligibility = FALSE).
+
 Triples would appear similar to:
 
-
-<font class='toBeAdded'> UPDATE WILL VALID EXAMPLE</font>
 <pre class='data'>
-cj16050:EligibilityDetermination_2
-  rdf:type study:EligibilityDetermination ;
-  skos:prefLabel "Eligibility Determination 2" ;
-  code:outcome false .
+cj16050:EligibilityDetermination_XXXXXX
+  rdf:type     study:EligibilityDetermination ;
+  code:outcome code:RuleOutcome_FALSE .
 
 cj16050:Randomization_2
   rdf:type study:Randomization ;
@@ -1282,6 +1268,7 @@ cj16050:Randomization_2
   code:outcome <null>.              
 
 </font>
+</data>
 
 Missing Age values are represented in the data has having no object associated with the `time:numericduration` predicate.
 
@@ -1344,6 +1331,22 @@ The report <font class='tobeAdded'>ADD DETAILS ABOUT REPORT VALIDATION USING SPA
 </pre>
 
 <br/>
+
+
+
+
+
+<font class='.h3NoTOC'>NOTASSGN</font>
+
+`armcd` has the value `NOTASSGN` when there is no randomization outcome. The data conversion process attempts to create the randomization triple as:
+
+<font class='code'>Randomization_########  code:outcome <font class='missing'>NO OBJECT</font></font>
+
+The triple is not created due to the missing data for the Object.
+
+The triples for a NOTASSGN subject appear as:
+
+<font class='toBeAdded'> ADD TRIPLES </font>
 
 
 

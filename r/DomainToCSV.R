@@ -19,10 +19,13 @@ source('r/Functions.R')  # Functions: readXPT(), encodeCol(), etc.
 # sendPath="data/studies/send/FFU-Contribution-to-FDA"
 sendPath="data/studies/RE Function in Rats"
 
-dm <- readXPT(dataPath = sendPath, domain = "dm")
 
-csvFile = paste0(sendPath, "/csv/DM.csv")
-write.csv(dm, file=csvFile,
+srcDom <- "tx"
+
+sendData <- readXPT(dataPath = sendPath, domain = srcDom)
+
+csvFile = paste0(sendPath, "/csv/", srcDom, ".csv")
+write.csv(sendData, file=csvFile,
    quote = TRUE,        
    row.names = F,
    na = "")
