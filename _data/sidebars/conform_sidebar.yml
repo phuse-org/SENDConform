@@ -89,7 +89,7 @@ entries:
       output: web, pdf
 
 
- - title: References and Resources
+ - title: References and Resources - TEST
     output: web
     folderitems:
 
@@ -110,7 +110,7 @@ entries:
       output: web, pdf
 
 
- - title: Dev Team Notes
+- title: Dev Team Notes
     output: web
     folderitems:
 
