@@ -117,6 +117,6 @@ entries:
       url: /devteam_intro.html
       output: web
 
-    - title: Randomization and Eligbility
+    - title: Team Notes
       url: /devteam_modelnotes.html
       output: web, pdf

@@ -1,8 +1,8 @@
 ---
-title: Modeling Notes
-last_updated: 2020-01-26
+title: Team Notes
+last_updated: 2020-01-27
 sidebar: conform_sidebar
-permalink: devteam_modelnotes.html
+permalink: devteam_teamnotes.html
 folder: devteam
 ---
 
