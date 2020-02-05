@@ -29,7 +29,7 @@ entries:
       url: /conform_intro_systems_and_applications.html
       output: web, pdf
 
-    - title: SEND Data Validation
+  - title: SEND Data Validation
     output: web, pdf
     folderitems:
 
