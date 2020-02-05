@@ -1,9 +1,9 @@
 ---
-title: Ontology for Submission
-last_updated: 2020-01-13
+title: Background and Rationale
+last_updated: 2020-02-15
 sidebar: conform_sidebar
 permalink: submit_background_and_rationale.html
-folder: mydoc
+folder: submit
 ---
 
 # <font class='toBeAdded'> This page is DRAFT</font>
@@ -29,7 +29,7 @@ Both nonclinical and clinical studies starting after 2016-12-17 for <a href="#" 
 
 The rules applied to the data depend on Study Start Date (SSD) <a href='#background'>as detailed above</a>, so an accurate determine of that date is required. The automated process at the FDA relies on the <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.SSD}}">SSD</a> value provided in the Trial Summary domain (TS) in the dataset file TS.XPT.  The TS dataset is referenced in the Study Tagging File (STF). Therefore, both the TS file(s) and STF must be present and cross referenced to facilitate this automated process. Furthermore, the study start date is a derived data point (e.g. for human trials, it is the earliest date informed consent is obtained for all study subjects). Currently it is not possible to automate that the SSD was derived correctly. Linked Data provides that capability. TS domain content varies based on type of study and if it is submitted in compliance with <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.SSD}}">CDISC</a> Standards. For the purpose of this prototype we assume the following: <font class='toBeAdded'>(Add type and date of data submission (or multiple), with resulting validation assumptions.)</font>
 
-<font class='toBeAdded'>Additional content to be added</font>
+<font class='toBeAdded'>Content to be added.</font>
 
 
 {% include links.html %}

@@ -1,15 +1,17 @@
 ---
 title: Technical Rejection Criteria
-last_updated: 2012-12-21
+last_updated: 2020-02-05
 sidebar: conform_sidebar
 permalink: submit_technical_rejection_criteria.html
-folder: mydoc
+folder: submit
 ---
 
 ## Introduction
 
-...Placeholder...
+<font class='toBeAdded'>Content to be added.</font>
 
 ## List of Resources
+
+<font class='toBeAdded'>Content to be added.</font>
 
 {% include links.html %}

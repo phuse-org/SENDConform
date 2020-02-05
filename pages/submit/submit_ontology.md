@@ -1,17 +1,17 @@
 ---
 title: Ontology for Submission
-last_updated: 2019-12-21
+last_updated: 2020-02-05
 sidebar: conform_sidebar
 permalink: submit_ontology.html
-folder: mydoc
+folder: submit
 ---
 
-## Introduction 
+## Introduction
 
 <font class='toBeAdded'>Content to be added</font>
 
 ## Classes
 
-
+<font class='toBeAdded'>Content to be added.</font>
 
 {% include links.html %}

@@ -1,21 +1,21 @@
 ---
 title: Data Conversion for Submission
-last_updated: 2020-01-03
+last_updated: 2020-02-05
 sidebar: conform_sidebar
 permalink: submit_data_conversion.html
-folder: mydoc
+folder: submit
 ---
 
 ## Introduction
 
-<font class='toBeAdded'>Add</font>
+<font class='toBeAdded'>Content to be added.</font>
 
 ## Data Sources
 
-<font class='toBeAdded'>Add</font>
+<font class='toBeAdded'>Content to be added.</font>
 
 ## Conversion
 
-<font class='toBeAdded'>Add</font>
+<font class='toBeAdded'>Content to be added.</font>
 
 {% include links.html %}
