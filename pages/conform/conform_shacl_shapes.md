@@ -1,13 +1,13 @@
 ---
 title: SHACL Shapes for SEND Data
-last_updated: 2020-01-02
+last_updated: 2020-02-05
 permalink: conform_shacl_shapes.html
 sidebar: conform_sidebar
 folder: mydoc
 ---
 
 ## Introduction
-The project strives to define a core set of re-usable, hierarchical shapes for use in a variety of data validation scenarios spanning the data lifecycle from data collection through to submission and reporting.  The first shapes to be defined by the project come from the Demographics (DM) domain, where the AnimalSubject shape is a primary focus.
+The project strives to define a set of re-usable, hierarchical shapes for use in a variety of data validation scenarios spanning the data lifecycle from data collection through to submission and reporting. The first shapes are constructed for the Demographics (DM) domain, where each AnimalSubject is a represented as a row in the source data.
 
 ## Animal Subject Shape
 
@@ -148,7 +148,7 @@ Translation of Rule Components into SHACL and evaluation of test data is describ
 |-------|------|------------|------|---------------|-------------|
 |CJ16050|DM    |<font class='goodData'>CJ16050_00M01|00M01|Animal_2a836191</font>|None|
 |CJ16050|DM    |CJ16050_99T1|99T1  |<font class='error'>Animal_2a836191</font>|SDXXXXX-RCX|
-|CJ16050|DM    |CJ16050_99T2|99T2  |<font class='error'>Animal_2a836191</font>||SDXXXXX-RCX|
+|CJ16050|DM    |CJ16050_99T2|99T2  |<font class='error'>Animal_2a836191</font>|SDXXXXX-RCX|
 
 
 
