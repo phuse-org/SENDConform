@@ -40,7 +40,7 @@ entries:
 
     - title: Ontology
       url: /conform_ontology.html
-      output: we
+      output: web
 
     - title: SEND Rules
       url: /conform_send_rules.html
