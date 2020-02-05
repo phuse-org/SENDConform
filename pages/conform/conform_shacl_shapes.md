@@ -99,7 +99,7 @@ study:Animal
 
 The figure below shows the connections from the Animal Subject IRI to the USUBJID and SUBJID IRI values.
 
-<a name='figure1'/>
+
   <img src="images/AnimalSubjectStructure.PNG"/>
 
   ***Animal Subject Node to ID Values***
@@ -516,7 +516,6 @@ The Rule Components and corresponding SHACL shapes for SD1001 are similar to tho
 
 The figure below shows the connection from the Animal Subject IRI to its Reference Interval and the associated  SHACL Shapes and SEND Rules.
 
-<a name='figure1'/>
   <img src="images/IntervalStructure.PNG"/>
 
   ***Animal Subject Data Structure, SHACL Shapes, FDA Rules***
