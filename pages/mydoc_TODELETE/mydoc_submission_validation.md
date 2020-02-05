@@ -1,7 +1,7 @@
 ---
 title: Validation for Submissions
 last_updated: 2012-12-21
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: submit_validation.html
 folder: mydoc
 ---

@@ -1,7 +1,7 @@
 ---
 title: Graph Data and Validation
 last_updated: 2020-02-05
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: intro_graph_data_and_validation.html
 folder: intro
 ---

@@ -1,7 +1,7 @@
 ---
 title: Team Notes
 last_updated: 2020-02-05
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: devteam_teamnotes.html
 folder: devteam
 ---

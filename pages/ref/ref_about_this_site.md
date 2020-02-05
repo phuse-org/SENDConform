@@ -1,7 +1,7 @@
 ---
 title: About This Site
 last_updated: 2020-02-05
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: ref_about_this_site.html
 folder: ref
 ---

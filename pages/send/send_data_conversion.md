@@ -1,7 +1,7 @@
 ---
 title: SEND Data Conversion
 last_updated: 2020-02-05
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: send_data_conversion.html
 folder: send
 ---

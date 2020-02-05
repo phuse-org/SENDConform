@@ -1,7 +1,7 @@
 ---
 title: References and Resources
 last_updated: 2020-02-05
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: ref_references_and_resources.html
 folder: ref
 ---

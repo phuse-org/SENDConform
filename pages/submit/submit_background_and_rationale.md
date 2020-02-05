@@ -1,7 +1,7 @@
 ---
 title: Background and Rationale
 last_updated: 2020-02-15
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: submit_background_and_rationale.html
 folder: submit
 ---

@@ -2,7 +2,7 @@
 title: SHACL Shapes for SEND Data
 last_updated: 2020-02-05
 permalink: conform_shacl_shapes.html
-sidebar: conform_sidebar
+sidebar: home_sidebar
 folder: conform
 ---
 # TEST TEXT 2020-02-05

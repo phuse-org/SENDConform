@@ -1,7 +1,7 @@
 ---
 title: Contact Us
 last_updated: 2020-02-05
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: conform_references_contact_us.html
 folder: conform
 ---

@@ -1,7 +1,7 @@
 ---
 title: Project Repository Structure
 last_updated: 2019-12-24
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: conform_intro_site_structure.html
 folder: mydoc
 ---

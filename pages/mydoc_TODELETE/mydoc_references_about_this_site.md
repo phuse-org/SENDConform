@@ -1,7 +1,7 @@
 ---
 title: About This Site
 last_updated: 2020-12-24
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: conform_references_about_this_site.html
 folder: mydoc
 ---

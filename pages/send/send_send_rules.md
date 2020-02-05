@@ -1,7 +1,7 @@
 ---
 title: SEND Rules
 last_updated: 2020-02-05
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: send_send_rules.html
 folder: send
 ---

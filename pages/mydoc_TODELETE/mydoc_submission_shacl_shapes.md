@@ -1,7 +1,7 @@
 ---
 title: SHACL Shapes for Submissions
 last_updated: 2020-01-03
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: submit_shacl_shapes.html
 folder: mydoc
 ---

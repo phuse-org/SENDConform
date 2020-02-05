@@ -1,7 +1,7 @@
 ---
 title: Conventions
 last_updated: 2020-02-05
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: intro_conventions.html
 folder: intro
 ---

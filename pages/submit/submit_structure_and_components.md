@@ -1,7 +1,7 @@
 ---
 title: Submission Structure and Components
 last_updated: 2020-02-05
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: submit_structure_and_components.html
 folder: submit
 ---

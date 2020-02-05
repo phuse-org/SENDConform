@@ -1,7 +1,7 @@
 ---
 title: Ontology for Submission
 last_updated: 2019-12-21
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: submit_ontology.html
 folder: mydoc
 ---
