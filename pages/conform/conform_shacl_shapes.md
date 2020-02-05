@@ -5,8 +5,7 @@ permalink: conform_shacl_shapes.html
 sidebar: conform_sidebar
 folder: conform
 ---
-
-# TEST UPDATE TEXT  2020-02-05
+# TEST TEXT 2020-02-05
 
 ## Introduction
 The project attempts to define a set of re-usable, hierarchical shapes for use in a variety of data validation scenarios spanning the data lifecycle from data collection through to submission and reporting. The first shapes are constructed for the Demographics (DM) domain, where each AnimalSubject is a represented as a row in the source data.

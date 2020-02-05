@@ -6,6 +6,8 @@ permalink: conform_validation.html
 folder: conform
 ---
 
+# TEST TEXT 2020-02-05
+
 ## Introduction
 
 These instructions document how to apply SHACL constraints to data using either the Stardog triplestore or TopBraid.
