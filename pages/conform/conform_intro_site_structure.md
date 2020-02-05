@@ -1,9 +1,9 @@
 ---
 title: Project Repository Structure
-last_updated: 2019-12-24
+last_updated: 2020-02-05
 sidebar: conform_sidebar
 permalink: conform_intro_site_structure.html
-folder: mydoc
+folder: conform
 ---
 
 ## Folder Structure
@@ -18,23 +18,23 @@ This pages describes the repository structure and folders with respect to the ty
 
 -   **/data**
     - data files, both inputs and outputs.
-    
+
 -   **/data/CDISCRDF**
     - CDISC SEND Files copied from the PHUSE CDISC repository, originally from rdf.cdisc.org
 
 -   **/data/SAS**
     -   Data files for use in future SAS conversion process as an alternative to the R process. Empty as of 2019-08-08
-    
+
 -   **/data/<font class="parameter">Study Name</font>**
     -   Source XPT files from multiple studies used in project. Data was obtained from PHUSE Scripts repository [SEND subfolder](https://github.com/phuse-org/phuse-scripts/tree/master/data/send) and copied over to this project .
-    
+
 -   **/data/studies/<font class="parameter">Study Name</font>/csv**
-    -   Original source data converted directly from XPT to CSV to allow viewing in Excel. Is NOT used to map to the database. 
+    -   Original source data converted directly from XPT to CSV to allow viewing in Excel. Is NOT used to map to the database.
 
 -   **/data/studies/<font class="parameter">Study Name</font>/ttl**
     - TTL files for upload into a triple store.
     - CSV files for mapping to the Stardog triplestore using SMS.
-    - Stardog SMS Map files 
+    - Stardog SMS Map files
     - Graph Metadata files as TTL, CSV, and SMS maps
     - ontology files and instance data from TopBraid parallel development (will move at a later date)
 
@@ -60,7 +60,7 @@ This pages describes the repository structure and folders with respect to the ty
     - Data conversion scripts, drivers, functions.
 
 -   **/r/doc**
-    -   R documentation. PDFs for packages. 
+    -   R documentation. PDFs for packages.
 -   **/r/query**
     -   R scripts that query the triplestore. Not used as of 2019-08-08.
 -   **/r/validation**
@@ -82,7 +82,7 @@ This pages describes the repository structure and folders with respect to the ty
 
 -   **/SHACL/<font class='parameter'>StudyName</font>Constraints/**
     - SHACL development for a specific study and files that support that development.
-    - Includes SPARQL test scripts for SHACL-SPARQL as .rq files 
+    - Includes SPARQL test scripts for SHACL-SPARQL as .rq files
     - Includes test case documentation in .XLSX workbook.
 
 -   **/SHACL/Examples**
@@ -91,7 +91,7 @@ This pages describes the repository structure and folders with respect to the ty
 ### SPARQL
 
 -   **/SPARQL**
-    -   SPARQL scripts for working with the data in the triplestore. All scripts must contain a comment header describing their function and should indicate vendor-specific SPARQL extensions whenever used. 
+    -   SPARQL scripts for working with the data in the triplestore. All scripts must contain a comment header describing their function and should indicate vendor-specific SPARQL extensions whenever used.
 
 
 {% include links.html %}

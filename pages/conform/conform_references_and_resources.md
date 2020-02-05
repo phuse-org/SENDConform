@@ -3,7 +3,7 @@ title: References and Resources
 last_updated: 2020-02-05
 sidebar: conform_sidebar
 permalink: conform_references_and_resources.html
-folder: mydoc
+folder: conform
 ---
 
 ## FDA

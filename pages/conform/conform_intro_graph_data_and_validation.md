@@ -1,9 +1,9 @@
 ---
 title: Graph Data and Validation
-last_updated: 2020-01-02
+last_updated: 2020-02-05
 sidebar: conform_sidebar
 permalink: conform_intro_graph_data_and_validation.html
-folder: mydoc
+folder: conform
 ---
 
 ## Graph Data

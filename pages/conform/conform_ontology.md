@@ -1,9 +1,9 @@
 ---
 title: Ontology
-last_updated: 2020-01-02
+last_updated: 2020-02-05
 sidebar: conform_sidebar
 permalink: conform_ontology.html
-folder: mydoc
+folder: conform
 ---
 
 ## Introduction

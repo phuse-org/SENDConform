@@ -1,9 +1,9 @@
 ---
 title: Contact Us
-last_updated: 2020-01-02
+last_updated: 2020-02-05
 sidebar: conform_sidebar
 permalink: conform_references_contact_us.html
-folder: mydoc
+folder: conform
 ---
 
 This project is a PhUSE volunteer effort that is part of the Emerging Trends and Technology working group. Please join us!

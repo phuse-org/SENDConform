@@ -31,20 +31,20 @@ entries:
 
 
   - title: SEND Data Validation
-    output: web
+    output: web, pdf
     folderitems:
 
     - title: Data Conversion
       url: /conform_data_conversion.html
-      output: web
+      output: web, pdf
 
     - title: Ontology
       url: /conform_ontology.html
-      output: web
+      output: web, pdf
 
     - title: SEND Rules
       url: /conform_send_rules.html
-      output: web
+      output: web, pdf
 
     - title: SHACL Shapes
       url: /conform_shacl_shapes.html

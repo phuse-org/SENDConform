@@ -1,9 +1,9 @@
 ---
 title: SEND Data Conversion
-last_updated: 2020-01-02
+last_updated: 2020-02-05
 sidebar: conform_sidebar
 permalink: conform_data_conversion.html
-folder: mydoc
+folder: conform
 ---
 
 ## Source Data

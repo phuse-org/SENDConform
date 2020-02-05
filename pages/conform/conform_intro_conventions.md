@@ -1,9 +1,9 @@
 ---
 title: Conventions
-last_updated: 2020-01-02
+last_updated: 2020-02-05
 sidebar: conform_sidebar
 permalink: conform_intro_conventions.html
-folder: mydoc
+folder: conform
 ---
 
 
@@ -48,7 +48,7 @@ Data sources and their conversion from tabular form to RDF is described within e
 </pre>
 
 <pre class="sparql">
-  SPARQL statements used to retrieve additional information based on values identified in the report or 
+  SPARQL statements used to retrieve additional information based on values identified in the report or
   to validate values identified in the validation report.
 </pre>
 
