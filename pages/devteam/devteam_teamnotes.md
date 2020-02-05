@@ -5,7 +5,6 @@ sidebar: conform_sidebar
 permalink: devteam_teamnotes.html
 folder: devteam
 ---
-# TEST UPDATE TEXT  2020-02-05
 
 ## Randomization and Eligibility
 

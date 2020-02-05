@@ -6,6 +6,9 @@ permalink: conform_send_rules.html
 folder: mydoc
 ---
 
+# TEST UPDATE TEXT  2020-02-05
+
+
 ## SHACL for SEND Rules
 The project team considered two alternative approaches to modeling the SEND Rules:
 
