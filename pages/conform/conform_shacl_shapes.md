@@ -142,6 +142,17 @@ Translation of Rule Components into SHACL and evaluation of test data is describ
   An Animal Subject must be assigned one and only one USUBJID. Missing and multiple USUBJID values are not allowed for an AnimalSubject.
 </div>
 
+<font class='h3NoTOC'>Source Data</font>
+
+|studyid|domain|usubjid     |subjid|SubjectIRI     |Rule Violated|
+|-------|------|------------|------|---------------|-------------|
+|CJ16050|DM    |<font class='goodData'>CJ16050_00M01|00M01|Animal_2a836191</font>|None|
+|CJ16050|DM    |CJ16050_99T1|99T1  |<font class='error'>Animal_2a836191</font>|SDXXXXX-RCX|
+|CJ16050|DM    |CJ16050_99T2|99T2  |<font class='error'>Animal_2a836191</font>||SDXXXXX-RCX|
+
+
+
+
 Animal Subject 00M01 illustrates compliant data with a single USUBJID value.
 <pre class='data'>
   cj16050:Animal_037c2fdc

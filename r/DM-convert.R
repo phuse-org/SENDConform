@@ -13,7 +13,7 @@
 #             in the source data. Eg: Animal_,  Interval_ , etc. but for values
 #             that may be common to multiple submjects (eg: Age) or refer out to 
 #             code lists (Set_)
-#           DMROWSHORTHASH_IM can be thought of as a unique ID for that row of source
+#           SubjectIRI can be thought of as a unique ID for that row of source
 #              data, similar to ROWID in other datasets.
 #       Error Testing:
 #       IF statement is used in the RDF creation for dates with -DEC- for error testing
@@ -21,9 +21,16 @@
 #  Move the SHA1 creation to after merge of the error data back to the main data.
 #   Fix so will create AgeDataCollection values of Missing. See line ~449.
 #______________________________________________________________________________
+rm(list = ls())       # COMMENT OUT when running from driver.R
+
+setwd("C:/_github/SENDConform")
+
+
+source('r/driver.R')  # COMMENT OUT when running from driver.R
 
 # Seed values for random number generation to create data-independent IRIs 
 ranSeed1 <-  16050
+set.seed(ranSeed1)
 
 #--- Data imputations
 dm$SPECIESCD_IM   <- "Rat"
@@ -31,31 +38,84 @@ dm$AGEUNIT_IM     <- "Week" # to link to time namespace
 dm$DURATION_IM    <- "P56D" 
 numDMTestSubjects <- 13  # Number of DM Test subjects for test cases. Generates 99T1 to 99Tn
 dm$ROWID_IM <-  (1:nrow(dm)) # To match with ERR dataset. Will later be deleted.
-# Necessary for later manipulation
+
+#Necessary for later manipulation
 dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
 
-dm$ORIGSUBJID_IM <- dm$subjid  # reference for later data manip. for error testing.
+#DEL dm$ORIGSUBJID_IM <- dm$subjid  # reference for later data manip. for error testing.
 
-#' Add errors to DM Domain for testing constraints
-#' 
-
+#--- Add errors to DM Domain for testing constraints
 # Create the Errors DF using the first row of the DM DF
 # reset dm to null
 dmErr <- dm[1,]
+dmErr <- rep(dmErr, numDMTestSubjects)  # Create rows of data for test cases
+dmErr$ROWID_IM <-  (1:nrow(dmErr))
+# Create test data that contains errors
 
-
-  dmErr <- rep(dmErr, numDMTestSubjects)
-  dmErr$ROWID_IM <-  (1:nrow(dmErr))
-
-  # Create test data that contains errors
-  # new subjid with 99T prefix + row identifier in the dmErr df
-  dmErr$subjid <- paste0(gsub("00M01", "99T", dmErr$subjid ), dmErr$ROWID_IM)
-
-  dmErr$ORIGSUBJID_IM <- dmErr$subjid  # reference for later data manip. for error testing.
+dmErr <- dmErr %>% mutate (
+  # New subjid with 99T prefix + row identifier in the dmErr df
+  subjid   = paste0(gsub("00M01", "99T", subjid ), ROWID_IM),
+  usubjid  = paste0("CJ16050_", subjid )  # USUBJID to match pattern.
   
-  dmErr$usubjid <- paste0("CJ16050_", dmErr$subjid )
-  
-  
+)
+
+dm <- rbind(dm, dmErr)  # Bring datasets back together before more manipulation
+
+# usubjid is still unique at this point. Use it to create a unique hash for each
+#   subject in DM, prior to manipulation of the identifier data for testing.
+for(i in 1:nrow(dm))  
+{
+  dm[i,"SubjectIRI"] <- paste0("Animal_", 
+                               strtrim(sha1(paste(dm[i,"usubjid"])), 8)  # Truncate for readabilty in the pilot
+  ) 
+}
+
+dm <- dm %>% mutate (
+  ORIGSUBID_IM = subjid # Reference when subjid changed during data manipulation
+)
+
+# Clean Subject from original data. No rules violated.
+dm[!is.na(dm$subjid) &dm$subjid == c('00M01'), "FDARuleViolated"] <- "None"
+
+#--- Rule SD0083 RC 1 
+#  One animal subject has more than one SUBUJID
+#--- Rule SD1001 RC 1 
+#  One animal subject has more than one SUBJID
+#  A single animal subject is assigned to 99T1, 99T2 identifiers.
+dm[3,"SubjectIRI"] <- dm[2,"SubjectIRI"] 
+dm[dm$subjid %in% c('99T1', '99T2'), "FDARuleViolated"] <- "SD0083-RC1, SD1001-RC1"
+
+#--- Rule SD0083 RC 2 
+#  Subject cannot have missing subjid 
+dm[dm$subjid == c('99T3'), "FDARuleViolated"] <- "SD0083-RC2, SD1001-RC2"
+dm[dm$subjid == c('99T3'), "subjid"] <- NA
+
+#--- Rule SD1001 RC 2 
+#  Subject cannot have missing usubjid 
+dm[dm$usubjid == c('CJ16050_99T3'), "usubjid"] <- NA
+
+
+# NB: From this point forward, ! is.na is needed for usubjid, subjid assignments.
+
+#--- Rule SD0083 RC 3
+#  usubjid cannot be assigned to more than one subject
+#  : Assign CJ16050_99T4 to more than one subject
+dm[!is.na(dm$usubjid) & dm$usubjid == c('CJ16050_99T5'), "usubjid"] <- 'CJ16050_99T4'
+
+#--- Rule SD1001 RC 3
+#  subjid cannot be assigned to more than one subject
+#  : Assign 99T4 to more than one subject.  Two rows of data now have the same
+#       usubjid, subjid
+dm[!is.na(dm$subjid) & dm$subjid == c('99T5'), "subjid"] <- '99T4'
+dm[!is.na(dm$subjid) & dm$subjid == c('99T4'), "FDARuleViolated"] <- "SD0083-RC3, SD1001-RC3"
+
+
+
+
+
+
+
+commentedOut <- function() {
   # Test Case: RFENDTC prior to RFSTDTC
   dmErr[dmErr$subjid == '99T1', "rfendtc"] <- "2016-12-06"
 
@@ -139,16 +199,16 @@ dmErr <- dm[1,]
 
 # Create data-independent IRI values based on random values  
   
-set.seed(ranSeed1)
+
 dm$dmRowRanVal <- runif(nrow(dm))
   
 for(i in 1:nrow(dm))  
 {
-  dm[i,"DMROWSHORTHASH_IM"] <- strtrim(sha1(paste(dm[i,"dmRowRanVal"])), 8)  # Truncate for readabilty in the pilot
+  dm[i,"SubjectIRI"] <- strtrim(sha1(paste(dm[i,"dmRowRanVal"])), 8)  # Truncate for readabilty in the pilot
 }
 
 # kludge so the duplicate 99T2 has the same short hash (replace origin from 99T3)
-dm[dm$subjid == '99T2', "DMROWSHORTHASH_IM"] <- "21316392"
+dm[dm$subjid == '99T2', "SubjectIRI"] <- "21316392"
 
 # drop columns used for computations that will not become part of the graph
 dm <- dm[, !names(dm) %in% c("dmRowRanVal", 'ROWID_IM')]
@@ -161,7 +221,7 @@ dm <- dm[, !names(dm) %in% c("dmRowRanVal", 'ROWID_IM')]
 dm[dm$subjid == '99T12', "subjid"]  <- NA
 dm[dm$usubjid == 'CJ16050_99T12', "usubjid"] <- NA
 
-
+} # END COMMENTED OUT
   
 #------------------------------------------------------------------------------
 #--- RDF Creation -------------------------------------------------------------
@@ -174,13 +234,13 @@ for(i in 1:nrow(dm))
 {
   ## Animal Subject   
   rdf_add(some_rdf, 
-     subject     = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+     subject     = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
      predicate   = paste0(RDF,  "type"), 
      object      = paste0(STUDY, "AnimalSubject")
   )
   if( ! is.na (dm[i,"subjid"]) ){
     rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+      subject      = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
       predicate    = paste0(SKOS,  "prefLabel"), 
       object       = paste0("Animal ", dm[i, "subjid"]),
       objectType   = "literal", 
@@ -199,19 +259,19 @@ for(i in 1:nrow(dm))
   {  
   
     rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+      subject      = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
       predicate    = paste0(STUDY,  "hasReferenceInterval"), 
-      object       = paste0(CJ16050, paste0("Interval_",dm[i,"DMROWSHORTHASH_IM"]))
+      object       = paste0(CJ16050, paste0("Interval_",dm[i,"SubjectIRI"]))
     )
       
     # Interval Triples and subtriples
     rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Interval_", dm[i,"DMROWSHORTHASH_IM"])),
+      subject      = paste0(CJ16050, paste0("Interval_", dm[i,"SubjectIRI"])),
       predicate    = paste0(RDF,  "type"), 
       object       = paste0(STUDY, "ReferenceInterval")
     )
     rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Interval_",dm[i,"DMROWSHORTHASH_IM"])),
+      subject      = paste0(CJ16050, paste0("Interval_",dm[i,"SubjectIRI"])),
       predicate    = paste0(SKOS,  "prefLabel"), 
       object       = paste0("Interval ", dm[i,"rfstdtc"], " ", dm[i,"rfendtc"] ),
       objectType   = "literal", 
@@ -223,7 +283,7 @@ for(i in 1:nrow(dm))
     {  
       # Start date attached to the interval
       rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("Interval_",dm[i,"DMROWSHORTHASH_IM"])),
+        subject      = paste0(CJ16050, paste0("Interval_",dm[i,"SubjectIRI"])),
         predicate    = paste0(TIME,  "hasBeginning"),     
         object       = paste0(CJ16050, "Date_", dm[i,"rfstdtc"])
       )  
@@ -276,7 +336,7 @@ for(i in 1:nrow(dm))
     {  
       # End date attached to the interval
       rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("Interval_",dm[i,"DMROWSHORTHASH_IM"])),
+        subject      = paste0(CJ16050, paste0("Interval_",dm[i,"SubjectIRI"])),
         predicate    = paste0(TIME,  "hasEnd"),     
         object       = paste0(CJ16050, "Date_", dm[i,"rfendtc"])
       )
@@ -333,7 +393,7 @@ for(i in 1:nrow(dm))
   {  
     ## Subject Identifier
     rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+      subject     = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
       predicate   = paste0(STUDY,  "hasSubjectID"), 
       object      = paste0(CJ16050, "SubjectIdentifier_99T11B")
     )
@@ -352,7 +412,7 @@ for(i in 1:nrow(dm))
     )
     # Unique Subject Identifier 
     rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+      subject     = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
       predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
       object      = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050_99T11B")
     )
@@ -373,7 +433,7 @@ for(i in 1:nrow(dm))
   ## Subject Identifier
   if( ! is.na (dm[i,"subjid"]) ) {
     rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+      subject     = paste0(CJ16050, paste0(, dm[i,"SubjectIRI"])), 
       predicate   = paste0(STUDY,  "hasSubjectID"), 
       object      = paste0(CJ16050, "SubjectIdentifier_", dm[i,"subjid"])
     )
@@ -393,7 +453,7 @@ for(i in 1:nrow(dm))
   ## Unique Subject Identifier
   if( ! is.na (dm[i,"usubjid"]) ) {
     rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+      subject     = paste0(CJ16050, paste0(, dm[i,"SubjectIRI"])), 
       predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
       object      = paste0(CJ16050, "UniqueSubjectIdentifier_", dm[i,"usubjid"])
     )
@@ -414,12 +474,12 @@ for(i in 1:nrow(dm))
   
 
   rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+    subject      = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
     predicate    = paste0(STUDY,  "memberOf"), 
     object       = paste0(CJPROT, paste0("Set_", dm[i,"setcd"]))
   )
   rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+    subject      = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
     predicate    = paste0(STUDY,  "memberOf"), 
     object       = paste0(CODE, paste0("Species_", dm[i,"SPECIESCD_IM"]))
   )
@@ -429,15 +489,15 @@ for(i in 1:nrow(dm))
   # if( ! is.na (dm[i,"age"]))
   #{
     rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+      subject      = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
       predicate    = paste0(STUDY,  "participatesIn"), 
-      object       = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"]))
+      object       = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"SubjectIRI"]))
     )
   #}  
   rdf_add(some_rdf, 
-    subject      = paste0(CJ16050, paste0("Animal_", dm[i,"DMROWSHORTHASH_IM"])), 
+    subject      = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
     predicate    = paste0(STUDY,  "participatesIn"), 
-    object       = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"DMROWSHORTHASH_IM"]))
+    object       = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"SubjectIRI"]))
   )
  
 
@@ -449,13 +509,13 @@ for(i in 1:nrow(dm))
      #if( ! is.na (dm[i,"age"])){
       ## Age Data Collection
       rdf_add(some_rdf, 
-        subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"])),
+        subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"SubjectIRI"])),
         predicate    = paste0(RDF,  "type"), 
         object       = paste0(CODE, "AgeDataCollection")
       )    
       if( ! is.na (dm[i,"subjid"]) ) {
         rdf_add(some_rdf, 
-          subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"])),
+          subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"SubjectIRI"])),
           predicate    = paste0(SKOS, "prefLabel"),
           object       = paste0("Age data collection ", dm[i, "subjid"]),
           objectType   = "literal", 
@@ -464,7 +524,7 @@ for(i in 1:nrow(dm))
       #}  
       if( ! is.na (dm[i,"age"])){  
         rdf_add(some_rdf, 
-          subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"])),
+          subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"SubjectIRI"])),
           predicate    = paste0(CODE,  "outcome"), 
           object       = paste0(CJ16050, paste0("Age_", dm[i,"age"], "_", dm[i,"ageu"]))
         )
@@ -504,7 +564,7 @@ for(i in 1:nrow(dm))
       } else {
         # Age value  MISSING: Create IRIs for it without the age value.
         rdf_add(some_rdf, 
-          subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"DMROWSHORTHASH_IM"])),
+          subject      = paste0(CJ16050, paste0("AgeDataCollection_", dm[i,"SubjectIRI"])),
           predicate    = paste0(CODE,  "outcome"), 
           object       = paste0(CJ16050, paste0("Age_"))
         )
@@ -539,19 +599,19 @@ for(i in 1:nrow(dm))
     }
     ## Sex Data Collection
     rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"DMROWSHORTHASH_IM"])),
+      subject      = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"SubjectIRI"])),
       predicate    = paste0(RDF,  "type"), 
       object       = paste0(CODE, "SexDataCollection")
     )    
     rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"DMROWSHORTHASH_IM"])),
+      subject      = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"SubjectIRI"])),
       predicate    = paste0(SKOS, "prefLabel"),
-      object       = paste0("Sex data collection ", dm[i, "DMROWSHORTHASH_IM"]),
+      object       = paste0("Sex data collection ", dm[i, "SubjectIRI"]),
       objectType   = "literal", 
       datatype_uri = paste0(XSD,"string")
     )
     rdf_add(some_rdf, 
-      subject      = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"DMROWSHORTHASH_IM"])),
+      subject      = paste0(CJ16050, paste0("SexDataCollection_", dm[i,"SubjectIRI"])),
       predicate    = paste0(CODE,  "outcome"), 
       object       = paste0(CODE, paste0("Sex_", dm[i,"sex"]))
     ) 
@@ -560,7 +620,7 @@ for(i in 1:nrow(dm))
   rdf_add(some_rdf, 
     subject      = paste0(CJPROT, paste0("Study_", dm[i,"studyid"])), 
     predicate    = paste0(STUDY,  "hasStudyParticipant"), 
-    object       = paste0(CJ16050, "Animal_", dm[i,"DMROWSHORTHASH_IM"])
+    object       = paste0(CJ16050, dm[i,"SubjectIRI"])
   )
 
 }
