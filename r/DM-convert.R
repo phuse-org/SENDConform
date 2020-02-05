@@ -16,10 +16,10 @@
 #           DMROWSHORTHASH_IM can be thought of as a unique ID for that row of source
 #              data, similar to ROWID in other datasets.
 #       Error Testing:
-#       IF statement in the RDF creation for dates with -DEC- for error testing
+#       IF statement is used in the RDF creation for dates with -DEC- for error testing
 # TODO:  
 #  Move the SHA1 creation to after merge of the error data back to the main data.
-#   Fix so will create AgeDataCollection values of Missing. See line 449.
+#   Fix so will create AgeDataCollection values of Missing. See line ~449.
 #______________________________________________________________________________
 
 # Seed values for random number generation to create data-independent IRIs 
@@ -29,11 +29,10 @@ ranSeed1 <-  16050
 dm$SPECIESCD_IM   <- "Rat"
 dm$AGEUNIT_IM     <- "Week" # to link to time namespace
 dm$DURATION_IM    <- "P56D" 
-numDMTestSubjects <- 13  # Number of DM Test subjects for test cases
+numDMTestSubjects <- 13  # Number of DM Test subjects for test cases. Generates 99T1 to 99Tn
 dm$ROWID_IM <-  (1:nrow(dm)) # To match with ERR dataset. Will later be deleted.
 # Necessary for later manipulation
 dm <- data.frame(lapply(dm, as.character), stringsAsFactors=FALSE)
-
 
 dm$ORIGSUBJID_IM <- dm$subjid  # reference for later data manip. for error testing.
 
@@ -45,11 +44,8 @@ dm$ORIGSUBJID_IM <- dm$subjid  # reference for later data manip. for error testi
 dmErr <- dm[1,]
 
 
-#addErrDM<-function()
-#{
   dmErr <- rep(dmErr, numDMTestSubjects)
   dmErr$ROWID_IM <-  (1:nrow(dmErr))
-  
 
   # Create test data that contains errors
   # new subjid with 99T prefix + row identifier in the dmErr df
@@ -99,13 +95,21 @@ dmErr <- dm[1,]
 
   #--- END SD1002 -------------------------------------------------------------
 
-  #TW TESTING HERE
-  # Create duplicate SUBJID, USUBJID for 99T6, 99T7 as CJ16050_DUP1  
-  dmErr[dmErr$subjid == '99T6', "subjid"] <- "99DUP1"
-  dmErr[dmErr$subjid == '99T7', "subjid"] <- "99DUP1"
   
-  dmErr[dmErr$usubjid == 'CJ16050_99T6', "usubjid"] <- "CJ16050_99DUP1"
-  dmErr[dmErr$usubjid == 'CJ16050_99T7', "usubjid"] <- "CJ16050_99DUP1"
+  # Create duplicate SUBJID, USUBJID for 99T6, 99T7 
+  #dmErr[dmErr$subjid == '99T6', "subjid"] <- "99DUP1"
+  
+  #--- SD0083, RC 3
+  #    USUBJID assigned to more than one Animal subject
+  #    What should be CJ16050_99T7 is assigned the number CJ16050_99T6, resulting in
+  #    two subjects with the same USUBJID.
+  dmErr[dmErr$usubjid == 'CJ16050_99T7', "usubjid"] <- "CJ16050_99T6"
+
+  #--- SD1001, RC3 
+  #   SUBJID assigned to more than one Animal subject
+  #    What should be 99T7 is assigned the number _99T6, resulting in
+  #    two subjects with the same SUBJID.
+  dmErr[dmErr$subjid == '99T7', "subjid"] <- "99T6"
     
   
   #--- AGE --------------------------------------------------------------------
@@ -128,12 +132,12 @@ dmErr <- dm[1,]
   # Error data appended to real data.
   dm <-rbind (dm, dmErr)
  
-#}
-#dm <- addErrDM(dm)
+
+# dm <- addErrDM(dm)
 
 
-  
-  # Create data-independed IRI values based on random values  
+
+# Create data-independent IRI values based on random values  
   
 set.seed(ranSeed1)
 dm$dmRowRanVal <- runif(nrow(dm))
@@ -144,30 +148,26 @@ for(i in 1:nrow(dm))
 }
 
 # kludge so the duplicate 99T2 has the same short hash (replace origin from 99T3)
-#  Not possible in
 dm[dm$subjid == '99T2', "DMROWSHORTHASH_IM"] <- "21316392"
 
 # drop columns used for computations that will not become part of the graph
 dm <- dm[, !names(dm) %in% c("dmRowRanVal", 'ROWID_IM')]
 
-
 # Must be here or other re-assignments become more complex (need to look for NA first)
   #SD0083, SD1001
   # Test Case: Missing Start Date and Missing End date 
 
-  #TW HERE ----------------------------------------------------------
-  dm[dm$subjid == '99T12', "subjid"]  <- NA
-  dm[dm$usubjid == 'CJ16050_99T12', "usubjid"] <- NA
+#TW HERE ----------------------------------------------------------
+dm[dm$subjid == '99T12', "subjid"]  <- NA
+dm[dm$usubjid == 'CJ16050_99T12', "usubjid"] <- NA
+
 
   
-  
-  
 #------------------------------------------------------------------------------
+#--- RDF Creation -------------------------------------------------------------
 #------------------------------------------------------------------------------
-#--- RDF Creation Statements --------------------------------------------------
-#------------------------------------------------------------------------------
-#------------------------------------------------------------------------------
-
+createRDF <- function()
+{  
   some_rdf <- rdf()  # initialize 
 
 for(i in 1:nrow(dm))
@@ -534,8 +534,7 @@ for(i in 1:nrow(dm))
          predicate    = paste0(TIME, "unitType"),
          object       = paste0(TIME, "unit", dm[i,"AGEUNIT_IM"])
        )    
-        
-        
+
       } 
     }
     ## Sex Data Collection
@@ -594,6 +593,7 @@ rdf_serialize(some_rdf,
                              pav     = "http://purl.org/pav",
                              rdf     = "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                              rdfs    = "http://www.w3.org/2000/01/rdf-schema#",
+                             schema  = "https://schema.org/",
                              skos    = "http://www.w3.org/2004/02/skos/core#",
                              time    = 'http://www.w3.org/2006/time#',
                              xsd     = "http://www.w3.org/2001/XMLSchema#"
@@ -613,6 +613,7 @@ rdf_serialize(some_rdf,
                              meddra  = "https://w3id.org/phuse/meddra#",
                              pav     = "http://purl.org/pav",
                              rdf     = "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                             schema  = "https://schema.org/",
                              rdfs    = "http://www.w3.org/2000/01/rdf-schema#",
                              skos    = "http://www.w3.org/2004/02/skos/core#",
                              time    = 'http://www.w3.org/2006/time#',
@@ -627,6 +628,10 @@ csvFile = paste0(sendPath, "/ttl/DM-CJ16050-R.csv")
 write.csv(dm, file=csvFile, 
    row.names = F,
    na = "")
+
+} #end createRDF()
+  
+# createRDF()
 
 # reset dm to null
 #dm <- dm[0,]

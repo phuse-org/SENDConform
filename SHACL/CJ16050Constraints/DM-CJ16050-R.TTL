@@ -8,6 +8,7 @@
 @prefix study: <https://w3id.org/phuse/study#> .
 @prefix meddra: <https://w3id.org/phuse/meddra#> .
 @prefix pav: <http://purl.org/pav> .
+@prefix schema: <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix time: <http://www.w3.org/2006/time#> .

@@ -45,6 +45,7 @@ prefixList <-read.table(header = TRUE, text = "
   'CJPROT'      'https://example.org/cjprot#'
   'CODE'        'https://w3id.org/phuse/code#'                          
   'PAV'         'http://purl.org/pav'
+  'SCHEMA'      'https://schema.org/'
   'STUDYNAMEUC' 'https://example.org/STUDYNAMELC#'
   'STUDY'       'https://w3id.org/phuse/study#'
   'DCTERMS'     'http://purl.org/dc/terms/'
@@ -76,7 +77,7 @@ label_graph <- paste0("SEND Conformance data for ", studyNameUc)
 description_graph <- paste("This graph is populated from example SEND data ",
   "provided by the FDA.")
 title_graph <-"PhUSE Project: Going Translational with Linked Data (GoTWLD)"
-status_graph <- " Under Construction/incomplete"
+status_graph <- "Under Construction/incomplete"
 createdOn_graph <- gsub("(\\d\\d)$", ":\\1",strftime(Sys.time(),"%Y-%m-%dT%H:%M:%S%z"))
 version_graph <- "0.0.1"
 
@@ -121,7 +122,7 @@ rdf_add(some_rdf,
  )
  rdf_add(some_rdf, 
          subject      = paste0(CJ16050, "send-graph"), 
-         predicate    = paste0(PAV,  "createdOn"), 
+         predicate    = paste0(SCHEMA,  "dateCreated"), 
          object       = createdOn_graph,
          objectType   = "literal", 
          datatype_uri = paste0(XSD,"dateTime")
@@ -145,6 +146,7 @@ rdf_serialize(some_rdf,
                              pav     = "http://purl.org/pav",
                              rdf     = "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                              rdfs    = "http://www.w3.org/2000/01/rdf-schema#",
+                             schema  = "https://schema.org/",
                              skos    = "http://www.w3.org/2004/02/skos/core#",
                              time    = "http://www.w3.org/2006/time#",
                              xsd     = "http://www.w3.org/2001/XMLSchema#"
@@ -168,7 +170,5 @@ dm <- data.frame(readXPT(dataPath = sendPath, domain = "dm"), stringsAsFactors=F
 
 dm  <- head(dm, dm_n) #subset for development
 
-
-
-# source('R/DM-convert.R')  # Impute values 
+source('R/DM-convert.R')  # Impute values 
 

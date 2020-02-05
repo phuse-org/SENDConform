@@ -9,6 +9,7 @@
 @prefix meddra: <https://w3id.org/phuse/meddra#> .
 @prefix pav: <http://purl.org/pav> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -16,8 +17,8 @@
 cj16050:send-graph
     dcterms:description "This graph is populated from example SEND data  provided by the FDA."^^xsd:string ;
     dcterms:title "PhUSE Project: Going Translational with Linked Data (GoTWLD)"^^xsd:string ;
-    bibio:status " Under Construction/incomplete"^^xsd:string ;
-    pav:createdOn "2020-01-10T09:56:04-05:00"^^xsd:dateTime ;
+    bibio:status "Under Construction/incomplete"^^xsd:string ;
     pav:version "0.0.1"^^xsd:string ;
-    rdfs:label "SEND Conformance data for CJ16050"^^xsd:string .
+    rdfs:label "SEND Conformance data for CJ16050"^^xsd:string ;
+    schema:dateCreated "2020-02-05T08:44:41-05:00"^^xsd:dateTime .
 

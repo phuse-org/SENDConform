@@ -97,12 +97,12 @@ study:Animal
 
 ## Subject Identifiers
 
-***Figure 1*** shows the connections from the Animal Subject IRI to the USUBJID and SUBJID IRI values.
+The figure below shows the connections from the Animal Subject IRI to the USUBJID and SUBJID IRI values.
 
 <a name='figure1'/>
   <img src="images/AnimalSubjectStructure.PNG"/>
 
-  ***Figure 1: Animal Subject Node to ID Values***
+  ***Animal Subject Node to ID Values***
 
 ### USUBJID
 <a name='ruleSD0083'></a>
@@ -503,12 +503,12 @@ The Rule Components and corresponding SHACL shapes for SD1001 are similar to tho
 <a name='ruleSD1002'></a>
 <font class='FDARule'>FDA Rule SD1002</font>
 
-***Figure 1*** shows the connection from the Animal Subject IRI to its Reference Interval and the associated  SHACL Shapes and SEND Rules.
+The figure below shows the connection from the Animal Subject IRI to its Reference Interval and the associated  SHACL Shapes and SEND Rules.
 
 <a name='figure1'/>
   <img src="images/IntervalStructure.PNG"/>
 
-  ***Figure 1: Animal Subject Data Structure, SHACL Shapes, FDA Rules***
+  ***Animal Subject Data Structure, SHACL Shapes, FDA Rules***
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines Rule SD10002 for Reference Start Date (RFSTDTC) and Reference End Date (RFENDTC) as:
 
@@ -531,12 +531,12 @@ Translation of each Rule Component into SHACL and evaluation of test data is des
 
 <font class='h3NoTOC'>Data Structure</font>
 
-Familiarity with the data structure is necessary to explain the constraints and test cases. **Figure 1** illustrates a partial set of data for test subject 99T1 where the Reference Interval end date *precedes* the start date, thus violating Rule Component 4 of SD1002.
+Familiarity with the data structure is necessary to explain the constraints and test cases. The figure below illustrates a partial set of data for test subject 99T1 where the Reference Interval end date *precedes* the start date, thus violating Rule Component 4 of SD1002.
 
-<a name='figure1'/>
+
   <img src="images/RefIntervalStructureDateFail.PNG"/>
 
-  ***Figure 1: Reference Interval for Animal 99T1 (incomplete data)***
+  ***Reference Interval for Animal 99T1 (incomplete data)***
 
 <font class='h3NoTOC'>Translation into SHACL</font>
 
@@ -560,7 +560,7 @@ Familiarity with the data structure is necessary to explain the constraints and 
 </div>
 
 
-Refer back to [*Figure 1*](#figure1) to compare the data to the SHACL, below.  The shape `:DateFmtShape` uses `sh:targetObjectsOf` to begin evaluation at the <font class='object'>object</font> of the <font class='predicate'>predicates</font> `time:hasBeginning` and `time:hasEnd`. These <font class='object'>objects</font> must be of type `study:ReferenceBegin` or `study:ReferenceEnd` and have the <font class='predicate'>predicate</font> `time:inXSDDate` that leads to the date value that must be in `xsd:date` format.  
+Refer back to previous sections to compare the data to the SHACL, below.  The shape `:DateFmtShape` uses `sh:targetObjectsOf` to begin evaluation at the <font class='object'>object</font> of the <font class='predicate'>predicates</font> `time:hasBeginning` and `time:hasEnd`. These <font class='object'>objects</font> must be of type `study:ReferenceBegin` or `study:ReferenceEnd` and have the <font class='predicate'>predicate</font> `time:inXSDDate` that leads to the date value that must be in `xsd:date` format.  
 
 <pre>
 <font class='nodeBold'>Interval IRI</font> - - - <font class='predicate'>time:hasBeginning</font>  - - > <font class='nodeBold'>Date IRI</font> - - > <font class='predicate'>time:inXSDDate</font> - - > <font class='literal'>Date value</font>
@@ -962,7 +962,7 @@ WHERE{
   Interval start date must be on or before end date. When the constraint is violated the report must display the <b>FDA Validator Message</b> "RFSTDTC is after RFENDTC"
 </div>
 
-Referring back to [**Figure 1**](#figure1), the reference start and end dates are not directly attached to either an Animal Subject or that Subject's Reference Interval IRI. This indirect connection makes the comparison of the two date values more complex, so SHACL-SPARQL is used in place of SHACL-Core. The SPARQL query is written to find cases where the end date is NOT greater than or equal to the start date.
+Referring back to previous sections, the reference start and end dates are not directly attached to either an Animal Subject or that Subject's Reference Interval IRI. This indirect connection makes the comparison of the two date values more complex, so SHACL-SPARQL is used in place of SHACL-Core. The SPARQL query is written to find cases where the end date is NOT greater than or equal to the start date.
 Test data provides the following violations:
 
 *  99T1  start date is after end date
@@ -1103,12 +1103,12 @@ Animal Subject Shape - Demographics Domain
 
 ## Age
 
-***Figure 1*** shows the connection from the Animal Subject IRI to its Age value.
+The following figure shows the connection from the Animal Subject IRI to its Age value.
 
-<a name='figure1'/>
+
   <img src="images/AgeStructure.PNG"/>
 
-  ***Figure 1: Animal Subject Data Structure for Age***
+  ***Animal Subject Data Structure for Age***
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines numerous rules associated with Age in the DM domain. This project defines only a subset of these rules as SHACL Shapes. For example, the rule SD2019 "Invalid value for AGETXT" is not applicable because the example study collects AGE (numeric) and not AGETXT (age range as a string).
 
@@ -1117,8 +1117,8 @@ The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConf
 <a name='ruleSD0084'></a>
 <font class='FDARule'>FDA Rule SD0084</font>
 
-FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
-------|-------------------|--------------------------|-----------------------------
+|FDA Validator Rule ID|FDA Validator Message|Business or Conformance Rule Validated|FDA Validator Rule|
+------|-------------------|--------------------------|-----------------------------|
 **SD0084** |Negative value for age | Values for age variables cannot be negative, | **The value of Age (AGE) cannot be less than 0.**
 <br/>
 
@@ -1128,7 +1128,7 @@ FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Val
 
 <font class='h3NoTOC'>Data Structure</font>
 
-Refer back to **Figure 1** to see how age is indirectly associated with an AnimalSubject via a study:participatesIn predicate that leads to an outcome IRI that in turn contains the age value and units. Most subjects in the study are the same age (8 Weeks), resulting in a small number of tests in outcome IRIs instead of traditional tests on each age value associated with an Animal Subject.
+Refer back to previous sections to see how age is indirectly associated with an AnimalSubject via a study:participatesIn predicate that leads to an outcome IRI that in turn contains the age value and units. Most subjects in the study are the same age (8 Weeks), resulting in a small number of tests in outcome IRIs instead of traditional tests on each age value associated with an Animal Subject.
 
 
 <font class='h3NoTOC'>Translation into SHACL</font>
@@ -1240,7 +1240,12 @@ FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Val
 
 <font class='ruleComponent'>Rule Component</font>
 
-**1.AGE value must be present for all subjects that are not screen failures.**
+**1.AGE value must be present for all subjects that are not screen failures  and not assigned to a treatment arm.**
+
+
+<font class='h3NoTOC'>Source Data</font>
+
+
 
 
 <font class='h3NoTOC'>Data Structure</font>
