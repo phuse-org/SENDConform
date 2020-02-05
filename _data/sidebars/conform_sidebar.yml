@@ -17,16 +17,16 @@ entries:
       type: homepage
 
     - title: Conventions
-      url: /conform_intro_conventions.html
+      url: /intro_conventions.html
       output: web, pdf
       type: homepage
 
     - title: Graph Data and Validation
-      url: /conform_intro_graph_data_and_validation.html
+      url: /intro_graph_data_and_validation.html
       output: web, pdf
 
     - title: Systems and Applications
-      url: /conform_intro_systems_and_applications.html
+      url: /intro_systems_and_applications.html
       output: web, pdf
 
   - title: SEND Data Validation
@@ -93,19 +93,19 @@ entries:
     folderitems:
 
     - title: References and Resources
-      url: /conform_references_and_resources.html
+      url: /ref_references_and_resources.html
       output: web
 
     - title: Project Repository Structure
-      url: /conform_intro_site_structure.html
+      url: /ref_site_structure.html
       output: web, pdf
 
     - title: About This Site
-      url: /conform_references_about_this_site.html
+      url: /ref_about_this_site.html
       output: web
 
     - title: Contact Us
-      url: /conform_references_contact_us.html
+      url: /ref_contact_us.html
       output: web, pdf
 
   - title: Dev Team Notes
