@@ -29,38 +29,28 @@ entries:
       url: /conform_intro_systems_and_applications.html
       output: web, pdf
 
-
-  - title: SEND Data Validation
+    - title: SEND Data Validation
     output: web, pdf
     folderitems:
 
     - title: Data Conversion
-      url: /conform_data_conversion.html
+      url: /send_data_conversion.html
       output: web, pdf
-
-    - title: Ontology
-      url: /conform_ontology.html
-      output: web, pdf
-
-    - title: SEND Rules
-      url: /conform_send_rules.html
-      output: web, pdf
-
-    - title: SHACL Shapes
-      url: /conform_shacl_shapes.html
-      output: web, pdf
-
-    - title: Validation
-      url: /conform_validation.html
-      output: web, pdf
-
-
-  - title: TEST
-    output: web, pdf
-    folderitems:
 
     - title: Ontology
       url: /send_ontology.html
+      output: web, pdf
+
+    - title: SEND Rules
+      url: /send_send_rules.html
+      output: web, pdf
+
+    - title: SHACL Shapes
+      url: /send_shacl_shapes.html
+      output: web, pdf
+
+    - title: Validation
+      url: /send_validation.html
       output: web, pdf
 
 
