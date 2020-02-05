@@ -59,8 +59,8 @@ entries:
     output: web, pdf
     folderitems:
 
-    - title: Data Conversion
-      url: /conform_ontology.html
+    - title: Ontology
+      url: /send_ontology.html
       output: web, pdf
 
 
