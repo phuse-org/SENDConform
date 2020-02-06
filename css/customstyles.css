@@ -34,8 +34,8 @@
   font-family: Arial;
   font-weight: bold;
 }
-.goodData, .shapeName{
-  color: #486118;     /* very dark green */
+.goodData{
+  color: #009a00;     /*  green */
   font-weight: bold;
   font-family: monospace;
 }
@@ -127,10 +127,12 @@
     color: #015CAE;
 }
 .FDARule{
+  /*
   padding-top: 60px;
   margin-top: -40px;
   font-weight: normal;
   font-size: 140%;
+*/
   color: #530000;
 }
 .ruleComponent{
@@ -140,6 +142,12 @@
   font-size: 120%;
   color: #015CAE;
 }
+.shapeName{
+  color: #486118;     /* very dark green */
+  font-weight: bold;
+  font-family: monospace;
+}
+
 .subject{
   color: #486118;     /* dark green */
   font-weight: bold;

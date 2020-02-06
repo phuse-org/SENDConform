@@ -8,7 +8,7 @@ folder: send
 
 <font class='outdated'>The information on this page is undergoing revision as of 2020-02-05, starting with Rules SD0083 and SD1001 and progressing down the page.</font>
 
-
+<a name='animalsubjectshape'></a>
 ## Animal Subject Shape
 The project defines a set of re-usable, hierarchical shapes for use in a variety of data validation scenarios spanning the study data lifecycle. The first shapes are constructed for the Demographics (DM) domain, where each Animal Subject is a represented as a row in the source data. This makes the AnimalSubjectShape a natural choice for a shape containing additional constraints. The Animal Subject Shape definitions are located in this file:
 
@@ -36,34 +36,6 @@ A shape is created to define the constraints attached to the Animal Subject IRI.
   <div class='def-header'>Description</div>
   Each type of <code>predicate ----> object </code> relation for the AnimalSubject class, with the exception of predicates like `rdf:type`, `skos:prefLabel`, etc.,  has a `sh:property` definition for a shape that validates that type of entity.
 </div>
-
-### Data
-
-Test data is constructed from original source XPT files as described on the [Data Conversion](conform_data_conversion.html) page.
-
-A subset of data for Animal Subject 00M01 illustrates how the traditional row-by-column format:
-
-|SubjectIRI     |subjid |usubjid      |setcd |species|
-|---------------|-------|-------------|------|-------|
-|Animal_a6d09184|00M01  |CJ16050_00M01|00    |Rat    |
-
-
-is translated into RDF graph format:
-
-<pre class='data'>
-cj16050:Animal_a6d09184
-    a                          study:AnimalSubject ;
-    skos:prefLabel             "Animal 00M01"^^xsd:string ;
-    study:hasUniqueSubjectID   cj16050:UniqueSubjectIdentifier_CJ16050_00M01 ;
-    study:hasSubjectID         cj16050:SubjectIdentifier_00M01 ;
-    study:hasReferenceInterval cj16050:Interval_a6d09184 ;
-    study:memberOf             cjprot:Set_00,
-                               code:Species_Rat ;
-    study:participatesIn       cj16050:SexDataCollection_a6d09184 ,
-                               cj16050:AgeDataCollection_a6d09184,
-                               cj16050:Randomization_a6d09184 .
-</pre>
-<br/>
 
 The Node Shape `study:AnimalSubjectShape` describes nodes of the class `study:AnimalSubject` . FDA Rule numbers are added as comments to facilitate referencing back to the original FDA requirements.
 
@@ -106,18 +78,47 @@ study:Animal
 .
 </pre>
 
-## Subject Identifiers
 
-The figure below shows the connections from the Animal Subject IRI to the USUBJID and SUBJID IRI values.
+## FDA Rules as SHACL Shapes
+### Data
+
+It is important to understand how the data is restructured from row-by-column XPT format by the [Data Conversion](conform_data_conversion.html) process. Here is a subset of the original data for Animal Subject 00M01:
+
+|SubjectIRI     |subjid |usubjid      |setcd |species|
+|---------------|-------|-------------|------|-------|
+|Animal_a6d09184|00M01  |CJ16050_00M01|00    |Rat    |
+
+<br/>
+And its translation into RDF triples:
+
+<pre class='data'>
+cj16050:Animal_a6d09184
+    a                          study:AnimalSubject ;
+    skos:prefLabel             "Animal 00M01"^^xsd:string ;
+    study:hasUniqueSubjectID   cj16050:UniqueSubjectIdentifier_CJ16050_00M01 ;
+    study:hasSubjectID         cj16050:SubjectIdentifier_00M01 ;
+    study:hasReferenceInterval cj16050:Interval_a6d09184 ;
+    study:memberOf             cjprot:Set_00,
+                               code:Species_Rat ;
+    study:participatesIn       cj16050:SexDataCollection_a6d09184 ,
+                               cj16050:AgeDataCollection_a6d09184,
+                               cj16050:Randomization_a6d09184 .
+</pre>
+<br/>
+
+The first validation shapes will be formed around the AnimalSubject Class `study:AnimalSubject` <a href='#animalsubjectshape'>as described above</a>. The first rules in our project center around the subject identifiers `usubjid` and `subjid`. The figure below shows the connections from the Animal Subject IRI to the USUBJID and SUBJID IRI values. Become familiar with both the figure and the RDF triples (above) before proceeding to the next steps.  
 
   <img src="images/AnimalSubjectStructure.PNG"/>
 
   ***Animal Subject Node to ID Values***
 
+---
+
+---
+
 ## FDA Rules as SHACL Shapes
-### <font class='FDARule'>Rule SD00083 </font>
 <a name='ruleSD0083'></a>
-<font class='FDARule'>FDA Rule SD0083</font>
+### <font class='FDARule'>Rule SD00083</font>
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for USUBJID in the DM Domain as:
 
@@ -136,7 +137,7 @@ The Rule is deconstructed into the following components based on knowledge of th
 **3. [A USUBJID cannot be assigned to more than one Animal Subject.](#rc3)**
 
 
-Translation of Rule Components into SHACL and evaluation of test data is described below. The first two Rule Components are satisfied by a single SHACL Shape while a second shape is employed for the third component. Test cases in addition to those documented on these pages are available in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
+Translation of Rule Components into SHACL and evaluation of test data is described below. The first two Rule Components are satisfied by a single SHACL Shape while a second shape evaluates the third component. Addition information for the traceability between rules, shapes, and the data used to evaluate them is available in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
 
 ---
 
@@ -162,12 +163,16 @@ Translation of Rule Components into SHACL and evaluation of test data is describ
 |CJ16050|DM    |CJ16050_99T2|99T2  |<font class='error'>Animal_2a836191</font>|SDXXXXX-RC1|
 |CJ16050|DM    |<font class='error'>NA</font>|<font class='error'>NA</font>  |Animal_69fa85ac|SDXXXXX-RC2|
 
+<br/>
 
+Referring to the AnimalSubject IRIs (column **SubjectIRI**):
+* Animal_a6d09184 is compliant, with single values for `usubjid`, `subjid`.
+* Animal_2a836191 has two `usubjid` values and two `subjid` values.
+* Animal_69fa85ac is missing values for both `usubjid` and `subjid`
 
-
-Animal Subject 00M01 illustrates compliant data with a single USUBJID value.
+Triples for the compliant AnimalSubject appear as:
 <pre class='data'>
-  cj16050:Animal_037c2fdc
+  cj16050:Animal_a6d09184
     a                        study:AnimalSubject ;
     skos:prefLabel           "Animal 00M01"^^xsd:string ;
     <font class='goodData'>study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_CJ16050_00M01 </font> ;
@@ -175,7 +180,18 @@ Animal Subject 00M01 illustrates compliant data with a single USUBJID value.
 </pre>
 <br/>
 
-The SHACL shape `study:hasMin1Max1Shape-USubjID` evaluates AnimalSubject via its attachment to the parent `study:AnimalSubjectShape`. It evaluates the path `study:hasUniqueSubjectID` from the targetClass to determine if one and only one value of USUBJID IRI is present.
+Each AnimalSubject must be evaluated to ensure it has minimum of one `usubjid` and no more than one `usubjid`. The shape will therefore be named `study:hasMin1Max1Shape-USubjID` and it is a property of the `study:AnimalSubjectShape`.
+<pre class='shacl'>
+study:AnimalSubjectShape
+  a              sh:NodeShape ;
+  sh:targetClass study:AnimalSubject
+  <font class='nodeBold'>sh:property    study:hasMin1Max1Shape-USubjID </font> ;       
+
+ <font class='infoOmitted'>...</font>
+</pre>
+<br/>
+
+From the TTL data we see that `usubjid` is attached to the AnimalSubject IRI by the `study:hasUniqueSubjectID` predicate. We therefore write this as the `sh:path` for the `study:hasMin1Max1Shape-USubjID` which leads to the full shape definition, which evaluates the path `study:hasUniqueSubjectID` from the targetClass (a `study:AnimalSubject`) to determine if one and only one value of USUBJID IRI is present.
 
 <pre class='shacl'>
 study:AnimalSubjectShape
@@ -196,6 +212,15 @@ study:<font class='nodeBold'>hasMin1Max1Shape-USubjID </font>
   sh:maxCount    1 .
 </pre>
 <br/>
+
+
+
+
+
+
+
+--- 
+<font class='outdated'>CONTENT OUTDATED PAST HERE AS OF 2020-02-05</font>
 
 Test Case 1 : Animal Subject Assigned Two USUBJID values
 
@@ -510,7 +535,7 @@ Independently verify `Animal_252450f2` and `Animal_2706cb1e` share the same USUB
 ---
 ###  SUBJID
 <a name='ruleSD1001'></a>
-<font class='FDARule'>FDA Rule SD1001</font>
+###<font class='FDARule'>FDA Rule SD1001</font>
 
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for SUBJID in the DM Domain as:
@@ -524,7 +549,7 @@ The Rule Components and corresponding SHACL shapes for SD1001 are similar to tho
 
 ## Reference Interval
 <a name='ruleSD1002'></a>
-<font class='FDARule'>FDA Rule SD1002</font>
+###<font class='FDARule'>FDA Rule SD1002</font>
 
 The figure below shows the connection from the Animal Subject IRI to its Reference Interval and the associated  SHACL Shapes and SEND Rules.
 
@@ -1137,7 +1162,7 @@ The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConf
 
 
 <a name='ruleSD0084'></a>
-<font class='FDARule'>FDA Rule SD0084</font>
+###<font class='FDARule'>FDA Rule SD0084</font>
 
 |FDA Validator Rule ID|FDA Validator Message|Business or Conformance Rule Validated|FDA Validator Rule|
 ------|-------------------|--------------------------|-----------------------------|
@@ -1252,7 +1277,7 @@ SPARQL independently verifies the Animal Subject with  `age < 0`.  Source file: 
 <!---------------------------------------------------------------------------->
 <!--- AGE RULE SD1121 -------------------------------------------------------->
 <!---------------------------------------------------------------------------->
-<font class='FDARule'>FDA Rule SD1121</font>
+###<font class='FDARule'>FDA Rule SD1121</font>
 
 FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
 ------|-------------------|--------------------------|-----------------------------
