@@ -125,7 +125,7 @@ FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Val
 ------|-------------------|--------------------------|-----------------------------
 **SD0083** |Duplicate USUBJID | Identifier used to uniquely identify a subject across all studies| The value of Unique Subject Identifier (USUBJID) variable must be unique for each subject **across all trials* in the submission.**
 
-\* *Because the prototype is based on data from a single trial, Rule SD0083 is only evaluated within the context of a single study.*
+\* *Because the prototype is based on data from a single trial, Rule SD0083 is evaluated within the context of a single study.*
 
 The Rule is deconstructed into the following components based on knowledge of the study data requirements, RDF data model (schema), and SD0083 rule statement:
 
@@ -179,7 +179,7 @@ Triples for the compliant AnimalSubject appear as:
 </pre>
 <br/>
 
-Each AnimalSubject must be evaluated to ensure it has minimum of one `usubjid` and no more than one `usubjid`. The shape will therefore be named `study:hasMin1Max1Shape-USubjID` and it is a property of the `study:AnimalSubjectShape`.
+Each AnimalSubject must be evaluated to ensure it has minimum of one `usubjid` and no more than one `usubjid`. The shape will therefore be named `study:hasMin1Max1Shape-USubjID` and it is a `sh:property` of the `study:AnimalSubjectShape`.
 <pre class='shacl'>
 study:AnimalSubjectShape
   a              sh:NodeShape ;
@@ -214,22 +214,21 @@ study:<font class='nodeBold'>hasMin1Max1Shape-USubjID </font>
 
 
 
-
-
-
-
 ---
-<font class='outdated'>CONTENT OUTDATED PAST HERE AS OF 2020-02-05</font>
+<font class='outdated'>CONTENT BELOW UNDER REVISION AS OF 2020-02-06</font>
 
-Test Case 1 : Animal Subject Assigned Two USUBJID values
+<font class='h3NoTOC'>Test Case 1 : Animal Subject Assigned Two USUBJID values</font>
 
-Test data for Animal Subject 99T11 (subject URI Animal_6204e90c) shows *two* USUBJID values:
+Test data for Animal Subject IRI Animal_2a836191 is assigned to  *two* USUBJID values:
 <pre class='data'>
-  cj16050:Animal_6204e90c
+  cj16050:Animal_2a836191
     a                        study:AnimalSubject ;
-    skos:prefLabel           "Animal 99T11"^^xsd:string ;
-    study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050-99T11B</font>,
-                             cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T11</font> ;
+    skos:prefLabel "<font class='error'>Animal 99T1</font>"^^xsd:string,
+                   "<font class='error'>Animal 99T2<font>"^^xsd:string ;
+
+
+    study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T1</font>,
+                             cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T2 </font>;
   <font class='infoOmitted'>...</font>
 </pre>
 
@@ -243,12 +242,12 @@ Violation of Rule Component 1 as detected by the `sh:maxCount` constraint:
   <font class='infoOmitted'>...</font>
 </pre>
 
-The Report correctly identifies AnimalSubject Animal_6204e90c as having more than one USUBJID value, violating the MaxConstraintComponent of FDA Rule SD0083.
+The Report correctly identifies AnimalSubject Animal_Animal_2a836191 as having more than one USUBJID value, violating the MaxConstraintComponent of FDA Rule SD0083.
 <pre class='report'>
   a sh:ValidationResult ;
     sh:resultSeverity            sh:Violation ;
     sh:sourceShape               study:hasMin1Max1Shape-USubjID ;
-    sh:focusNode                 cj16050:<font class='error'>Animal_6204e90c </font>;
+    sh:focusNode                 cj16050:<font class='error'>Animal_Animal_2a836191 </font>;
     sh:resultMessage             <font class='msg'>"Subject --> USUBJID violation. [SD0083]"</font> ;
     sh:resultPath                study:hasUniqueSubjectID ;
     sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>
@@ -259,24 +258,24 @@ The AnimalSubject IRI in the Report can be use to identify the USUBJID value tha
 <pre class='sparql'>
  SELECT ?animalIRI ?animalLabel ?usubjidLabel
   WHERE{
-    cj16050:<font class="nodeBold">Animal_6204e90c</font>   study:hasUniqueSubjectID ?usubjidIRI ;
+    cj16050:<font class="nodeBold">Animal_Animal_2a836191</font>   study:hasUniqueSubjectID ?usubjidIRI ;
                               skos:prefLabel           ?animalLabel .
      ?usubjidIRI              skos:prefLabel           ?usubjidLabel .
      BIND(IRI(cj16050:Animal_6204e90c) AS ?animalIRI )
 }</pre>
 
-The query result shows Animal 99T11 is assigned two `usubjid`, in violation of the rule.
+The query result shows Animal_2a836191 is assigned two `usubjid`, in violation of the rule.
 
 <pre class='queryResult'>
   animalIRI                  <b>animalLabel       usubjidLabel</b>
-  cj16050:<font class='nodeBold'>Animal_6204e90c</font>    "Animal 99T11"    <font class='error'>"CJ16050-99T11B"</font>
-  cj16050:<font class='nodeBold'>Animal_6204e90c</font>    "Animal 99T11"    <font class='error'>"CJ16050_99T11"</font>
+  cj16050:<font class='nodeBold'>Animal_Animal_2a836191</font>    "Animal 99T11"    <font class='error'>"CJ16050-99T1"</font>
+  cj16050:<font class='nodeBold'>Animal_Animal_2a836191</font>    "Animal 99T11"    <font class='error'>"CJ16050_99T2"</font>
 </pre>
 
 
 <font class='verify'>Verify</font>
 
-SPARQL independently verifies `Animal_6204e90c` as having two USUBJID values. File: [/SPARQL/USUBJID-RC1RC2-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/USUBJID-RC1RC2-TC1-Verify.rq)
+SPARQL independently verifies `Animal_Animal_2a836191` as having two USUBJID values. File: [/SPARQL/USUBJID-RC1RC2-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/USUBJID-RC1RC2-TC1-Verify.rq)
 <pre class='sparql'>
  SELECT ?animalSubjectIRI ?animalLabel (COUNT(?usubjidIRI) AS ?total)
   WHERE{
@@ -289,16 +288,18 @@ SPARQL independently verifies `Animal_6204e90c` as having two USUBJID values. Fi
 </pre>
 
 
+<font class='error'> folllwing needs update </font>
 <pre class='queryResult'>
   <b>animalSubjectIRI           animalLabel      total</b>
-  cj16050:Animal_6204e90c    "Animal 99T11"   <font class='error'>2</font>
+  cj16050:Animal_Animal_2a836191    "Animal XXX"   <font class='error'>2</font>
 </pre>
 
 <br/>
 
 
+<font class='outdated'>CONTENT BELOW is OUTDATED AS OF 2020-02-06</font>
 
-Test Case 2 : Animal Subject has no USUBJID value
+<font class='h3NoTOC'>Test Case 2 : Animal Subject has no USUBJID value</font>
 The AnimalSubject IRI `Animal_22218ae1` has no USUBJID (and no SUBJID).
 <pre class='data'>
   cj16050:Animal_22218ae1
@@ -573,7 +574,6 @@ In the SENDConform Project, RFSTDTC and RFENDTC are modeled as part of a Referen
 **4. [Start Date must be on or before End Date.](#rc4)**
 
 Translation of each Rule Component into SHACL and evaluation of test data is described below. Test cases in addition to those documented on these pages are available in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
-
 
 <font class='h3NoTOC'>Data Structure</font>
 

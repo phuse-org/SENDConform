@@ -20,5 +20,5 @@ cj16050:send-graph
     bibio:status "Under Construction/incomplete"^^xsd:string ;
     pav:version "0.0.1"^^xsd:string ;
     rdfs:label "SEND Conformance data for CJ16050"^^xsd:string ;
-    schema:dateCreated "2020-02-05T13:24:06-05:00"^^xsd:dateTime .
+    schema:dateCreated "2020-02-06T08:18:44-05:00"^^xsd:dateTime .
 

@@ -116,111 +116,97 @@ dm[!is.na(dm$subjid) & dm$subjid == c('99T4'), "FDARuleViolated"] <- "SD0083-RC3
 
 
 commentedOut <- function() {
-  # Test Case: RFENDTC prior to RFSTDTC
-  dmErr[dmErr$subjid == '99T1', "rfendtc"] <- "2016-12-06"
+     # Test Case: RFENDTC prior to RFSTDTC
+     dmErr[dmErr$subjid == '99T1', "rfendtc"] <- "2016-12-06"
 
-  # Test Case: More than one RFSTDTC and RDFENDTC for a single subject
-  #   Merge test subject data from 99T2, 99T3 into single subject 99T2
-  #   99T2 - start=12-07, end = 12-07 
-  #   99T3 - start=12-08, end = 12-08 
-  #   So reassign the 99T3 subjid and usubjid to 99T2 to get duplicate dates
-  # Assign the short hash from 99T2 to 99T3 to create same reference IRI in later steps.
-  dmErr[dmErr$subjid == '99T3', "subjid"] <- "99T2"
-  
-  # set different dates on the "new" TT92 using ORIGSUBJID_IM to create a reference interval
-  #  with more than one start and more than one end.
-  dmErr[dmErr$ORIGSUBJID_IM == '99T3', "rfstdtc"] <- "2016-12-08"
-  dmErr[dmErr$ORIGSUBJID_IM == '99T3', "rfendtc"] <- "2016-12-09"
-  
-  dmErr[dmErr$subjid == '99T3', "subjid"] <- "99T2"
-  dmErr[dmErr$usubjid == 'CJ16050_99T3', "usubjid"] <- "CJ16050_99T2"
+     # Test Case: More than one RFSTDTC and RDFENDTC for a single subject
+     #   Merge test subject data from 99T2, 99T3 into single subject 99T2
+     #   99T2 - start=12-07, end = 12-07 
+     #   99T3 - start=12-08, end = 12-08 
+     #   So reassign the 99T3 subjid and usubjid to 99T2 to get duplicate dates
+     # Assign the short hash from 99T2 to 99T3 to create same reference IRI in later steps.
+     dmErr[dmErr$subjid == '99T3', "subjid"] <- "99T2"
+     
+     # set different dates on the "new" TT92 using ORIGSUBJID_IM to create a reference interval
+     #  with more than one start and more than one end.
+     dmErr[dmErr$ORIGSUBJID_IM == '99T3', "rfstdtc"] <- "2016-12-08"
+     dmErr[dmErr$ORIGSUBJID_IM == '99T3', "rfendtc"] <- "2016-12-09"
+     
+     dmErr[dmErr$subjid == '99T3', "subjid"] <- "99T2"
+     dmErr[dmErr$usubjid == 'CJ16050_99T3', "usubjid"] <- "CJ16050_99T2"
 
-  # Dates as strings must have -DEC- for later regex  
-  # Test Case: rfendtc as xsd:string
-  dmErr[dmErr$subjid == '99T4', "rfendtc"] <- "7-DEC-16"
-  # Test Case: rfendtc as xsd:string
-  dmErr[dmErr$subjid == '99T10', "rfstdtc"] <- "6-DEC-16"
-  
-  # Test Case: Missing End date 
-  dmErr[dmErr$subjid == '99T5', "rfendtc"] <- NA
-  
-  # Test Case: Missing Start date 
-  dmErr[dmErr$subjid == '99T9', "rfstdtc"] <- NA
+     # Dates as strings must have -DEC- for later regex  
+     # Test Case: rfendtc as xsd:string
+     dmErr[dmErr$subjid == '99T4', "rfendtc"] <- "7-DEC-16"
+     # Test Case: rfendtc as xsd:string
+     dmErr[dmErr$subjid == '99T10', "rfstdtc"] <- "6-DEC-16"
+     
+     # Test Case: Missing End date 
+     dmErr[dmErr$subjid == '99T5', "rfendtc"] <- NA
+     
+     # Test Case: Missing Start date 
+     dmErr[dmErr$subjid == '99T9', "rfstdtc"] <- NA
 
-  
-  # Test Case: Missing Start Date and Missing End date 
-  dmErr[dmErr$subjid == '99T8', "rfstdtc"] <- NA
-  dmErr[dmErr$subjid == '99T8', "rfendtc"] <- NA
-  
+     
+     # Test Case: Missing Start Date and Missing End date 
+     dmErr[dmErr$subjid == '99T8', "rfstdtc"] <- NA
+     dmErr[dmErr$subjid == '99T8', "rfendtc"] <- NA
+     
 
-  #--- END SD1002 -------------------------------------------------------------
+     #--- END SD1002 -------------------------------------------------------------
 
-  
-  # Create duplicate SUBJID, USUBJID for 99T6, 99T7 
-  #dmErr[dmErr$subjid == '99T6', "subjid"] <- "99DUP1"
-  
-  #--- SD0083, RC 3
-  #    USUBJID assigned to more than one Animal subject
-  #    What should be CJ16050_99T7 is assigned the number CJ16050_99T6, resulting in
-  #    two subjects with the same USUBJID.
-  dmErr[dmErr$usubjid == 'CJ16050_99T7', "usubjid"] <- "CJ16050_99T6"
+     
+     # Create duplicate SUBJID, USUBJID for 99T6, 99T7 
+     #dmErr[dmErr$subjid == '99T6', "subjid"] <- "99DUP1"
+     
+     #--- SD0083, RC 3
+     #    USUBJID assigned to more than one Animal subject
+     #    What should be CJ16050_99T7 is assigned the number CJ16050_99T6, resulting in
+     #    two subjects with the same USUBJID.
+     dmErr[dmErr$usubjid == 'CJ16050_99T7', "usubjid"] <- "CJ16050_99T6"
 
-  #--- SD1001, RC3 
-  #   SUBJID assigned to more than one Animal subject
-  #    What should be 99T7 is assigned the number _99T6, resulting in
-  #    two subjects with the same SUBJID.
-  dmErr[dmErr$subjid == '99T7', "subjid"] <- "99T6"
+     #--- SD1001, RC3 
+     #   SUBJID assigned to more than one Animal subject
+     #    What should be 99T7 is assigned the number _99T6, resulting in
+     #    two subjects with the same SUBJID.
+     dmErr[dmErr$subjid == '99T7', "subjid"] <- "99T6"
+       
+     
+     #--- AGE --------------------------------------------------------------------
+     # --- SD0084
+     #     Age cannot be less than 0
+     dmErr[dmErr$subjid == '99T1', "age"] <- -10
+     
+     #--- 
+     # Age missing where missing
+     dmErr[dmErr$subjid == '99T2', "age"] <- NA
+     
+     # Age missing and not required to be present 
+     dmErr[dmErr$subjid == '99T4', "age"] <- NA
+     dmErr[dmErr$subjid == '99T4', "armcd"] <- "NOTASSGN"
+     
+     dmErr[dmErr$subjid == '99T13', "age"] <- NA
+     dmErr[dmErr$subjid == '99T13', "armcd"] <- "SCRNFAIL"
+     
+     #--- END test data creation -------
+     # Error data appended to real data.
+     dm <-rbind (dm, dmErr)
     
+   
+     # kludge so the duplicate 99T2 has the same short hash (replace origin from 99T3)
+     dm[dm$subjid == '99T2', "SubjectIRI"] <- "21316392"
+     
+     # drop columns used for computations that will not become part of the graph
+     dm <- dm[, !names(dm) %in% c("dmRowRanVal", 'ROWID_IM')]
+     
+     # Must be here or other re-assignments become more complex (need to look for NA first)
+       #SD0083, SD1001
+       # Test Case: Missing Start Date and Missing End date 
+     
+     #TW HERE ----------------------------------------------------------
+     dm[dm$subjid == '99T12', "subjid"]  <- NA
+     dm[dm$usubjid == 'CJ16050_99T12', "usubjid"] <- NA
   
-  #--- AGE --------------------------------------------------------------------
-  # --- SD0084
-  #     Age cannot be less than 0
-  dmErr[dmErr$subjid == '99T1', "age"] <- -10
-  
-  #--- 
-  # Age missing where missing
-  dmErr[dmErr$subjid == '99T2', "age"] <- NA
-  
-  # Age missing and not required to be present 
-  dmErr[dmErr$subjid == '99T4', "age"] <- NA
-  dmErr[dmErr$subjid == '99T4', "armcd"] <- "NOTASSGN"
-  
-  dmErr[dmErr$subjid == '99T13', "age"] <- NA
-  dmErr[dmErr$subjid == '99T13', "armcd"] <- "SCRNFAIL"
-  
-  #--- END test data creation -------
-  # Error data appended to real data.
-  dm <-rbind (dm, dmErr)
- 
-
-# dm <- addErrDM(dm)
-
-
-
-# Create data-independent IRI values based on random values  
-  
-
-dm$dmRowRanVal <- runif(nrow(dm))
-  
-for(i in 1:nrow(dm))  
-{
-  dm[i,"SubjectIRI"] <- strtrim(sha1(paste(dm[i,"dmRowRanVal"])), 8)  # Truncate for readabilty in the pilot
-}
-
-# kludge so the duplicate 99T2 has the same short hash (replace origin from 99T3)
-dm[dm$subjid == '99T2', "SubjectIRI"] <- "21316392"
-
-# drop columns used for computations that will not become part of the graph
-dm <- dm[, !names(dm) %in% c("dmRowRanVal", 'ROWID_IM')]
-
-# Must be here or other re-assignments become more complex (need to look for NA first)
-  #SD0083, SD1001
-  # Test Case: Missing Start Date and Missing End date 
-
-#TW HERE ----------------------------------------------------------
-dm[dm$subjid == '99T12', "subjid"]  <- NA
-dm[dm$usubjid == 'CJ16050_99T12', "usubjid"] <- NA
-
 } # END COMMENTED OUT
   
 #------------------------------------------------------------------------------
@@ -230,16 +216,16 @@ createRDF <- function()
 {  
   some_rdf <- rdf()  # initialize 
 
-for(i in 1:nrow(dm))
-{
-  ## Animal Subject   
-  rdf_add(some_rdf, 
-     subject     = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
-     predicate   = paste0(RDF,  "type"), 
-     object      = paste0(STUDY, "AnimalSubject")
-  )
-  if( ! is.na (dm[i,"subjid"]) ){
+  for(i in 1:nrow(dm))
+  {
+    ## Animal Subject   
     rdf_add(some_rdf, 
+       subject     = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
+       predicate   = paste0(RDF,  "type"), 
+       object      = paste0(STUDY, "AnimalSubject")
+    )
+    if( ! is.na (dm[i,"subjid"]) ){
+      rdf_add(some_rdf, 
       subject      = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
       predicate    = paste0(SKOS,  "prefLabel"), 
       object       = paste0("Animal ", dm[i, "subjid"]),
@@ -255,6 +241,8 @@ for(i in 1:nrow(dm))
   
   # Interval attached to Animal IRI . 
   #   For all cases in the data EXCEPT 99T11 who has no interval.
+    
+  # NEW CODE NEEDED: SUBJIDs have changed.  
   if( ! dm[i,"subjid"] %in% c("99T11") )
   {  
   
@@ -305,7 +293,8 @@ for(i in 1:nrow(dm))
       # Test Case:  
       # Hard-coded string for date when date value contains "-Dec-", 
       #  else the format is the correct xsd:date
-      if (grepl("-DEC-", dm[i,"rfstdtc"], ignore.case = TRUE)) {
+      if (grepl("-DEC-", dm[i,"rfstdtc"], ignore.case = TRUE)) 
+      {
         rdf_add(some_rdf, 
           subject      = paste0(CJ16050, "Date_", dm[i,"rfstdtc"]),
           predicate    = paste0(TIME, "inXSDDate"),
@@ -385,58 +374,64 @@ for(i in 1:nrow(dm))
     }  # End of End Date creation
   }  
   ## ---- END OF INTERVAL CREATION ------------------------------------------
+  commentedOut2 <- function() 
+  {
+    # NEW CODE NEEDED : Subject ID's have changed 2020-02-06. 
+    #  Move to Source data where possible.
   
-  # Create additional SUBJID and USUBJID IRIs for 99T11. These are in 
-  #   addition to the regular triples for 99T11 so there is no 'else' statement!
-  #   Test case:  Animal subject 99T11 has more than one SUBJID and more than one USUBJID
-  if( dm[i,"subjid"] %in% c("99T11") )
-  {  
-    ## Subject Identifier
-    rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
-      predicate   = paste0(STUDY,  "hasSubjectID"), 
-      object      = paste0(CJ16050, "SubjectIdentifier_99T11B")
-    )
-  
-    rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, "SubjectIdentifier_99T11B"),
-      predicate   = paste0(RDF,  "type"), 
-      object      = paste0(STUDY, "SubjectIdentifier")
-    )
-    rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, "SubjectIdentifier_99T11B"),
-      predicate    = paste0(SKOS, "prefLabel"),
-      object       = paste("99T11B"),
-      objectType   = "literal", 
-      datatype_uri = paste0(XSD,"string")
-    )
-    # Unique Subject Identifier 
-    rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
-      predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
-      object      = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050_99T11B")
-    )
-    rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050_99T11B"),
-      predicate   = paste0(RDF,  "type"), 
-      object      = paste0(STUDY, "UniqueSubjectIdentifier")
-    )
-    rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050_99T11B"),
-      predicate    = paste0(SKOS, "prefLabel"),
-      object       = paste0("CJ16050_99T11B"),
-      objectType   = "literal", 
-      datatype_uri = paste0(XSD,"string")
-    )
+        # Create additional SUBJID and USUBJID IRIs for 99T11. These are in 
+        #   addition to the regular triples for 99T11 so there is no 'else' statement!
+        #   Test case:  Animal subject 99T11 has more than one SUBJID and more than one USUBJID
+        if( dm[i,"subjid"] %in% c("99T11") )
+        {  
+          ## Subject Identifier
+          rdf_add(some_rdf, 
+            subject     = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
+            predicate   = paste0(STUDY,  "hasSubjectID"), 
+            object      = paste0(CJ16050, "SubjectIdentifier_99T11B")
+          )
+        
+          rdf_add(some_rdf, 
+            subject     = paste0(CJ16050, "SubjectIdentifier_99T11B"),
+            predicate   = paste0(RDF,  "type"), 
+            object      = paste0(STUDY, "SubjectIdentifier")
+          )
+          rdf_add(some_rdf, 
+            subject     = paste0(CJ16050, "SubjectIdentifier_99T11B"),
+            predicate    = paste0(SKOS, "prefLabel"),
+            object       = paste("99T11B"),
+            objectType   = "literal", 
+            datatype_uri = paste0(XSD,"string")
+          )
+          # Unique Subject Identifier 
+          rdf_add(some_rdf, 
+            subject     = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
+            predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
+            object      = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050_99T11B")
+          )
+          rdf_add(some_rdf, 
+            subject     = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050_99T11B"),
+            predicate   = paste0(RDF,  "type"), 
+            object      = paste0(STUDY, "UniqueSubjectIdentifier")
+          )
+          rdf_add(some_rdf, 
+            subject     = paste0(CJ16050, "UniqueSubjectIdentifier_CJ16050_99T11B"),
+            predicate    = paste0(SKOS, "prefLabel"),
+            object       = paste0("CJ16050_99T11B"),
+            objectType   = "literal", 
+            datatype_uri = paste0(XSD,"string")
+          )
+        }
   }
   
   ## Subject Identifier
   if( ! is.na (dm[i,"subjid"]) ) {
     rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, paste0(, dm[i,"SubjectIRI"])), 
+      subject     = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
       predicate   = paste0(STUDY,  "hasSubjectID"), 
       object      = paste0(CJ16050, "SubjectIdentifier_", dm[i,"subjid"])
     )
+    
     rdf_add(some_rdf, 
       subject     = paste0(CJ16050, "SubjectIdentifier_", dm[i,"subjid"]),
       predicate   = paste0(RDF,  "type"), 
@@ -453,7 +448,7 @@ for(i in 1:nrow(dm))
   ## Unique Subject Identifier
   if( ! is.na (dm[i,"usubjid"]) ) {
     rdf_add(some_rdf, 
-      subject     = paste0(CJ16050, paste0(, dm[i,"SubjectIRI"])), 
+      subject     = paste0(CJ16050, paste0(dm[i,"SubjectIRI"])), 
       predicate   = paste0(STUDY,  "hasUniqueSubjectID"), 
       object      = paste0(CJ16050, "UniqueSubjectIdentifier_", dm[i,"usubjid"])
     )
@@ -625,15 +620,6 @@ for(i in 1:nrow(dm))
 
 }
 
-#------------------------------------------------------------------------------
-# Data for error testing. 
-#   Add triples to test constraints.
-
-# Test 1
-
-# Test 2
-
-# Test 3
 
 
 #--- Serialize the some_rdf to a TTL file ----------------------------------------
@@ -691,7 +677,7 @@ write.csv(dm, file=csvFile,
 
 } #end createRDF()
   
-# createRDF()
+createRDF()
 
 # reset dm to null
 #dm <- dm[0,]

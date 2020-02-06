@@ -10,7 +10,6 @@ folder: intro
 ## Validation Language
 [Shapes Constraint Language](https://www.w3.org/TR/shacl/) (SHACL) is used to describe and validate the [RDF](https://www.w3.org/RDF/) data used in the prototype. A detailed description of SHACL syntax is beyond the scope of this document. Please refer to the [References and Resources](conform_references_and_resources.html) page to learn more about SHACL.
 
-Data sources and their conversion from tabular form to RDF is described within each sub-project.
 
 ## Documentation
 
