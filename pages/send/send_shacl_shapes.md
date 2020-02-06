@@ -79,8 +79,7 @@ study:Animal
 </pre>
 
 
-## FDA Rules as SHACL Shapes
-### Data
+## Data
 
 It is important to understand how the data is restructured from row-by-column XPT format by the [Data Conversion](conform_data_conversion.html) process. Here is a subset of the original data for Animal Subject 00M01:
 
@@ -219,7 +218,7 @@ study:<font class='nodeBold'>hasMin1Max1Shape-USubjID </font>
 
 
 
---- 
+---
 <font class='outdated'>CONTENT OUTDATED PAST HERE AS OF 2020-02-05</font>
 
 Test Case 1 : Animal Subject Assigned Two USUBJID values
