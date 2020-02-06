@@ -246,7 +246,7 @@ Violation of Rule Component 1 as detected by the `sh:maxCount` constraint:
 ***See the instructions on the [Validation](send_validation.html) page for how to apply the SHACL to the data and generate the Validation Report.***
 
 
-The Report correctly identifies AnimalSubject Animal_2a836191 as having more than one USUBJID value, violating the MaxConstraintComponent of FDA Rule SD0083.
+The Report correctly confirms  AnimalSubject Animal_2a836191 hasmore than one USUBJID value, violating the MaxConstraintComponent of FDA Rule SD0083.
 <pre class='report'>
   a sh:ValidationResult ;
     sh:resultSeverity            sh:Violation ;
@@ -278,7 +278,7 @@ The query result shows Animal_2a836191 is assigned two `usubjid`, in violation o
 
 <font class='verify'>Verify</font>
 
-SPARQL independently verifies `Animal_2a836191` as having two USUBJID values. File: [/SPARQL/SD0083-RC1-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC1-Verify.rq)
+SPARQL independently verifies `Animal_2a836191` has two USUBJID values. File: [/SPARQL/SD0083-RC1-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC1-Verify.rq)
 <pre class='sparql'>
   SELECT ?animalSubjectIRI (COUNT(?usubjidIRI) AS ?total)
   WHERE{
@@ -346,7 +346,7 @@ cj16050:Animal_2a836191   study:participatesIn         cj16050:SexDataCollection
 
 <font class='verify'>Verify</font>
 
-SPARQL independently confirms the report identifying `Animal_22218ae1c` as having no USUBJID. Because `usubjid` is used as the `skos:prefLabel` for AnimalSubject, there is not label to return when `usubjid` is missing. File: [/SPARQL/SD0083-RC1-TC2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC2-Verify.rq)
+SPARQL independently confirms `Animal_22218ae1c` has no USUBJID. Because `usubjid` is used as the `skos:prefLabel` for AnimalSubject, there is not label to return when `usubjid` is missing. File: [/SPARQL/SD0083-RC1-TC2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC2-Verify.rq)
 
 <pre class="sparql">
   SELECT ?animalIRI
