@@ -1,6 +1,6 @@
 ---
 title: SHACL Shapes for SEND Data
-last_updated: 2020-02-05
+last_updated: 2020-02-06
 permalink: send_shacl_shapes.html
 sidebar: home_sidebar
 folder: send
@@ -212,10 +212,9 @@ study:<font class='nodeBold'>hasMin1Max1Shape-USubjID </font>
 </pre>
 <br/>
 
-
-
 ---
-<font class='outdated'>CONTENT BELOW UNDER REVISION AS OF 2020-02-06</font>
+
+
 <br>
 <font class='h4NoTOC'>Test Case 1 : Animal Subject Assigned Two USUBJID values</font>
 
@@ -271,7 +270,7 @@ The AnimalSubject IRI in the Report can be use to identify the USUBJID value tha
 The query result shows Animal_2a836191 is assigned two `usubjid`, in violation of the rule.
 
 <pre class='queryResult'>
-  animalIRI                                     usubjidLabel</b>
+  animalIRI                 usubjidLabel
   cj16050:<font class='nodeBold'>Animal_2a836191</font>  <font class='error'>"CJ16050-99T1"</font>
   cj16050:<font class='nodeBold'>Animal_2a836191</font>  <font class='error'>"CJ16050_99T2"</font>
 </pre>
@@ -293,7 +292,7 @@ SPARQL independently verifies `Animal_2a836191` as having two USUBJID values. Fi
 
 <pre class='queryResult'>
   <b>animalSubjectIRI          total</b>
-  cj16050:Animal_2a836191    "Animal XXX"   <font class='error'>2</font>
+  cj16050:Animal_2a836191    <font class='error'>2</font>
 </pre>
 
 <br/>
