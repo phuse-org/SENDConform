@@ -243,58 +243,57 @@ Violation of Rule Component 1 as detected by the `sh:maxCount` constraint:
   <font class='infoOmitted'>...</font>
 </pre>
 
-*See the instructions on the [Validation](send_validation.html) page for how to apply the SHACL to the data and generate the Validation Report.*
 
-The Report correctly identifies AnimalSubject Animal_Animal_2a836191 as having more than one USUBJID value, violating the MaxConstraintComponent of FDA Rule SD0083.
+***See the instructions on the [Validation](send_validation.html) page for how to apply the SHACL to the data and generate the Validation Report.***
+
+
+The Report correctly identifies AnimalSubject Animal_2a836191 as having more than one USUBJID value, violating the MaxConstraintComponent of FDA Rule SD0083.
 <pre class='report'>
   a sh:ValidationResult ;
     sh:resultSeverity            sh:Violation ;
     sh:sourceShape               study:hasMin1Max1Shape-USubjID ;
-    sh:focusNode                 cj16050:<font class='error'>Animal_Animal_2a836191 </font>;
+    sh:focusNode                 cj16050:<font class='error'>Animal_2a836191 </font>;
     sh:resultMessage             <font class='msg'>"Subject --> USUBJID violation. [SD0083]"</font> ;
     sh:resultPath                study:hasUniqueSubjectID ;
     sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>
 </pre>
 
-The AnimalSubject IRI in the Report can be use to identify the USUBJID value that violates the constraint.  File: [/SPARQL/USUBJID-RC1RC2-TC1-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/USUBJID-RC1RC2-TC1-Info.rq)
+The AnimalSubject IRI in the Report can be use to identify the USUBJID value that violates the constraint.  File: [/SPARQL/SD0083-RC1-TC1-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC1-Info.rq)
 
 <pre class='sparql'>
- SELECT ?animalIRI ?animalLabel ?usubjidLabel
+ SELECT ?animalIRI ?usubjidLabel
   WHERE{
-    cj16050:<font class="nodeBold">Animal_Animal_2a836191</font>   study:hasUniqueSubjectID ?usubjidIRI ;
-                              skos:prefLabel           ?animalLabel .
-     ?usubjidIRI              skos:prefLabel           ?usubjidLabel .
-     BIND(IRI(cj16050:Animal_6204e90c) AS ?animalIRI )
+    cj16050:<font class="nodeBold">Animal_2a836191</font>   study:hasUniqueSubjectID ?usubjidIRI .
+    ?usubjidIRI              skos:prefLabel           ?usubjidLabel .
+     BIND(IRI(cj16050:Animal_2a836191) AS ?animalIRI )
 }</pre>
 
 The query result shows Animal_2a836191 is assigned two `usubjid`, in violation of the rule.
 
 <pre class='queryResult'>
-  animalIRI                  <b>animalLabel       usubjidLabel</b>
-  cj16050:<font class='nodeBold'>Animal_Animal_2a836191</font>    "Animal 99T11"    <font class='error'>"CJ16050-99T1"</font>
-  cj16050:<font class='nodeBold'>Animal_Animal_2a836191</font>    "Animal 99T11"    <font class='error'>"CJ16050_99T2"</font>
+  animalIRI                                     usubjidLabel</b>
+  cj16050:<font class='nodeBold'>Animal_2a836191</font>  <font class='error'>"CJ16050-99T1"</font>
+  cj16050:<font class='nodeBold'>Animal_2a836191</font>  <font class='error'>"CJ16050_99T2"</font>
 </pre>
 
 
 <font class='verify'>Verify</font>
 
-SPARQL independently verifies `Animal_Animal_2a836191` as having two USUBJID values. File: [/SPARQL/USUBJID-RC1RC2-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/USUBJID-RC1RC2-TC1-Verify.rq)
+SPARQL independently verifies `Animal_2a836191` as having two USUBJID values. File: [/SPARQL/SD0083-RC1-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC1-Verify.rq)
 <pre class='sparql'>
- SELECT ?animalSubjectIRI ?animalLabel (COUNT(?usubjidIRI) AS ?total)
+  SELECT ?animalSubjectIRI (COUNT(?usubjidIRI) AS ?total)
   WHERE{
-    ?animalSubjectIRI a                        study:AnimalSubject ;
-                      study:hasUniqueSubjectID ?usubjidIRI ;
-                      skos:prefLabel           ?animalLabel .
-    ?usubjidIRI       skos:prefLabel           ?usubjidLabel .
-  } GROUP BY ?animalSubjectIRI ?animalLabel
+   ?animalSubjectIRI a                        study:AnimalSubject ;
+                     study:hasUniqueSubjectID ?usubjidIRI .
+   ?usubjidIRI       skos:prefLabel           ?usubjidLabel .
+  } GROUP BY ?animalSubjectIRI
     HAVING (?total != 1)
 </pre>
 
 
-<font class='error'> folllwing needs update </font>
 <pre class='queryResult'>
-  <b>animalSubjectIRI           animalLabel      total</b>
-  cj16050:Animal_Animal_2a836191    "Animal XXX"   <font class='error'>2</font>
+  <b>animalSubjectIRI          total</b>
+  cj16050:Animal_2a836191    "Animal XXX"   <font class='error'>2</font>
 </pre>
 
 <br/>
@@ -314,7 +313,7 @@ The AnimalSubject IRI `Animal_22218ae1` has no USUBJID (and no SUBJID).
 
 The SHACL is identical to Test Case 1.
 
-The Report correctly identifies AnimalSubject IRI `Animal_6204e90c` as violating the constraint, in this case missing USUBJID.
+The Report correctly identifies AnimalSubject IRI `Animal_2a836191` as violating the constraint, in this case missing USUBJID.
 <pre class='report'>
   a sh:ValidationResult ;                                                     
     sh:resultSeverity sh:Violation ;                                        
@@ -325,30 +324,30 @@ The Report correctly identifies AnimalSubject IRI `Animal_6204e90c` as violating
     sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>            
 </pre>
 
-The AnimalSubject IRI in the Report can be use to identify the value of Predicates and Objects attached to the AnimalSubject IRI in facilitate identification of the problematic record, since a missing USUBJID means no `skos:prefLabel` is available. File: [/SPARQL/USUBJID-RC1RC2-TC2-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/USUBJID-RC1RC2-TC2-Info.rq)
+The AnimalSubject IRI in the Report can be use to identify the value of Predicates and Objects attached to the AnimalSubject IRI in facilitate identification of the problematic record, since a missing USUBJID means no `skos:prefLabel` is available. File: [/SPARQL/SD0083-RC1-TC2-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC2-Info.rq)
 
 <pre class="sparql">
   SELECT ?animalIRI ?p ?o
   WHERE{
     cj16050:<font class='nodeBold'>Animal_22218ae1</font> ?p ?o .
-    BIND(IRI(cj16050:Animal_6204e90c) AS ?animalIRI )
+    BIND(IRI(cj16050:Animal_2a836191) AS ?animalIRI )
   }
 </pre>
 
 <pre class='queryResult'>
 <b>animalIRI                 p                            o</b>
-cj16050:Animal_6204e90c   rdf:type                     study:AnimalSubject
-cj16050:Animal_6204e90c   study:hasReferenceInterval   cj16050:Interval_22218ae1
-cj16050:Animal_6204e90c   study:memberOf               cjprot:#Set_00
-cj16050:Animal_6204e90c   study:memberOf               code:Species_Rat
-cj16050:Animal_6204e90c   study:participatesIn         cj16050:AgeDataCollection_22218ae1
-cj16050:Animal_6204e90c   study:participatesIn         cj16050:SexDataCollection_22218ae1
+cj16050:Animal_2a836191   rdf:type                     study:AnimalSubject
+cj16050:Animal_2a836191   study:hasReferenceInterval   cj16050:Interval_22218ae1
+cj16050:Animal_2a836191   study:memberOf               cjprot:#Set_00
+cj16050:Animal_2a836191   study:memberOf               code:Species_Rat
+cj16050:Animal_2a836191   study:participatesIn         cj16050:AgeDataCollection_22218ae1
+cj16050:Animal_2a836191   study:participatesIn         cj16050:SexDataCollection_22218ae1
 </pre>
 
 
 <font class='verify'>Verify</font>
 
-SPARQL independently confirms the report identifying `Animal_22218ae1c` as having no USUBJID. Because `usubjid` is used as the `skos:prefLabel` for AnimalSubject, there is not label to return when `usubjid` is missing. File: [/SPARQL/USUBJID-RC1RC2-TC2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/USUBJID-RC1RC2-TC2-Verify.rq)
+SPARQL independently confirms the report identifying `Animal_22218ae1c` as having no USUBJID. Because `usubjid` is used as the `skos:prefLabel` for AnimalSubject, there is not label to return when `usubjid` is missing. File: [/SPARQL/SD0083-RC1-TC2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC2-Verify.rq)
 
 <pre class="sparql">
   SELECT ?animalIRI
@@ -494,7 +493,7 @@ Use the AnimalSubject IRI values to identify the `usubjid`. File: [/SPARQL/USUBJ
       cj16050:<font class='nodeBold'>Animal_252450f2</font> study:hasUniqueSubjectID ?usubjidIRI ;
                             skos:prefLabel           ?animalLabel .
       ?usubjidIRI             skos:prefLabel           ?usubjid .
-      BIND(IRI(cj16050:Animal_6204e90c) AS ?animalIRI )
+      BIND(IRI(cj16050:Animal_2a836191) AS ?animalIRI )
     }
     UNION
     {
@@ -508,7 +507,7 @@ Use the AnimalSubject IRI values to identify the `usubjid`. File: [/SPARQL/USUBJ
 
 <pre class='queryResult'>
   <b>animalIRI                   animalLabel       usubjid</b>
-  cj16050:Animal_6204e90c	  "Animal 99DUP1"	  <font class='error'>"CJ16050_99DUP1"</font>
+  cj16050:Animal_2a836191	  "Animal 99DUP1"	  <font class='error'>"CJ16050_99DUP1"</font>
   cj16050:Animal_2706cb1e	  "Animal 99DUP1"	  <font class='error'>"CJ16050_99DUP1"</font>
 </pre>
 
@@ -734,7 +733,7 @@ Test data for Animal Subject 99T11 has no `study:hasReferenceInterval` .
 <font class='omitted'>Not tested:</font> AnimalSubject with <i>more than one</i> Reference Interval.
 
 <pre class='data'>
-cj16050:<font class='nodeBold'>Animal_6204e90c</font>
+cj16050:<font class='nodeBold'>Animal_2a836191</font>
     a                        study:AnimalSubject ;
     skos:prefLabel           "<font class='nodeBold'>Animal 99T11</font>"^^xsd:string ;
     study:hasSubjectID       cj16050:SubjectIdentifier_6204e90c ;
@@ -782,7 +781,7 @@ study:hasMin1Max1Shape-Interval a sh:NodeShape ;
 <br/>
 
 
-The report identifies the IRI `cj16050:Animal_6204e90c` , corresponding to Animal Subject 99T11.
+The report identifies the IRI `cj16050:Animal_2a836191` , corresponding to Animal Subject 99T11.
 <pre class='report'>
 a sh:ValidationReport ;                                                                  
   sh:conforms false ;                                                                  
@@ -791,7 +790,7 @@ a sh:ValidationReport ;
       sh:sourceShape :SubjectOneRefIntervalShape ;                                 
       sh:resultPath study:hasReferenceInterval ;                                   
       sh:resultSeverity sh:Violation ;                                             
-      sh:focusNode cj16050:<font class='error'>Animal_6204e90c</font> ;                                       
+      sh:focusNode cj16050:<font class='error'>Animal_2a836191</font> ;                                       
       sh:resultMessage "<font class='msg'>Animal Subject does not have one Reference Interval IRI. [SD1002]</font>" ;
       sh:sourceConstraintComponent sh:MinCountConstraintComponent                  
   ]                                                                                    
@@ -803,8 +802,8 @@ SPARQL identifies the reported IRI as belonging to AnimalSubject 99T11, also con
   # RC 2 : Information : predicates and objects for the IRI in the report
   SELECT ?s ?p ?o
   WHERE {
-    cj16050:Animal_6204e90c ?p ?o ;
-    BIND( IRI(cj16050:Animal_6204e90c) as ?s)  
+    cj16050:Animal_2a836191 ?p ?o ;
+    BIND( IRI(cj16050:Animal_2a836191) as ?s)  
   }  ORDER BY ?p
 </pre>
 
