@@ -126,6 +126,14 @@
     font-size: 140%;
     color: #015CAE;
 }
+.h4NoTOC{
+    padding-top: 60px;
+    margin-top: -40px;
+    font-weight: normal;
+    font-size: 110%;
+    color: #015CAE;
+}
+
 .FDARule{
   /*
   padding-top: 60px;

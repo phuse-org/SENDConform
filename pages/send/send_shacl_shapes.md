@@ -216,15 +216,15 @@ study:<font class='nodeBold'>hasMin1Max1Shape-USubjID </font>
 
 ---
 <font class='outdated'>CONTENT BELOW UNDER REVISION AS OF 2020-02-06</font>
-
-<font class='h3NoTOC'>Test Case 1 : Animal Subject Assigned Two USUBJID values</font>
+<br>
+<font class='h4NoTOC'>Test Case 1 : Animal Subject Assigned Two USUBJID values</font>
 
 Test data for Animal Subject IRI Animal_2a836191 is assigned to  *two* USUBJID values:
 <pre class='data'>
   cj16050:Animal_2a836191
     a                        study:AnimalSubject ;
     skos:prefLabel "<font class='error'>Animal 99T1</font>"^^xsd:string,
-                   "<font class='error'>Animal 99T2<font>"^^xsd:string ;
+                   "<font class='error'>Animal 99T2</font>"^^xsd:string ;
 
 
     study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T1</font>,
@@ -298,8 +298,8 @@ SPARQL independently verifies `Animal_Animal_2a836191` as having two USUBJID val
 
 
 <font class='outdated'>CONTENT BELOW is OUTDATED AS OF 2020-02-06</font>
-
-<font class='h3NoTOC'>Test Case 2 : Animal Subject has no USUBJID value</font>
+<br>
+<font class='h4NoTOC'>Test Case 2 : Animal Subject has no USUBJID value</font>
 The AnimalSubject IRI `Animal_22218ae1` has no USUBJID (and no SUBJID).
 <pre class='data'>
   cj16050:Animal_22218ae1
