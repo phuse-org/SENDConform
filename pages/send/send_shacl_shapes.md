@@ -6,11 +6,11 @@ sidebar: home_sidebar
 folder: send
 ---
 
-## Introduction
-The project attempts to define a set of re-usable, hierarchical shapes for use in a variety of data validation scenarios spanning the data lifecycle from data collection through to submission and reporting. The first shapes are constructed for the Demographics (DM) domain, where each AnimalSubject is a represented as a row in the source data.
+<font class='outdated'>The information on this page is undergoing revision as of 2020-02-05, starting with Rules SD0083 and SD1001 and progressing down the page.</font>
+
 
 ## Animal Subject Shape
-The Animal Subject Shape definitions are located in this file:
+The project defines a set of re-usable, hierarchical shapes for use in a variety of data validation scenarios spanning the study data lifecycle. The first shapes are constructed for the Demographics (DM) domain, where each Animal Subject is a represented as a row in the source data. This makes the AnimalSubjectShape a natural choice for a shape containing additional constraints. The Animal Subject Shape definitions are located in this file:
 
 * AnimalSubjectShape  [SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL).
 
@@ -37,9 +37,11 @@ A shape is created to define the constraints attached to the Animal Subject IRI.
   Each type of <code>predicate ----> object </code> relation for the AnimalSubject class, with the exception of predicates like `rdf:type`, `skos:prefLabel`, etc.,  has a `sh:property` definition for a shape that validates that type of entity.
 </div>
 
+### Data
+
 Test data is constructed from original source XPT files as described on the [Data Conversion](conform_data_conversion.html) page.
 
-Data for Animal Subject 00M01 illustrates how the traditional row-by-column format:
+A subset of data for Animal Subject 00M01 illustrates how the traditional row-by-column format:
 
 |SubjectIRI     |subjid |usubjid      |setcd |species|
 |---------------|-------|-------------|------|-------|
@@ -112,7 +114,8 @@ The figure below shows the connections from the Animal Subject IRI to the USUBJI
 
   ***Animal Subject Node to ID Values***
 
-### USUBJID
+## FDA Rules as SHACL Shapes
+### <font class='FDARule'>Rule SD00083 </font>
 <a name='ruleSD0083'></a>
 <font class='FDARule'>FDA Rule SD0083</font>
 

@@ -71,6 +71,12 @@
   font-style: italic;
   font-weight: bold;
 }
+.outdated{
+  font-style: italic;
+  font-weight: bold;
+  color: #8b0000;     /* dark red */
+  background-color: #e1e1e1; /* light grey */
+}
 .parameter{
   color: #9c9c9c;     /* dark grey */
   font-weight: bold;

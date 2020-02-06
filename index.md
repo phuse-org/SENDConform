@@ -4,7 +4,7 @@ last_updated: 2020-02-05
 keywords: homepage
 toc: false
 tags:
-sidebar: conform_sidebar
+sidebar: home_sidebar
 permalink: index.html
 ---
 
