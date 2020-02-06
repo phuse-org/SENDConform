@@ -158,9 +158,9 @@ Translation of Rule Components into SHACL and evaluation of test data is describ
 |studyid|domain|usubjid     |subjid|SubjectIRI     |Rule Violated|
 |-------|------|------------|------|---------------|-------------|
 |CJ16050|DM    | <font class='goodData'>CJ16050_00M01</font> |00M01 | Animal_a6d09184 | None|
-|CJ16050|DM    |CJ16050_99T1|99T1  |<font class='error'>Animal_2a836191</font>|SDXXXXX-RC1|
-|CJ16050|DM    |CJ16050_99T2|99T2  |<font class='error'>Animal_2a836191</font>|SDXXXXX-RC1|
-|CJ16050|DM    |<font class='error'>NA</font>|<font class='error'>NA</font>  |Animal_69fa85ac|SDXXXXX-RC2|
+|CJ16050|DM    |<font class='error'>CJ16050_99T1</font>|99T1|<font class='nodeBold'>Animal_2a836191</font>|SD0083-RC1|
+|CJ16050|DM    |<font class='error'>CJ16050_99T2</font>|99T2|<font class='nodeBold'>Animal_2a836191</font>|SD0083-RC1|
+|CJ16050|DM    |<font class='error'>NA</font>|NA|<font class='nodeBold'>Animal_69fa85ac</font>|SD0083-RC2|
 
 <br/>
 
@@ -230,6 +230,7 @@ Test data for Animal Subject IRI Animal_2a836191 is assigned to  *two* USUBJID v
     study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T1</font>,
                              cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T2 </font>;
   <font class='infoOmitted'>...</font>
+
 </pre>
 
 Violation of Rule Component 1 as detected by the `sh:maxCount` constraint:
@@ -241,6 +242,8 @@ Violation of Rule Component 1 as detected by the `sh:maxCount` constraint:
   <font class="nodeBold">sh:maxCount  1 </font>
   <font class='infoOmitted'>...</font>
 </pre>
+
+*See the instructions on the [Validation](send_validation.html) page for how to apply the SHACL to the data and generate the Validation Report.*
 
 The Report correctly identifies AnimalSubject Animal_Animal_2a836191 as having more than one USUBJID value, violating the MaxConstraintComponent of FDA Rule SD0083.
 <pre class='report'>
