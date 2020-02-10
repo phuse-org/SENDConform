@@ -8,18 +8,28 @@
     {"id": "id6", "name": "prefLabel",          "value": 1, "type": "pred", "group": 2},
     {"id": "id7", "name": "CJ60650_99T1",       "value": 2, "type": "error", "group": 4},
     {"id": "id8", "name": "USubjid_###2",       "value": 2, "type": "error", "group": 4},
-    {"id": "id9", "name": "CJ60650_99T2",       "value": 2, "type": "error", "group": 4}
+    {"id": "id9", "name": "CJ60650_99T2",       "value": 2, "type": "error", "group": 4},
+    
+    {"id": "id10", "name": "hasMin1Max1Shape-USubjID", "value": 2, "type": "shape", "group": 4},
+    {"id": "id11", "name": "a",                        "value": 2, "type": "pred", "group": 4},
+    {"id": "id12", "name": "PropertyShape",            "value": 2, "type": "class", "group": 4},
+    {"id": "id13", "name": "targetClass",              "value": 2, "type": "pred", "group": 4}
 
   ],
   "links": [
-    {"source": "id1", "target": "id2", "value": 1},
-    {"source": "id2", "target": "id3", "value": 8},
-    {"source": "id1", "target": "id4", "value": 8},
-    {"source": "id4", "target": "id5", "value": 8},
-    {"source": "id5", "target": "id6", "value": 8},
-    {"source": "id6", "target": "id7", "value": 8},
-    {"source": "id4", "target": "id8", "value": 8},
-    {"source": "id8", "target": "id6", "value": 8},
-    {"source": "id6", "target": "id9", "value": 8}
+    {"source": "id1", "target": "id2", "type": "shapeAttach", "value": 1},
+    {"source": "id2", "target": "id3", "type": "foo", "value": 8},
+    {"source": "id1", "target": "id4", "type": "foo", "value": 8},
+    {"source": "id4", "target": "id5", "type": "foo", "value": 8},
+    {"source": "id5", "target": "id6", "type": "foo",  "value": 8},
+    {"source": "id6", "target": "id7", "type": "foo", "value": 8},
+    {"source": "id4", "target": "id8", "type": "foo", "value": 8},
+    {"source": "id8", "target": "id6", "type": "foo", "value": 8},
+    {"source": "id6", "target": "id9", "type": "foo", "value": 8},
+    
+    {"source": "id10", "target": "id11", "type": "foo", "value": 8},
+    {"source": "id11", "target": "id12", "type": "foo", "value": 8},
+    {"source": "id10", "target": "id13", "type": "foo",  "value": 8},
+    {"source": "id13", "target": "id3",  "type": "foo", "value": 8}
   ]
 }

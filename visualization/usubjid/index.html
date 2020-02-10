@@ -23,14 +23,22 @@
             return '#1F75B2';  /* blue */
           }else if (d.type === 'class') {
              return '#ffa500';  /* orange */
-          }else if (d.type === 'error') {
+          }
+
+          else if (d.type === 'error') {
              return '#cc0000';  /* red */
-          }else{
+          }
+
+          else if (d.type === 'shape') {
+             return '#FCFF98';  /* lt yel */
+          }
+
+          else{
             return '#39224A'; /* dk purple */
           }
         })
 
-        .nodeAutoColorBy('group')
+        /* .nodeAutoColorBy('group') */
         .linkDirectionalArrowLength(3.5)
         .linkDirectionalArrowRelPos(1)
         .onNodeDragEnd(node => {
