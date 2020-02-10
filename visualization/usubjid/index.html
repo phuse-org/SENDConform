@@ -18,20 +18,30 @@
 
         .nodeColor(d => {
           if (d.type === 'pred') {
-            return '#e0e0e0';  /* lt gray */
+            return '#c7c7c7';  /* gray */
           }else if (d.type === 'animal') {
             return '#1F75B2';  /* blue */
+
           }else if (d.type === 'class') {
              return '#ffa500';  /* orange */
+          }
+
+          else if (d.type === 'shape') {
+             return '#66ff00';  /* bright green  */
+          }
+
+          else if (d.type === 'shapeMessage') {
+             return '#98fb98';  /* pale green */
+          }
+
+          else if (d.type === 'shapeConstraint') {
+             return '#059105';  /* dark green */
           }
 
           else if (d.type === 'error') {
              return '#cc0000';  /* red */
           }
 
-          else if (d.type === 'shape') {
-             return '#FCFF98';  /* lt yel */
-          }
 
           else{
             return '#39224A'; /* dk purple */
@@ -39,8 +49,30 @@
         })
 
         /* .nodeAutoColorBy('group') */
-        .linkDirectionalArrowLength(3.5)
-        .linkDirectionalArrowRelPos(1)
+        .linkWidth(2)
+        .linkOpacity(0.4)
+        .linkDirectionalParticles("value")
+        .linkDirectionalParticleSpeed(d => d.value * 0.001)
+        .linkColor(d => {
+          if (d.type === 'shapeAttach') {
+            return '#ff0000';  /* bright red */
+          }
+          else if (d.type === 'data') {
+             return '#0080ff';  /* pale blue */
+          }
+
+          else if (d.type === 'shape') {
+             return '#7cfc00';  /* bright green */
+          }
+
+          else {
+            return '#FCFF98';  /* lt yel */
+          }
+        })
+
+
+        /* .linkDirectionalArrowLength(3.5) */
+        /* .linkDirectionalArrowRelPos(1) */
         .onNodeDragEnd(node => {
           node.fx = node.x;
           node.fy = node.y;
