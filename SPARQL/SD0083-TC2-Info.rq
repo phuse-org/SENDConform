@@ -1,7 +1,6 @@
 ###############################################################################
-# FILE: USUBJID-RC1-TC2-Info.rq
-# DESC: USUBJID Rule Component 2 Test Case 1 Information
-#       Information based on report findings
+# FILE: SD0083-TC2-Info.rq
+# DESC: SD0083 RC2 : Missing USUBJID
 #
 # REQ : 
 # SRC : 
@@ -10,8 +9,8 @@
 # NOTE: 
 # TODO: 
 ###############################################################################
+PREFIX code:    <https://w3id.org/phuse/code#>
 PREFIX cj16050: <https://example.org/cj16050#>
-PREFIX code:    <https://w3id.org/phuse/code#> 
 PREFIX skos:    <http://www.w3.org/2004/02/skos/core#> 
 PREFIX study:   <https://w3id.org/phuse/study#> 
 PREFIX time:    <http://www.w3.org/2006/time#>
