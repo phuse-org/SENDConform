@@ -1,6 +1,6 @@
 ###############################################################################
-# FILE: SD0083-RC1-TC1-Info.rq
-# DESC: USUBJID Rule Component 1, Test Case 1 Information
+# FILE: USUBJID-RC1-TC2-Info.rq
+# DESC: USUBJID Rule Component 2 Test Case 1 Information
 #       Information based on report findings
 #
 # REQ : 
@@ -16,9 +16,8 @@ PREFIX skos:    <http://www.w3.org/2004/02/skos/core#>
 PREFIX study:   <https://w3id.org/phuse/study#> 
 PREFIX time:    <http://www.w3.org/2006/time#>
 
-SELECT ?animalIRI ?usubjidLabel
+SELECT ?animalIRI ?p ?o
 WHERE{
-  cj16050:Animal_2a836191 study:hasUniqueSubjectID ?usubjidIRI .
-  ?usubjidIRI             skos:prefLabel           ?usubjidLabel .
-   BIND(IRI(cj16050:Animal_2a836191) AS ?animalIRI )
-} 
+  cj16050:Animal_69fa85ac ?p ?o .
+   BIND(IRI(cj16050:Animal_6204e90c) AS ?animalIRI )
+}

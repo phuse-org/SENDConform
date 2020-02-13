@@ -26,6 +26,12 @@
              return '#ffa500';  /* orange */
           }
 
+          else if (d.type === 'report') {
+             return '#FCFF98';  /* lt yellow  */
+          }
+
+
+
           else if (d.type === 'shape') {
              return '#66ff00';  /* bright green  */
           }
@@ -43,6 +49,8 @@
           }
 
 
+
+
           else{
             return '#39224A'; /* dk purple */
           }
@@ -54,16 +62,27 @@
         .linkDirectionalParticles("value")
         .linkDirectionalParticleSpeed(d => d.value * 0.001)
         .linkColor(d => {
-          if (d.type === 'shapeAttach') {
-            return '#ff0000';  /* bright red */
-          }
-          else if (d.type === 'data') {
-             return '#0080ff';  /* pale blue */
+
+          if (d.type === 'data') {
+            return '#0080ff';  /* bright red */
           }
 
           else if (d.type === 'shape') {
              return '#7cfc00';  /* bright green */
           }
+
+          else if (d.type === 'shapeAttach') {
+             return '#ff0000';  /* pale blue */
+          }
+
+          else if (d.type === 'report') {
+             return '#ffff9d';  /* lt yel */
+          }
+
+          else if (d.type === 'reportAttach') {
+             return '#ffa500';  /*organge */
+          }
+
 
           else {
             return '#FCFF98';  /* lt yel */

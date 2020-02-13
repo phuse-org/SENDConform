@@ -6,7 +6,7 @@ sidebar: home_sidebar
 folder: send
 ---
 
-<font class='outdated'>The information on this page is undergoing revision as of 2020-02-05, starting with Rules SD0083 and SD1001 and progressing down the page.</font>
+<font class='outdated'>The information on this page is currently undergoing revision, starting with Rules SD0083 and SD1001 and progressing down the page.</font>
 
 <a name='animalsubjectshape'></a>
 ## Animal Subject Shape
@@ -99,9 +99,9 @@ cj16050:Animal_a6d09184
     study:hasReferenceInterval cj16050:Interval_a6d09184 ;
     study:memberOf             cjprot:Set_00,
                                code:Species_Rat ;
-    study:participatesIn       cj16050:SexDataCollection_a6d09184 ,
-                               cj16050:AgeDataCollection_a6d09184,
-                               cj16050:Randomization_a6d09184 .
+    study:participatesIn       cj16050:SexDataCollection_Animal_a6d09184 ,
+                               cj16050:AgeDataCollection_Animal_a6d09184,
+                               cj16050:Randomization_Animal_a6d09184 .
 </pre>
 <br/>
 
@@ -111,7 +111,6 @@ The first validation shapes will be formed around the AnimalSubject Class `study
 
   ***Animal Subject Node to ID Values***
 
----
 
 ---
 
@@ -129,18 +128,18 @@ FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Val
 
 The Rule is deconstructed into the following components based on knowledge of the study data requirements, RDF data model (schema), and SD0083 rule statement:
 
-**1. [An Animal Subject cannot have more than one USUBJID.](#rc12)**
+**RC1. [An Animal Subject cannot have more than one USUBJID.](#rc12)**
 
-**2. [An Animal Subject cannot have a missing USUBJID.](#rc12)**
+**RC2. [An Animal Subject cannot have a missing USUBJID.](#rc12)**
 
-**3. [A USUBJID cannot be assigned to more than one Animal Subject.](#rc3)**
+**RC3. [A USUBJID cannot be assigned to more than one Animal Subject.](#rc3)**
 
 
-Translation of Rule Components into SHACL and evaluation of test data is described below. The first two Rule Components are satisfied by a single SHACL Shape while a second shape evaluates the third component. Addition information for the traceability between rules, shapes, and the data used to evaluate them is available in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
+Translation of Rule Components into SHACL and evaluation of test data is described below. Rule Components RC1 and RC2 are satisfied by a single SHACL Shape, while a second shape evaluates the third component. Addition information for the traceability between rules, shapes, and the data used to evaluate them is available in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
 
 ---
 
-<font class='ruleComponent'>Rule Components 1,2 : A single, non-missing USUBJID per Animal Subject.</font> <a name='rc12'></a>
+<font class='ruleComponent'>RC1, RC2 : A single, non-missing USUBJID per Animal Subject.</font> <a name='rc12'></a>
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
@@ -153,7 +152,8 @@ Translation of Rule Components into SHACL and evaluation of test data is describ
   An Animal Subject must be assigned one and only one USUBJID. Missing and multiple USUBJID values are not allowed for an AnimalSubject.
 </div>
 
-<font class='h3NoTOC'>Source Data</font>
+<a name='sourcedatasd0083'/>
+<font class='h3NoTOC'>Test Data</font>
 
 |studyid|domain|usubjid     |subjid|SubjectIRI     |Rule Violated|
 |-------|------|------------|------|---------------|-------------|
@@ -190,7 +190,7 @@ study:AnimalSubjectShape
 </pre>
 <br/>
 
-From the TTL data we see that `usubjid` is attached to the AnimalSubject IRI by the `study:hasUniqueSubjectID` predicate. We therefore write this as the `sh:path` for the `study:hasMin1Max1Shape-USubjID` which leads to the full shape definition, which evaluates the path `study:hasUniqueSubjectID` from the targetClass (a `study:AnimalSubject`) to determine if one and only one value of USUBJID IRI is present.
+From the TTL data we see that `usubjid` is attached to the AnimalSubject IRI by the `study:hasUniqueSubjectID` predicate. This predicate is specified as the object (target) of `sh:path` as shown in the shape definition, below. The shape further specifies there should be a minimum of one and maximum of one path through `study:hasUniqueSubjectID` for a given AnimalSubject.
 
 <pre class='shacl'>
 study:AnimalSubjectShape
@@ -214,11 +214,10 @@ study:<font class='nodeBold'>hasMin1Max1Shape-USubjID </font>
 
 ---
 
-
-<br>
 <font class='h4NoTOC'>Test Case 1 : Animal Subject Assigned Two USUBJID values</font>
 
-Test data for Animal Subject IRI Animal_2a836191 is assigned to  *two* USUBJID values:
+Test data for Animal Subject IRI Animal_2a836191 is assigned to  *two* USUBJID values, violating SD0083-RC1.
+
 <pre class='data'>
   cj16050:Animal_2a836191
     a                        study:AnimalSubject ;
@@ -257,7 +256,7 @@ The Report correctly confirms  AnimalSubject Animal_2a836191 hasmore than one US
     sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>
 </pre>
 
-The AnimalSubject IRI in the Report can be use to identify the USUBJID value that violates the constraint.  File: [/SPARQL/SD0083-RC1-TC1-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC1-Info.rq)
+The AnimalSubject IRI in the Report can be use to identify the USUBJID value that violates the constraint.  File: [/SPARQL/SD0083-TC1-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-TC1-Info.rq)
 
 <pre class='sparql'>
  SELECT ?animalIRI ?usubjidLabel
@@ -278,7 +277,7 @@ The query result shows Animal_2a836191 is assigned two `usubjid`, in violation o
 
 <font class='verify'>Verify</font>
 
-SPARQL independently verifies `Animal_2a836191` has two USUBJID values. File: [/SPARQL/SD0083-RC1-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC1-Verify.rq)
+SPARQL independently verifies `Animal_2a836191` has two USUBJID values. File: [/SPARQL/SD0083-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-TC1-Verify.rq)
 <pre class='sparql'>
   SELECT ?animalSubjectIRI (COUNT(?usubjidIRI) AS ?total)
   WHERE{
@@ -297,38 +296,40 @@ SPARQL independently verifies `Animal_2a836191` has two USUBJID values. File: [/
 
 <br/>
 
+---
 
-<font class='outdated'>CONTENT BELOW is OUTDATED AS OF 2020-02-06</font>
+<font class='outdated'>CONTENT BELOW is WIP 2020-02-13</font>
 <br>
 <font class='h4NoTOC'>Test Case 2 : Animal Subject has no USUBJID value</font>
-The AnimalSubject IRI `Animal_22218ae1` has no USUBJID (and no SUBJID).
+In the <a href='#sourcedatasd0083'>test data</a>, animalSubject IRI `Animal_69fa85ac` has no USUBJID value.
+
 <pre class='data'>
-  cj16050:Animal_22218ae1
+  cj16050:Animal_69fa85ac
     a study:AnimalSubject ;
-    study:hasReferenceInterval cj16050:Interval_22218ae1 ;
+    study:hasReferenceInterval cj16050:Interval_69fa85ac ;
     study:memberOf cjprot:Set_00, code:Species_Rat ;
-    study:participatesIn cj16050:AgeDataCollection_22218ae1, cj16050:SexDataCollection_22218ae1 .
+    study:participatesIn cj16050:AgeDataCollection_Animal_69fa85ac, cj16050:SexDataCollection_Animal_69fa85ac .
 </pre>
 
 The SHACL is identical to Test Case 1.
 
-The Report correctly identifies AnimalSubject IRI `Animal_2a836191` as violating the constraint, in this case missing USUBJID.
+The Report correctly identifies AnimalSubject IRI `Animal_69fa85ac` as violating the constraint that USUBJID must be non-missing.
 <pre class='report'>
   a sh:ValidationResult ;                                                     
     sh:resultSeverity sh:Violation ;                                        
     sh:sourceShape study:hasMin1Max1Shape-USubjID ;
-    sh:focusNode cj16050:<font class='error'>Animal_22218ae1c</font> ;
+    sh:focusNode cj16050:<font class='error'>Animal_69fa85ac</font> ;
     sh:resultMessage <font class='msg'>"Subject --> USUBJID violation [SD0083]"</font> ;
     sh:resultPath study:hasUniqueSubjectID ;       
     sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>            
 </pre>
 
-The AnimalSubject IRI in the Report can be use to identify the value of Predicates and Objects attached to the AnimalSubject IRI in facilitate identification of the problematic record, since a missing USUBJID means no `skos:prefLabel` is available. File: [/SPARQL/SD0083-RC1-TC2-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC2-Info.rq)
+The AnimalSubject IRI in the Report can be use to identify the value of Predicates and Objects attached to the AnimalSubject IRI in facilitate identification of the problematic record, since a missing USUBJID means no `skos:prefLabel` is available. File: [/SPARQL/SD0083-TC2-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-TC2-Info.rq)
 
 <pre class="sparql">
   SELECT ?animalIRI ?p ?o
   WHERE{
-    cj16050:<font class='nodeBold'>Animal_22218ae1</font> ?p ?o .
+    cj16050:<font class='nodeBold'>Animal_69fa85ac</font> ?p ?o .
     BIND(IRI(cj16050:Animal_2a836191) AS ?animalIRI )
   }
 </pre>
@@ -336,17 +337,17 @@ The AnimalSubject IRI in the Report can be use to identify the value of Predicat
 <pre class='queryResult'>
 <b>animalIRI                 p                            o</b>
 cj16050:Animal_2a836191   rdf:type                     study:AnimalSubject
-cj16050:Animal_2a836191   study:hasReferenceInterval   cj16050:Interval_22218ae1
+cj16050:Animal_2a836191   study:hasReferenceInterval   cj16050:Interval_69fa85ac
 cj16050:Animal_2a836191   study:memberOf               cjprot:#Set_00
 cj16050:Animal_2a836191   study:memberOf               code:Species_Rat
-cj16050:Animal_2a836191   study:participatesIn         cj16050:AgeDataCollection_22218ae1
-cj16050:Animal_2a836191   study:participatesIn         cj16050:SexDataCollection_22218ae1
+cj16050:Animal_2a836191   study:participatesIn         cj16050:AgeDataCollection_Animal_69fa85ac
+cj16050:Animal_2a836191   study:participatesIn         cj16050:SexDataCollection_Animal_69fa85ac
 </pre>
 
 
 <font class='verify'>Verify</font>
 
-SPARQL independently confirms `Animal_22218ae1c` has no USUBJID. Because `usubjid` is used as the `skos:prefLabel` for AnimalSubject, there is not label to return when `usubjid` is missing. File: [/SPARQL/SD0083-RC1-TC2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-RC1-TC2-Verify.rq)
+SPARQL independently confirms `Animal_69fa85acc` has no USUBJID. Because `usubjid` is used as the `skos:prefLabel` for AnimalSubject, there is not label to return when `usubjid` is missing. File: [/SPARQL/SD0083-TC2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-TC2-Verify.rq)
 
 <pre class="sparql">
   SELECT ?animalIRI
@@ -359,7 +360,7 @@ SPARQL independently confirms `Animal_22218ae1c` has no USUBJID. Because `usubji
 
 <pre class='queryResult'>
 animalIRI
-cj16050:<font class='error'>Animal_22218ae1</font>
+cj16050:<font class='error'>Animal_69fa85ac</font>
 </pre>
 
 
@@ -738,7 +739,7 @@ cj16050:<font class='nodeBold'>Animal_2a836191</font>
     study:hasSubjectID       cj16050:SubjectIdentifier_6204e90c ;
     study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_6204e90c ;
     study:memberOf           cjprot:Set_00, code:Species_Rat ;
-    study:participatesIn     cj16050:AgeDataCollection_6204e90c, cj16050:SexDataCollection_6204e90c .
+    study:participatesIn     cj16050:AgeDataCollection_Animal_6204e90c, cj16050:SexDataCollection_Animal_6204e90c .
 </pre>
 <br/>
 
@@ -861,7 +862,7 @@ cj16050:Animal_db3c6403
   study:hasSubjectID         cj16050:SubjectIdentifier_db3c6403 ;
   study:hasUniqueSubjectID   cj16050:UniqueSubjectIdentifier_db3c6403 ;
   study:memberOf             cjprot:Set_00, code:Species_Rat ;
-  study:participatesIn       cj16050:AgeDataCollection_db3c6403, cj16050:SexDataCollection_db3c6403 .
+  study:participatesIn       cj16050:AgeDataCollection_Animal_db3c6403, cj16050:SexDataCollection_Animal_db3c6403 .
 
 cj16050:<font class='nodeBold'>Interval_db3c6403</font>
   a                 study:ReferenceInterval ;
@@ -1026,7 +1027,7 @@ cj16050:Animal_184f16eb
     study:hasSubjectID cj16050:SubjectIdentifier_184f16eb ;
     study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_184f16eb ;
     study:memberOf cjprot:Set_00, code:Species_Rat ;
-    study:participatesIn cj16050:AgeDataCollection_184f16eb, cj16050:SexDataCollection_184f16eb .
+    study:participatesIn cj16050:AgeDataCollection_Animal_184f16eb, cj16050:SexDataCollection_Animal_184f16eb .
 
 cj16050:<font class='nodeBold'>Interval_184f16eb</font>
     a study:ReferenceInterval ;
@@ -1200,10 +1201,10 @@ The age for Animal Subject 99T1 was set to -10 for testing.
 <pre class='data'>
   cj16050:Animal_184f16eb
     a                    study:AnimalSubject ;
-    study:participatesIn cj16050:<font class='nodeBold'>AgeDataCollection_184f16eb</font>,
+    study:participatesIn cj16050:<font class='nodeBold'>AgeDataCollection_Animal_184f16eb</font>,
   <font class='infoOmitted'>...</font>
 
-  cj16050:<font class='nodeBold'>AgeDataCollection_184f16eb</font>
+  cj16050:<font class='nodeBold'>AgeDataCollection_Animal_184f16eb</font>
     a            code:AgeDataCollection ;
     code:outcome cj16050:<font class='nodeBold'>Age_-10_WEEKS </font>.
 
@@ -1314,7 +1315,7 @@ cj16050:EligibilityDetermination_XXXXXX
   rdf:type     study:EligibilityDetermination ;
   code:outcome code:RuleOutcome_FALSE .
 
-cj16050:Randomization_2
+cj16050:Randomization_Animal_2
   rdf:type study:Randomization ;
   skos:prefLabel "Randomization 2" ;
   code:outcome <null>.              
@@ -1392,7 +1393,7 @@ The report <font class='tobeAdded'>ADD DETAILS ABOUT REPORT VALIDATION USING SPA
 
 `armcd` has the value `NOTASSGN` when there is no randomization outcome. The data conversion process attempts to create the randomization triple as:
 
-<font class='code'>Randomization_########  code:outcome <font class='missing'>NO OBJECT</font></font>
+<font class='code'>Randomization_Animal_########  code:outcome <font class='missing'>NO OBJECT</font></font>
 
 The triple is not created due to the missing data for the Object.
 
