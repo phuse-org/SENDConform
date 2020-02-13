@@ -379,7 +379,7 @@ cj16050:<font class='error'>Animal_69fa85ac</font>
 <a name='sourcedatasd0083RC12'/>
 <font class='h3NoTOC'>Test Data</font>
 
-In the test data, Animal Subjects Animal_5dba5b4b and Animal_1a2751f1 have the same USUBJID values.
+In the test data, Animal Subjects Animal_5dba5b4b and Animal_1a2751f1 have the same USUBJID value.
 
 
 |studyid|domain|usubjid     |subjid|SubjectIRI     |Rule Violated|
@@ -395,12 +395,12 @@ In RDF:
 <pre class='data'>
 cj16050:<font class='nodeBold'>Animal_5dba5b4b</font>
     a study:AnimalSubject ;
-    skos:prefLabel "Animal 99DUP1"^^xsd:string ;
+    skos:prefLabel "Animal 99T4"^^xsd:string ;
     study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T4</font> ;
 
 cj16050:<font class='nodeBold'>Animal_1a2751f1</font>
     a study:AnimalSubject ;
-    skos:prefLabel "Animal 99DUP1"^^xsd:string ;
+    skos:prefLabel "Animal 99T4"^^xsd:string ;
     study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T4</font> ;
 </pre>
 <br/>
@@ -503,7 +503,7 @@ a sh:ValidationResult ;
 </pre>
 <br/>
 
-Use the AnimalSubject IRI values to identify the offending`usubjid` value. File: [/SPARQL/USUBJID-RC3-M2-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/USUBJID-RC3-M2-Info.rq)
+Use the AnimalSubject IRI values to identify the offending`usubjid` value. File: [/SPARQL/SD0083-TC3-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SD0083-TC3-Info.rq)
 <pre class='sparql'>
   SELECT ?animalIRI ?animalLabel ?usubjid
   WHERE{
@@ -511,7 +511,7 @@ Use the AnimalSubject IRI values to identify the offending`usubjid` value. File:
       cj16050:<font class='nodeBold'>Animal_5dba5b4b</font> study:hasUniqueSubjectID ?usubjidIRI ;
                             skos:prefLabel           ?animalLabel .
       ?usubjidIRI             skos:prefLabel           ?usubjid .
-      BIND(IRI(cj16050:Animal_2a836191) AS ?animalIRI )
+      BIND(IRI(cj16050:Animal_5dba5b4b) AS ?animalIRI )
     }
     UNION
     {
@@ -525,15 +525,14 @@ Use the AnimalSubject IRI values to identify the offending`usubjid` value. File:
 
 <pre class='queryResult'>
   <b>animalIRI                   animalLabel       usubjid</b>
-  cj16050:Animal_2a836191	  "Animal 99DUP1"	  <font class='error'>"CJ16050_99DUP1"</font>
-  cj16050:Animal_1a2751f1	  "Animal 99DUP1"	  <font class='error'>"CJ16050_99DUP1"</font>
+  cj16050:Animal_5dba5b4b	  "Animal 99T4"	  <font class='error'>"CJ16050_99T4"</font>
+  cj16050:Animal_1a2751f1	  "Animal 99T4"	  <font class='error'>"CJ16050_99T4"</font>
 </pre>
-
 
 
 <font class='verify'>Verify</font>
 
-Independently verify `Animal_5dba5b4b` and `Animal_1a2751f1` share the same USUBJID (and consequently the same label for the AnimalSubject and USUBJID). File: [/SPARQL/USUBJID-RC3-M2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/USUBJID-RC3-M2-Verify.rq)
+Independently verify `Animal_5dba5b4b` and `Animal_1a2751f1` share the same USUBJID (and consequently the same label for the AnimalSubject and USUBJID). File: [/SPARQL/SD0083-TC3-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SD0083-TC3-Verify.rq)
 <pre class='sparql'>
   SELECT ?animalIRI ?usubjid
   WHERE{
@@ -547,8 +546,8 @@ Independently verify `Animal_5dba5b4b` and `Animal_1a2751f1` share the same USUB
 
 <pre class='queryResult'>
   <b>animalIRI                 usubjid</b>
-  cj16050:Animal_1a2751f1   "Animal 99DUP1"
-  cj16050:Animal_5dba5b4b   "Animal 99DUP1"
+  cj16050:Animal_1a2751f1   "Animal 99T4"
+  cj16050:Animal_5dba5b4b   "Animal 99T4"
 </pre>
 
 <br/>
