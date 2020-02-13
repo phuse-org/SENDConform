@@ -1,6 +1,6 @@
 ---
 title: SHACL Shapes for SEND Data
-last_updated: 2020-02-06
+last_updated: 2020-02-13
 permalink: send_shacl_shapes.html
 sidebar: home_sidebar
 folder: send
@@ -96,7 +96,7 @@ cj16050:Animal_a6d09184
     skos:prefLabel             "Animal 00M01"^^xsd:string ;
     study:hasUniqueSubjectID   cj16050:UniqueSubjectIdentifier_CJ16050_00M01 ;
     study:hasSubjectID         cj16050:SubjectIdentifier_00M01 ;
-    study:hasReferenceInterval cj16050:Interval_a6d09184 ;
+    study:hasReferenceInterval cj16050:Interval_Animal_a6d09184 ;
     study:memberOf             cjprot:Set_00,
                                code:Species_Rat ;
     study:participatesIn       cj16050:SexDataCollection_Animal_a6d09184 ,
@@ -116,7 +116,7 @@ The first validation shapes will be formed around the AnimalSubject Class `study
 
 ## FDA Rules as SHACL Shapes
 <a name='ruleSD0083'></a>
-### <font class='FDARule'>Rule SD00083</font>
+### <font class='FDARule'>Rule SD0083</font>
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for USUBJID in the DM Domain as:
 
@@ -139,7 +139,7 @@ Translation of Rule Components into SHACL and evaluation of test data is describ
 
 ---
 
-<font class='ruleComponent'>RC1, RC2 : A single, non-missing USUBJID per Animal Subject.</font> <a name='rc12'></a>
+<font class='ruleComponent'>SD0083-RC1, RC2 : A single, non-missing USUBJID per Animal Subject.</font> <a name='rc12'></a>
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
@@ -152,7 +152,7 @@ Translation of Rule Components into SHACL and evaluation of test data is describ
   An Animal Subject must be assigned one and only one USUBJID. Missing and multiple USUBJID values are not allowed for an AnimalSubject.
 </div>
 
-<a name='sourcedatasd0083'/>
+<a name='sourcedatasd0083RC12'/>
 <font class='h3NoTOC'>Test Data</font>
 
 |studyid|domain|usubjid     |subjid|SubjectIRI     |Rule Violated|
@@ -214,7 +214,7 @@ study:<font class='nodeBold'>hasMin1Max1Shape-USubjID </font>
 
 ---
 
-<font class='h4NoTOC'>Test Case 1 : Animal Subject Assigned Two USUBJID values</font>
+<font class='h4NoTOC'>SD0083-Test Case 1 : Animal Subject Assigned Two USUBJID values</font>
 
 Test data for Animal Subject IRI Animal_2a836191 is assigned to  *two* USUBJID values, violating SD0083-RC1.
 
@@ -231,6 +231,7 @@ Test data for Animal Subject IRI Animal_2a836191 is assigned to  *two* USUBJID v
 
 </pre>
 
+<a name='sd0083rc1shacl'/>
 Violation of Rule Component 1 as detected by the `sh:maxCount` constraint:
 
 <pre class='shacl'>
@@ -298,20 +299,20 @@ SPARQL independently verifies `Animal_2a836191` has two USUBJID values. File: [/
 
 ---
 
-<font class='outdated'>CONTENT BELOW is WIP 2020-02-13</font>
+
 <br>
-<font class='h4NoTOC'>Test Case 2 : Animal Subject has no USUBJID value</font>
-In the <a href='#sourcedatasd0083'>test data</a>, animalSubject IRI `Animal_69fa85ac` has no USUBJID value.
+<font class='h4NoTOC'>SD0083-Test Case 2 : Animal Subject has no USUBJID value</font>
+In the <a href='#sourcedatasd0083RC12'>test data</a>, animalSubject IRI `Animal_69fa85ac` has no USUBJID value, violating SD0083-RC2.
 
 <pre class='data'>
   cj16050:Animal_69fa85ac
     a study:AnimalSubject ;
-    study:hasReferenceInterval cj16050:Interval_69fa85ac ;
+    study:hasReferenceInterval cj16050:Interval_Animal_69fa85ac ;
     study:memberOf cjprot:Set_00, code:Species_Rat ;
     study:participatesIn cj16050:AgeDataCollection_Animal_69fa85ac, cj16050:SexDataCollection_Animal_69fa85ac .
 </pre>
 
-The SHACL is identical to Test Case 1.
+The <a href='#sd0083rc1shacl>SHACL is identical to SD0083-Test Case 1</a>.
 
 The Report correctly identifies AnimalSubject IRI `Animal_69fa85ac` as violating the constraint that USUBJID must be non-missing.
 <pre class='report'>
@@ -321,7 +322,7 @@ The Report correctly identifies AnimalSubject IRI `Animal_69fa85ac` as violating
     sh:focusNode cj16050:<font class='error'>Animal_69fa85ac</font> ;
     sh:resultMessage <font class='msg'>"Subject --> USUBJID violation [SD0083]"</font> ;
     sh:resultPath study:hasUniqueSubjectID ;       
-    sh:sourceConstraintComponent sh:<font class='nodeBold'>MaxCountConstraintComponent</font>            
+    sh:sourceConstraintComponent sh:<font class='nodeBold'>MinCountConstraintComponent</font>            
 </pre>
 
 The AnimalSubject IRI in the Report can be use to identify the value of Predicates and Objects attached to the AnimalSubject IRI in facilitate identification of the problematic record, since a missing USUBJID means no `skos:prefLabel` is available. File: [/SPARQL/SD0083-TC2-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-TC2-Info.rq)
@@ -330,18 +331,18 @@ The AnimalSubject IRI in the Report can be use to identify the value of Predicat
   SELECT ?animalIRI ?p ?o
   WHERE{
     cj16050:<font class='nodeBold'>Animal_69fa85ac</font> ?p ?o .
-    BIND(IRI(cj16050:Animal_2a836191) AS ?animalIRI )
+    BIND(IRI(cj16050:Animal_Animal_69fa85ac) AS ?animalIRI )
   }
 </pre>
 
 <pre class='queryResult'>
 <b>animalIRI                 p                            o</b>
-cj16050:Animal_2a836191   rdf:type                     study:AnimalSubject
-cj16050:Animal_2a836191   study:hasReferenceInterval   cj16050:Interval_69fa85ac
-cj16050:Animal_2a836191   study:memberOf               cjprot:#Set_00
-cj16050:Animal_2a836191   study:memberOf               code:Species_Rat
-cj16050:Animal_2a836191   study:participatesIn         cj16050:AgeDataCollection_Animal_69fa85ac
-cj16050:Animal_2a836191   study:participatesIn         cj16050:SexDataCollection_Animal_69fa85ac
+cj16050:Animal_69fa85ac   rdf:type                     study:AnimalSubject
+cj16050:Animal_69fa85ac   study:hasReferenceInterval   cj16050:Interval_Animal_69fa85ac
+cj16050:Animal_69fa85ac   study:memberOf               cjprot:#Set_00
+cj16050:Animal_69fa85ac   study:memberOf               code:Species_Rat
+cj16050:Animal_69fa85ac   study:participatesIn         cj16050:AgeDataCollection_Animal_69fa85ac
+cj16050:Animal_69fa85ac   study:participatesIn         cj16050:SexDataCollection_Animal_69fa85ac
 </pre>
 
 
@@ -366,46 +367,62 @@ cj16050:<font class='error'>Animal_69fa85ac</font>
 
 <br/>
 
-<!--- SD003 Rule Component 3 ------------------------------------------------->
+<!--- SD0083-RC3 -------------------------------------------------------------->
 
 ---
 
 <a name='rc3'></a>
 
-<font class='ruleComponent'>Rule Component 3: A USUBJID cannot be assigned to more than one Animal Subject</font>
+<font class='ruleComponent'>SD0083-RC3: A USUBJID cannot be assigned to more than one Animal Subject</font>
 
-Implicit in the definition of USUBJID and Rule SD003 is the fact that the identifier should be assigned to one and only one Animal Subject.
 
-In the test data, Animal Subjects Animal_252450f2 and Animal_2706cb1e have the same USUBJID values.
+<a name='sourcedatasd0083RC12'/>
+<font class='h3NoTOC'>Test Data</font>
+
+In the test data, Animal Subjects Animal_5dba5b4b and Animal_1a2751f1 have the same USUBJID values.
+
+
+|studyid|domain|usubjid     |subjid|SubjectIRI     |Rule Violated|
+|-------|------|------------|------|---------------|-------------|
+|CJ16050|DM    | <font class='goodData'>CJ16050_00M01</font> |00M01 | Animal_a6d09184 | None|
+|CJ16050|DM    |<font class='error'>CJ16050_99T4</font>|99T4|<font class='nodeBold'>Animal_5dba5b4b</font>|SD0083-RC3|
+|CJ16050|DM    |<font class='error'>CJ16050_99T4</font>|99T4|<font class='nodeBold'>Animal_1a2751f1</font>|SD0083-RC3|
+
+<br/>
+
+In RDF:
+
 <pre class='data'>
-cj16050:<font class='nodeBold'>Animal_252450f2</font>
+cj16050:<font class='nodeBold'>Animal_5dba5b4b</font>
     a study:AnimalSubject ;
     skos:prefLabel "Animal 99DUP1"^^xsd:string ;
-    study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99DUP1</font> ;
+    study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T4</font> ;
 
-cj16050:<font class='nodeBold'>Animal_2706cb1e</font>
+cj16050:<font class='nodeBold'>Animal_1a2751f1</font>
     a study:AnimalSubject ;
     skos:prefLabel "Animal 99DUP1"^^xsd:string ;
-    study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99DUP1</font> ;
+    study:hasUniqueSubjectID cj16050:<font class='error'>UniqueSubjectIdentifier_CJ16050_99T4</font> ;
 </pre>
 <br/>
 
 
-There are multiple ways to assess the USUBJID requirement in SHACL-Core and SHACL-SPARQL.  Two SHACL-Core alternatives are discussed here.
+There are multiple ways to assess the unique assignment of a USUBJID value to an AnimalSubject. Both SHACL-Core and SHACL-SPARQL are viable alternatives.  Two SHACL-Core alternatives are discussed here.
 
 Method 1: **Identify USUBJIDs** assigned to multiple AnimalSubjects
 
+* Identify duplicated USUBJID values.
+
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-  The target Object of the <font class='code'>sh:inversePath</font> for the predicate <font class='code'>study:hasUniqueSubjectID</font> must have a <font class='code'>sh:maxCount</font> of 1 .
+  The target <i>Object</i> of the <font class='code'>sh:inversePath</font> for the predicate <font class='code'>study:hasUniqueSubjectID</font> must have a <font class='code'>sh:maxCount</font> of 1 .
 </div>
 
 <div class='def'>
   <div class='def-header'>Description</div>
-  Targeting the Object of (<font class='code'>sh:targetObjectsOf</font>) the inverse of (<font class='code'>sh:inversePath</font>) the predicate <font class='code'>study:hasUniqueSubjectID</font> identifies USBUJID values that are assigned to more than one AnimalSubject. This test is the most informative when trying to quickly identify <i>duplicate USUBJID values</i>.
+  USUBJID is the Object associated with the <font class='code'>study:hasUniqueSubjectID</font> predicate. This method starts at the SUBJID <i>Object</i> and travels in the reverse direction through <font class='code'>study:hasUniqueSubjectID</font> using <font class='code'>sh:inversePath</font> to determine if a USUBJID <i>Object</i> is attached to more than one AnimalSubject <i>Subject</i>. This test is the most informative when trying to quickly identify <i>duplicate USUBJID values</i> without immediately identifying the AnimalSubject IRIs associated with those USUBJID values.
 </div>
 
-SHACL Shape for Method 1: Identify duplicate USUBJID values. This shape is applied to all uses of the predicate `study:hasUniqueSubjectID`, allowing its use for both SEND and SDTM data sets when this predicate is present.  
+SHACL Shape for Method 1: Identify duplicate USUBJID values. This shape is applied to all uses of the predicate `study:hasUniqueSubjectID`, allowing its use for both SEND and SDTM when that predicate is present.  
 <pre class='shacl'>
 study:isUniqueShape-USubjID a sh:PropertyShape ;
   <font class='nodeBold'>sh:targetObjectsOf study:hasUniqueSubjectID </font> ;
@@ -418,24 +435,25 @@ study:isUniqueShape-USubjID a sh:PropertyShape ;
   ] .
 </pre>
 <br/>
-A Report is not provided because Method 2 was chosen over Method 1 for the reasons described below.
+The Validation Report from Method 1 is not shown because Method 2 was chosen for the project.
 
 <br/>
 
 Method 2: **Identify the AnimalSubjects** that have the same USUBJID
 
+* Identify AnimalSubject IRIs assigned to the same USUBJID value.
+
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
-  The target *Class* <font class='code'>study:AnimalSubject</font> of the <font class='code'>sh:inversePath</font> of the predicate <font class='code'>study:hasUniqueSubjectID</font> must have a <font class='code'>sh:maxCount</font> of 1 .
+  The target <i>Class</i> <font class='code'>study:AnimalSubject</font> of the <font class='code'>sh:inversePath</font> of the predicate <font class='code'>study:hasUniqueSubjectID</font> must have a <font class='code'>sh:maxCount</font> of 1 .
 </div>
 
 <div class='def'>
   <div class='def-header'>Description</div>
-  The subtle difference in Method 2 is that it identifies the AnimalSubject IRIs that have the same USUBJID, and not directly providing the SUBUJID value.
+  The subtle difference in Method 2 is that it identifies the AnimalSubject IRIs that have the same USUBJID and does list the offending SUBUJID values. As in Method 1, the predicate <font class='code'>study:hasUniqueSubjectID</font> is evaluated in the reverse direction, from the USUBJID value to the AnimalSubject IRI using <font class='code'>sh:inversePath</font> .
 
 </div>
 
-Method 2 uses a property shape assigned to the `AnimalSubjectShape` and some magic around the path `study:hasUniqueSubjectID`.
 <pre class='shacl'>
   # Animal Subject Shape
   study:AnimalSubjectShape
@@ -457,11 +475,11 @@ Method 2 uses a property shape assigned to the `AnimalSubjectShape` and some mag
 
 ***Method 2 was chosen for consistency with the other checks in this section that focus on the identification of AnimalSubjects that fail constraints.***
 
-The report from Method 2 correctly identifies the Animal Subjects Animal_252450f2 and Animal_2706cb1e as sharing the same USUBJID.
+The report from Method 2 correctly identifies the Animal Subjects Animal_5dba5b4b and Animal_1a2751f1 as sharing the same USUBJID.
 <pre class='report'>
 a sh:ValidationResult ;
   sh:sourceConstraintComponent sh:MaxCountConstraintComponent ;
-  sh:focusNode cj16050:<font class='error'>Animal_252450f2 </font>;
+  sh:focusNode cj16050:<font class='error'>Animal_5dba5b4b </font>;
   sh:sourceShape _:bnode_dc2d5e41_a650_456a_87ee_944f84cffae6_826 ;
   sh:resultPath ( study:hasUniqueSubjectID [
     sh:inversePath study:hasUniqueSubjectID
@@ -473,7 +491,7 @@ a sh:ValidationResult ;
 
 a sh:ValidationResult ;
   sh:sourceConstraintComponent sh:MaxCountConstraintComponent ;
-  sh:focusNode cj16050:<font class='error'>Animal_2706cb1e</font> ;
+  sh:focusNode cj16050:<font class='error'>Animal_1a2751f1</font> ;
   sh:sourceShape _:bnode_dc2d5e41_a650_456a_87ee_944f84cffae6_826 ;
   sh:resultPath ( study:hasUniqueSubjectID [
     sh:inversePath study:hasUniqueSubjectID
@@ -485,22 +503,22 @@ a sh:ValidationResult ;
 </pre>
 <br/>
 
-Use the AnimalSubject IRI values to identify the `usubjid`. File: [/SPARQL/USUBJID-RC3-M2-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/USUBJID-RC3-M2-Info.rq)
+Use the AnimalSubject IRI values to identify the offending`usubjid` value. File: [/SPARQL/USUBJID-RC3-M2-Info.rq](https://github.com/phuse-org/SENDConform/blob/master/USUBJID-RC3-M2-Info.rq)
 <pre class='sparql'>
   SELECT ?animalIRI ?animalLabel ?usubjid
   WHERE{
     {
-      cj16050:<font class='nodeBold'>Animal_252450f2</font> study:hasUniqueSubjectID ?usubjidIRI ;
+      cj16050:<font class='nodeBold'>Animal_5dba5b4b</font> study:hasUniqueSubjectID ?usubjidIRI ;
                             skos:prefLabel           ?animalLabel .
       ?usubjidIRI             skos:prefLabel           ?usubjid .
       BIND(IRI(cj16050:Animal_2a836191) AS ?animalIRI )
     }
     UNION
     {
-      cj16050:<font class='nodeBold'>Animal_2706cb1e</font> study:hasUniqueSubjectID ?usubjidIRI ;
+      cj16050:<font class='nodeBold'>Animal_1a2751f1</font> study:hasUniqueSubjectID ?usubjidIRI ;
                               skos:prefLabel           ?animalLabel .
       ?usubjidIRI             skos:prefLabel           ?usubjid .
-      BIND(IRI(cj16050:Animal_2706cb1e) AS ?animalIRI )
+      BIND(IRI(cj16050:Animal_1a2751f1) AS ?animalIRI )
     }
   }
 </pre>
@@ -508,14 +526,14 @@ Use the AnimalSubject IRI values to identify the `usubjid`. File: [/SPARQL/USUBJ
 <pre class='queryResult'>
   <b>animalIRI                   animalLabel       usubjid</b>
   cj16050:Animal_2a836191	  "Animal 99DUP1"	  <font class='error'>"CJ16050_99DUP1"</font>
-  cj16050:Animal_2706cb1e	  "Animal 99DUP1"	  <font class='error'>"CJ16050_99DUP1"</font>
+  cj16050:Animal_1a2751f1	  "Animal 99DUP1"	  <font class='error'>"CJ16050_99DUP1"</font>
 </pre>
 
 
 
 <font class='verify'>Verify</font>
 
-Independently verify `Animal_252450f2` and `Animal_2706cb1e` share the same USUBJID (and consequently the same label for the AnimalSubject and USUBJID). File: [/SPARQL/USUBJID-RC3-M2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/USUBJID-RC3-M2-Verify.rq)
+Independently verify `Animal_5dba5b4b` and `Animal_1a2751f1` share the same USUBJID (and consequently the same label for the AnimalSubject and USUBJID). File: [/SPARQL/USUBJID-RC3-M2-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/USUBJID-RC3-M2-Verify.rq)
 <pre class='sparql'>
   SELECT ?animalIRI ?usubjid
   WHERE{
@@ -529,8 +547,8 @@ Independently verify `Animal_252450f2` and `Animal_2706cb1e` share the same USUB
 
 <pre class='queryResult'>
   <b>animalIRI                 usubjid</b>
-  cj16050:Animal_2706cb1e   "Animal 99DUP1"
-  cj16050:Animal_252450f2   "Animal 99DUP1"
+  cj16050:Animal_1a2751f1   "Animal 99DUP1"
+  cj16050:Animal_5dba5b4b   "Animal 99DUP1"
 </pre>
 
 <br/>
@@ -623,10 +641,10 @@ Test data for Animal Subject 99T4 contains a string value for `rfendtc`. Not sho
 cj16050:Animal_68bab561
   a                          study:AnimalSubject ;
   skos:prefLabel             "Animal 99T4"^^xsd:string ;
-  study:hasReferenceInterval cj16050:<font class='nodeBold'>Interval_68bab561</font> ;
+  study:hasReferenceInterval cj16050:<font class='nodeBold'>Interval_Animal_68bab561</font> ;
   <font class='infoOmitted'>...</font>
 
-cj16050:<font class='nodeBold'>Interval_68bab561</font>
+cj16050:<font class='nodeBold'>Interval_Animal_68bab561</font>
   a                 study:ReferenceInterval ;
   time:hasBeginning cj16050:Date_2016-12-08 ;
   time:hasEnd       cj16050:<font class='nodeBold'>Date_7-DEC-16 </font> .
@@ -828,6 +846,8 @@ SELECT ?animalSubjectIRI ?animalLabel (COUNT(?intervalIRI) AS ?numIntervals )
 
 <br/><br/>
 
+<font class='outdated'>CONTENT BELOW is WIP 2020-02-13</font>
+
 <!--- RULE COMPONENT 3 ------------------------------------------------------->
 <a name='rc3'></a>
 
@@ -858,13 +878,13 @@ Only the data and report for 99T5 is shown here, where start date is present and
 cj16050:Animal_db3c6403
   a                          study:AnimalSubject ;
   skos:prefLabel             "Animal 99T5"^^xsd:string ;
-  study:hasReferenceInterval cj16050:<font class='nodeBold'>Interval_db3c6403 </font> ;
+  study:hasReferenceInterval cj16050:<font class='nodeBold'>Interval_Animal_db3c6403 </font> ;
   study:hasSubjectID         cj16050:SubjectIdentifier_db3c6403 ;
   study:hasUniqueSubjectID   cj16050:UniqueSubjectIdentifier_db3c6403 ;
   study:memberOf             cjprot:Set_00, code:Species_Rat ;
   study:participatesIn       cj16050:AgeDataCollection_Animal_db3c6403, cj16050:SexDataCollection_Animal_db3c6403 .
 
-cj16050:<font class='nodeBold'>Interval_db3c6403</font>
+cj16050:<font class='nodeBold'>Interval_Animal_db3c6403</font>
   a                 study:ReferenceInterval ;
   skos:prefLabel    "Interval 2016-12-07 NA"^^xsd:string ;
   <font class='nodeBold'>time:hasBeginning cj16050:Date_2016-12-07 </font>.
@@ -939,13 +959,13 @@ study:hasMin1Max1Shape-StartEndDates a sh:NodeShape ;
 </pre>
 <br>
 
-The report identifies the interval for Animal Subject 99T5 (`cj16050:Interval_db3c6403`) as violating the constraint.
+The report identifies the interval for Animal Subject 99T5 (`cj16050:Interval_Animal_db3c6403`) as violating the constraint.
 <pre class='report'>
   a sh:ValidationResult ;
     sh:sourceConstraintComponent sh:AndConstraintComponent ;
-    sh:focusNode cj16050:Interval_db3c6403 ;
+    sh:focusNode cj16050:Interval_Animal_db3c6403 ;
     sh:resultMessage "<font class='msg'>Problem with Interval date. [SD1002]</font>" ;
-    sh:value cj16050:<font class='error'>Interval_db3c6403 </font> ;
+    sh:value cj16050:<font class='error'>Interval_Animal_db3c6403 </font> ;
     sh:sourceShape :RefIntervalDateShape ;
     sh:resultSeverity sh:Violation ;
 </pre>
@@ -955,15 +975,15 @@ SPARQL can trace the  reference interval from the report back to AnimalSubject 9
 <pre class='sparql'>
 SELECT ?animalLabel  ?beginDate ?endDate
 WHERE{
-  ?animalSubjectIRI study:hasReferenceInterval cj16050:Interval_db3c6403 ;
+  ?animalSubjectIRI study:hasReferenceInterval cj16050:Interval_Animal_db3c6403 ;
                     skos:prefLabel    ?animalLabel .
 
    OPTIONAL{
-     cj16050:Interval_db3c6403 time:hasBeginning ?beginIRI .
+     cj16050:Interval_Animal_db3c6403 time:hasBeginning ?beginIRI .
      ?beginIRI time:inXSDDate  ?beginDate .
    }
    OPTIONAL{
-     cj16050:Interval_db3c6403 time:hasEnd ?endIRI .
+     cj16050:Interval_Animal_db3c6403 time:hasEnd ?endIRI .
      ?beginIRI time:inXSDDate  ?beginDate .
   }
 }
@@ -1023,13 +1043,13 @@ Only the data and report for 99T1 is shown below.
 cj16050:Animal_184f16eb
     a study:AnimalSubject ;
     skos:prefLabel "Animal 99T1"^^xsd:string ;
-    study:hasReferenceInterval cj16050:<font class='nodeBold'>Interval_184f16eb</font> ;
+    study:hasReferenceInterval cj16050:<font class='nodeBold'>Interval_Animal_184f16eb</font> ;
     study:hasSubjectID cj16050:SubjectIdentifier_184f16eb ;
     study:hasUniqueSubjectID cj16050:UniqueSubjectIdentifier_184f16eb ;
     study:memberOf cjprot:Set_00, code:Species_Rat ;
     study:participatesIn cj16050:AgeDataCollection_Animal_184f16eb, cj16050:SexDataCollection_Animal_184f16eb .
 
-cj16050:<font class='nodeBold'>Interval_184f16eb</font>
+cj16050:<font class='nodeBold'>Interval_Animal_184f16eb</font>
     a study:ReferenceInterval ;
     skos:prefLabel "Interval 2016-12-07 2016-12-06"^^xsd:string ;
     time:hasBeginning cj16050:<font class='nodeBold'>Date_2016-12-07</font> ;
@@ -1093,10 +1113,10 @@ The report identifies the interval for Animal Subject 99T1 where End Date preced
   sh:sourceConstraint _:bnode_cacffc33_62e3_4c8b_bdba_e71e398a23dc_29 ;
   sh:sourceShape :SD1002RuleShape ;
   sh:resultMessage "<font class='msg'>Interval Start Date on or before End Date. [SD1002]</font>" ;
-  sh:value <font class='error'>cj16050:Interval_184f16eb</font>        ]
+  sh:value <font class='error'>cj16050:Interval_Animal_184f16eb</font>        ]
   sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;
   sh:resultSeverity sh:Violation ;
-  sh:focusNode cj16050:Interval_184f16eb
+  sh:focusNode cj16050:Interval_Animal_184f16eb
 </pre>
 
 SPARQL traces the interval back to the AnimalSubject and date values.
@@ -1140,9 +1160,9 @@ Verification confirms Animal Subject 99T1 and 99T2 with End Data preceding Start
 
 <pre class='queryResult'>
   <b>animalLabel    intervaIRI                  intervalStart   intervalEnd</b>
-  "Animal 99T1"  cj16050:Interval_184f16eb   2016-12-07      2016-12-06
-  "Animal 99T10" cj16050:Interval_56cbc8c2   "6-DEC-16"      2016-12-07
-  "Animal 99T2"  cj16050:Interval_21316392   2016-12-08      2016-12-07
+  "Animal 99T1"  cj16050:Interval_Animal_184f16eb   2016-12-07      2016-12-06
+  "Animal 99T10" cj16050:Interval_Animal_56cbc8c2   "6-DEC-16"      2016-12-07
+  "Animal 99T2"  cj16050:Interval_Animal_21316392   2016-12-08      2016-12-07
 </pre>
 
 
