@@ -115,8 +115,14 @@ The first validation shapes will be formed around the AnimalSubject Class `study
 ---
 
 ## FDA Rules as SHACL Shapes
+
+
+<!------------------------------------------------------------------------------
+   SD0083 - USUBJID
+------------------------------------------------------------------------------->
+
 <a name='ruleSD0083'></a>
-### <font class='FDARule'>Rule SD0083</font>
+### <font class='FDARule'>Rule SD0083 : USUBJID</font>
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for USUBJID in the DM Domain as:
 
@@ -554,14 +560,16 @@ Independently verify `Animal_5dba5b4b` and `Animal_1a2751f1` share the same USUB
 
 ---
 
-
+<!------------------------------------------------------------------------------
+   SD1001 - SUBJID
+------------------------------------------------------------------------------->
 
 <font class='outdated'>The following information is outdated as of 2020-02-13.</font>
 
 
 
 <a name='ruleSD1001'></a>
-### <font class='FDARule'>Rule SD1001</font>
+### <font class='FDARule'>Rule SD1001 : SUBJID</font>
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for SUBJID in the DM Domain as:
 
@@ -569,27 +577,23 @@ FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Val
 ------|-------------------|--------------------------|-----------------------------
 **SD1001** |Duplicate SUBJID |'Subject identifier, which must be unique within the study.| The value of Subject Identifier for the Study (SUBJID) variable must be unique for each subject **within the study**.
 
-The Rule Components and corresponding SHACL shapes for SD1001 are similar to those defined for USUBJID in <a href='#ruleSD0083'>SD0083</a> with exception of the predicate changing to `study:hasSubjectID`and result messages specific to SUBJID instead of USUBJID. Details for SD1001 are therefore not provided here. The SHACL is available in the Shapes file [SHACL-AnimalSubject.TTL](../SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL)
+The Rule Components and corresponding SHACL shapes for SD1001 are similar to those defined for USUBJID in <a href='#ruleSD0083'>SD0083</a> with exception of the predicate changing to `study:hasSubjectID` and result messages specific to SUBJID instead of USUBJID. Details for SD1001 are therefore not provided here. The SHACL is available in the file [SHACL-AnimalSubject.TTL](../SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL)
 
 
-## Reference Interval
+<!------------------------------------------------------------------------------
+   SD1002 - RFSTDTC, RFENDTC (Reference Interval)
+------------------------------------------------------------------------------->
 
 <a name='ruleSD1002'></a>
-### <font class='FDARule'>FDA Rule SD1002</font>
-
-The figure below shows the connection from the Animal Subject IRI to its Reference Interval and the associated  SHACL Shapes and SEND Rules.
-
-  <img src="images/IntervalStructure.PNG"/>
-
-  ***Animal Subject Data Structure, SHACL Shapes, FDA Rules***
+### <font class='FDARule'>Rule SD1002 : RFSTDTC, RFENDTC (Reference Interval) </font>
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines Rule SD10002 for Reference Start Date (RFSTDTC) and Reference End Date (RFENDTC) as:
 
 FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
 ------|-------------------|--------------------------|-----------------------------
-**SD1002** |RFSTDTC is after RFENDTC |Study Start and End Dates must be submitted and complete. | **Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)**
+**SD1002** |RFSTDTC is after RFENDTC |Study Start and End Dates must be submitted and complete. | **Subject Reference Start Date/Time (RFSTDTC) must be less than or equal to Subject Reference End Date/Time (RFENDTC)** |
 
-In the SENDConform Project, RFSTDTC and RFENDTC are modeled as part of a Reference Interval, leading to the deconstruction of the FDA rule into the following Rule Components:
+This project models RFSTDTC and RFENDTC as part of a Reference Interval (see next figure) connected to the Animal Subject IRI. This leads to the deconstruction of the FDA rule into the following Rule Components:
 
 **RC1. [Reference Start Date and End Date must be in xsd:date format.](#sd1002-rc1)**
 
@@ -599,18 +603,16 @@ In the SENDConform Project, RFSTDTC and RFENDTC are modeled as part of a Referen
 
 **RC4. [Start Date must be on or before End Date.](#sd1002-rc4)**
 
-Translation of each Rule Component into SHACL and evaluation of test data is described below. Test cases in addition to those documented on these pages are available in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
 
 <font class='h3NoTOC'>Data Structure</font>
 
-Familiarity with the data structure is necessary to explain the constraints and test cases. The figure below illustrates a partial set of data for test subject 99T1 where the Reference Interval end date *precedes* the start date, thus violating Rule Component 4 of SD1002.
+Familiarity with the data structure is necessary to explain the constraints and test cases. The figure below illustrates a partial set of data for an AnimalSubject where the Reference Interval end date *precedes* the start date, thus violating Rule Component 4 of SD1002.
 
 
   <img src="images/RefIntervalStructureDateFail.PNG"/>
 
-  ***Reference Interval for Animal 99T1 (incomplete data)***
+  ***AnimalSubject with incorrect Reference Interval dates***
 
-<font class='h3NoTOC'>Translation into SHACL</font>
 
 <!--- RULE COMPONENT 1 ------------------------------------------------------->
 <a name='rc1'></a>
@@ -630,6 +632,20 @@ Familiarity with the data structure is necessary to explain the constraints and 
   <code>xsd:date</code>. Other studies may use <code>xsd:dateTime</code> or a combination of <code>xsd:date</code>
   and <code>xsd:dateTime</code>.
 </div>
+
+<a name='sourcedatasd1002RC1'/>
+<font class='h3NoTOC'>Test Data</font>
+
+In the test data, two Animal Subjects have string values for dates instead of the required `xsd:date`.
+
+
+|usubjid  |SubjectIRI    |rfstdtc  |rfendtc   |Rule Violated|
+|---------|--------------|---------|----------|-------------|
+|00M01 | Animal_a6d09184 | 2016-12-07|2016-12-07| None |
+|99T6  | Animal_aa573a5d | "5-DEC-16"|2016-12-07| SD1002-RC1 |
+|99T7  | Animal_aa573a5d | 2016-12-07|"6-DEC-16"| SD1002-RC1 |
+<br/>
+
 
 
 Refer back to previous sections to compare the data to the SHACL, below.  The shape `:DateFmtShape` uses `sh:targetObjectsOf` to begin evaluation at the <font class='object'>object</font> of the <font class='predicate'>predicates</font> `time:hasBeginning` and `time:hasEnd`. These <font class='object'>objects</font> must be of type `study:ReferenceBegin` or `study:ReferenceEnd` and have the <font class='predicate'>predicate</font> `time:inXSDDate` that leads to the date value that must be in `xsd:date` format.  
@@ -1299,11 +1315,12 @@ SPARQL independently verifies the Animal Subject with  `age < 0`.  Source file: 
 </pre>
 <br/>
 
-<!---------------------------------------------------------------------------->
-<!--- AGE RULE SD1121 -------------------------------------------------------->
-<!---------------------------------------------------------------------------->
 
-### <font class='FDARule'>FDA Rule SD1121</font>
+<!------------------------------------------------------------------------------
+   SD1121 - Age
+------------------------------------------------------------------------------->
+
+### <font class='FDARule'>Rule SD1121 : Age</font>
 
 FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
 ------|-------------------|--------------------------|-----------------------------

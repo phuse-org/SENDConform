@@ -109,6 +109,66 @@ dm[!is.na(dm$usubjid) & dm$usubjid == c('CJ16050_99T5'), "usubjid"] <- 'CJ16050_
 dm[!is.na(dm$subjid) & dm$subjid == c('99T5'), "subjid"] <- '99T4'
 dm[!is.na(dm$subjid) & dm$subjid == c('99T4'), "FDARuleViolated"] <- "SD0083-RC3, SD1001-RC3"
 
+#--- Rule SD1002 RC1 
+#  Violations: RFSTDTC as string for subject 99T6
+#              RFENDTC as string for subject 99T7
+dm[!is.na(dm$subjid) &dm$subjid == c('99T6'), "FDARuleViolated"] <- "SD1002-RC1"
+dm[!is.na(dm$subjid) &dm$subjid == c('99T6'), "rfstdtc"] <- "5-DEC-16"
+
+dm[!is.na(dm$subjid) &dm$subjid == c('99T7'), "FDARuleViolated"] <- "SD1002-RC1"
+dm[!is.na(dm$subjid) &dm$subjid == c('99T7'), "rfendtc"] <- "6-DEC-16"
+
+
+#--- Rule SD1002 RC2 TC1 : Missing Reference Interval. 
+# -- Rule SD1002 RC3 TC3 : Missing rfstdtc and missing rfendtc Reference Interval. 
+# NOTE: Reference Intervals are still created when BOTH RFSTDTC and RFENDTC are missing,
+#   so later steps use the FDARuleViolated to skip creation of the interval for this
+#   specific test case.
+#  
+#  Violations: 99T8
+
+dm[!is.na(dm$subjid) & dm$subjid == c('99T8'), "FDARuleViolated"] <- "SD1002-RC2-TC1, SD1002-RC3-TCC3"
+dm[!is.na(dm$subjid) & dm$subjid == c('99T8'), "rfstdtc"] <- NA
+dm[!is.na(dm$subjid) & dm$subjid == c('99T8'), "rfendtc"] <- NA
+
+
+#--- Rule SD1002 RC2 TC2 : One Subject IRI has TWO Reference Intervals
+# Make Subjects TT9, 10 the same IRI as TT9.  
+
+dm[11,"SubjectIRI"] <- dm[10,"SubjectIRI"] 
+dm[!is.na(dm$subjid) & dm$subjid %in% c('99T9', '99T10'), "FDARuleViolated"] <- "SD1002-RC2-TC2"
+# Different dates for the Reference Interval for what was 99T10:
+dm[!is.na(dm$subjid) & dm$subjid == c('99T9'), "rfstdtc"] <- "2016-11-11"
+dm[!is.na(dm$subjid) & dm$subjid == c('99T9'), "rfendtc"] <- "2016-11-25"
+
+dm[!is.na(dm$subjid) & dm$subjid == c('99T10'), "rfstdtc"] <- "2016-12-20"
+dm[!is.na(dm$subjid) & dm$subjid == c('99T10'), "rfendtc"] <- "2016-12-28"
+dm[!is.na(dm$subjid) & dm$subjid == c('99T10'), "subjid"]  <- "99T9"
+dm[!is.na(dm$subjid) & dm$usubjid == c('CJ16050_99T10'), "usubjid"] <- "CJ16050_99T9"
+
+#--- Rule SD1002 RC3 TC1 : Missing RFSTDTC, RFENDTC present
+dm[!is.na(dm$subjid) & dm$subjid == c('99T11'), "FDARuleViolated"] <- "SD1002-RC3-TC1"
+dm[!is.na(dm$subjid) & dm$subjid == c('99T11'), "rfstdtc"] <- NA
+
+#--- Rule SD1002 RC3 TC2 : Missing RFENDTC , RFSTDTC present
+dm[!is.na(dm$subjid) & dm$subjid == c('99T12'), "FDARuleViolated"] <- "SD1002-RC3-TC2"
+dm[!is.na(dm$subjid) & dm$subjid == c('99T12'), "rfendtc"] <- NA
+
+#--- Rule SD1002 RC3 TC3 : Missing both RFENDTC , RFSTDTC present
+#   SEE ABOVE RULE FOR Rule SD1002 RC2 TC1 , includes SD1002 RC3 TC3 :
+
+
+#--- Rule SD1002 RC3 TC4 : rfstdtc > rfendtc
+dm[!is.na(dm$subjid) & dm$subjid == c('99T13'), "FDARuleViolated"] <- "SD1002-RC3-TC4"
+dm[!is.na(dm$subjid) & dm$subjid == c('99T13'), "rfstdtc"] <- "2016-12-28" 
+dm[!is.na(dm$subjid) & dm$subjid == c('99T13'), "rfendtc"] <- "2016-11-25" 
+
+
+
+
+
+
+
 
 
 
@@ -237,13 +297,13 @@ createRDF <- function()
   ## Reference Interval
   #  Intervals without start and end dates are valid. See AO email 2019-08-01
   #    An interval can also have a missing start or end date. 
-  #  Test Case: 99T11 has no reference interval present.
+  #  Test Case: FDARuleViolated=SD1002-TC2-TC1 has no reference interval for testing purpooses.
   
   # Interval attached to Animal IRI . 
   #   For all cases in the data EXCEPT 99T11 who has no interval.
     
-  # NEW CODE NEEDED: SUBJIDs have changed.  
-  if( ! dm[i,"subjid"] %in% c("99T11") )
+  
+  if( ! dm[i,"FDARuleViolated"] %in% c("SD1002-RC2-TC1") )
   {  
   
     rdf_add(some_rdf, 
@@ -290,9 +350,9 @@ createRDF <- function()
         datatype_uri = paste0(XSD,"string")
       )
         
-      # Test Case:  
+      # Test Case:  SD1002 RC1  : Dates as strings
       # Hard-coded string for date when date value contains "-Dec-", 
-      #  else the format is the correct xsd:date
+      #  else the format is the correct xsd:date. 
       if (grepl("-DEC-", dm[i,"rfstdtc"], ignore.case = TRUE)) 
       {
         rdf_add(some_rdf, 
@@ -344,7 +404,7 @@ createRDF <- function()
           datatype_uri = paste0(XSD,"string")
       )
         
-      # Test Case:  
+      # Test Case:  SD1002 RC1
       #   Hard-coded string for date when date value contains "-Dec-", 
       #  else the format is the correct xsd:date
       if (grepl("-DEC-", dm[i,"rfendtc"], ignore.case = TRUE)) {

@@ -1,6 +1,6 @@
 ---
 title: Graph Data and Validation
-last_updated: 2020-02-13
+last_updated: 2020-02-14
 sidebar: home_sidebar
 permalink: intro_graph_data_and_validation.html
 folder: intro
@@ -27,7 +27,7 @@ When data has shape, so can the validation rules that act upon it. This is accom
 
 ## Interconnected Data, Constraints, and Reports
 
-<font class='tobeAdded'>Add: Show how data is connected to SHACL, and to the validation report</font>
+<font class='toBeAdded'>Add: Show how data is connected to SHACL, and to the validation report</font>
 
 
 
