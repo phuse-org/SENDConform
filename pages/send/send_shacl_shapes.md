@@ -1261,7 +1261,6 @@ The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConf
 Refer back to previous sections to see how age is indirectly associated with an AnimalSubject via a study:participatesIn predicate that leads to an outcome IRI that in turn contains the age value and units. Most subjects in the study are the same age (8 Weeks), resulting in a small number of tests in outcome IRIs instead of traditional tests on each age value associated with an Animal Subject.
 
 
-<font class='h3NoTOC'>Translation into SHACL</font>
 
 <!--- RULE COMPONENT 1 ------------------------------------------------------->
 <a name='rc1'></a>
@@ -1423,7 +1422,7 @@ cj16050:Age_
     time:hasXSDDuration "P56D"^^xsd:duration ;
     time:unitType time:unitWeek .
 
-<font class='h3NoTOC'>Translation into SHACL</font>
+<font class='h3NoTOC'>TEMPLATE FOR NEW SECTIONS</font>
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
