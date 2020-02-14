@@ -373,10 +373,10 @@ cj16050:<font class='error'>Animal_69fa85ac</font>
 
 <br/>
 
-<!--- SD0083-RC3 -------------------------------------------------------------->
 
 ---
 
+<!--- SD0083-RC3 -------------------------------------------------------------->
 <a name='rc3'></a>
 
 <font class='ruleComponent'>SD0083-RC3: A USUBJID cannot be assigned to more than one Animal Subject</font>
@@ -614,10 +614,10 @@ Familiarity with the data structure is necessary to explain the constraints and 
   ***AnimalSubject with incorrect Reference Interval dates***
 
 
-<!--- RULE COMPONENT 1 ------------------------------------------------------->
-<a name='rc1'></a>
+<!--- SD1002-RC1 ------------------------------------------------------------->
+<a name='sd1002-rc1'></a>
 
-<font class='ruleComponent'>Rule Component 1. Reference Start Date and End Date in xsd:date format</font>
+<font class='ruleComponent'>SD1002-RC1. Reference Start Date and End Date in xsd:date format</font>
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
@@ -641,9 +641,10 @@ In the test data, two Animal Subjects have string values for dates instead of th
 
 |usubjid  |SubjectIRI    |rfstdtc  |rfendtc   |Rule Violated|
 |---------|--------------|---------|----------|-------------|
-|00M01 | Animal_a6d09184 | 2016-12-07|2016-12-07| None |
-|99T6  | Animal_aa573a5d | <font class='error'>5-DEC-16</font>|2016-12-07| SD1002-RC1 |
-|99T7  | Animal_aa573a5d | 2016-12-07|<font class='error'>6-DEC-16</font>| SD1002-RC1 |
+|00M01    |Animal_a6d09184| 2016-12-07|2016-12-07| None |
+|99T6     |Animal_aa573a5d|<font class='error'>5-DEC-16</font>|2016-12-07| SD1002-RC1|
+|99T7     |Animal_cdd31fb6|2016-12-07|<font class='error'>6-DEC-16</font>| SD1002-RC1|
+
 <br/>
 
 
@@ -752,10 +753,10 @@ SPARQL independently verifies the test case by finding the two dates that are in
 </pre>
 <br/><br/>
 
-<!--- RULE COMPONENT 2 ------------------------------------------------------->
-<a name='rc2'></a>
+<!--- SD1002-RC2 ------------------------------------------------------------>
+<a name='SD1002-rc2'></a>
 
-<font class='ruleComponent'>Rule Component 2: Subject has one Reference Interval</font>
+<font class='ruleComponent'>SD1002-RC2: Subject has one Reference Interval</font>
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
@@ -766,6 +767,25 @@ SPARQL independently verifies the test case by finding the two dates that are in
   <div class='def-header'>Description</div>
   Animal Subjects should have one and only one Reference Interval IRI.
 </div>
+
+
+<a name='sourcedatasd1002RC2'/>
+<font class='h3NoTOC'>Test Data</font>
+
+In the test data, subject 99T8 has no Reference Interval. While is possible to have a reference interval without start and end dates (see [Data Conversion](DataConversion.md), the 99T8 has no interval created during the data conversion process (see RDF, below) specifically to test this constraint. Subject 99T9 has two reference intervals.
+
+
+|usubjid  |SubjectIRI    |rfstdtc  |rfendtc   |Rule Violated|
+|---------|--------------|---------|----------|-------------|
+|00M01    |Animal_a6d09184| 2016-12-07|2016-12-07| None |
+|99T8     |Animal_d9209e97|<font class='error'>NA</font>|<font class='error'>NA</font>| SD1002-RC2-TC1|
+|99T9     |Animal_cdd31fb6|<font class='error'>2016-11-11|2016-11-25</font>|SD1002-RC2-TC2|
+|99T9     |Animal_cdd31fb6|<font class='error'>2016-12-20|2016-12-28</font>|SD1002-RC2-TC2|
+
+<br/>
+
+
+OUTDATED TEXT BEGINS Here
 
 This check determines if the Animal Subject has one and only one Reference Interval IRI. While it is possible to have an Interval IRI with no start date and no end date (see [Data Conversion](DataConversion.md)), this rule component only evaluates the case of missing Reference Interval IRIs. Multiple start/end dates for a single subject are evaluated in [Rule Component 3](#sd1002-rc3).
 
@@ -869,11 +889,10 @@ SELECT ?animalSubjectIRI ?animalLabel (COUNT(?intervalIRI) AS ?numIntervals )
 
 <br/><br/>
 
+<!--- SD1002-RC# ------------------------------------------------------------>
+<a name='sd1002-rc3'></a>
 
-<!--- SD0083-RULE COMPONENT 3 ------------------------------------------------->
-<a name='rc3'></a>
-
-<font class='ruleComponent'>Rule Component 3. Reference Interval has one Start Date and one End Date</font>
+<font class='ruleComponent'>SD1002-RC3 : Reference Interval has one Start Date and one End Date</font>
 
 <div class='ruleState'>
   <div class='ruleState-header'>Rule Statement</div>
@@ -885,14 +904,36 @@ SELECT ?animalSubjectIRI ?animalLabel (COUNT(?intervalIRI) AS ?numIntervals )
   Each Reference interval should have one and only one start date and end date.
 </div>
 
+<a name='sourcedatasd1002RC2'/>
+<font class='h3NoTOC'>Test Data</font>
+
+In the test data, subject 99T8 has no Reference Interval. While is possible to have a reference interval without start and end dates (see [Data Conversion](DataConversion.md), the 99T8 has no interval created during the data conversion process (see RDF, below) specifically to test this constraint. Subject 99T9 has two reference intervals.
+
+
+|usubjid|SubjectIRI    |rfstdtc  |rfendtc   |Rule Violated|
+|-------|--------------|---------|----------|-------------|
+|00M01  |Animal_a6d09184| 2016-12-07|2016-12-07| None |
+|99T11  |Animal_c5e105c3|<font class='error'>NA</font>|2016-12-07|SD1002-RC3-TC1
+|
+|99T12  |Animal_664e018b|2016-12-07|<font class='error'>NA</font>|SD1002-RC3-TC2
+
+|99T8   |Animal_d9209e97|<font class='error'>NA</font>|<font class='error'>NA</font>| SD1002-RC3-TC3|
+|99T13  |Animal_8196e3ec|<font class='error'>2016-12-28|2016-12-25</font>|SD1002-RC3-TC4|
+
+<br/>
+
+
+
+OLD TEXT AFTER HERE
+
 Reference interval IRIs are connected to their date values through the paths `time:hasBeginning` and `time:hasEnd`. A correctly formed interval has both start and end dates.
 
 Test data provides the following violations:
 
-* 99T5 missing rfendtc
-* 99T9 missing rfstdtc
-* 99T8 missing both rfendtc, rfstdtc
-* 99T2 >1 rfstdtc, >1 rfendtc  
+* 99T11 missing rfstdtc  TC 1
+* 99T12 missing rfendtc   TC 2
+* 99T8 missing both rfendtc, rfstdtc  TC3
+* 99T13 >1 rfstdtc, >1 rfendtc   TC4
 
 Only the data and report for 99T5 is shown here, where start date is present and end date is missing for the Reference Interval.
 <pre class='data'>
@@ -1360,9 +1401,8 @@ cj16050:EligibilityDetermination_XXXXXX
 
 cj16050:Randomization_Animal_2
   rdf:type study:Randomization ;
-  skos:prefLabel Randomization 2 ;
-  code:outcome               
-
+  skos:prefLabel "Randomization 2" ;
+  code:outcome  
 </pre>
 
 

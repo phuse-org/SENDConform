@@ -127,7 +127,7 @@ dm[!is.na(dm$subjid) &dm$subjid == c('99T7'), "rfendtc"] <- "6-DEC-16"
 #  
 #  Violations: 99T8
 
-dm[!is.na(dm$subjid) & dm$subjid == c('99T8'), "FDARuleViolated"] <- "SD1002-RC2-TC1, SD1002-RC3-TCC3"
+dm[!is.na(dm$subjid) & dm$subjid == c('99T8'), "FDARuleViolated"] <- "SD1002-RC2-TC1, SD1002-RC3-TC3"
 dm[!is.na(dm$subjid) & dm$subjid == c('99T8'), "rfstdtc"] <- NA
 dm[!is.na(dm$subjid) & dm$subjid == c('99T8'), "rfendtc"] <- NA
 
