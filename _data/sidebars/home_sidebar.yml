@@ -6,7 +6,6 @@ entries:
   version:
   folders:
 
-
   - title: Introduction
     output: web, pdf
     folderitems:
@@ -16,14 +15,14 @@ entries:
       output: web, pdf
       type: homepage
 
+    - title: Graph Data and Validation
+      url: /intro_graph_data_and_validation.html
+      output: web, pdf
+
     - title: Conventions
       url: /intro_conventions.html
       output: web, pdf
       type: homepage
-
-    - title: Graph Data and Validation
-      url: /intro_graph_data_and_validation.html
-      output: web, pdf
 
     - title: Systems and Applications
       url: /intro_systems_and_applications.html

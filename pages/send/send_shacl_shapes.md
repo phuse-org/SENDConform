@@ -6,7 +6,7 @@ sidebar: home_sidebar
 folder: send
 ---
 
-<font class='outdated'>The information on this page is currently undergoing revision, starting with Rules SD0083 and SD1001 and progressing down the page.</font>
+<font class='outdated'>The information on this page is under active revision.</font>
 
 <a name='animalsubjectshape'></a>
 ## Animal Subject Shape
@@ -551,11 +551,17 @@ Independently verify `Animal_5dba5b4b` and `Animal_1a2751f1` share the same USUB
 </pre>
 
 <br/>
----
-###  SUBJID
-<a name='ruleSD1001'></a>
-###<font class='FDARule'>FDA Rule SD1001</font>
 
+---
+
+
+
+<font class='outdated'>The following information is outdated as of 2020-02-13.</font>
+
+
+
+<a name='ruleSD1001'></a>
+### <font class='FDARule'>Rule SD1001</font>
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines the rule for SUBJID in the DM Domain as:
 
@@ -563,12 +569,13 @@ FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Val
 ------|-------------------|--------------------------|-----------------------------
 **SD1001** |Duplicate SUBJID |'Subject identifier, which must be unique within the study.| The value of Subject Identifier for the Study (SUBJID) variable must be unique for each subject **within the study**.
 
-The Rule Components and corresponding SHACL shapes for SD1001 are similar to those defined for <a href='#ruleSD0083'>USUBJID/SD0083</a> with exception of the predicate changing to `study:hasSubjectID`and result messages specific to SUBJID instead of USUBJID. Details for SD1001 are therefore not provided here. The SHACL is available in the Shapes file [SHACL-AnimalSubject.TTL](../SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL)
+The Rule Components and corresponding SHACL shapes for SD1001 are similar to those defined for USUBJID in <a href='#ruleSD0083'>SD0083</a> with exception of the predicate changing to `study:hasSubjectID`and result messages specific to SUBJID instead of USUBJID. Details for SD1001 are therefore not provided here. The SHACL is available in the Shapes file [SHACL-AnimalSubject.TTL](../SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL)
 
 
 ## Reference Interval
+
 <a name='ruleSD1002'></a>
-###<font class='FDARule'>FDA Rule SD1002</font>
+### <font class='FDARule'>FDA Rule SD1002</font>
 
 The figure below shows the connection from the Animal Subject IRI to its Reference Interval and the associated  SHACL Shapes and SEND Rules.
 
@@ -584,13 +591,13 @@ FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Val
 
 In the SENDConform Project, RFSTDTC and RFENDTC are modeled as part of a Reference Interval, leading to the deconstruction of the FDA rule into the following Rule Components:
 
-**1. [Reference Start Date and End Date must be in xsd:date format.](#rc1)**
+**RC1. [Reference Start Date and End Date must be in xsd:date format.](#sd1002-rc1)**
 
-**2. [An Animal Subject has one Reference Interval.](#rc2)**
+**RC2. [An Animal Subject has one Reference Interval.](#sd1002-rc2)**
 
-**3. [A Reference Interval has one Start Date and one End Date.](#rc3)**
+**RC3. [A Reference Interval has one Start Date and one End Date.](#sd1002-rc3)**
 
-**4. [Start Date must be on or before End Date.](#rc4)**
+**RC4. [Start Date must be on or before End Date.](#sd1002-rc4)**
 
 Translation of each Rule Component into SHACL and evaluation of test data is described below. Test cases in addition to those documented on these pages are available in the file [TestCases.xlsx](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/TestCases.xlsx)
 
@@ -743,7 +750,7 @@ SPARQL independently verifies the test case by finding the two dates that are in
   Animal Subjects should have one and only one Reference Interval IRI.
 </div>
 
-This check determines if the Animal Subject has one and only one Reference Interval IRI. While it is possible to have an Interval IRI with no start date and no end date (see [Data Conversion](DataConversion.md)), this rule component only evaluates the case of missing Reference Interval IRIs. Multiple start/end dates for a single subject are evaluated in [Rule Component 3](#rc3).
+This check determines if the Animal Subject has one and only one Reference Interval IRI. While it is possible to have an Interval IRI with no start date and no end date (see [Data Conversion](DataConversion.md)), this rule component only evaluates the case of missing Reference Interval IRIs. Multiple start/end dates for a single subject are evaluated in [Rule Component 3](#sd1002-rc3).
 
 Test data for Animal Subject 99T11 has no `study:hasReferenceInterval` .
 
@@ -845,9 +852,8 @@ SELECT ?animalSubjectIRI ?animalLabel (COUNT(?intervalIRI) AS ?numIntervals )
 
 <br/><br/>
 
-<font class='outdated'>CONTENT BELOW is WIP 2020-02-13</font>
 
-<!--- RULE COMPONENT 3 ------------------------------------------------------->
+<!--- SD0083-RULE COMPONENT 3 ------------------------------------------------->
 <a name='rc3'></a>
 
 <font class='ruleComponent'>Rule Component 3. Reference Interval has one Start Date and one End Date</font>
@@ -856,7 +862,6 @@ SELECT ?animalSubjectIRI ?animalLabel (COUNT(?intervalIRI) AS ?numIntervals )
   <div class='ruleState-header'>Rule Statement</div>
   <code>study:ReferenceInterval</code> <code>time:hasBeginning</code> with <code>sh:minCount</code> and <code>sh:maxCount</code> of 1, <code>sh:and</code> <code>time:hasEnd</code> with <code>sh:minCount</code> and <code>sh:maxCount</code> of 1
 </div>
-
 
 <div class='def'>
   <div class='def-header'>Description</div>
@@ -1074,7 +1079,7 @@ The shape tests the following condition:
 * Reference Interval Start Date must be on or before End Date
 * The shape will also pick up cases where a date is in `xsd:string` format.
 
-As described for [Rule Component 3](#rc3), this shape is applied at `sh:targetClass study:EntityInterval` for intervals that contain `time:hasBeginning` and `time:hasEnd` predicates. The alternative application to `study:ReferenceInterval` is shown for the alternative case when the ontology is not present.
+As described for [Rule Component 3](#sd1002-rc3), this shape is applied at `sh:targetClass study:EntityInterval` for intervals that contain `time:hasBeginning` and `time:hasEnd` predicates. The alternative application to `study:ReferenceInterval` is shown for the alternative case when the ontology is not present.
 
 <pre class='shacl'>
 study:hasStartLEEndShape-Interval a sh:NodeShape ;
@@ -1191,7 +1196,7 @@ The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConf
 
 <font class='ruleComponent'>Rule Component</font>
 
-**1. [AGE must be greater than or equal to 0. ](#rc1)**
+**1. [AGE must be greater than or equal to 0. ](#sd1002-rc1)**
 
 <font class='h3NoTOC'>Data Structure</font>
 
@@ -1297,7 +1302,8 @@ SPARQL independently verifies the Animal Subject with  `age < 0`.  Source file: 
 <!---------------------------------------------------------------------------->
 <!--- AGE RULE SD1121 -------------------------------------------------------->
 <!---------------------------------------------------------------------------->
-###<font class='FDARule'>FDA Rule SD1121</font>
+
+### <font class='FDARule'>FDA Rule SD1121</font>
 
 FDA Validator Rule ID | FDA Validator Message | Business or Conformance Rule Validated | FDA Validator Rule  
 ------|-------------------|--------------------------|-----------------------------
@@ -1339,8 +1345,8 @@ cj16050:Randomization_Animal_2
   skos:prefLabel "Randomization 2" ;
   code:outcome <null>.              
 
-</font>
-</data>
+</pre>
+
 
 Missing Age values are represented in the data has having no object associated with the `time:numericduration` predicate.
 
@@ -1378,6 +1384,7 @@ The age for Animal Subjects 99TXX, 99TXX, 99TXX was set to missing.
    ADD data for one test case here.
 
 </pre>
+
 <br/>
 
 The shape tests the following condition:
@@ -1405,9 +1412,6 @@ The report <font class='tobeAdded'>ADD DETAILS ABOUT REPORT VALIDATION USING SPA
 <br/>
 
 
-
-
-
 <font class='.h3NoTOC'>NOTASSGN</font>
 
 `armcd` has the value `NOTASSGN` when there is no randomization outcome. The data conversion process attempts to create the randomization triple as:
@@ -1419,9 +1423,6 @@ The triple is not created due to the missing data for the Object.
 The triples for a NOTASSGN subject appear as:
 
 <font class='toBeAdded'> ADD TRIPLES </font>
-
-
-
 
 <br><br>
 <font class='toBeAdded'>Add: Additional Rules...</font>

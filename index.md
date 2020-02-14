@@ -14,11 +14,14 @@ This project is a proof of concept investigating the use of Linked Data for vali
 1. Modeling and validating [SEND](https://www.cdisc.org/standards/foundational/send) (nonclinical) data
 1. FDA Submission Criteria
 
+This project deconstructs FDA SEND rules and submission criteria into their constituent components. Each rule is interpreted, transformed to its corresponding SHACL shape, applied to example data to generate a validation report, then confirmed independently using SPARQL.
+
+
 When both study sponsors and regulatory agencies use common data models and rules across the entire data lifecycle, data quality is greatly improved and the
 submission and approval process is more efficient. Linked Data's  high precision leads to better data, better analysis, and better medicines for patients.
 
 <hr class='sectionBreak' />
 
-<font class='toBeAdded'>Work in Progress! </font> The project is in active development with many pages under construction. Please [Contact Us](conform_references_contact_us.html) to report errors and omissions - and to join our team of volunteers!
+<font class='toBeAdded'>Work in Progress! </font> The project is in active development with many pages under construction. Please [contact us](conform_references_contact_us.html) to report errors and omissions - and to join our team of volunteers!
 
 {% include links.html %}
