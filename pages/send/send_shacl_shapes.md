@@ -642,11 +642,12 @@ In the test data, two Animal Subjects have string values for dates instead of th
 |usubjid  |SubjectIRI    |rfstdtc  |rfendtc   |Rule Violated|
 |---------|--------------|---------|----------|-------------|
 |00M01 | Animal_a6d09184 | 2016-12-07|2016-12-07| None |
-|99T6  | Animal_aa573a5d | "5-DEC-16"|2016-12-07| SD1002-RC1 |
-|99T7  | Animal_aa573a5d | 2016-12-07|"6-DEC-16"| SD1002-RC1 |
+|99T6  | Animal_aa573a5d | <font class='error'>5-DEC-16</font>|2016-12-07| SD1002-RC1 |
+|99T7  | Animal_aa573a5d | 2016-12-07|<font class='error'>6-DEC-16</font>| SD1002-RC1 |
 <br/>
 
 
+OUTDATED TEXT BEGINS Here
 
 Refer back to previous sections to compare the data to the SHACL, below.  The shape `:DateFmtShape` uses `sh:targetObjectsOf` to begin evaluation at the <font class='object'>object</font> of the <font class='predicate'>predicates</font> `time:hasBeginning` and `time:hasEnd`. These <font class='object'>objects</font> must be of type `study:ReferenceBegin` or `study:ReferenceEnd` and have the <font class='predicate'>predicate</font> `time:inXSDDate` that leads to the date value that must be in `xsd:date` format.  
 
@@ -1359,8 +1360,8 @@ cj16050:EligibilityDetermination_XXXXXX
 
 cj16050:Randomization_Animal_2
   rdf:type study:Randomization ;
-  skos:prefLabel "Randomization 2" ;
-  code:outcome <null>.              
+  skos:prefLabel Randomization 2 ;
+  code:outcome               
 
 </pre>
 
