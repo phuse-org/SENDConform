@@ -754,7 +754,7 @@ SPARQL independently verifies the test case by finding the two dates that are in
 <br/><br/>
 
 <!--- SD1002-RC2 ------------------------------------------------------------>
-<a name='SD1002-rc2'></a>
+<a name='sd1002-rc2'></a>
 
 <font class='ruleComponent'>SD1002-RC2: Subject has one Reference Interval</font>
 
@@ -889,7 +889,7 @@ SELECT ?animalSubjectIRI ?animalLabel (COUNT(?intervalIRI) AS ?numIntervals )
 
 <br/><br/>
 
-<!--- SD1002-RC# ------------------------------------------------------------>
+<!--- SD1002-RC3 ------------------------------------------------------------>
 <a name='sd1002-rc3'></a>
 
 <font class='ruleComponent'>SD1002-RC3 : Reference Interval has one Start Date and one End Date</font>
@@ -1078,7 +1078,7 @@ WHERE{
 
 
 <!--- RULE COMPONENT 4 ------------------------------------------------------->
-<a name='rc4'></a>
+<a name='sd1002-rc4'></a>
 
 <font class='ruleComponent'>Rule Component 4. Start Date on or before End Date</font>
 <div class='ruleState'>
