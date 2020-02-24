@@ -1,6 +1,6 @@
 ---
 title: SHACL Shapes for SEND Data
-last_updated: 2020-02-13
+last_updated: 2020-02-25
 permalink: send_shacl_shapes.html
 sidebar: home_sidebar
 folder: send
@@ -258,7 +258,7 @@ Violation of Rule Component 1 as detected by the `sh:maxCount` constraint:
 ***See the instructions on the [Validation](send_validation.html) page for how to apply the SHACL to the data and generate the Validation Report.***
 
 
-The Report correctly confirms  AnimalSubject Animal_2a836191 hasmore than one USUBJID value, violating the MaxConstraintComponent of FDA Rule SD0083.
+The Report correctly confirms  AnimalSubject Animal_2a836191 has more than one USUBJID value, violating the MaxConstraintComponent of FDA Rule SD0083.
 <pre class='report'>
   a sh:ValidationResult ;
     sh:resultSeverity            sh:Violation ;
@@ -290,7 +290,7 @@ The query result shows Animal_2a836191 is assigned two `usubjid`, in violation o
 
 <font class='verify'>Verify</font>
 
-SPARQL independently verifies `Animal_2a836191` has two USUBJID values. File: [/SPARQL/SD0083-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-TC1-Verify.rq)
+SPARQL independently verifies `Animal_2a836191` has two USUBJID values by querying the graph to find all Subject IRIs that do not have one and only 1 usubjidIRI. File: [/SPARQL/SD0083-TC1-Verify.rq](https://github.com/phuse-org/SENDConform/blob/master/SPARQL/SD0083-TC1-Verify.rq)
 <pre class='sparql'>
   SELECT ?animalSubjectIRI (COUNT(?usubjidIRI) AS ?total)
   WHERE{
@@ -919,15 +919,13 @@ In the test data, subject 99T8 has no Reference Interval. While is possible to h
 |usubjid|SubjectIRI    |rfstdtc  |rfendtc   |Rule Violated|
 |-------|--------------|---------|----------|-------------|
 |00M01  |Animal_a6d09184| 2016-12-07|2016-12-07| None |
-|99T11  |Animal_c5e105c3|<font class='error'>NA</font>|2016-12-07|SD1002-RC3-TC1
-|
-|99T12  |Animal_664e018b|2016-12-07|<font class='error'>NA</font>|SD1002-RC3-TC2
-
+|99T11  |Animal_c5e105c3|<font class='error'>NA</font>|2016-12-07|SD1002-RC3-TC1|
+|99T12  |Animal_664e018b|2016-12-07|<font class='error'>NA</font>|SD1002-RC3-TC2|
 |99T8   |Animal_d9209e97|<font class='error'>NA</font>|<font class='error'>NA</font>| SD1002-RC3-TC3|
 |99T13  |Animal_8196e3ec|<font class='error'>2016-12-28|2016-12-25</font>|SD1002-RC3-TC4|
 
-<br/>
 
+<br/>
 
 
 OLD TEXT AFTER HERE

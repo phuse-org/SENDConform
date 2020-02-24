@@ -39,7 +39,7 @@ study:AnimalSubjectShape
 # VIOLATIONS:
 # STATUS: Passed 2019-08-04
 #------------------------------------------------------------------------------
-# study:hasMin1Max1Shape-USubjID a  sh:NodeShape ;
+
 study:hasMin1Max1Shape-USubjID a  sh:PropertyShape ; 
   sh:targetClass study:Subject ;        # Ontology 
   #sh:targetClass study:AnimalSubject ; # No Ontology
