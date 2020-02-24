@@ -161,6 +161,9 @@ Translation of Rule Components into SHACL and evaluation of test data is describ
 <a name='sourcedatasd0083RC12'/>
 <font class='h3NoTOC'>Test Data</font>
 
+A copy of the DM TTL file for SHACL testing is available at [SHACL/CJ16050Constraints/DM-CJ16050-R.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/DM-CJ16050-R.TTL)
+
+
 |studyid|domain|usubjid     |subjid|SubjectIRI     |Rule Violated|
 |-------|------|------------|------|---------------|-------------|
 |CJ16050|DM    | <font class='goodData'>CJ16050_00M01</font> |00M01 | Animal_a6d09184 | None|
@@ -217,6 +220,9 @@ study:<font class='nodeBold'>hasMin1Max1Shape-USubjID </font>
   sh:maxCount    1 .
 </pre>
 <br/>
+SHACL file is located at [/SENDConform/SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL](https://github.com/phuse-org/SENDConform/blob/master/SHACL/CJ16050Constraints/SHACL-AnimalSubject.TTL)
+<br/>
+
 
 ---
 

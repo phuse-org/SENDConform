@@ -209,22 +209,10 @@ cj16050:Date_2016-12-20
     study:dateTimeInXSDString "2016-12-20"^^xsd:string .
 
 cj16050:Date_2016-12-28
-    a study:ReferenceEnd ;
+    a study:ReferenceBegin, study:ReferenceEnd ;
     skos:prefLabel "Date 2016-12-28"^^xsd:string ;
     time:inXSDDate "2016-12-28"^^xsd:date ;
     study:dateTimeInXSDString "2016-12-28"^^xsd:string .
-
-cj16050:Date_2026-11-25
-    a study:ReferenceEnd ;
-    skos:prefLabel "Date 2026-11-25"^^xsd:string ;
-    time:inXSDDate "2026-11-25"^^xsd:date ;
-    study:dateTimeInXSDString "2026-11-25"^^xsd:string .
-
-cj16050:Date_2026-12-28
-    a study:ReferenceBegin ;
-    skos:prefLabel "Date 2026-12-28"^^xsd:string ;
-    time:inXSDDate "2026-12-28"^^xsd:date ;
-    study:dateTimeInXSDString "2026-12-28"^^xsd:string .
 
 cj16050:Date_5-DEC-16
     a study:ReferenceBegin ;
@@ -275,9 +263,9 @@ cj16050:Interval_Animal_69fa85ac
 
 cj16050:Interval_Animal_8196e3ec
     a study:ReferenceInterval ;
-    skos:prefLabel "Interval 2026-12-28 2026-11-25"^^xsd:string ;
-    time:hasBeginning cj16050:Date_2026-12-28 ;
-    time:hasEnd cj16050:Date_2026-11-25 .
+    skos:prefLabel "Interval 2016-12-28 2016-11-25"^^xsd:string ;
+    time:hasBeginning cj16050:Date_2016-12-28 ;
+    time:hasEnd cj16050:Date_2016-11-25 .
 
 cj16050:Interval_Animal_a6d09184
     a study:ReferenceInterval ;
