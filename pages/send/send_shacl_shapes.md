@@ -311,7 +311,7 @@ SPARQL independently verifies `Animal_2a836191` has two USUBJID values by queryi
 
 <font class='h4NoTOC'>Putting it all together:</font>
 <br>
-[3-D Visualization of the data, SHACL, Report](https://phuse-org.github.io/SENDConform/visualization/usubjid/ )
+[3-D Visualization](https://phuse-org.github.io/SENDConform/visualization/usubjid/)
 
 ---
 
