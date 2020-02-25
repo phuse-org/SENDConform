@@ -928,7 +928,7 @@ In the test data, subject 99T8 has no Reference Interval. While is possible to h
 <br/>
 
 
-OLD TEXT AFTER HERE
+<font class='outdated'>OLD TEXT AFTER HERE. Inaccurate information follows. Turn back now...</font>
 
 Reference interval IRIs are connected to their date values through the paths `time:hasBeginning` and `time:hasEnd`. A correctly formed interval has both start and end dates.
 

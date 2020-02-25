@@ -1,0 +1,106 @@
+<head>
+  <style> body { margin: 0; } </style>
+
+
+  <script src="//unpkg.com/3d-force-graph"></script>
+  <!--<script src="../../dist/3d-force-graph.js"></script>-->
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+
+  <script>
+    const Graph = ForceGraph3D()
+      (document.getElementById('3d-graph'))
+        .jsonUrl('../datasets/usubjid.json')
+                /* .jsonUrl('../datasets/miserables.json') */
+        /* .backgroundColor('#e8e8e8')*/
+        .backgroundColor('white') 
+        .nodeLabel('name')
+        .nodeVal('value')
+        .nodeOpacity(1)
+        .nodeResolution('20')
+        .nodeColor(d => {
+          if (d.type === 'pred') {
+            return '#6f6f6f';  /* gray */
+
+          }else if (d.type === 'animal') {
+            return '#377eb8';  /* blue */
+
+          }else if (d.type === 'class') {
+             return '#e67200';  /* orange */
+          }
+
+          else if (d.type === 'report') {
+             return '#7339ac';  /*   */
+          }
+
+
+          /* SHACL in GREEN */
+          else if (d.type === 'shape') {
+             return '#3d8b3b';  /* bright green  */
+          }
+
+          else if (d.type === 'shapeMessage') {
+             return '#66ff00';  /* pale green TO UPDTAE*/
+          }
+          else if (d.type === 'shapeConstraint') {
+             return '#3d8b3b';  /* dark green */
+          }
+
+          else if (d.type === 'error') {
+             return ' #e41a1c';  /* red */
+          }
+
+
+
+
+          else{
+            return '#39224A'; /* dk purple */
+          }
+        })
+
+        /* .nodeAutoColorBy('group') */
+        .linkWidth(2)
+        .linkOpacity(.6)
+        .linkDirectionalParticles("value")
+        .linkDirectionalParticleSpeed(d => d.value * 0.001)
+        .linkColor(d => {
+
+          if (d.type === 'data') {
+            return '#0080ff';  /* blue */
+          }
+
+          else if (d.type === 'shape') {
+             return '#8fbc8f';  /* green */
+          }
+
+          else if (d.type === 'shapeAttach') {
+             return '#cc0000';  /* red  */
+          }
+
+          else if (d.type === 'report') {
+             return '#b3b3b3';  /*  */
+          }
+
+          else if (d.type === 'reportAttach') {
+             return '#ffa500';  /*orange */
+          }
+
+
+          else {
+            return '#b3b3b3';  /* grey */
+          }
+        })
+
+
+        /* .linkDirectionalArrowLength(3.5) */
+        /* .linkDirectionalArrowRelPos(1) */
+        .onNodeDragEnd(node => {
+          node.fx = node.x;
+          node.fy = node.y;
+          node.fz = node.z;
+        });
+  </script>
+</body>
