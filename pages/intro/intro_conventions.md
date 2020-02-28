@@ -1,15 +1,10 @@
 ---
 title: Conventions
-last_updated: 2020-02-05
+last_updated: 2020-02-28
 sidebar: home_sidebar
 permalink: intro_conventions.html
 folder: intro
 ---
-
-
-## Validation Language
-[Shapes Constraint Language](https://www.w3.org/TR/shacl/) (SHACL) is used to describe and validate the [RDF](https://www.w3.org/RDF/) data used in the prototype. A detailed description of SHACL syntax is beyond the scope of this document. Please refer to the [References and Resources](conform_references_and_resources.html) page to learn more about SHACL.
-
 
 ## Documentation
 

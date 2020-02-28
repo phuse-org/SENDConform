@@ -1,6 +1,6 @@
 ---
 title: About This Site
-last_updated: 2020-02-05
+last_updated: 2020-02-28
 sidebar: home_sidebar
 permalink: ref_about_this_site.html
 folder: ref
@@ -18,10 +18,8 @@ side navigation bar as described on the page [https://idratherbewriting.com/docu
 
  Additional CSS customization is implemented.
 
-## Download or Clone
-<font class='toBeAdded'>Instructions to be added after move to PhUSE site.</font>
-
-
+## Repository
+All project content, including this documentation, is available by cloning or downloading the repository from: [https://github.com/phuse-org/SENDConform](https://github.com/phuse-org/SENDConform)
 
 
 {% include links.html %}
