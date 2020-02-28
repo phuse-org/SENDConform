@@ -16,7 +16,7 @@ Source data for this project is converted from SAS Transport (XPT) row-by-column
 <br><br>
 Nodes and their relationships join together to create a graph network. The graph for a specific clinical trial has a shape that is defined by the entities and relationships within it. Individual entities like an Animal Subject or a Treatment Arm have their shapes defined by the data and relationships attached to them. Individual nodes have attributes that can be validated (node constraints) as can the incoming and outgoing relations from a node, and the values associated with those connections.
 
-## Graph Validation using SHACL
+## Validation using SHACL
 
 When data has shape, so can the validation rules that act upon it. This is accomplished in RDF using the W3C Standard **Shapes Constraint Language (SHACL)**.  SHACL is itself a graph, written as familiar Subject--Predicate--Object triples, as are the resulting Validation reports. The book [Validating RDF Data](<https://book.validatingrdf.com/>) is an excellent resource for learning more about SHACL.
 
@@ -27,9 +27,20 @@ When data has shape, so can the validation rules that act upon it. This is accom
 
 ## Interconnected Data, Constraints, and Reports
 
-<font class='toBeAdded'>Add: Show how data is connected to SHACL, and to the validation report</font>
+Validation reports from SHACL are also graph data, making it possible to easily link the data, validation constraints, and report, as shown is this figure illustrating violation of FDA rule [SD0083](https://github.com/phuse-org/send_shacl_shapes.html#ruleSD0083) .
 
+<img src="images/3DVis-SD0083.PNG"/>
 
+You may also explore this [interactive 3-D visualization](https://phuse-org.github.io/SENDConform/visualization/usubjid/){:target="_blank"} of the graph where:
+
+| Color  | Type  | Explanation                      |
+|--------|--------|---------------------------------|
+| Grey   | Node   | Predicate. Predicates shown as nodes because SHACL and Report values attached to them. |
+| Blue   |Node, Edge| Instance data
+| Red    |  Node  | Data errors. In this case, two USUBJID values on for an animal subject|
+| Green  | Node, Edge| SHACL|
+| Yellow | Node,Edge | Report |
+| Orange | Node       | Class. (A Type of thing, defined in an ontology) |
 
 
 {% include links.html %}

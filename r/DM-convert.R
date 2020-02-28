@@ -165,16 +165,8 @@ dm[!is.na(dm$subjid) & dm$subjid == c('99T13'), "rfendtc"] <- "2016-11-25"
 
 
 
-
-
-
-
-
-
-
-
-
-
+## The following is old code used to create test case data that is being replaced. 
+##  It will be deleted when no longer needed for reference purposes.
 commentedOut <- function() {
      # Test Case: RFENDTC prior to RFSTDTC
      dmErr[dmErr$subjid == '99T1', "rfendtc"] <- "2016-12-06"
