@@ -27,9 +27,10 @@ When data has shape, so can the validation rules that act upon it. This is accom
 
 ## Interconnected Data, Constraints, and Reports
 
-Validation reports from SHACL are also graph data, making it possible to easily link the data, validation constraints, and report, as shown is this figure illustrating violation of FDA rule [SD0083](https://github.com/phuse-org/send_shacl_shapes.html#ruleSD0083) .
-
-<img src="images/3DVis-SD0083.PNG"/>
+Validation reports from SHACL are also graph data, making it possible to easily link the data, validation constraints, and report, as shown in this figure illustrating violation of FDA rule [SD0083](https://phuse-org.github.io/SENDConform/send_shacl_shapes.html#ruleSD0083). Click on the image to explore the connections in a 3-D visualization (opens in a new window.)
+<a href="https://phuse-org.github.io/SENDConform/send_shacl_shapes.html#ruleSD0083">
+  <img src="images/3DVis-SD0083.PNG"/>
+</a>  
 
 You may also explore this [interactive 3-D visualization](https://phuse-org.github.io/SENDConform/visualization/usubjid/){:target="_blank"} of the graph where:
 
