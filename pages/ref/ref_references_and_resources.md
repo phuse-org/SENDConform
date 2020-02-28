@@ -1,6 +1,6 @@
 ---
 title: References and Resources
-last_updated: 2020-02-05
+last_updated: 2020-02-28
 sidebar: home_sidebar
 permalink: ref_references_and_resources.html
 folder: ref
@@ -22,8 +22,7 @@ Information can be found on the FDA Website: https://www.fda.gov/industry/fda-re
 * [Providing Regulatory Submissions In Electronic Format - Standardized study Data](FDA/ProvideRegSubInEleFormat-StandardizedStudyDataGuidance.pdf) (PDF)
 
 ## CDISC
-### SEND ...
-
+* [SEND information on the CDISC website](https://www.cdisc.org/standards/foundational/send)
 
 ## SHACL
 An introduction to SHACL is beyond the scope of this project. The following resources may be helpful:

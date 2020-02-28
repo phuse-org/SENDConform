@@ -1,6 +1,6 @@
 ---
 title: SEND Data Conversion
-last_updated: 2020-02-05
+last_updated: 2020-02-28
 sidebar: home_sidebar
 permalink: send_data_conversion.html
 folder: send
@@ -10,7 +10,7 @@ folder: send
 <font class='outdated'>The IRI creation method and values on this page are outdated as of 2020-02-05. Text to be updated.</font>
 
 ## Source Data
-Publicly available preclinical study data was copied from the PhUSE [TestDataFactory](https://github.com/phuse-org/TestDataFactory) GitHub repository to the [SENDConform](https://github.com/phuse-org/SENDConform) repository for use in this project. The SAS transport XPT data files are available within the folder structure at:
+Publicly available preclinical study data was copied from the PHUSE [TestDataFactory](https://github.com/phuse-org/TestDataFactory) GitHub repository to the [SENDConform](https://github.com/phuse-org/SENDConform) repository for use in this project. The SAS transport XPT data files are available within the folder structure at:
 <pre>
   SENDConform/data/studies/<font class="parameter">Study Name</font>
 </pre>

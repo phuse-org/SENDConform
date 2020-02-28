@@ -20,7 +20,7 @@ Nodes and their relationships join together to create a graph network. The graph
 
 When data has shape, so can the validation rules that act upon it. This is accomplished in [RDF](https://www.w3.org/RDF/) using the W3C Standard [Shapes Constraint Language](https://www.w3.org/TR/shacl/) (**SHACL**).  SHACL is itself a graph, written as familiar Subject--Predicate--Object triples, as are the resulting Validation reports. A detailed description of SHACL syntax is beyond the scope of this project. Please refer to the [References and Resources](conform_references_and_resources.html) page to learn more about SHACL.
 
-<img src="images/SHACLShapeConcept.PNG"/>
+<img src="images/SHACLShapeConcept.PNG" width="300"/>
 
 **Figure 2: SHACL Shapes Concept for Data Validation**
 

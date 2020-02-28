@@ -6,7 +6,7 @@ permalink: ref_contact_us.html
 folder: ref
 ---
 
-This project is a PhUSE volunteer effort that is part of the Emerging Trends and Technology working group. Please join us!
+This project is a PHUSE volunteer effort that is part of the Emerging Trends and Technology working group. Please join us!
 
 
 ## Project Leads
@@ -17,7 +17,7 @@ This project is a PhUSE volunteer effort that is part of the Emerging Trends and
 
 **Dr. Armando Oliva**
 
-<a href = 'mailto:aolivamd@gmail.com?subject = "PhUSE Project: SEND Conformance and Validation"'>aolivamd@gmail.com</a>
+<a href = 'mailto:aolivamd@gmail.com?subject = "PHUSE Project: SEND Conformance and Validation"'>aolivamd@gmail.com</a>
 
 
 {% include links.html %}

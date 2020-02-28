@@ -1,18 +1,77 @@
 ---
 title: Project Repository Structure
-last_updated: 2020-02-05
+last_updated: 2020-02-28
 sidebar: home_sidebar
 permalink: ref_site_structure.html
 folder: ref
 ---
 
-## Folder Structure
+## Overview
 
-This pages describes the repository structure and folders with respect to the type of files contained within. Information on specific files is found within the project documentation where use of those files is described. For example, the R Scripts for data conversion located in /r are described on the [SEND Data Conversion and Mapping](DataConversion.md) page.
+The GitHub repository is structured based on content and function, with some unavoidable overlap. This page documents the content broadly by function. Information on specific files is found elsewhere within the project documentation. For example, the R Scripts for data conversion located in /r are described on the [SEND Data Conversion and Mapping](DataConversion.md) page.
 
-### Styles for GitHub Pages
--   **/assets/css**
-    - css file for GitHub pages theme. CSS for Markdown pages is under /doc .
+
+### Documentation
+
+#### GitHub Pages (content for github.io publication)
+Content published to github.io, including this page  your are reading now, is published using the Jekyll Theme as described on [About This Site](ref_about_this_site.md). The files for the theme and documentation are located in multiple folders.
+
+-   **/**
+    - landing page index.md/html
+    - miscellaneous files required for publication. Some not in use.
+
+-   **/pages**
+    - The main documentation pages published to github.io. Content is broken out by major category (as displayed on the homepage sidebar), including /devteam, /intro, /ref, /send, and /submit.
+
+-   **/_data, /_data/sidebars**
+    - yml files for tags and navigation, including sidebar definition.
+
+-   **/_includes, /_layouts, /_tooltips**
+    - many files not used or can be deleted..
+
+-   **/css**
+    - themes and styles. **customstyles.css** contains customizations specific to the project. E.g.: formatting for SPARQL, Data, Definitions boxes.
+
+-   **/fonts**
+    - reference also: /css/fonts
+
+-   **/images**
+    - static images for inclusion on the web pages. Schema diagrams, etc.
+
+-   **/js, /licenses**
+    - JavaScript used by the theme, licenses.
+
+-   **/pdfconfig**
+    - configuration files for creating PDF rendition of the project pages. Not currently in use.
+
+-   **/var**
+    - build script for the documentation pages. Not     currently ni use.*
+
+##### Visualization
+-   **/visualization**
+    - data and scripts for visualization
+
+#### Documents
+-   **/doc**
+    - supporting Documents
+
+-   **/doc/devTest**
+    - TO BE DELETED
+
+-   **/doc/FDA**
+    - Documents from or related to FDA. Conformance Guidelines and related publications. Submission worksheet, Validator Rules spreadsheet and more.
+
+-   **/doc/Meetings**
+    - Team Meeting slide decks and related content.
+
+-   **/doc/pubs**
+    -   Project Publications, with sub folders for various conferences.
+
+-   **/doc/Misc**
+    - Miscellaneous documentation.
+
+-   **/doc/pubs**
+        - Publications resulting from the project. Currently empty.
 
 ### Data
 
@@ -22,10 +81,13 @@ This pages describes the repository structure and folders with respect to the ty
 -   **/data/CDISCRDF**
     - CDISC SEND Files copied from the PHUSE CDISC repository, originally from rdf.cdisc.org
 
--   **/data/SAS**
-    -   Data files for use in future SAS conversion process as an alternative to the R process. Empty as of 2019-08-08
+-   **/data/config**
+    - Files used to drive the conversion process or other configuration. E.g. **prefixes.csv** contains the list of prefixes used by the R conversion scripts.
 
--   **/data/<font class="parameter">Study Name</font>**
+-   **/data/sas**
+    -   Data files for use in future SAS conversion process as an alternative to the R process. Empty as of 2020-02-28
+
+-   **/data/studies/<font class="parameter">Study Name</font>**
     -   Source XPT files from multiple studies used in project. Data was obtained from PHUSE Scripts repository [SEND subfolder](https://github.com/phuse-org/phuse-scripts/tree/master/data/send) and copied over to this project .
 
 -   **/data/studies/<font class="parameter">Study Name</font>/csv**
@@ -40,19 +102,6 @@ This pages describes the repository structure and folders with respect to the ty
 
 -   **/data/test**
     - data for SHACL development and testing. Sourced from various online examples. Will be deleted at later date.
-
-### Documentation
-
--   **/doc**
-    - Project documentation in Markdown. Includes CSS style sheet for formatting.
-
--   **/doc/FDA**    
-    - FDA Conformance Guidelines and related publications. Validator Rules spreadsheet.     
--   **/doc/images**
-    -   Images to be included in the project documentation, including the Github Markdown files.
-
--   **/doc/pubs**
-    -   Project Publications, with sub folders for various conferences
 
 ### R
 
