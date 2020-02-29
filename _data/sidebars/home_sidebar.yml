@@ -25,7 +25,7 @@ entries:
       type: homepage
 
     - title: Systems and Applications
-      url: /intro_systems_and_applications.html
+      url: /intro_getting_started.html
       output: web, pdf
 
   - title: SEND Data Validation

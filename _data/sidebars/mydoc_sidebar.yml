@@ -26,7 +26,7 @@ entries:
       output: web, pdf
 
     - title: Systems and Applications
-      url: /conform_intro_systems_and_applications.html
+      url: /conform_intro_getting_started.html
       output: web, pdf
 
 
