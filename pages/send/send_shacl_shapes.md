@@ -1250,11 +1250,8 @@ The following figure shows the connection from the Animal Subject IRI to its Age
 
 The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConform/tree/master/doc/FDA/FDA-Validator-Rules.xlsx) defines numerous rules associated with Age in the DM domain. This project defines only a subset of these rules as SHACL Shapes. For example, the rule SD2019 "Invalid value for AGETXT" is not applicable because the example study collects AGE (numeric) and not AGETXT (age range as a string).
 
-
-
 <a name='ruleSD0084'></a>
-
-###<font class='FDARule'>FDA Rule SD0084</font>
+### <font class='FDARule'>FDA Rule SD0084</font>
 
 |FDA Validator Rule ID|FDA Validator Message|Business or Conformance Rule Validated|FDA Validator Rule|
 ------|-------------------|--------------------------|-----------------------------|
