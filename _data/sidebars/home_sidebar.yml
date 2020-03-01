@@ -24,7 +24,7 @@ entries:
       output: web, pdf
       type: homepage
 
-    - title: Systems and Applications
+    - title: Getting Started
       url: /intro_getting_started.html
       output: web, pdf
 
