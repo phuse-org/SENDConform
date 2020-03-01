@@ -1253,6 +1253,12 @@ The spreadsheet [FDA-Validator-Rules.xlsx](https://github.com/phuse-org/SENDConf
 <a name='ruleSD0084'></a>
 ### <font class='FDARule'>FDA Rule SD0084</font>
 
+<a name='ruleSD0083'></a>
+### <font class='FDARule'>TEST</font>
+
+
+
+
 |FDA Validator Rule ID|FDA Validator Message|Business or Conformance Rule Validated|FDA Validator Rule|
 ------|-------------------|--------------------------|-----------------------------|
 **SD0084** |Negative value for age | Values for age variables cannot be negative, | **The value of Age (AGE) cannot be less than 0.**|
