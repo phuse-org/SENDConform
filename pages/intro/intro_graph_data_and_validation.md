@@ -20,7 +20,7 @@ Nodes and their relationships join together to create a graph network. The graph
 
 When data has shape, so can the validation rules that act upon it. This is accomplished in [RDF](https://www.w3.org/RDF/) using the W3C Standard [Shapes Constraint Language](https://www.w3.org/TR/shacl/) (**SHACL**).  SHACL is itself a graph, written as familiar Subject--Predicate--Object triples, as are the resulting Validation reports. A detailed description of SHACL syntax is beyond the scope of this project. Please refer to the [References and Resources](conform_references_and_resources.html) page to learn more about SHACL.
 
-<img src="images/SHACLShapeConcept.PNG" width="300"/>
+<img src="images/SHACLShapeConcept.PNG" width="400"/>
 
 **Figure 2: SHACL Shapes Concept for Data Validation**
 
@@ -28,7 +28,7 @@ When data has shape, so can the validation rules that act upon it. This is accom
 
 Validation reports from SHACL are also graph data, making it possible to easily link the data, validation constraints, and report, as shown in this figure illustrating violation of FDA rule [SD0083](https://phuse-org.github.io/SENDConform/send_shacl_shapes.html#ruleSD0083). <font class='emph'>Click on the image to explore the connections in a 3-D visualization</font> (opens in a new window.)
 <a href="https://phuse-org.github.io/SENDConform/visualization/usubjid/" target="_blank">
-  <img src="images/3DVis-SD0083.PNG"/>
+  <img src="images/3DVis-SD0083.PNG" width="300"/>
 </a>  
 **Figure 3: Violation of FDA Rule SD0083.**
 
