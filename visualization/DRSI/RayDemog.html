@@ -1,10 +1,7 @@
 <head>
   <style> body { margin: 0; } </style>
-<script src="./3d-force-graph.js"></script>
 
   <script src="//unpkg.com/3d-force-graph"></script>
-
-  <!--<script src="../../dist/3d-force-graph.js"></script>-->
 </head>
 
 <body>
@@ -13,8 +10,7 @@
   <script>
     const Graph = ForceGraph3D()
       (document.getElementById('3d-graph'))
-        .jsonUrl('../datasets/usubjid.json')
-                /* .jsonUrl('../datasets/miserables.json') */
+        .jsonUrl('../datasets/RayDemog.json')
         .nodeLabel('name')
         .nodeVal('value')
         .nodeResolution('20')
