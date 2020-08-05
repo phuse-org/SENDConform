@@ -16,71 +16,78 @@
         .nodeVal('value')
         .nodeResolution('20')
         .nodeColor(d => {
-          if (d.type === 'person') {
-            return '#0000ff';  /* blue */
+          // Contains
+          if (d.name === "Mint_Shisha"      || 
+          	       d.name === "tob_81fq21"       ||
+          	       d.name === "Mango_Flavor_Pod" ||
+          	       d.name === "pod_a60e2b"       ||
+          	       d.name === "Mint_Flavor_Pod"  ||
+          	       d.name === "pod_0wq01h") 
+          {
+            return '#39224A';  /*dark purple   */
           }
           
-          else if (d.type === 'sex'|| 
-          	       d.type === 'wt' || 
-          	       d.type === 'age') {
-             return '#1F75B2';  /* light blue */
-          }
-          else if (d.type === 'name') {
-             return 'rgb(255,255,255)';  /* white  */
-          }
-          else if (d.type === "error") {
-             return 'rgb(192,0,0)';  /* dark red  */
-          }
-          
-          else if (d.name === "Ingredient" || 
-          	       d.name === "foo" ) {
-             return '#ffff00'; /* yellow */
+          // Demographics 
+          else if (d.type === "sex"|| 
+          	       d.type === "wt" || 
+          	       d.type === "age") 
+          {
+            return '#1F75B2';  /* light blue */
           }
 
-          
+          // Device / Delivery 
           else if (d.name === "Hookah"      || 
           	       d.name === "del_zr10q2"  ||
           	       d.name === "e-Cigarette" || 
           	       d.name === "eCigarette"  || 
           	       d.name === "del_aq174h"  || 
-          	       d.name === "del_u18lsd") {
-             return '#a591bd';  /* purple  */
+          	       d.name === "del_u18lsd") 
+          {
+            return '#a591bd';  /* purple  */
+          }
+          
+          // Error (for age)
+          else if (d.type === "error") 
+          {
+            return 'rgb(192,0,0)';  /* dark red  */
           }
 
-          // Contains
-          else if (d.name === "Mint_Shisha"      || 
-          	       d.name === "tob_81fq21"       ||
-          	       d.name === "Mango_Flavor_Pod" ||
-          	       d.name === "pod_a60e2b"       ||
-          	       d.name === "Mint_Flavor_Pod"  ||
-          	       d.name === "pod_0wq01h" 
-         	        ) {
-             return '#39224A';  /*dark purple   */
-          }
-
-          /* Glycerin */
+          // Glycerin 
           else if (d.name === "Glycerin" || 
-          	       d.name === "sub_xr7234" ) {
-             return '#cc716e';  /*   */
+          	       d.name === "sub_xr7234" ) 
+          {
+            return '#cc716e';  /*   */
           }
 
           // Honey 
           else if (d.name === "Honey" || 
-          	       d.name === "sub_3j6g2i" ) {
+          	       d.name === "sub_3j6g2i" ) 
+          {
              return 'rgb(255,204,102)';  /*   */
           }
+          
+          // Ingredient
+          else if (d.name === "Ingredient" || 
+          	       d.name === "foo" ) 
+          {
+            return '#ffff00'; /* yellow */
+          }
+          
           // Mango
           else if (d.name === "Mango_Flavor" || 
-          	       d.name === "sub_4fg421" ) {
-             return 'rgb(232,116,0)';  /*   */
-          }        
-          else if (d.name === 'Dried_Mint' || 
-          	       d.name === 'sub_2we3q4' ||
-          	       d.name === 'Mint_Flavor' ||
-          	       d.name === 'sub_hjk66g' ||
-          	       d.name === 'Mint_Flavor_Pod' ||
-          	       d.name === 'Mint_Shisha' 
-          	       ) {
+          	       d.name === "sub_4fg421" ) 
+          {
+            return 'rgb(232,116,0)';  /*   */
+          } 
+          
+          // Mint       
+          else if (d.name === "Dried_Mint"      || 
+          	       d.name === "sub_2we3q4"      ||
+          	       d.name === "Mint_Flavor"     ||
+          	       d.name === "sub_hjk66g"      ||
+          	       d.name === "Mint_Flavor_Pod" ||
+          	       d.name === "Mint_Shisha") 
+          {
              return '#008000';  /* GREEN */
           }        
           // Manufacturer
@@ -88,53 +95,69 @@
           	       d.name === "man_5ez82i"    ||
           	       d.name === "Hookah_Me_Up!" || 
           	       d.name === "man_v241kz"    ||
-          	       d.name === "Manufacturer"
-          	       ) {
+          	       d.name === "Manufacturer") 
+          {
              return '#467065';  /*   */
           }
 
+          // Name 
+          else if (d.type === "name") 
+          {
+            return 'rgb(255,255,255)';  /* white  */
+          }
           
           // Nicotine
           else if (d.name === "Nicotine" || 
-          	       d.name === "sub_q77e3u" ) {
+          	       d.name === "sub_q77e3u" ) 
+          {
              return '#DEC08B';  /*   */
           }
           
-          
-          
-          
+          // Person 
+          else if (d.type === 'person') 
+          {
+            return '#0000ff';  /* blue */
+          }
+
           /* Tobacco */
           else if (d.name === "Tobacco" || 
-          	       d.name === "sub_a6766s" ) {
+          	       d.name === "sub_a6766s" ) 
+          {
              return '#7c4e20';  /*brown   */
           }
           
-            
-          else if (d.type === 'class') {
+          //--- SHACL NODES ------------------------------  
+          else if (d.type === 'class') 
+          {
              return '#ffa500';  /* orange */
           }
 
-          else if (d.type === 'report') {
-             return '#FCFF98';  /* lt yellow  */
+          else if (d.type === 'report') 
+          {
+            return '#FCFF98';  /* lt yellow  */
           }
-          else if (d.type === 'shape') {
-             return '#66ff00';  /* bright green  */
-          }
-
-          else if (d.type === 'shapeMessage') {
-             return '#98fb98';  /* pale green */
+          else if (d.type === 'shape') 
+          {
+            return '#66ff00';  /* bright green  */
           }
 
-          else if (d.type === 'shapeConstraint') {
-             return '#059105';  /* dark green */
+          else if (d.type === 'shapeMessage') 
+          {
+            return '#98fb98';  /* pale green */
           }
 
-          else if (d.type === 'error') {
-             return '#cc0000';  /* red */
+          else if (d.type === 'shapeConstraint') 
+          {
+            return '#059105';  /* dark green */
           }
 
+          else if (d.type === 'error') 
+          {
+            return '#cc0000';  /* red */
+          }
 
-          else{
+          else
+          {
             return 'white'; /* dk purple */
           }
         })
@@ -164,58 +187,67 @@
         .linkDirectionalParticles("value")
         .linkDirectionalParticleSpeed(d => d.value * 0.001)
         .linkColor(d => {
-
-          if (d.type === 'data') {
-            return '#0080ff';  /* bright red */
+          // Contains
+          if (d.target === "Mint_Shisha"      || 
+              d.target === "Mango_Flavor_Pod" ||
+          	  d.target === "Mint_Flavor_Pod"  ||
+          	  d.type   === "contains")
+          {
+            return '#7c4aa1';  /*link urple   */
+          }
+          // Data
+          else if (d.type === 'data') 
+          {
+            return '#0080ff';  /* bright red DELETE?? CHANGE?*/
           }
           
-         else if (d.type === 'sex' ||
-         	        d.type === 'age' || 
-         	        d.type === 'wt'  ) {
+          // Delivery / Device 
+          else if (d.target === "e-Cigarette" ||
+                   d.target === "eCigarette"  ||
+                   d.target === "Hookah" ) 
+          { 
+            return '#a591bd';  /* purple  */
+          } 
+  
+          // Demographics 
+          else if (d.type === "sex" ||
+         	         d.type === "age" || 
+         	         d.type === "wt"  ) 
+         	{
             return '#3333FF';  /* blue */
           }
-          
-//         else if (d.type === 'name' ||
-//         	        d.type === 'prefLabel') {
-//            return '#f4f4f4';  /* lt gray */
-//          }
-
-         else if (d.type === 'smokes'){
-            return '#a6a6a6';  /* gray */
+           
+          // Glycerin
+          else if (d.target === "Glycerin" ){
+            return '#cc716e';  /*dk Pink   */
           }
+          // Mint
+          else if (d.target === "Dried_Mint"   ||
+                   d.target === "Mint_Flavor"  ||
+         	         d.target === "Mint_Shisha"  ||
+         	         d.name   === "subhjk66g"    ||
+         	         d.target === "Mint_Flavor_Pod")
+          {
+            return '#008000';  /* GREEN  */
+          }  
           
+          // Honey
+          else if (d.target === "Honey" )
+          {
+            return 'rgb(255,204,102)';  /*   */
+          }  
           
-         else if (d.target === 'e-Cigarette' ||
-         	        d.target === 'eCigarette' ||
-         	        d.target === 'Hookah' ) { 
-           return '#a591bd';  /* purple  */
-         } 
-         
-         // Contains
-         else if (d.target === "Mint_Shisha"      || 
-                  d.target === "Mango_Flavor_Pod" ||
-          	      d.target === "Mint_Flavor_Pod"  ||
-          	      d.type   === "contains"
-          	      ) {
-             return '#7c4aa1';  /*link urple   */
-          }
-
-         
-         
-         // Ingredient related
+         // Ingredient 
          else if (d.type   === "ingredient" ||
          	        d.target === "ingredient" || 
-         	        d.target === "Ingredient" ) {
-            // return '#66ff00';  /* bright green */
-            return '#ffff00';  /* bright yellow */
-          }
+         	        d.target === "Ingredient" ) 
+         {
+           return '#ffff00';  /* bright yellow */
+         }
 
-         // Honey
-         else if (d.target === "Honey" ){
-           return 'rgb(255,204,102)';  /*   */
-         }  
          // Mango
-         else if (d.target === "Mango_Flavor" ){
+         else if (d.target === "Mango_Flavor" )
+         {
            return 'rgb(232,116,0)';  /*   */
          }  
          
@@ -223,29 +255,21 @@
          else if (d.type   === "manufacturer"  ||
          	        d.target === "e-Cignature"   ||
          	        d.target === "Hookah_Me_Up!" ||
-         	        d.target === "Manufacturer" 
-         	        ){
+         	        d.target === "Manufacturer" )
+         {
            return 'rgb(57,130,111)';  /*   */
          }  
          
-         // Glycerin
-         else if (d.target === "Glycerin" ){
-           return '#cc716e';  /*dk Pink   */
-         }
-         // Mint
-         else if (d.target === "Dried_Mint"   ||
-         	        d.target === "Mint_Flavor"  ||
-         	        d.target === "Mint_Shisha"  ||
-         	        d.name   === "subhjk66g"    ||
-         	        d.target === "Mint_Flavor_Pod" 
-         	){
-           return '#008000';  /* GREEN  */
-         }  
-         
          // Nicotine
-         else if (d.target === "Nicotine" ) {
-             return '#c8943b';  /*beige darker than node   */
-          }
+         else if (d.target === "Nicotine" ) 
+         {
+           return '#c8943b';  /*beige darker than node   */
+         }
+         // Smokes
+         else if (d.type === "smokes")
+         {
+           return '#a6a6a6';  /* gray */
+         }
 
          // Tobacco
          else if (d.target === 'Tobacco' ){
@@ -253,9 +277,7 @@
          }  
 
 
-
-
-         
+         //--- SHACL LINKS -----------------------------------
          else if (d.type === 'shape') {
              return '#7cfc00';  /* bright green */
           }

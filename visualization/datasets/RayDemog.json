@@ -1,27 +1,24 @@
 {
   "nodes": [
-    {"id": "id1", "name": ":per_452h78",  "value": 13, "type": "animal"},
-    {"id": "id2", "name": "a",            "value": 1,  "type": "pred"},
-    {"id": "id3", "name": "Person",       "value": 5,  "type": "class"},
-    {"id": "id4", "name": "foaf:name",    "value": 5,  "type": "pred"},
+    {"id": "id1", "name": ":per_452h78",  "value": 20, "type": "animal"},
+    {"id": "id4", "name": "foaf:name",    "value": 1,  "type": "pred"},
     {"id": "id5", "name": "Ray Gillette", "value": 5,  "type": "class"},
 
-    {"id": "id6", "name": "sex",          "value": 5,  "type": "pred"},
+    {"id": "id6", "name": "sex",          "value": 1,  "type": "pred"},
     {"id": "id7", "name": "M",            "value": 5,  "type": "class"},
     
-    {"id": "id8", "name": "age",          "value": 5,  "type": "pred"},
+    {"id": "id8", "name": "age",           "value": 1,  "type": "pred"},
     {"id": "id9", "name": "403",           "value": 5,  "type": "error"},
 
-    {"id": "id10", "name": "weight",      "value": 5,  "type": "pred"},
-    {"id": "id11", "name": "165",         "value": 5,  "type": "class"}
+    {"id": "id10", "name": "wt"     ,      "value": 1,  "type": "pred"},
+    {"id": "id11", "name": "165",          "value": 5,  "type": "class"}
 
-   
-    
-     
+
+
+
   ],
   "links": [
-    {"source": "id1", "target": "id2", "type": "data", "value": 4},
-    {"source": "id2", "target": "id3", "type": "data",  "value": 12},
+    
     {"source": "id1", "target": "id4", "type": "data",  "value": 12},
     {"source": "id4", "target": "id5", "type": "data",  "value": 12},
 
@@ -34,7 +31,7 @@
 
     {"source": "id1", "target": "id10", "type": "data", "value": 4},
     {"source": "id10", "target": "id11", "type": "data",  "value": 12}
-    
-    
+
+
   ]
 }
