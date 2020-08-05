@@ -1,0 +1,145 @@
+<head>
+  <style> body { margin: 0; } </style>
+
+  <script src="//unpkg.com/3d-force-graph"></script>
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+
+  <script>
+    const Graph = ForceGraph3D()
+      (document.getElementById('3d-graph'))
+        .jsonUrl('../datasets/RayDemogAndSHACL.json')
+        .nodeLabel('name')
+        .nodeVal('value')
+        .nodeResolution('20')
+        .nodeColor(d => {
+          // Demographics values:  sex, wt  (age is type = error
+          if (d.type === "sex" ||
+              d.type === "wt") 
+          {
+            return '#1F75B2';  /* light blue */
+          }
+          
+          // Error   (age values)
+          else if (d.type === "error") 
+          {
+             return '#cc0000';  /* red */
+          }
+          // Message - Shape Message
+          else if (d.type === "messageShape") 
+          {
+            return 'DEC08B';  /* light orange brown  */
+          }
+
+          // Name 
+          else if (d.type === "name") 
+          {
+            return 'rgb(255,255,255)';  /* white  */
+          }
+
+          // Person
+          else if (d.type === "person") 
+          {
+            return '#0000ff';  /* blue */
+          }
+          
+          // Predicate for Data : small gray node
+          else if (d.type === "predData") 
+          {
+            return '#8c8c8c';  /* gray - darker than the link so will match */
+          }
+          
+          
+          //--- SHACL ---------------------------------------------------------
+          else if (d.type === "shape") 
+          {
+              return '#467065';  /*green cyan  */
+          }
+          else if (d.type === "rangeVal") 
+          {
+          	return '#FFB00A'; /* vivid orange */
+          }
+          else if (d.type === "predShape") 
+          {
+            return '#467065';  /* green-cyan  */
+          }
+
+
+          else if (d.type === 'shapeMessage') {
+             return 'DEC08B';  /* light orange brown */
+          }
+          
+          
+          //--- OLDE BELOW HERE -----------------------------------------
+          else if (d.type === 'class') {
+             return '#ffa500';  /* orange */
+          }
+
+          else if (d.type === 'report') {
+             return '#FCFF98';  /* lt yellow  */
+          }
+
+
+          else if (d.type === 'shapeConstraint') {
+             return '#059105';  /* dark green */
+          }
+
+
+
+
+
+          else{
+            return '#39224A'; /* dk purple */
+          }
+        })
+
+        /* .nodeAutoColorBy('group') */
+        .linkWidth(2)
+        .linkOpacity(0.4)
+        .linkDirectionalParticles("value")
+        .linkDirectionalParticleSpeed(d => d.value * 0.001)
+        .linkColor(d => {
+
+          if (d.type === "linkData") {
+            return '#c7c7c7';  /* gray */
+          }
+          else if (d.type === 'linkShape') {
+             return '#467065';  /* green-cyan */
+          }
+
+
+//--- OLDE BELOW HERE ---------------------------------
+          else if (d.type === 'shape') {
+             return '#7cfc00';  /* bright green */
+          }
+
+          else if (d.type === 'shapeAttach') {
+             return '#ff0000';  /* pale blue */
+          }
+
+          else if (d.type === 'report') {
+             return '#ffff9d';  /* lt yel */
+          }
+
+          else if (d.type === 'reportAttach') {
+             return '#ffa500';  /*organge */
+          }
+
+
+          else {
+            return '#FCFF98';  /* lt yel */
+          }
+        })
+
+
+        /* .linkDirectionalArrowLength(3.5) */
+        /* .linkDirectionalArrowRelPos(1) */
+        .onNodeDragEnd(node => {
+          node.fx = node.x;
+          node.fy = node.y;
+          node.fz = node.z;
+        });
+  </script>
+</body>
