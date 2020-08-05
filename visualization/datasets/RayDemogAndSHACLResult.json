@@ -15,9 +15,9 @@
 
 
 
-    {"id": "id12", "name": "personAgeShape", "value": 5,  "type": "shape"},
-    {"id": "id13", "name": "a",              "value": 0,  "type": "predShape"},
-    {"id": "id14", "name": "NodeShape",      "value": 5,  "type": "shape"},
+    {"id": "id12", "name": "personAgeShape",                "value": 15,  "type": "shape"},
+    {"id": "id13", "name": "a",                             "value": 0,  "type": "predShape"},
+    {"id": "id14", "name": "NodeShape",                     "value": 5,  "type": "shape"},
     
 
     {"id": "id15", "name": "minInclusive",                  "value": 0,  "type": "predShape"},
@@ -30,8 +30,21 @@
     {"id": "id20", "name": "Age value out of range: 0-120", "value": 5, "type": "messageShape"},
 
     {"id": "id21", "name": "TargetSubjectsOf",              "value": 0, "type": "predShape"},
-    {"id": "id22", "name": "age",                           "value": 0, "type": "predData"}
 
+
+
+    {"id": "id22", "name": "_Result",                       "value": 15, "type": "result"},
+    {"id": "id23", "name": "resultMessage",                 "value": 0, "type": "predResult"},
+    {"id": "id24", "name": "resultPath",                    "value": 0, "type": "predResult"},
+    {"id": "id25", "name": "value",                         "value": 0, "type": "predResult"},
+                                                                                              
+    {"id": "id26", "name": "focusNode",                       "value": 0, "type": "predResult"},                                                                                              
+    {"id": "id27", "name": "a",                               "value": 0, "type": "predResult"},
+    {"id": "id28", "name": "ValidationResult",                "value": 0, "type": "result"},
+    {"id": "id29", "name": "resultSeverity",                  "value": 0, "type": "predResult"},
+    {"id": "id30", "name": "Violation",                       "value": 0, "type": "result"},
+    {"id": "id31", "name": "sourceConstraintComponent",       "value": 0, "type": "predResult"},
+    {"id": "id32", "name": "MaxExclusiveConstraintComponent", "value": 0, "type": "result"}
 
   ],
   "links": [
@@ -64,8 +77,31 @@
 
 
     {"source": "id12", "target": "id21", "type": "linkShape", "value": 4},
-    {"source": "id21", "target": "id22", "type": "linkShape", "value": 4}
+    
+    {"source": "id21", "target": "id8", "type": "linkAttach", "value": 15},
 
+
+
+    {"source": "id22", "target": "id23", "type": "linkReport", "value": 4},
+    {"source": "id23", "target": "id20", "type": "linkAttach", "value": 4},
+    {"source": "id22", "target": "id24", "type": "linkReport", "value": 4},
+    {"source": "id24", "target": "id8",  "type": "linkAttach", "value": 15},
+
+    {"source": "id22", "target": "id25", "type": "linkReport", "value": 4},
+    {"source": "id25", "target": "id9", "type": "linkAttach", "value": 15},
+
+    {"source": "id22", "target": "id26", "type": "linkReport", "value": 4},
+    {"source": "id26", "target": "id1",  "type": "linkAttach", "value": 15},
+
+
+    {"source": "id22", "target": "id27", "type": "linkReport", "value": 4},
+    {"source": "id27", "target": "id28", "type": "linkReport", "value": 4},
+
+    {"source": "id22", "target": "id29", "type": "linkReport", "value": 4},
+    {"source": "id29", "target": "id30", "type": "linkReport", "value": 4},
+
+    {"source": "id22", "target": "id31", "type": "linkReport", "value": 4},
+    {"source": "id31", "target": "id32", "type": "linkReport", "value": 4}
 
   ]
 }
