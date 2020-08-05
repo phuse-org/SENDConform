@@ -1,0 +1,71 @@
+{
+  "nodes": [
+    {"id": "id1", "name":  "per_452h78",   "value": 20, "type": "person"},
+    {"id": "id4", "name":  "name",         "value": 0,  "type": "predData"},
+    {"id": "id5", "name":  "Ray Gillette", "value": 5,  "type": "name"},
+                           
+    {"id": "id6", "name":  "sex",          "value": 0,  "type": "predData"},
+    {"id": "id7", "name":  "M",            "value": 5,  "type": "sex"},
+                           
+    {"id": "id8", "name":  "age",          "value": 0,  "type": "predData"},
+    {"id": "id9", "name":  "403",          "value": 5,  "type": "error"},
+
+    {"id": "id10", "name": "wt",           "value": 0,  "type": "predData"},
+    {"id": "id11", "name": "165",          "value": 5,  "type": "wt"},
+
+
+
+    {"id": "id12", "name": "personAgeShape", "value": 5,  "type": "shape"},
+    {"id": "id13", "name": "a",              "value": 0,  "type": "predShape"},
+    {"id": "id14", "name": "NodeShape",      "value": 5,  "type": "shape"},
+    
+
+    {"id": "id15", "name": "minInclusive",                  "value": 0,  "type": "predShape"},
+    {"id": "id16", "name": "0",                             "value": 5,  "type": "rangeVal"},
+                                                            
+    {"id": "id17", "name": "maxInclusive",                  "value": 0,  "type": "predShape"},
+    {"id": "id18", "name": "120",                           "value": 5,  "type": "rangeVal"},
+
+    {"id": "id19", "name": "message",                       "value": 0, "type": "predShape"},
+    {"id": "id20", "name": "Age value out of range: 0-120", "value": 5, "type": "messageShape"},
+
+    {"id": "id21", "name": "TargetSubjectsOf",              "value": 0, "type": "predShape"},
+    {"id": "id22", "name": "age",                           "value": 0, "type": "predData"}
+
+
+  ],
+  "links": [
+    
+    {"source": "id1", "target": "id4",   "type": "linkData",  "value": 4},
+    {"source": "id4", "target": "id5",   "type": "linkData",  "value": 4},
+                                         
+    {"source": "id1", "target": "id6",   "type": "linkData", "value": 4},
+    {"source": "id6", "target": "id7",   "type": "linkData",  "value": 4},
+                                         
+                                         
+    {"source": "id1", "target": "id8",   "type": "linkData", "value": 4},
+    {"source": "id8", "target": "id9",   "type": "linkData",  "value": 15},
+
+    {"source": "id1", "target": "id10",  "type": "linkData", "value": 4},
+    {"source": "id10", "target": "id11", "type": "linkData",  "value": 4},
+
+
+    {"source": "id12", "target": "id13", "type": "linkShape", "value": 4},
+    {"source": "id13", "target": "id14", "type": "linkShape",  "value": 4},
+
+    {"source": "id12", "target": "id15", "type": "linkShape", "value": 4},
+    {"source": "id15", "target": "id16", "type": "linkShape", "value": 4},
+
+    {"source": "id12", "target": "id17", "type": "linkShape", "value": 4},
+    {"source": "id17", "target": "id18", "type": "linkShape", "value": 4},
+
+    {"source": "id12", "target": "id19", "type": "linkShape", "value": 4},
+    {"source": "id19", "target": "id20", "type": "linkShape", "value": 4},
+
+
+    {"source": "id12", "target": "id21", "type": "linkShape", "value": 4},
+    {"source": "id21", "target": "id22", "type": "linkShape", "value": 4}
+
+
+  ]
+}
