@@ -1,0 +1,15 @@
+
+@prefix :        <http://example.org/Eg#>.
+@prefix sh:   <http://www.w3.org/ns/shacl#>  .
+
+#--- PersonAge ----
+:personAgeShape  a sh:NodeShape ;
+  sh:targetSubjectsOf :age ;
+  sh:property [
+    sh:path          :age ;
+    sh:description   "Person's age in Years with acceptable range 1-119." ;
+    sh:message       "Age value out of range" ;
+    sh:minExclusive  0 ;
+    sh:maxExclusive  120 ;
+    sh:datatype      xsd:integer 
+  ] .

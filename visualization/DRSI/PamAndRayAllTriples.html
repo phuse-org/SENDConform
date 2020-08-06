@@ -1,11 +1,21 @@
 <head>
-  <style> body { margin: 0; } </style>
- <script src="//unpkg.com/three"></script>
+  <style>  body { margin: 0;
+  	            background-color: #000011; } 
+          h2, li { color: #A5A496; }	  
+  </style>
+  <script src="//unpkg.com/three"></script>
   <script src="//unpkg.com/three-spritetext"></script>
   <script src="//unpkg.com/3d-force-graph"></script>
 </head>
 
 <body>
+	<h2>Pam and Ray Demographics and Smoking Exposure</h2>
+	<ul>
+	  <li>Age error as red node.</li>
+	</ul>  
+
+	
+	
   <div id="3d-graph"></div>
 
   <script>
@@ -18,11 +28,13 @@
         .nodeColor(d => {
           // Contains
           if (d.name === "Mint_Shisha"      || 
-          	       d.name === "tob_81fq21"       ||
-          	       d.name === "Mango_Flavor_Pod" ||
-          	       d.name === "pod_a60e2b"       ||
-          	       d.name === "Mint_Flavor_Pod"  ||
-          	       d.name === "pod_0wq01h") 
+          	  d.name === "tob_81fq21"       ||
+          	  d.name === "Mango_Flavor_Pod" ||
+          	  d.name === "pod_a60e2b"       ||
+          	  d.name === "Mint_Flavor_Pod"  ||
+          	  d.name === "Shisha"           || 
+          	  d.name === "FlavorPod"        || 
+          	  d.name === "pod_0wq01h") 
           {
             return '#39224A';  /*dark purple   */
           }
@@ -37,13 +49,15 @@
 
           // Device / Delivery 
           else if (d.name === "Hookah"      || 
-          	       d.name === "del_zr10q2"  ||
+          	       d.name === "del_zr10q2"  ||    
           	       d.name === "e-Cigarette" || 
-          	       d.name === "eCigarette"  || 
-          	       d.name === "del_aq174h"  || 
+         	         d.name === "HookahPipe"  || 
+           	       d.name === "eCigarette"  || 
+          	       d.name === "del_aq174h"  ||
+          	       
           	       d.name === "del_u18lsd") 
           {
-            return '#a591bd';  /* purple  */
+            return '#a591bd';  /* light purple  */
           }
           
           // Error (for age)

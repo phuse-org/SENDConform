@@ -1,0 +1,23 @@
+@prefix : <http://api.stardog.com/> .
+@prefix stardog: <tag:stardog:api:> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+[
+    a sh:ValidationReport ;
+        sh:conforms false ;
+        sh:result [
+            a sh:ValidationResult ;
+                sh:resultMessage "Age value out of range" ;
+                sh:resultPath <http://example.org/Eg#age> ;
+                sh:focusNode <http://example.org/Eg#per_452h78> ;
+                sh:sourceConstraintComponent sh:MaxExclusiveConstraintComponent ;
+                sh:resultSeverity sh:Violation ;
+                sh:value 403 ;
+                sh:sourceShape []
+        ]
+] .
+

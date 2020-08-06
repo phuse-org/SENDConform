@@ -1,12 +1,19 @@
 <head>
-  <style> body { margin: 0; } </style>
+  <style> body { margin: 0;
+  	            background-color: #000011 ; } 
+          h2, li { color: #A5A496; }	 
+  </style>
 
   <script src="//unpkg.com/3d-force-graph"></script>
 </head>
 
 <body>
+	<h2>Ray's Demographics and PersonAge SHACL Shape</h2>
+	<ul>
+		<li>Predicates as small nodes.</li>
+	  <li>Age error as red node.</li>
+	</ul>  
   <div id="3d-graph"></div>
-
   <script>
     const Graph = ForceGraph3D()
       (document.getElementById('3d-graph'))

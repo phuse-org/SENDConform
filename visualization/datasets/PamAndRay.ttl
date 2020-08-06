@@ -1,0 +1,78 @@
+@prefix :        <http://example.org/Eg#>.
+@prefix dbpedia: <http://dbpedia.org/resource/>.
+@prefix ncit:    <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>.
+@prefix rdf:     <http://www.w3.org/119/02/22-rdf-syntax-ns#>.
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix schema:  <http://schema.org/>.
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#>.
+
+:per_xp52kl :name      "Pam_Poovey"^^xsd:string ;
+            :age       "38"^^xsd:integer ;
+            :wt        "205"^^xsd:integer ;
+            :sex       :F ;
+            rdfs:type  :Person ;
+            :smokes    :del_u18lsd, :del_zr10q2  .
+
+:per_452h78 :name      "Ray_Gillette"^^xsd:string ;
+            :age       "403"^^xsd:integer ;
+            :wt        "165"^^xsd:integer ;
+            :sex       :M ;
+            rdfs:type  :Person ;
+            :smokes    :del_aq174h, :del_zr10q2 .
+
+:del_u18lsd skos:prefLabel "e-Cigarette"^^xsd:string ;
+            a              :eCigarette ;
+            :contains      :pod_a60e2b .
+               
+:del_zr10q2 skos:prefLabel "Hookah"^^xsd:string ;
+            a              :HookahPipe ;
+            :contains      :tob_81fq21 .
+
+:del_aq174h skos:prefLabel "e-Cigarette"^^xsd:string ;
+            a              :eCigarette ;
+            :contains      :pod_0wq01h .
+
+:tob_81fq21 skos:prefLabel "Mint_Shisha"^^xsd:string ;
+            a              :Shisha ;
+            :manufacturer  :man_v241kz ;
+            :ingredient    :sub_a6766s, :sub_2we3q4, :sub_3j6g2i, :sub_xr7234 .
+
+:pod_a60e2b skos:prefLabel "Mango_Flavor_Pod"^^xsd:string ;
+            a              :FlavorPod ;
+            :ingredient    :sub_q77e3u, :sub_4fg421 ;
+            :manufacturer  :man_5ez82i .
+
+:pod_0wq01h skos:prefLabel "Mint_Flavor_Pod"^^xsd:string ;
+            a              :FlavorPod ;
+            :ingredient    :sub_q77e3u, :sub_hjk66g ;
+            :manufacturer  :man_5ez82i .
+            
+
+:sub_q77e3u skos:prefLabel "Nicotine"^^xsd:string ;
+            a              :Ingredient .
+            
+:sub_4fg421 skos:prefLabel "Mango_Flavor"^^xsd:string ;
+            a              :Ingredient .
+
+:sub_a6766s skos:prefLabel "Tobacco"^^xsd:string ;
+            a              :Ingredient .
+
+:sub_2we3q4 skos:prefLabel "Dried_Mint"^^xsd:string ;
+            a              :Ingredient .
+
+:sub_3j6g2i skos:prefLabel "Honey"^^xsd:string ;
+            a              :Ingredient .
+
+:sub_xr7234 skos:prefLabel "Glycerin"^^xsd:string ;
+            a              :Ingredient .
+
+:sub_hjk66g skos:prefLabel "Mint_Flavor"^^xsd:string ;
+            a              :Ingredient .
+
+:man_5ez82i skos:prefLabel "e-Cignature"^^xsd:string ;
+            a              :Manufacturer .
+
+:man_v241kz skos:prefLabel "Hookah_Me_Up!"^^xsd:string ;
+            a              :Manufacturer .
+              
