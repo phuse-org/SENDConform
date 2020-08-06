@@ -46,7 +46,9 @@
           }
           
           // Predicate for Data : small gray node
-          else if (d.type === "predData") 
+          else if (d.type === "predData" ||
+          	       d.type === "predResult" ||
+          	       d.type === "predShape" ) 
           {
             return '#8c8c8c';  /* gray - darker than the link so will match */
           }
@@ -61,18 +63,16 @@
           {
           	return '#FFB00A'; /* vivid orange */
           }
-          else if (d.type === "predShape") 
-          {
-            return '#467065';  /* green-cyan  */
-          }
+          //else if (d.type === "predShape") 
+         // {
+          //  return '#467065';  /* green-cyan  */
+         // }
 
-          else if (d.type === "result") 
+          else if (d.type === "result" ) 
           {
             return '#6DB880';  /* green-cyan  */
+            
           }
-
-
-
 
           else if (d.type === 'shapeMessage') {
              return 'DEC08B';  /* light orange brown */
@@ -119,9 +119,12 @@
           else if (d.type === 'linkAttach') {
              return '#FFFF00';  /* yellow */
           }
-
-
-
+          
+          else if (d.type === "linkReport") {
+            return '#6DB880';  /* green-cyan  */
+          }
+          
+          
 //--- OLDE BELOW HERE ---------------------------------
           else if (d.type === 'shape') {
              return '#7cfc00';  /* bright green */

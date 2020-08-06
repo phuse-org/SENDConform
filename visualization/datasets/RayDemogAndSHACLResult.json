@@ -40,11 +40,11 @@
                                                                                               
     {"id": "id26", "name": "focusNode",                       "value": 0, "type": "predResult"},                                                                                              
     {"id": "id27", "name": "a",                               "value": 0, "type": "predResult"},
-    {"id": "id28", "name": "ValidationResult",                "value": 0, "type": "result"},
+    {"id": "id28", "name": "ValidationResult",                "value": 5, "type": "result"},
     {"id": "id29", "name": "resultSeverity",                  "value": 0, "type": "predResult"},
-    {"id": "id30", "name": "Violation",                       "value": 0, "type": "result"},
+    {"id": "id30", "name": "Violation",                       "value": 5, "type": "result"},
     {"id": "id31", "name": "sourceConstraintComponent",       "value": 0, "type": "predResult"},
-    {"id": "id32", "name": "MaxExclusiveConstraintComponent", "value": 0, "type": "result"}
+    {"id": "id32", "name": "MaxExclusiveConstraintComponent", "value": 5, "type": "result"}
 
   ],
   "links": [
