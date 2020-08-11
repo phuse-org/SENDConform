@@ -12,24 +12,24 @@
             :wt        "205"^^xsd:integer ;
             :sex       :F ;
             rdfs:type  :Person ;
-            :smokes    :del_u18lsd, :del_zr10q2  .
+            :smokes    :dev_u18lsd, :dev_zr10q2  .
 
 :per_452h78 :name      "Ray_Gillette"^^xsd:string ;
             :age       "403"^^xsd:integer ;
             :wt        "165"^^xsd:integer ;
             :sex       :M ;
             rdfs:type  :Person ;
-            :smokes    :del_aq174h, :del_zr10q2 .
+            :smokes    :dev_aq174h, :dev_zr10q2 .
 
-:del_u18lsd skos:prefLabel "e-Cigarette"^^xsd:string ;
+:dev_u18lsd skos:prefLabel "e-Cigarette"^^xsd:string ;
             a              :eCigarette ;
             :contains      :pod_a60e2b .
                
-:del_zr10q2 skos:prefLabel "Hookah"^^xsd:string ;
+:dev_zr10q2 skos:prefLabel "Hookah"^^xsd:string ;
             a              :HookahPipe ;
             :contains      :tob_81fq21 .
 
-:del_aq174h skos:prefLabel "e-Cigarette"^^xsd:string ;
+:dev_aq174h skos:prefLabel "e-Cigarette"^^xsd:string ;
             a              :eCigarette ;
             :contains      :pod_0wq01h .
 

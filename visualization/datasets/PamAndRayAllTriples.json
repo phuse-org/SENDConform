@@ -25,22 +25,28 @@
       "type": "error"
     },
     {
-      "id": "del_aq174h",
-      "name": "del_aq174h",
+      "id": "dev_aq174h",
+      "name": "dev_aq174h",
       "value": 5,
-      "type": "delivery"
+      "type": "smokes"
     },
     {
-      "id": "del_u18lsd",
-      "name": "del_u18lsd",
+      "id": "dev_u18lsd",
+      "name": "dev_u18lsd",
       "value": 5,
-      "type": "delivery"
+      "type": "smokes"
     },
     {
-      "id": "del_zr10q2",
-      "name": "del_zr10q2",
+      "id": "dev_zr10q2",
+      "name": "dev_zr10q2",
       "value": 5,
-      "type": "delivery"
+      "type": "smokes"
+    },
+    {
+      "id": "Device",
+      "name": "Device",
+      "value": 5,
+      "type": "a"
     },
     {
       "id": "Dried_Mint",
@@ -169,6 +175,30 @@
       "type": "label"
     },
     {
+      "id": "mix_0wq01h",
+      "name": "mix_0wq01h",
+      "value": 5,
+      "type": "contains"
+    },
+    {
+      "id": "mix_81fq21",
+      "name": "mix_81fq21",
+      "value": 5,
+      "type": "contains"
+    },
+    {
+      "id": "mix_a60e2b",
+      "name": "mix_a60e2b",
+      "value": 5,
+      "type": "contains"
+    },
+    {
+      "id": "Mixture",
+      "name": "Mixture",
+      "value": 5,
+      "type": "a"
+    },
+    {
       "id": "Nicotine",
       "name": "Nicotine",
       "value": 5,
@@ -193,28 +223,16 @@
       "type": "person"
     },
     {
-      "id": "pod_0wq01h",
-      "name": "pod_0wq01h",
+      "id": "Person",
+      "name": "Person",
       "value": 5,
-      "type": "contains"
-    },
-    {
-      "id": "pod_a60e2b",
-      "name": "pod_a60e2b",
-      "value": 5,
-      "type": "contains"
+      "type": "a"
     },
     {
       "id": "Ray_Gillette",
       "name": "Ray_Gillette",
       "value": 5,
       "type": "name"
-    },
-    {
-      "id": "Shisha",
-      "name": "Shisha",
-      "value": 5,
-      "type": "a"
     },
     {
       "id": "sub_2we3q4",
@@ -259,19 +277,138 @@
       "type": "ingredient"
     },
     {
-      "id": "tob_81fq21",
-      "name": "tob_81fq21",
-      "value": 5,
-      "type": "contains"
-    },
-    {
       "id": "Tobacco",
       "name": "Tobacco",
       "value": 5,
       "type": "label"
+    },
+    {
+      "id": "TobaccoMix",
+      "name": "TobaccoMix",
+      "value": 5,
+      "type": "a"
     }
   ],
   "links": [
+    {
+      "source": "dev_zr10q2",
+      "target": "Device",
+      "type": "a",
+      "label": "a",
+      "value": 4
+    },
+    {
+      "source": "dev_zr10q2",
+      "target": "HookahPipe",
+      "type": "a",
+      "label": "a",
+      "value": 4
+    },
+    {
+      "source": "dev_zr10q2",
+      "target": "mix_81fq21",
+      "type": "contains",
+      "label": "contains",
+      "value": 4
+    },
+    {
+      "source": "dev_zr10q2",
+      "target": "Hookah",
+      "type": "label",
+      "label": "label",
+      "value": 4
+    },
+    {
+      "source": "mix_81fq21",
+      "target": "Mixture",
+      "type": "a",
+      "label": "a",
+      "value": 4
+    },
+    {
+      "source": "mix_81fq21",
+      "target": "TobaccoMix",
+      "type": "a",
+      "label": "a",
+      "value": 4
+    },
+    {
+      "source": "mix_81fq21",
+      "target": "sub_a6766s",
+      "type": "ingredient",
+      "label": "ingredient",
+      "value": 4
+    },
+    {
+      "source": "mix_81fq21",
+      "target": "sub_2we3q4",
+      "type": "ingredient",
+      "label": "ingredient",
+      "value": 4
+    },
+    {
+      "source": "mix_81fq21",
+      "target": "sub_3j6g2i",
+      "type": "ingredient",
+      "label": "ingredient",
+      "value": 4
+    },
+    {
+      "source": "mix_81fq21",
+      "target": "sub_xr7234",
+      "type": "ingredient",
+      "label": "ingredient",
+      "value": 4
+    },
+    {
+      "source": "mix_81fq21",
+      "target": "Mint_Shisha",
+      "type": "label",
+      "label": "label",
+      "value": 4
+    },
+    {
+      "source": "mix_81fq21",
+      "target": "man_v241kz",
+      "type": "manufacturer",
+      "label": "manufacturer",
+      "value": 4
+    },
+    {
+      "source": "sub_a6766s",
+      "target": "Ingredient",
+      "type": "a",
+      "label": "a",
+      "value": 4
+    },
+    {
+      "source": "sub_a6766s",
+      "target": "Tobacco",
+      "type": "label",
+      "label": "label",
+      "value": 4
+    },
+    {
+      "source": "per_xp52kl",
+      "target": "Person",
+      "type": "a",
+      "label": "a",
+      "value": 4
+    },
+    {
+      "source": "per_xp52kl",
+      "target": "dev_zr10q2",
+      "type": "smokes",
+      "label": "smokes",
+      "value": 4
+    },
+    {
+      "source": "per_xp52kl",
+      "target": "dev_u18lsd",
+      "type": "smokes",
+      "label": "smokes",
+      "value": 4
+    },
     {
       "source": "per_xp52kl",
       "target": "Pam_Poovey",
@@ -301,59 +438,52 @@
       "value": 4
     },
     {
-      "source": "per_xp52kl",
-      "target": "del_u18lsd",
-      "type": "smokes",
-      "label": "smokes",
+      "source": "dev_u18lsd",
+      "target": "Device",
+      "type": "a",
+      "label": "a",
       "value": 4
     },
     {
-      "source": "per_xp52kl",
-      "target": "del_zr10q2",
-      "type": "smokes",
-      "label": "smokes",
-      "value": 4
-    },
-    {
-      "source": "del_u18lsd",
-      "target": "e-Cigarette",
-      "type": "label",
-      "label": "label",
-      "value": 4
-    },
-    {
-      "source": "del_u18lsd",
+      "source": "dev_u18lsd",
       "target": "eCigarette",
       "type": "a",
       "label": "a",
       "value": 4
     },
     {
-      "source": "del_u18lsd",
-      "target": "pod_a60e2b",
+      "source": "dev_u18lsd",
+      "target": "mix_a60e2b",
       "type": "contains",
       "label": "contains",
       "value": 4
     },
     {
-      "source": "del_zr10q2",
-      "target": "Hookah",
+      "source": "dev_u18lsd",
+      "target": "e-Cigarette",
       "type": "label",
       "label": "label",
       "value": 4
     },
     {
-      "source": "del_zr10q2",
-      "target": "HookahPipe",
+      "source": "per_452h78",
+      "target": "Person",
       "type": "a",
       "label": "a",
       "value": 4
     },
     {
-      "source": "del_zr10q2",
-      "target": "tob_81fq21",
-      "type": "contains",
-      "label": "contains",
+      "source": "per_452h78",
+      "target": "dev_zr10q2",
+      "type": "smokes",
+      "label": "smokes",
+      "value": 4
+    },
+    {
+      "source": "per_452h78",
+      "target": "dev_aq174h",
+      "type": "smokes",
+      "label": "smokes",
       "value": 4
     },
     {
@@ -385,164 +515,115 @@
       "value": 4
     },
     {
-      "source": "per_452h78",
-      "target": "del_zr10q2",
-      "type": "smokes",
-      "label": "smokes",
+      "source": "dev_aq174h",
+      "target": "Device",
+      "type": "a",
+      "label": "a",
       "value": 4
     },
     {
-      "source": "per_452h78",
-      "target": "del_aq174h",
-      "type": "smokes",
-      "label": "smokes",
-      "value": 4
-    },
-    {
-      "source": "del_aq174h",
-      "target": "e-Cigarette",
-      "type": "label",
-      "label": "label",
-      "value": 4
-    },
-    {
-      "source": "del_aq174h",
+      "source": "dev_aq174h",
       "target": "eCigarette",
       "type": "a",
       "label": "a",
       "value": 4
     },
     {
-      "source": "del_aq174h",
-      "target": "pod_0wq01h",
+      "source": "dev_aq174h",
+      "target": "mix_0wq01h",
       "type": "contains",
       "label": "contains",
       "value": 4
     },
     {
-      "source": "pod_a60e2b",
-      "target": "Mango_Flavor_Pod",
+      "source": "dev_aq174h",
+      "target": "e-Cigarette",
       "type": "label",
       "label": "label",
       "value": 4
     },
     {
-      "source": "pod_a60e2b",
+      "source": "mix_a60e2b",
+      "target": "Mixture",
+      "type": "a",
+      "label": "a",
+      "value": 4
+    },
+    {
+      "source": "mix_a60e2b",
       "target": "FlavorPod",
       "type": "a",
       "label": "a",
       "value": 4
     },
     {
-      "source": "pod_a60e2b",
-      "target": "man_5ez82i",
-      "type": "manufacturer",
-      "label": "manufacturer",
-      "value": 4
-    },
-    {
-      "source": "pod_a60e2b",
+      "source": "mix_a60e2b",
       "target": "sub_q77e3u",
       "type": "ingredient",
       "label": "ingredient",
       "value": 4
     },
     {
-      "source": "pod_a60e2b",
+      "source": "mix_a60e2b",
       "target": "sub_4fg421",
       "type": "ingredient",
       "label": "ingredient",
       "value": 4
     },
     {
-      "source": "tob_81fq21",
-      "target": "Mint_Shisha",
+      "source": "mix_a60e2b",
+      "target": "Mango_Flavor_Pod",
       "type": "label",
       "label": "label",
       "value": 4
     },
     {
-      "source": "tob_81fq21",
-      "target": "Shisha",
-      "type": "a",
-      "label": "a",
-      "value": 4
-    },
-    {
-      "source": "tob_81fq21",
-      "target": "man_v241kz",
-      "type": "manufacturer",
-      "label": "manufacturer",
-      "value": 4
-    },
-    {
-      "source": "tob_81fq21",
-      "target": "sub_a6766s",
-      "type": "ingredient",
-      "label": "ingredient",
-      "value": 4
-    },
-    {
-      "source": "tob_81fq21",
-      "target": "sub_2we3q4",
-      "type": "ingredient",
-      "label": "ingredient",
-      "value": 4
-    },
-    {
-      "source": "tob_81fq21",
-      "target": "sub_3j6g2i",
-      "type": "ingredient",
-      "label": "ingredient",
-      "value": 4
-    },
-    {
-      "source": "tob_81fq21",
-      "target": "sub_xr7234",
-      "type": "ingredient",
-      "label": "ingredient",
-      "value": 4
-    },
-    {
-      "source": "pod_0wq01h",
-      "target": "Mint_Flavor_Pod",
-      "type": "label",
-      "label": "label",
-      "value": 4
-    },
-    {
-      "source": "pod_0wq01h",
-      "target": "FlavorPod",
-      "type": "a",
-      "label": "a",
-      "value": 4
-    },
-    {
-      "source": "pod_0wq01h",
+      "source": "mix_a60e2b",
       "target": "man_5ez82i",
       "type": "manufacturer",
       "label": "manufacturer",
       "value": 4
     },
     {
-      "source": "pod_0wq01h",
+      "source": "mix_0wq01h",
+      "target": "Mixture",
+      "type": "a",
+      "label": "a",
+      "value": 4
+    },
+    {
+      "source": "mix_0wq01h",
+      "target": "FlavorPod",
+      "type": "a",
+      "label": "a",
+      "value": 4
+    },
+    {
+      "source": "mix_0wq01h",
       "target": "sub_q77e3u",
       "type": "ingredient",
       "label": "ingredient",
       "value": 4
     },
     {
-      "source": "pod_0wq01h",
+      "source": "mix_0wq01h",
       "target": "sub_hjk66g",
       "type": "ingredient",
       "label": "ingredient",
       "value": 4
     },
     {
-      "source": "man_v241kz",
-      "target": "Hookah_Me_Up!",
+      "source": "mix_0wq01h",
+      "target": "Mint_Flavor_Pod",
       "type": "label",
       "label": "label",
+      "value": 4
+    },
+    {
+      "source": "mix_0wq01h",
+      "target": "man_5ez82i",
+      "type": "manufacturer",
+      "label": "manufacturer",
       "value": 4
     },
     {
@@ -553,14 +634,14 @@
       "value": 4
     },
     {
-      "source": "sub_a6766s",
-      "target": "Tobacco",
+      "source": "man_v241kz",
+      "target": "Hookah_Me_Up!",
       "type": "label",
       "label": "label",
       "value": 4
     },
     {
-      "source": "sub_a6766s",
+      "source": "sub_2we3q4",
       "target": "Ingredient",
       "type": "a",
       "label": "a",
@@ -574,7 +655,7 @@
       "value": 4
     },
     {
-      "source": "sub_2we3q4",
+      "source": "sub_3j6g2i",
       "target": "Ingredient",
       "type": "a",
       "label": "a",
@@ -588,7 +669,7 @@
       "value": 4
     },
     {
-      "source": "sub_3j6g2i",
+      "source": "sub_xr7234",
       "target": "Ingredient",
       "type": "a",
       "label": "a",
@@ -602,7 +683,7 @@
       "value": 4
     },
     {
-      "source": "sub_xr7234",
+      "source": "sub_q77e3u",
       "target": "Ingredient",
       "type": "a",
       "label": "a",
@@ -616,7 +697,7 @@
       "value": 4
     },
     {
-      "source": "sub_q77e3u",
+      "source": "sub_4fg421",
       "target": "Ingredient",
       "type": "a",
       "label": "a",
@@ -630,8 +711,8 @@
       "value": 4
     },
     {
-      "source": "sub_4fg421",
-      "target": "Ingredient",
+      "source": "man_5ez82i",
+      "target": "Manufacturer",
       "type": "a",
       "label": "a",
       "value": 4
@@ -644,8 +725,8 @@
       "value": 4
     },
     {
-      "source": "man_5ez82i",
-      "target": "Manufacturer",
+      "source": "sub_hjk66g",
+      "target": "Ingredient",
       "type": "a",
       "label": "a",
       "value": 4
@@ -655,13 +736,6 @@
       "target": "Mint_Flavor",
       "type": "label",
       "label": "label",
-      "value": 4
-    },
-    {
-      "source": "sub_hjk66g",
-      "target": "Ingredient",
-      "type": "a",
-      "label": "a",
       "value": 4
     }
   ]

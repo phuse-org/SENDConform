@@ -28,13 +28,12 @@
         .nodeColor(d => {
           // Contains
           if (d.name === "Mint_Shisha"      || 
-          	  d.name === "tob_81fq21"       ||
+          	  d.name === "mix_81fq21"       ||
           	  d.name === "Mango_Flavor_Pod" ||
-          	  d.name === "pod_a60e2b"       ||
+          	  d.name === "mix_a60e2b"       ||
           	  d.name === "Mint_Flavor_Pod"  ||
-          	  d.name === "Shisha"           || 
-          	  d.name === "FlavorPod"        || 
-          	  d.name === "pod_0wq01h") 
+          	  d.name === "Mixutre"          || 
+          	  d.name === "mix_0wq01h") 
           {
             return '#39224A';  /*dark purple   */
           }
@@ -49,13 +48,11 @@
 
           // Device / Delivery 
           else if (d.name === "Hookah"      || 
-          	       d.name === "del_zr10q2"  ||    
+          	       d.name === "dev_zr10q2"  ||    
           	       d.name === "e-Cigarette" || 
-         	         d.name === "HookahPipe"  || 
-           	       d.name === "eCigarette"  || 
-          	       d.name === "del_aq174h"  ||
+          	       d.name === "dev_aq174h"  ||
           	       
-          	       d.name === "del_u18lsd") 
+          	       d.name === "dev_u18lsd") 
           {
             return '#a591bd';  /* light purple  */
           }
@@ -80,18 +77,14 @@
              return 'rgb(255,204,102)';  /*   */
           }
           
-          // Ingredient
-          else if (d.name === "Ingredient" || 
-          	       d.name === "foo" ) 
-          {
-            return '#ffff00'; /* yellow */
-          }
+//            return '#ffff00'; /* bright yellow */
           
           // Mango
           else if (d.name === "Mango_Flavor" || 
           	       d.name === "sub_4fg421" ) 
           {
-            return 'rgb(232,116,0)';  /*   */
+            // return 'rgb(232,116,0)';  /*   */
+            return '#cc7000';
           } 
           
           // Mint       
@@ -108,8 +101,7 @@
           else if (d.name === "e-Cignature"   || 
           	       d.name === "man_5ez82i"    ||
           	       d.name === "Hookah_Me_Up!" || 
-          	       d.name === "man_v241kz"    ||
-          	       d.name === "Manufacturer") 
+          	       d.name === "man_v241kz"    ) 
           {
              return '#467065';  /*   */
           }
@@ -139,11 +131,21 @@
           {
              return '#7c4e20';  /*brown   */
           }
+          // type / a nodes   
+          else if (d.type === 'a') 
+          {
+           //  return '#ff4162';  /* pink */
+         //    return '#c4e600 ';  /* lime green */
+         return '#00ffa5' ; /* bright light green */
+          }
+          
+          
           
           //--- SHACL NODES ------------------------------  
           else if (d.type === 'class') 
           {
              return '#ffa500';  /* orange */
+             
           }
 
           else if (d.type === 'report') 
@@ -207,7 +209,7 @@
           	  d.target === "Mint_Flavor_Pod"  ||
           	  d.type   === "contains")
           {
-            return '#7c4aa1';  /*link urple   */
+            return '#7c4aa1';  /*dark purple   */
           }
           // Data
           else if (d.type === 'data') 
@@ -217,18 +219,22 @@
           
           // Delivery / Device 
           else if (d.target === "e-Cigarette" ||
-                   d.target === "eCigarette"  ||
+          	       d.target === "eCigarette"  ||
+                   d.target === "Device"      ||
+                   d.target === "HookahPipe"  ||
                    d.target === "Hookah" ) 
           { 
-            return '#a591bd';  /* purple  */
+            return '#a591bd';  /* Light purple  */
           } 
   
           // Demographics 
           else if (d.type === "sex" ||
          	         d.type === "age" || 
-         	         d.type === "wt"  ) 
+         	         d.type === "name" || 
+         	         d.type === "wt"  ||
+         	         d.target === "Person" ) 
          	{
-            return '#3333FF';  /* blue */
+            return '#3333FF';  /* blue (demographics)*/
           }
            
           // Glycerin
@@ -262,16 +268,18 @@
          // Mango
          else if (d.target === "Mango_Flavor" )
          {
-           return 'rgb(232,116,0)';  /*   */
+           // return 'rgb(232,116,0)';  /*   */
+           return '#cc7000';
          }  
          
          // Manufacturer
          else if (d.type   === "manufacturer"  ||
          	        d.target === "e-Cignature"   ||
          	        d.target === "Hookah_Me_Up!" ||
-         	        d.target === "Manufacturer" )
+         	        d.target === "Manufacturer" 
+         	        )
          {
-           return 'rgb(57,130,111)';  /*   */
+           return 'rgb(57,130,111)';  /* dk green link  */
          }  
          
          // Nicotine
@@ -282,13 +290,33 @@
          // Smokes
          else if (d.type === "smokes")
          {
-           return '#a6a6a6';  /* gray */
+          //  return '#a6a6a6';  /* gray */
+          return '#b30000';  /* red */
          }
 
          // Tobacco
          else if (d.target === 'Tobacco' ){
            return '#7c4e20';  /*brown   */
          }  
+         
+         else if (d.target === 'Mixture' ||
+         	        d.target === 'TobaccoMix' ||
+         	        d.target === 'FlavorPod'
+         	         )
+         	{
+           return '#7c4aa1'; /* dark purple */
+         }  
+         
+         
+    //     else if (d.target === "Device"    ||
+       //  	        d.target === "Mixture"   ||
+        // 	        d.target === "FlavorPod" 
+      //   )
+        // 	{
+          // return '#ff4162';  /* Light purple   */
+        // }  
+
+
 
 
          //--- SHACL LINKS -----------------------------------
