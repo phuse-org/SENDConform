@@ -3,9 +3,19 @@
   	            background-color: #000011; } 
           h2, li { color: #A5A496; }	  
   </style>
+  
+
   <script src="//unpkg.com/three"></script>
   <script src="//unpkg.com/three-spritetext"></script>
   <script src="//unpkg.com/3d-force-graph"></script>
+
+  <!-- local copies instead of online (not working)--->
+<!--  
+  <script src='../js/three.js'></script>
+  <script src='../js/three-spritetext.min.js'></script>
+  <script src='../js/3d-force-graph.js'></script>
+--> 
+
 </head>
 
 <body>
@@ -28,12 +38,11 @@
         .nodeColor(d => {
           // Contains
           if (d.name === "Mint_Shisha"      || 
-          	  d.name === "mix_81fq21"       ||
+          	  d.name === "pro_81fq21"       ||
           	  d.name === "Mango_Flavor_Pod" ||
-          	  d.name === "mix_a60e2b"       ||
+          	  d.name === "pro_a60e2b"       ||
           	  d.name === "Mint_Flavor_Pod"  ||
-          	  d.name === "Mixutre"          || 
-          	  d.name === "mix_0wq01h") 
+          	  d.name === "pro_0wq01h") 
           {
             return '#39224A';  /*dark purple   */
           }
@@ -65,14 +74,14 @@
 
           // Glycerin 
           else if (d.name === "Glycerin" || 
-          	       d.name === "sub_xr7234" ) 
+          	       d.name === "ing_xr7234" ) 
           {
             return '#cc716e';  /*   */
           }
 
           // Honey 
           else if (d.name === "Honey" || 
-          	       d.name === "sub_3j6g2i" ) 
+          	       d.name === "ing_3j6g2i" ) 
           {
              return 'rgb(255,204,102)';  /*   */
           }
@@ -81,7 +90,7 @@
           
           // Mango
           else if (d.name === "Mango_Flavor" || 
-          	       d.name === "sub_4fg421" ) 
+          	       d.name === "ing_4fg421" ) 
           {
             // return 'rgb(232,116,0)';  /*   */
             return '#cc7000';
@@ -89,9 +98,9 @@
           
           // Mint       
           else if (d.name === "Dried_Mint"      || 
-          	       d.name === "sub_2we3q4"      ||
+          	       d.name === "ing_2we3q4"      ||
           	       d.name === "Mint_Flavor"     ||
-          	       d.name === "sub_hjk66g"      ||
+          	       d.name === "ing_hjk66g"      ||
           	       d.name === "Mint_Flavor_Pod" ||
           	       d.name === "Mint_Shisha") 
           {
@@ -114,7 +123,7 @@
           
           // Nicotine
           else if (d.name === "Nicotine" || 
-          	       d.name === "sub_q77e3u" ) 
+          	       d.name === "ing_q77e3u" ) 
           {
              return '#DEC08B';  /*   */
           }
@@ -127,7 +136,7 @@
 
           /* Tobacco */
           else if (d.name === "Tobacco" || 
-          	       d.name === "sub_a6766s" ) 
+          	       d.name === "ing_a6766s" ) 
           {
              return '#7c4e20';  /*brown   */
           }
@@ -245,7 +254,7 @@
           else if (d.target === "Dried_Mint"   ||
                    d.target === "Mint_Flavor"  ||
          	         d.target === "Mint_Shisha"  ||
-         	         d.name   === "subhjk66g"    ||
+         	         d.name   === "ing_hjk66g"    ||
          	         d.target === "Mint_Flavor_Pod")
           {
             return '#008000';  /* GREEN  */
@@ -299,7 +308,7 @@
            return '#7c4e20';  /*brown   */
          }  
          
-         else if (d.target === 'Mixture' ||
+         else if (d.target === 'Product' ||
          	        d.target === 'TobaccoMix' ||
          	        d.target === 'FlavorPod'
          	         )
@@ -307,17 +316,6 @@
            return '#7c4aa1'; /* dark purple */
          }  
          
-         
-    //     else if (d.target === "Device"    ||
-       //  	        d.target === "Mixture"   ||
-        // 	        d.target === "FlavorPod" 
-      //   )
-        // 	{
-          // return '#ff4162';  /* Light purple   */
-        // }  
-
-
-
 
          //--- SHACL LINKS -----------------------------------
          else if (d.type === 'shape') {
